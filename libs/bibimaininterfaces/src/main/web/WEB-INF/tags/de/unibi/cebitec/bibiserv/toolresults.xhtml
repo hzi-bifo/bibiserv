@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition>
+                <script type="text/javascript">
+                    function setCSSclass(id,cssclass){
+                        document.getElementById(id).className = cssclass;
+                    }
+                </script>
+                <c:if test="#{bean.getAllPossibleResults() != null}">
+                    <h:panelGrid id="resultsGrid" columns="3" cellspacing="13px" styleClass="publications">
+                        <c:forEach items="#{bean.getAllPossibleResults()}" var="pair" varStatus="counter">                           
+                            <h:outputLabel value="Output represented in #{pair.getKey().getFormatLabel()} format"/>
+                            <h:commandLink value="Download" target="_blank" id="download_#{pair.getKey().getKey()}_#{counter.count}" styleClass="tool_result_button"
+                                           onmouseover="setCSSclass(this.id,'tool_result_button tool_result_button_highlighted')" 
+                                           onmouseout="setCSSclass(this.id,'tool_result_button')">
+                                <p:fileDownload value="#{bean.getResult(pair.getKey())}" contentDisposition="inline" />
+                            </h:commandLink>
+                            <h:panelGroup>
+                                <c:forEach items="#{pair.getValue()}" var="visualizer">
+                                      <h:commandLink value="#{visualizer}" action="#{bean.applyVisualizer(pair.getKey(), visualizer)}" target="_blank"
+                                           id="visualizer_#{visualizer}_#{pair.getKey().getKey()}" styleClass="tool_result_button tool_result_button_rightspace"
+                                           onmouseover="setCSSclass(this.id,'tool_result_button tool_result_button_rightspace tool_result_button_highlighted')" 
+                                           onmouseout="setCSSclass(this.id,'tool_result_button tool_result_button_rightspace')"/>
+                                </c:forEach>
+                            </h:panelGroup>
+                        </c:forEach>                        
+                    </h:panelGrid>
+                </c:if>
+        </ui:composition>
+    </h:body>
+</html>

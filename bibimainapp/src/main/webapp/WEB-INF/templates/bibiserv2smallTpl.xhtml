@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2013 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information: 
+
+"Portions Copyrighted 2013 BiBiServ Curator Team"
+
+Contributor(s): Jan Krueger
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/bibiserv2Tpl.xhtml">
+
+    <ui:define name="bodyHead">
+        <div class="head_content" style="width:976px; height:144px; background-image: url(#{conf.getProperty('css.img')}/head-bg.jpg);">
+            <div class="login" style="text-align: right;  position:relative; top:10px; margin-right: 10px; z-index: 5">
+                <span style="display: #{user.anonymous?'inherit':'none'}"><a href="/login.jsf">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGIN')}</a> / <a href="/register.jsf">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.REGISTER')}</a></span>
+                <span style="display: #{user.anonymous?'none':'inherit'}">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGGEDIN',user.id)} / <a href="/admin">My BiBiServ</a> / <a href="/j_spring_security_logout">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGOUT')}</a></span>
+            </div>           
+            <img src="#{conf.getProperty('css.img')}/head-fg_compact.png" 
+                 onclick="window.location='#{conf.getProperty('head.url')}'" 
+                 style="cursor:pointer; position:absolute; top:0px; "/>
+        </div>
+    </ui:define>
+
+
+</ui:composition>
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: sequenceML schema definition
+	version 		: 2.0
+	date 		: 2006-02-01
+	author		:  Henning Mersch <hmersch@techfak.uni-bielefeld.de>
+			  Jan Krueger <jkrueger@techfak.uni-bielefeld.de>
+			  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+			  Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+-->
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060201/sequenceML"
+	xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+	xmlns:seq="http://hobit.sourceforge.net/xsds/20060201/sequenceML"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/bioservices/schemas/2005/biotypes_1.1.xsd" />
+	
+	<!--                   -->
+	<!-- ELEMENTS -->
+	<!--                   -->
+	<xs:element name="sequenceML" nillable="true">
+		<xs:annotation>
+			<xs:documentation>
+				SequenceML deals with all kinds of simple sequence information often used as input
+				for several common bioinformatics tools. It is designed to be used as a replacement 
+				for the FASTA format, containing all of FASTA's information content while avoiding that 
+				format's consistency problems. SequenceML differentiates between nucleic- and 
+				aminoacid sequences following the IUPAC standard and also allows the user to add 
+				free sequence information based on basic types defined by BioTypes. SequenceML 
+				also supports a mandatory sequence id and an optional detailed sequence description. 
+				SequenceML does not contain any annotation information (for this application, 
+				see SequenceAnnotationML).				
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="sequence" type="seq:sequenceType">
+					<xs:annotation>
+						<xs:documentation>element for storing sequence information</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="bt:version" use="optional">
+				<xs:annotation>
+					<xs:documentation>optional version tag</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!--             -->
+	<!-- TYPES -->
+	<!--             -->
+	<xs:complexType name="sequenceType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="name" type="xs:string" >
+				<xs:annotation>
+					<xs:documentation>name of the sequence</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="synonyms" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>synonyms for sequence name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>description of sequence</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="aminoAcidSequence" type="bt:ambiguousAminoAcidOneLetterSequence">
+					<xs:annotation>
+						<xs:documentation>element for storing amino acid sequences</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="nucleicAcidSequence" type="bt:ambiguousNucleotideSequence">
+					<xs:annotation>
+						<xs:documentation>element for storing nucleotid sequences</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="freeSequence" type="bt:sequence">
+					<xs:annotation>
+						<xs:documentation>element for storing unrestricted sequences (may contain any characters)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="emptySequence" fixed="">
+					<xs:annotation>
+						<xs:documentation>element for storing empty sequences (must be an empty tag)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="comment" type="xs:string" >
+				<xs:annotation>
+					<xs:documentation>comment element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="bt:accessionNumber" use="required">
+			<xs:annotation>
+				<xs:documentation>mandatory sequence id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax" />
+	</xs:complexType>
+</xs:schema>

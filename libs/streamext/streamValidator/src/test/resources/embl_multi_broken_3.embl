@@ -1,0 +1,138 @@
+ID   X14897; SV 1; linear; mRNA; STD; MUS; 4145 BP.
+XX
+AC   X14897;
+XX
+DT   23-NOV-1989 (Rel. 21, Created)
+DT   18-APR-2005 (Rel. 83, Last updated, Version 3)
+XX
+DE   Mouse fosB mRNA
+XX
+KW   fos cellular oncogene; fosB oncogene; oncogene.
+XX
+OS   Mus musculus (house mouse)
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Mammalia;
+OC   Eutheria; Euarchontoglires; Glires; Rodentia; Sciurognathi; Muroidea;
+OC   Muridae; Murinae; Mus.
+XX
+RN   [1]
+RP   1-4145
+RX   PUBMED; 2498083.
+RA   Zerial M., Toschi L., Ryseck R.P., Schuermann M., Mueller R., Bravo R.;
+RT   "The product of a novel growth factor activated gene, fos B, interacts with
+RT   JUN proteins enhancing their DNA binding activity";
+RL   EMBO J. 8(3):805-813(1989).
+XX
+DR   TRANSFAC; T00291; T00291.
+XX
+CC   clone=AC113-1; cell line=NIH3T3;
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..4145
+FT                   /organism="Mus musculus"
+FT                   /mol_type="mRNA"
+FT                   /db_xref="taxon:10090"
+FT   CDS             1202..2218
+FT                   /note="fosB protein (AA 1-338)"
+FT                   /db_xref="GOA:P13346"
+FT                   /db_xref="InterPro:IPR000837"
+FT                   /db_xref="InterPro:IPR004827"
+FT                   /db_xref="InterPro:IPR008917"
+FT                   /db_xref="InterPro:IPR011700"
+FT                   /db_xref="UniProtKB/Swiss-Prot:P13346"
+FT                   /protein_id="CAA33026.1"
+FT                   /translation="MFQAFPGDYDSGSRCSSSPSAESQYLSSVDSFGSPPTAAASQECA
+FT                   GLGEMPGSFVPTVTAITTSQDLQWLVQPTLISSMAQSQGQPLASQPPAVDPYDMPGTSY
+FT                   STPGLSAYSTGGASGSGGPSTSTTTSGPVSARPARARPRRPREETLTPEEEEKRRVRRE
+FT                   RNKLAAAKCRNRRRELTDRLQAETDQLEEEKAELESEIAELQKEKERLEFVLVAHKPGC
+FT                   KIPYEEGPGPGPLAEVRDLPGSTSAKEDGFGWLLPPPPPPPLPFQSSRDAPPNLTASLF
+FT                   THSEVQVLGDPFPVVSPSYTSSFVLTCPEVSAFAGAQRTSGSEQPSDPLNSPSLLAL"
+XX
+SQ   Sequence 4145 BP; 960 A; 1186 C; 1007 G; 991 T; 1 other;
+     auaaauucuu auuuugacac ucaccaaaau agucaccugg aaaacccgcu uuuugugaca        60
+     aaguacagaa ggcuugguca cauuuaaauc acugagaacu agagagaaau acuaucgcaa       120
+     acuguaauag acauuacauc cauaaaaguu uccccagucc uuauuguaau auugcacagu       180
+     gcaauugcua cauggcaaac uaguguagca uagaagucaa agcaaaaaca aaccaaagaa       240
+     aggagccaca agaguaaaac uguucaacag uuaauaguuc aaacuaagcc auugaaucua       300
+     ucauugggau cguuaaaaug aaucuuccua caccuugcag uguaugauuu aacuuuuaca       360
+     gaacacaagc caaguuuaaa aucagcagua gagauauuaa aaugaaaagg uuugcuaaua       420
+     gaguaacauu aaauacccug aaggaaaaaa aaccuaaaua ucaaaauaac ugauuaaaau       480
+     ucacuugcaa auuagcacac gaauaugcaa cuuggaaauc augcaguguu uuauuuaaga       540
+     aaacauaaaa caaaacuauu aaaauaguuu uagagggggu aaaauccagg uccucugcca       600
+     ggaugcuaaa auuagacuuc aggggaauuu ugaagucuuc aauuuugaaa ccuauuaaaa       660
+     agcccaugau uacaguuaau uaagagcagu gcacgcaaca gugacacgcc uuuagagagc       720
+     auuacugugu augaacaugu uggcugcuac cagccacagu caauuuaaca aggcugcuca       780
+     gucaugaacu uaauacagag agagcacgcc uaggcagcaa gcacagcuug cugggccacu       840
+     uuccucccug ucgugacaca aucaauccgu guacuuggug uaucugaagc gcacgcugca       900
+     ccgcggcacu gcccggcggg uuucugggcg gggagcgauc cccgcgucgc cccccgugaa       960
+     accgacagag ccuggacuuu caggagguac agcggcgguc ugaaggggau cugggaucuu      1020
+     gcagagggaa cuugcaucga aacuugggca guucuccgaa ccggagacua agcuuccccg      1080
+     agcagcgcac uuuggagacg uguccggucu acuccggacu cgcaucucau uccacucggc      1140
+     cauagccuug gcuucccggc gaccucagcg uggucacagg ggccccccug ugcccaggga      1200
+     aauguuucaa gcuuuucccg gagacuacga cuccggcucc cgguguagcu caucacccuc      1260
+     cgccgagucu caguaccugu cuucggugga cuccuucggc aguccaccca ccgccgccgc      1320
+     cucccaggag ugcgccgguc ucggggaaau gcccggcucc uucgugccaa cggucaccgc      1380
+     aaucacaacc agccaggauc uucaguggcu cgugcaaccc acccucaucu cuuccauggc      1440
+     ccagucccag gggcagccac uggccuccca gccuccagcu guugacccuu augacaugcc      1500
+     aggaaccagc uacucaaccc caggccugag ugccuacagc acuggcgggg caagcggaag      1560
+     uggugggccu ucaaccagca caaccaccag uggaccugug ucugcccguc cagccagagc      1620
+     caggccuaga agaccccgag aagagacacu uaccccagaa gaagaagaaa agcgaagggu      1680
+     ucgcagagag cggaacaagc uggcugcagc uaagugcagg aaccgucgga gggagcugac      1740
+     agaucgacuu caggcggaaa cugaucagcu ugaagaggaa aaggcagagc uggagucgga      1800
+     gaucgccgag cugcaaaaag agaaggaacg ccuggaguuu guccuggugg cccacaaacc      1860
+     gggcugcaag auccccuacg aagaggggcc ggggccaggc ccgcuggccg aggugagaga      1920
+     uuugccaggg ucaacauccg cuaaggaaga cggcuucggc uggcugcugc cgcccccucc      1980
+     accacccccc cugcccuucc agagcagccg agacgcaccc cccaaccuga cggcuucucu      2040
+     cuuuacacac agugaaguuc aaguccucgg cgaccccuuc cccguuguua gcccuucgua      2100
+     cacuuccucg uuuguccuca ccugcccgga ggucuccgcg uucgccggcg cccaacgcac      2160
+     cagcggcagc gagcagccgu ccgacccgcu gaacucgccc ucccuucuug cucuguaaac      2220
+     ucuuuagaca aacaaaacaa acaaacccgc aaggaacaag gaggaggaag augaggagga      2280
+     gaggggagga agcaguccgg gggugugugu guggacccuu ugacucuucu gucugaccac      2340
+     cugccgccuc ugccaucgga caugacggaa ggaccuccuu uguguuuugu gcuccgucuc      2400
+     ugguuuucug ugccccggcg agaccggaga gcuggugacu uuggggacag gggguggggc      2460
+     ggggauggac accccuccug cauaucuuug uccuguuacu ucaacccaac uucuggggau      2520
+     agauggcugg cugggugggu aggguggggu gcaacgccca ccuuuggcgu cuugcgugag      2580
+     gcuggagggg aaagggugcu gagugugggg ugcagggugg guugaggucg agcuggcaug      2640
+     caccuccaga gagacccaac gaggaaauga cagcaccguc cuguccuucu uuucccccac      2700
+     ccacccaucc acccucaagg gugcagggug accaagauag cucuguuuug cucccucggg      2760
+     ccuuagcuga uuaacuuaac auuuccaaga gguuacaacc uccuccugga cgaauugagc      2820
+     ccccgacuga gggaagucga ugcccccuuu gggagucugc uaaccccacu ucccgcugau      2880
+     uccaaaaugu gaaccccuau cugacugcuc agucuuuccc uccugggaaa acuggcucag      2940
+     guuggauuuu uuuccucguc ugcuacagag cccccuccca acucaggccc gcucccaccc      3000
+     cugugcagua uuaugcuaug ucccucucac ccucaccccc accccaggcg cccuuggccg      3060
+     uccucguugg gccuuacugg uuuugggcag cagggggcgc ugcgacgccc aucuugcugg      3120
+     agcgcuuuau acugugaaug aguggucgga uugcugggug cgccggaugg gauugacccc      3180
+     cagcccucca aaacuuuccc ugggccuccc cuucuuccac uugcuuccuc ccuccccuug      3240
+     acagggaguu agacucgaaa ggaugaccac gacgcauccc gguggccuuc uugcucaggc      3300
+     cccagacuuu uucucuuuaa guccuucgcc uuccccagcc uaggacgcca acuucucccc      3360
+     acccugggag ccccgcaucc ucucacagag gucgaggcaa uuuucagaga aguuuucagg      3420
+     gcugaggcuu uggcuccccu auccucgaua uuugaauccc caaauauuuu uggacuagca      3480
+     uacuuaagag ggggcugagu ucccacuauc ccacuccauc caauuccuuc agucccaaag      3540
+     acgaguucug ucccuucccu ccagcuuuca ccucgugaga aucccacgag ucagauuucu      3600
+     auuuuuuaau auuggggaga ugggcccuac cgcccguccc ccgugcugca uggaacauuc      3660
+     cauacccugu ccugggcccu agguuccaaa ccuaauccca aaccccaccc ccagcuauuu      3720
+     aucccuuucc ugguucccaa aaagcacuua uaucuauuau guauaaauaa auauauuaua      3780
+     uaugagugug cgugugugug cgugugcgug cgugcgugcg ugcgugcgag cuuccuuguu      3840
+     uucaagugug cuguggaguu caaaaucgcu ucuggggauu ugagucagac uuucuggcug      3900
+     ucccuuuuug ucaccuuuuu guuguugucu cggcuccucu ggcuguugga gacagucccg      3960
+     gccucucccu uuauccuuuc ucaagucugu cucgcucaga ccacuuccaa caugucucca      4020
+     cucucaauga cucugaucuc cggunugucu guuaauucug gauuugucgg ggacaugcaa      4080
+     uuuuacuucu guaaguaagu gugacugggu gguagauuuu uuacaaucua uaucguugag      4140
+     aauuc                                                                  4145
+
+FT                   /mol_type="genomic DNA"
+FT                   /country="Algeria"
+FT                   /lat_lon="27.12 N 2.28 E"
+FT                   /isolation_source="Ain Salah"
+FT                   /db_xref="taxon:70019"
+     guugagagug cuagugaugg aagaugugaa ccgagaaaaa uaaugguuga uaggguguuu        60
+     auuauaagaa uauuggcgua cucugcaaga aaaaauaggg cgaagggucc gccggcguau       120
+     ucgacguuaa agccugacac uaauucggac ucaccuucug uaaggucaaa gggggcucgg       180
+     uuaguuucgg cuaggguaga gacaaaucau augaaugcua aaggccagag ggggaagauu       240
+     agccacauau auuguuguga gaaguugaag guagggaggg ugaauccccc aaccaugaaa       300
+     auggcgcaua aaaugauuag ggcuagugug acuucauaag aaauaguuug agcgaccgcu       360
+     cggagggccc caauuaaggc guauuuagaa uuagaggcuc agccugagcc uaaaauugug       420
+     uagacaguua agcuagagau agcgaggaua aauaagaugc uuagauugag guccgagaau       480
+     gggaugggga ggggaaaugg aauucauaug guuauggcga gggucagggc aagagugggg       540
+     gcgaggauaa auaagauuug ggaggauguu gaug                                   574
+//

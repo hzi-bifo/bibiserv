@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   targetNamespace="http://hobit.sourceforge.net/xsds/hobitStatuscode.xsd"
+		   xmlns="http://hobit.sourceforge.net/xsds/hobitStatuscode.xsd"
+           elementFormDefault="qualified">
+  <xs:element name="hobitStatuscode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="statuscode"/>
+        <xs:element ref="description" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="statuscode" type="xs:nonNegativeInteger"/>
+  <xs:element name="description" type="xs:string"/>
+</xs:schema>

@@ -1,0 +1,243 @@
+
+
+\chapter{Ukkonens Algorithmus}
+\label{ukkonen}
+
+\paragraph{} Eine ausführliche Beschreibung von Ukkonens Algorithmus mit Beweisen der linearen Laufzeit und des linearen Speicherverbrauchs ist bei Ukkonen selbst (siehe \cite{ukkonen}) oder bei Gusfield zu finden (siehe \cite{gusfield}). Hier ist lediglich die vorliegende Implementierung des Algorithmus für einen generalisierten Suffixbaum umrissen. Die Details dieser Implementierung können im Programmcode eingesehen werden.
+
+\section{Definitionen}
+
+\paragraph{} Für die weiteren Ausführung gelten die folgenden Definitionen:
+
+\paragraph{Suffixbaum:} Ein Suffixbaum ist hier erst einmal nur als Baum, also als gerichteter Graph mit Wurzelknoten zu verstehen. Die Besonderheit des Suffixbaums ergibt sich aus den folgenden Definitionen.
+
+\paragraph{Kante:} Eine Kante ist eine Kante im Suffixbaum. Sie enthält eine Referenz auf ein Wort, das im Suffixbaum enthalten ist sowie den Startindex (von 0 gezählt) und den Endindex (von 1 gezählt) des Teilwortes, das auf der Kante steht.
+
+\paragraph{Interner Knoten:} Ein interner Knoten ist ein Knoten im Suffixbaum, von dem aus Kanten zu Blättern oder anderen internen Knoten verlaufen. Die Kanten werden über das erste Zeichen ihres Inhalts referenziert.
+
+\paragraph{Pfad:} Ein Pfad zu einem Knoten ist die Konkatenation aller Zeichenketten auf Kanten, die vom Wurzelknoten zum Knoten führen.
+
+\paragraph{Blatt:} Ein Blatt ist ein Knoten im Suffixbaum, von dem keine Kanten mehr ausgehen. Ein Blatt enthält eine Menge von Wort-IDs, für deren zugehörige Worte gilt: Der Pfad zum Blatt ist ein Suffix dieses Wortes.
+
+\paragraph{active\_node (Variable):} Der momentan aktive, interne Knoten im Algorithmus.
+
+\paragraph{active\_edge (Variable):} Das erste Zeichen des Inhalts der aktiven Kante, ausgehend vom \texttt{active\_node}.
+
+\paragraph{active\_length (Variable):} Index (von 1 an gezählt) des momentan aktiven Zeichens auf der aktiven Kante.
+
+\paragraph{currentChar (Variable):} Das momentan betrachtete Zeichen des neu einzufügenden Wortes.
+
+\paragraph{remainder (Variable):} Anzahl der Zeichen, die vorgemerkt sind und noch in den Baum eingefügt werden müssen.
+
+\paragraph{endPtr (Variable):} Referenz auf den Index des momentanen Zeichens \\(\texttt{currentChar}) des neuen Wortes (gezählt von 1).
+
+\paragraph{suffixNode (Variable):} Der letzte, bei einer split-Operation (siehe \ref{ukkonen-splits}) behandelte Knoten. Das ist relevant für die Erzeugung von Suffix-Links.
+
+\section{Initialisierung der Variablen und Benennung im Pseudocode}
+
+\paragraph{} Die Variablen werden wie folgt initialisiert und in den folgenden Pseudocode-Abschnitten benannt:
+\paragraph{}
+\begin{tabularx}{\textwidth}{llX}
+\hline
+\textbf{Variable} & \textbf{Pseudocode-Name} & \textbf{Wert} \\ [0.1cm]
+\hline
+active\_node & $n_a$ & Wurzelknoten \\ [0.1cm]
+\hline
+active\_edge & $e_a$ & nicht gesetzt \\ [0.1cm]
+\hline
+active\_length & $l_a$ & 0 \\ [0.1cm]
+\hline
+currentChar & $c$ & erster Buchstabe des neuen Wortes \\ [0.1cm]
+\hline
+remainder & $r$ & 0 \\ [0.1cm]
+\hline
+endPtr & $e$ & 1 \\ [0.1cm]
+\hline
+suffixNode & $s$ & nicht gesetzt \\ [0.1cm]
+\hline
+\end{tabularx}
+
+\newpage
+
+\section{Allgemeines Vorgehen}
+
+\paragraph{} Im Allgemeinen wird in Pseudocode-Algorithmus \ref{code-ukkonen-main} beschrieben vorgegangen.
+
+\begin{algorithm}[H]
+\caption{Allgemeines Vorgehen in Ukkonens Algorithmus (Methode \texttt{constructTree} in der Klasse \texttt{search.suffixtree.SuffixTreeConstructor})}
+\label{code-ukkonen-main}
+\begin{algorithmic}
+\STATE{Sei $id$ die ID des neuen Wortes.}
+\FORALL{Zeichen $c$ des neuen Wortes}
+	\STATE{Inkrementiere den Wert von $e$.}
+	\IF{Wurzelknoten hat noch keine Kante, die mit $c$ beginnt}
+		\STATE{Erzeuge eine neue Kante mit einer Referenz auf $id$, dem Index von $c$ (gezählt von 0) und $e$.}
+		\STATE{Füge die Kante an der Wurzel ein.}
+		\STATE{Erzeuge ein neues Blatt am Ende der neuen Kante.}
+		\STATE{Füge $id$ an das Blatt an.}
+		\IF{$r$ $>$ $0$}
+			\STATE{siehe \ref{ukkonen-splits}.}
+		\ENDIF
+	\ELSE
+		\STATE{siehe \ref{ukkonen-existing}.}
+	\ENDIF
+	\STATE{Setze $s$ zurück.}
+\ENDFOR
+\STATE{siehe \ref{ukkonen-suffizes}.}
+\end{algorithmic}
+\end{algorithm}
+
+\section{Bereits existierende Zeichen}
+\label{ukkonen-existing}
+
+\paragraph{} Wenn bereits existierende Zeichen auftreten wird vorgegangen wie in Pseudocode-Algorithmus \ref{code-ukkonen-existing} beschrieben. Es wird zuerst geprüft, ob ein Pfad für das neue Zeichen von der momentanen Baumposition aus existiert. Falls nicht, muss dieser Pfad geschaffen werden. Falls doch wird das aktuell eingelesene Zeichen vermerkt und der Algorithmus fährt fort.
+
+\begin{algorithm}[H]
+\caption{Behandlung bereits existierender Zeichen in Ukkonens Algorithmus (Methode \texttt{handleExistingChar} in der Klasse \texttt{search.suffixtree.SuffixTreeConstructor})}
+\label{code-ukkonen-existing}
+\begin{algorithmic}
+\STATE{Sei $c$ das momentan betrachtete Zeichen des neuen Wortes.}
+\IF{$l_a$ $\neq$ $0$}
+	\STATE{Sei $k$ die Kante mit dem Anfangsbuchstaben $e_a$, die am Knoten $n_a$ startet.}
+	\STATE{Sei ferner $c'$ das Zeichen, das (von 0 gezählt) im Teilwort, das auf $k$ steht, den Index $l_a$ hat, also das \underline{nächste} Zeichen im Baum nach dem eigentlich referenzierten, aktiven Zeichen.}
+	\IF{$c$ $\neq$ $c'$}
+		\STATE{siehe \ref{ukkonen-splits}.}
+	\ENDIF
+\ELSE
+	\IF{$n_a$ besitzt \underline{keine} ausgehende Kante, die mit dem Zeichen $c$ beginnt}
+		\STATE{siehe \ref{ukkonen-splits}.}
+	\ENDIF
+\ENDIF
+\STATE{Inkrementiere $r$.}
+\STATE{Inkrementiere $l_a$.}
+\IF{$l_a$ $\neq$ $0$ und $e_a$ ist nicht gesetzt}
+	\STATE{$e_a$ $=$ $c$.}
+\ENDIF
+\STATE{siehe \ref{ukkonen-jumps}.}
+\end{algorithmic}
+\end{algorithm}
+
+\section{Splits}
+\label{ukkonen-splits}
+
+\paragraph{} Ein Split bedeutet, dass eine existierende Kante des Suffixbaumes irgendwo in der Mitte aufgespalten wird. Es wird an der Schnittstelle ein neuer Knoten eingefügt, vom dem zwei Kanten ausgehen. Eine zeigt auf den alten Zielknoten, eine auf einen neuen. In Ukkonens Algorithmus sind diese Zielknoten stets Blätter. Im Detail ist das Verfahren im Pseudocode-Algorithmus \ref{code-ukkonen-splits} beschrieben.
+
+\begin{algorithm}[H]
+\caption{Splits in Ukkonens Algorithmus (Methode \texttt{checkForSplits} in der Klasse \texttt{search.suffixtree.SuffixTreeConstructor})}
+\label{code-ukkonen-splits}
+\begin{algorithmic}
+\STATE{Sei $id$ die ID des neuen Wortes.}
+\WHILE{$r > 0$}
+	\IF{$e_a$ ist gesetzt}
+		\STATE{Sei $k$ die Kante, die von $n_a$ ausgeht und mit dem Zeichen $e_a$ beginnt.}
+		\STATE{Sei $n_{alt}$ der Zielknoten von $k$.}
+		\STATE{Erzeuge einen neuen internen Knoten $n_{split}$.}
+		\IF{$s$ ist gesetzt}
+			\STATE{Erzeuge einen Suffix-Link von $s$ zu $n_{split}$.}
+		\ENDIF
+		\STATE{setze $s$ $=$ $n_{split}$.}
+		\STATE{Erzeuge eine neue Kante mit einer Referenz auf die Wort-ID, auf die $k$ referenziert, dem Startindex von $k$ $+$ $l_a$ und dem Endindex von $k$. Die Kante verläuft zwischen $n_{split}$ und $n_{alt}$.}
+		\STATE{Erzeuge eine neue Kante mit einer Referenz auf $id$, dem Index von $c$ (gezählt von 0) und $e$.}
+		\STATE{Füge die Kante an $n_{split}$ ein.}
+		\STATE{Erzeuge ein neues Blatt am Ende der neuen Kante.}
+		\STATE{Füge $id$ an das Blatt an.}
+		\STATE{Setze den Endindex von $k$ auf den alten Startindex $+$ $l_a$.}
+		\STATE{Setze den Zielknoten von $k$ auf $n_{split}$.}
+		\STATE{siehe \ref{ukkonen-correct}.}
+	\ELSE
+		\IF{$n_a$ verfügt über eine Kante, die mit $c$ beginnt}
+			\IF{$s$ ist gesetzt}
+				\STATE{Erzeuge einen Suffix-Link von $s$ zu $n_a$.}
+			\ENDIF
+			\STATE{setze $s$ $=$ $n_a$.}
+			\STATE{Beende die while-Schleife.}
+		\ELSE
+			\STATE{Erzeuge eine neue Kante mit einer Referenz auf $id$, dem Index von $c$ (gezählt von 0) und $e$.}
+			\STATE{Füge die Kante an $n_a$ ein.}
+			\STATE{Erzeuge ein neues Blatt am Ende der neuen Kante.}
+			\STATE{Füge $id$ an das Blatt an.}
+			\IF{$s$ ist gesetzt}
+				\STATE{Erzeuge einen Suffix-Link von $s$ zu $n_a$.}
+			\ENDIF
+			\STATE{setze $s$ $=$ $n_a$.}
+			\STATE{siehe \ref{ukkonen-correct}.}
+		\ENDIF
+	\ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\section{Korrektur der Baumposition}
+\label{ukkonen-correct}
+
+\paragraph{} Immer nach einer split-Operation und auch beim Einfügen von Worten, die ein Suffix bereits eingefügter Worte sind (siehe \ref{ukkonen-suffizes}) muss die Baumposition korrigiert werden. Dabei werden Suffix-Links ausgenutzt. Wie die Baumposition konkret korrigiert wird ist in Pseudocode-Algorithmus \ref{code-ukkonen-correct} nachzulesen.
+
+\begin{algorithm}[H]
+\caption{Korrektur der Baumposition in Ukkonens Algorithmus (Methode \texttt{correctActivePoint} in der Klasse \texttt{search.suffixtree.SuffixTreeConstructor})}
+\label{code-ukkonen-correct}
+\begin{algorithmic}
+\STATE{Dekrementiere $r$.}
+\IF{$n_a$ ist die Wurzel des Baumes}
+	\STATE{Dekrementiere $l_a$.}
+	\IF{$l_a$ ist auf $0$ gesunken}
+		\STATE{Setze $e_a$ zurück.}
+	\ELSE
+		\STATE{Setze $e_a$ auf das vorherige Zeichen im neuen Wort.}
+	\ENDIF
+\ELSE
+	\IF{$n_a$ hat einen Suffix-Link}
+		\STATE{Setze $n_a$ auf den Suffix-Link von $n_a$.}
+	\ELSE
+		\STATE{Setze $n_a$ auf die Wurzel des Baumes.}
+	\ENDIF
+\ENDIF
+\STATE{siehe \ref{ukkonen-jumps}.}
+\end{algorithmic}
+\end{algorithm}
+
+\section{Sprünge}
+\label{ukkonen-jumps}
+
+\paragraph{} Sprünge werden immer dann ausgeführt, wenn die Länge der momentan aktiven Kante kürzer oder gleich \texttt{active\_length} ist. Ein Sprung bedeutet, dass \texttt{active\_node} auf den Zielknoten der aktiven Kante gesetzt, \texttt{active\_length} um die Länge der momentan aktiven Kante verkürzt und schließlich die aktive Kante neu gesetzt wird. Die Details dieses Prozesses sind im Pseudocode-Algorithmus \ref{code-ukkonen-jump} beschrieben.
+
+\begin{algorithm}[H]
+\caption{Sprünge in Ukkonens Algorithmus (Methode \texttt{checkForJumps} in der Klasse \texttt{search.suffixtree.SuffixTreeConstructor})}
+\label{code-ukkonen-jump}
+\begin{algorithmic}
+\IF{$e_a$ ist gesetzt}
+	\STATE{Sei $k$ die Kante, die mit $e_a$ beginnt und an $n_a$ startet.}
+	\STATE{Sei $l_a'$ die Länge des Inhaltes von $k$.}
+	\WHILE{$l_a'$ $\le$ $l_a$}
+		\STATE{Setze $n_a$ auf den Zielknoten von $k$.}
+		\STATE{Setze $l_a$ $=$ $l_a-l_a'$.}
+		\IF{$l_a$ ist auf $0$ abgesunken}
+			\STATE{Setze $e_a$ zurück.}
+			\STATE{Setze $l_a'$ $=$ $1$.}
+		\ELSE
+			\STATE{Setze $e_a$ auf den Buchstaben des neuen Wortes, der $l_a'$ Zeichen weiter liegt.}
+			\STATE{Sei $k$ die Kante, die mit $e_a$ beginnt und an $n_a$ startet.}
+			\STATE{Setze $l_a'$ auf die Länge von $k$.}
+		\ENDIF
+	\ENDWHILE
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\section{Suffixe bereits eingetragener Worte}
+\label{ukkonen-suffizes}
+
+\paragraph{} Dass ein neues Wort ein Suffix eines bereits eingefügten Wortes ist kann daran erkannt werden, dass der \texttt{remainder} auch nach Durchlauf von Ukkonens Algorithmus noch größer 0 ist\footnote{genau genommen größer 1, weil ein Endzeichen mit betrachtet werden muss. Dieses Detail wird hier aber nicht weiter behandelt.}. Das bedeutet: Alle Suffixe dieses neuen Wortes sind bereits im Baum. Das kann aber nur sein, wenn entweder das Wort selbst bereits in den Baum eingefügt wurde oder aber ein Wort, dessen echtes Suffix das neue Wort ist. In diesem Fall zeigt die momentane Position im Baum nach Durchlauf des Algorithmus die Position des Blattes an, dessen Pfad das gesamte neue Wort ist. Es muss also nur an diesem Blatt die ID des neuen Wortes eingetragen und dann zu allen Suffixen des momentanen Pfades gesprungen werden. Das ist durch Suffix-Links einfach zu lösen und geschieht nach wie vor in linearer Zeit. Das genaue Vorgehen kann in Pseudocode-Algorithmus \ref{code-ukkonen-suffizes} nachgelesen werden.
+
+\begin{algorithm}[H]
+\caption{Behandlung des Falles, dass ein neues Wort ein Suffix eines bereits eingefügten Wortes ist (Zweiter Teil der Methode \texttt{constructTree} in der Klasse \texttt{search.suffixtree.SuffixTreeConstructor})}
+\label{code-ukkonen-suffizes}
+\begin{algorithmic}
+\STATE{Sei $id$ die ID des neuen Wortes.}
+\WHILE{$r$ $>$ $0$}
+	\STATE{Sei $k$ die Kante, die mit $e_a$ beginnt und an $n_a$ startet.}
+	\STATE{Dann ist der Zielknoten $n_k$ von $k$ dank Ukkonens Algorithmus garantiert ein Blatt.}
+	\STATE{Trage $id$ an $n_k$ ein.}
+	\STATE{Siehe \ref{ukkonen-correct}.}
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}

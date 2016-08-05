@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: rnastructAlignmentML schema definition
+	version 		: 2.0
+	date 		: 2006-05-15
+	author		: Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+			  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+			  Jan Krueger <jkrueger@techfak.uni-bielefeld.de>
+-->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+	xmlns:ht="http://hobit.sourceforge.net/xsds/20060403/hobitTypes"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML"
+	xmlns:rsa="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified"
+	jxb:version="2.1">
+	
+	<xs:annotation>
+		<xs:appinfo>
+			<jxb:globalBindings generateIsSetMethod="true" enableFailFastCheck="true"/>
+			
+			<!-- 
+				<jxb:bindings version="2.1">
+        		
+				</jxb:bindings> -->
+		</xs:appinfo>
+	</xs:annotation>
+	
+	<!-- RNAStructAlignmentML is based on BioTypes 1.1 and HobitTypes -->
+	<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/bioservices/schemas/2005/biotypes_1.1.xsd" />
+	<xs:import namespace="http://hobit.sourceforge.net/xsds/20060403/hobitTypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060403/hobitTypes.xsd" />
+		
+	<!--                    	-->
+	<!-- ELEMENTS -->
+	<!--                   	-->
+	<xs:element name="rnastructAlignmentML">
+		<xs:annotation>
+			<xs:documentation>
+				This is the root element for rnastructAlignmentML. Represents a unsorted list of structure alignments.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence> 
+				<xs:element name="rnastructurealignment" type="rsa:rnastructurealignmentWithProgramType" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="version" type="bt:version" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<!--             	-->
+	<!-- TYPES 	-->
+	<!--             	-->
+	<xs:complexType name="rnastructurealignmentWithProgramType">
+		<xs:complexContent>
+			<xs:extension base="rsa:rnastructurealignmentType">
+				<xs:sequence>
+					<xs:element name="program" type="ht:programType" minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="rnastructurealignmentType">
+		<xs:annotation>
+			<xs:documentation>represents a rna structure alignment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="1">
+			<xs:element name="sequence" type="rsa:sequenceType" minOccurs="2" maxOccurs="unbounded" />
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="consensus" type="rsa:consensusType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="score" type="xs:int"/>
+		<xs:attribute name="id" type="xs:ID" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:sequence maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="synonyms" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Synonyms for this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:choice maxOccurs="1">
+				<xs:element name="alignedNucleicAcidSequence" type="rsa:alignedNucleotideSequence"/>
+				<xs:element name="alignedFreeSequence" type="rsa:alignedFreeSequence"/>
+				<xs:element name="emptySequence" fixed=""/>
+			</xs:choice>
+			<xs:element name="structure" type="rsa:structureType" minOccurs="1" maxOccurs="1"/>
+			<!--  <xs:element minOccurs="0" ref="cr:crossRefs" />-->
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="bt:accessionNumber" use="required"/>
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+
+	<!-- Types, currently not within BioTypes -->
+	<xs:simpleType name="alignedFreeSequence">
+		<xs:annotation>
+			<xs:documentation>inherit gappedFreeSequenceType from hobitTypes; does not allow gaps</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="replace"/>
+			<xs:pattern value="[A-Z\-]{0,}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="alignedNucleotideSequence">
+		<xs:annotation>
+			<xs:documentation>An aligned nucleic acid sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="bt:gappedAmbiguousNucleotideSequence">
+				<xs:attributeGroup ref="bt:alignedSequenceAttrs"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="structureType">
+		<xs:simpleContent>
+			<xs:extension base="bt:gappedRnaSecondaryStructureSequence">
+				<xs:attribute name="energy" type="xs:double" use="optional" />
+				<xs:attribute name="probability" type="rsa:probabilityType" use="optional"/>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="consensusType">
+		<xs:sequence>
+			<xs:element name="structure" type="rsa:structureType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="structureprobabilities" type="rsa:structureprobabilitylistType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="sequence" type="rsa:consensussequenceType" minOccurs="0" maxOccurs="1"/>		
+		</xs:sequence>
+		<xs:attribute name="id" type="bt:accessionNumber" use="optional"/>
+		<xs:anyAttribute/>
+	</xs:complexType>
+	
+	<xs:complexType name="consensussequenceType">
+		<xs:complexContent>
+			<xs:extension base="rsa:sequenceType">
+				<xs:sequence>
+					<xs:element name="probabilities" type="rsa:probalititylistType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="probalititylistType">
+		<xs:list itemType="rsa:probabilityType"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="probabilityType">
+		<xs:restriction base="xs:double">
+			<xs:maxInclusive value="1.0" />
+			<xs:minInclusive value="0.0" />
+		</xs:restriction>
+	</xs:simpleType>	
+	
+	<xs:complexType name="structureprobabilitylistType">
+		<xs:annotation>
+			<xs:documentation>
+				Defines a list of structure probabilities, which is a triplet of two positions and and a probality. 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="pt" type="rsa:structureprobabiltyType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+		
+	</xs:complexType>
+	
+	<xs:complexType name="structureprobabiltyType">
+		<xs:annotation>
+			<xs:documentation>
+				Defines a new type for structure probabilty. A structure probabilty is defined
+				by two bases and a pairing probability between them.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="a" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					Position of the first base.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="b" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					Position of the second base.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="probability" type="rsa:probabilityType" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					Probability of the base pair.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rnamotif xmlns="de:unibi:techfak:bibiserv:rnaeditor" searchtype="local">
+  <neighbor>
+    <stem allowinterrupt="false">
+      <neighbo>
+        <internalloop>
+          <neighbor>
+            <closedstruct>
+              <neighbor>
+                <bulge bulge-pos="5prime">
+                  <neighbor>
+                    <multiloop>
+                      <multiloop-branch>
+                        <neighbor>
+                          <hairpinloop />
+                        </neighbor>
+                      </multiloop-branch>
+                      <multiloop-branch>
+                        <neighbor>
+                          <closedmultiend />
+                        </neighbor>
+                      </multiloop-branch>
+                    </multiloop>
+                  </neighbor>
+                </bulge>
+              </neighbor>
+            </closedstruct>
+          </neighbor>
+        </internalloop>
+      </neighbor>
+    </stem>
+  </neighbor>
+</rnamotif>
+

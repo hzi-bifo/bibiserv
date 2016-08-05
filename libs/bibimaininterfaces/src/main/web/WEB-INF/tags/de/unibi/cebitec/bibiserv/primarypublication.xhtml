@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition>
+            <c:if test="#{publication.getPrimaryReference(toolid) != null}">
+                <div class="primaryPublication">
+                    <c:if test="#{publication.getPrimaryReference(toolid) != null}">
+                        <h:form>
+                            <c:if test="#{introduction == null}">
+                                Users of <c:if test="#{toolname != null}">#{toolname}</c:if><c:if test="#{toolname == null}">#{toolid}</c:if> are requested to cite :
+                            </c:if>
+                            <c:if test="#{introduction != null}">
+                                <h:outputText escape="false" value="#{introduction}"/>
+                            </c:if>                            
+                            <br/>
+
+                            <h:panelGrid columns="2">
+                                <h:outputText escape="false" value="#{publication.getPrimaryReference(toolid).getExport('html')}"/>
+
+                                <h:commandLink title="get #{publication.getPrimaryReference(toolid).pubkey}.bibtex">
+                                    <p:fileDownload value="#{publication.getBibTex(publication.getPrimaryReference(toolid))}"/>
+                                    <h:graphicImage value="#{conf.getProperty('icon.save')}"/>
+                                </h:commandLink>
+                            </h:panelGrid>
+                        </h:form>
+                    </c:if>
+                </div>
+            </c:if>
+        </ui:composition>
+    </h:body>
+</html>

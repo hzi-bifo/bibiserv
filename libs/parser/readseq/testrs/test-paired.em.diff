@@ -1,0 +1,11 @@
+# Compare sequences with Readseq version 2.1.27 (19-Apr-2008)
+# Compare options: keyid,keycrc,keytitle,keyindex ; nosame,nosummary,noid,notitle,nolength,nocrc,nodoc]
+# Compare optval : 1
+# Compare sources: testrs\test1.em --- testrs\test-paired.em
+         ID                       Length        Checksum
+testrs\test1.em XL23808                    4734        5874D5CD
+testrs\test-paired.em XL23808                    4734        5874D5CD
+Title          : Xenopus laevis rhodopsin gene, complete cds. !=         XL23808
+# No. record differences: 5
+
+# No. library differences: 1

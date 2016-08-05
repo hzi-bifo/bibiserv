@@ -1,0 +1,8 @@
+LOCUS       sample1                   39 bp                                   
+ORIGIN      
+        1 ACGUUGACGU GGAGCUGGUC UAUGUCGAUG CUAUGGACG
+//
+LOCUS       sample2                   46 bp                                   
+ORIGIN      
+        1 ACGCGGCCGC UUGACGUGGA GCUGGUCUAU GUCGAUGCUA UGGACG
+//

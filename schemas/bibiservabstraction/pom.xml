@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.unibi.cebitec.bibiserv</groupId>
+    <artifactId>bibiservabstraction</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>       
+        <xjc.arguments>${de.unibi.cebitec.bibiserv:jnlp:jar} ${de.unibi.cebitec.bibiserv:unserhtml:jar}</xjc.arguments>
+    </properties>
+    <name>BiBiServAbstraction</name>
+    
+    <dependencies>
+        <dependency>
+            <groupId>de.unibi.cebitec.bibiserv</groupId>
+            <artifactId>unserhtml</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.unibi.cebitec.bibiserv</groupId>
+            <artifactId>jnlp</artifactId>
+            <version>6.0</version>          
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>            
+            <!-- needed to resolve ${group:artifact:type} variables, executed in phase 'initialize' -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+
+            <!-- compile xml schema to Java classes -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>   
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+                
+                <configuration>
+                    <extension>true</extension>
+                    <generateEpisode>true</generateEpisode>
+                    <addGeneratedAnnotation>true</addGeneratedAnnotation>                              
+                </configuration>    
+            </plugin>             
+        </plugins>
+        
+         <resources>
+            <resource>
+                <directory>target/generated-sources/jaxb</directory>
+                <includes>
+                    <include>META-INF/sun-jaxb.episode</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+    
+</project>

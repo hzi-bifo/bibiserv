@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+
+    <security:http auto-config="true">
+        <!-- Forcing SSL on pages which transfer potentially sensitive data -->
+        <security:intercept-url pattern="/login.jsf" requires-channel="https"  />
+        <security:intercept-url pattern="/register.jsf" requires-channel="https"/>
+        <security:intercept-url pattern="/forgotpassword.jsf" requires-channel="https"/>
+        <security:intercept-url pattern="/resetpassword.jsf" requires-channel="https"/>
+        <security:intercept-url pattern="/admin/**" requires-channel="https" />
+        
+        <!-- Filtering ACCESS to the webapplication's resources -->
+        <!-- NOTE: Order is everything! (more specific first, less specific last) -->
+        <!-- static resources are passed through without filtering: -->
+        <security:intercept-url pattern="/misc/**" filters="none"/>
+        <security:intercept-url pattern="/javax.faces.resource/**" filters="none"/>
+        <security:intercept-url pattern="/dwr/**" filters="none"/>
+        <!-- intercept access to admin area and modules: -->
+        <security:custom-filter ref="adminFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+        <!-- Let the world access the rest that we didn't filter yet: -->
+        <security:intercept-url pattern="/**" filters="none" />
+        
+        <security:form-login login-page="/login.jsf" 
+                             authentication-failure-handler-ref="loginfailurehandler" 
+                             authentication-success-handler-ref="loginsuccesshandler"
+                             />
+        <security:logout success-handler-ref="logoutsuccesshandler" />
+            
+        <security:anonymous username="anonymous"/>
+        <!-- New session after login -->
+            <security:session-management session-fixation-protection="newSession" />
+        
+        <security:port-mappings>
+            <security:port-mapping http="80" https="443"/>
+            <security:port-mapping http="5080" https="5081"/>
+            <security:port-mapping http="8080" https="8081"/>
+            <security:port-mapping http="9080" https="9081"/>
+        </security:port-mappings>
+    </security:http>
+    
+    <bean class="de.unibi.cebitec.bibiserv.web.administration.beans.LoginFailureHandler" id="loginfailurehandler" scope="singleton"/>
+    <bean class="de.unibi.cebitec.bibiserv.web.administration.beans.LoginSuccessHandler" id="loginsuccesshandler" scope="singleton"/>
+    <bean class="de.unibi.cebitec.bibiserv.web.administration.beans.LogoutSuccessHandler" id="logoutsuccesshandler" scope="singleton"/>
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="jdbcuserservice"/>
+    </security:authentication-manager>
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <property name="allowIfAllAbstainDecisions" value="false"/>
+        <property name="decisionVoters">
+            <list>
+                <ref bean="roleVoter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+
+    <security:jdbc-user-service id="jdbcuserservice"
+                                data-source-ref="dataSource"
+                                authorities-by-username-query="SELECT id AS username, authority FROM authorities WHERE id=?"
+                                users-by-username-query="SELECT id AS username, password, enabled FROM users WHERE id=?"/>
+
+    <!--declaring the datasource for access to the username/password database... -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
+        <property name="jndiName" value="jdbc/bibiserv2"/>
+        <!--set resourceref to true if datasource is retrieved from appserver-->
+        <property name="resourceRef" value="true"/>
+    </bean>
+    
+    
+    <!-- beans required for admin area access interception (admin area and its modules) -->
+    <bean id="adminFilterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="accessDecisionManager" />
+        <property name="objectDefinitionSource" ref="adminFilterInvocationSecurityMetadataSource" />
+    </bean>
+    <bean id="adminFilterInvocationSecurityMetadataSource" 
+          class="de.unibi.cebitec.bibiserv.web.administration.beans.AdminFilterInvocationSecurityMetadataSource"
+          scope="singleton">
+        <property name="moduleDatabase" ref="moduleDatabase"/>
+    </bean>
+
+
+</beans>

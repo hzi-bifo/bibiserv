@@ -1,0 +1,13 @@
+# Compare sequences with Readseq version 2.1.27 (19-Apr-2008)
+# Compare options: keyid,keycrc,keytitle,keyindex ; nosame,nosummary,noid,notitle,nolength,nocrc,nodoc]
+# Compare optval : 1
+# Compare sources: jar:file:/C:/Users/Richard/Documents/bibiserv/BioDOM/lib/readseq-2.0.jar!/rez/test.seq --- testrs\test.em
+         ID                       Length        Checksum
+jar:file:/C:/Users/Richard/Documents/bibiserv/BioDOM/lib/readseq-2.0.jar!/rez/test.seq XL23808                    4734        5874D5CD
+testrs\test.em XL23808                    4734        5874D5CD
+# No. record differences: 2
+jar:file:/C:/Users/Richard/Documents/bibiserv/BioDOM/lib/readseq-2.0.jar!/rez/test.seq XLRHODOP                   1684        1E688976
+testrs\test.em XLRHODOP                   1684        1E688976
+# No. record differences: 2
+
+# No. library differences: 2

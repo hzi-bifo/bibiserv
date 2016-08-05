@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:aml="http://hobit.sourceforge.net/xsds/20060126/alignmentML"
+	xmlns:bt="http://schemas.bioservices.net/2006/01/biotypes"
+	xmlns:cr="http://schemas.bioservices.net/2006/01/crossrefs"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060126/alignmentML"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:import namespace="http://schemas.bioservices.net/2006/01/biotypes" schemaLocation="http://schemas.bioservices.net/2006/01/biotypes_1.1.xsd" />
+	<xs:import namespace="http://schemas.bioservices.net/2006/01/crossrefs" schemaLocation="http://schemas.bioservices.net/2006/01/crossrefs_0.1.xsd" />
+	<!--                   -->
+	<!-- ELEMENTS -->
+	<!--                   -->
+	<xs:element name="alignmentML" nillable="true">
+		<xs:annotation>
+			<xs:documentation>represents a list of alignments</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="alignment" type="aml:alignmentType" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" fixed="0.1"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<!--             -->
+	<!-- TYPES -->
+	<!--             -->
+	<!-- possible extensions: alignedFreeSequence, crossRef and Property -->
+	<xs:complexType name="alignmentType">
+		<xs:annotation>
+			<xs:documentation>represents an alignment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sequence" type="aml:sequenceType" minOccurs="2" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="score" type="xs:int"/>
+	</xs:complexType>
+	<xs:complexType name="sequenceType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="0"/>
+			<xs:element name="synonyms" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Synonyms for this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="alignedAminoAcidSequence" type="bt:alignedAminoAcidSequence"/>
+				<xs:element name="alignedNucleotideAcidSequence" type="aml:alignedNucleotideSequence"/>
+				<xs:element name="alignedFreeSequence" type="aml:alignedFreeSequence"/>
+			</xs:choice>
+			<xs:element minOccurs="0" ref="cr:crossRefs" />
+			<xs:element name="property" type="aml:propertyType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="comment" type="aml:commentType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="xs:string" use="required"/>
+		<xs:attribute name="size" type="xs:int" use="optional"/>
+	</xs:complexType>
+	<!-- Types, currently not within BioTypes 1.0 , possible in 1.1 ? -->
+	<xs:complexType name="propertyType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="value" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="commentType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="alignedFreeSequence">
+		<xs:annotation>
+			<xs:documentation>inherit gappedFreeSequenceType from hobitTypes; do not allow
+			gaps</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="replace"/>
+			<xs:pattern value="[A-Z\-]{0,}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="alignedNucleotideSequence">
+		<xs:annotation>
+			<xs:documentation>An aligned nucleic acid sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="bt:gappedAmbiguousNucleotideSequence">
+				<xs:attributeGroup ref="bt:alignedSequenceAttrs"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

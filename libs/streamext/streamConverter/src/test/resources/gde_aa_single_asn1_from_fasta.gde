@@ -1,0 +1,16 @@
+{
+name        "sample1"
+type        "PROTEIN"
+longnamename        "sample1"
+sequence-ID ""
+descrip ""
+creator ""
+creation-date ""
+direction ""
+strandedness ""
+comments        "This file was created via GDEParser directly from fasta
+without any meta information. Placeholders are given above.
+"
+sequence        "
+LDTAPCLFSDGSPQKAAYVLWDQ"
+}

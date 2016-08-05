@@ -1,0 +1,67 @@
+
+OS   Mus musculus (Mouse).
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Mammalia; Eutheria; Euarchontoglires; Glires; Rodentia; Sciurognathi;
+OC   Muroidea; Muridae; Murinae; Mus.
+OX   NCBI_TaxID=10090;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [MRNA].
+RX   MEDLINE=89251612; PubMed=2498083;
+RA   Zerial M., Toschi L., Ryseck R.-P., Schuermann M., Mueller R.,
+RA   Bravo R.;
+RT   "The product of a novel growth factor activated gene, fos B, interacts
+RT   with JUN proteins enhancing their DNA binding activity.";
+RL   EMBO J. 8:805-813(1989).
+RN   [2]
+RP   NUCLEOTIDE SEQUENCE [GENOMIC DNA].
+RX   MEDLINE=92158623; PubMed=1741260; DOI=10.1093/nar/20.2.343;
+RA   Lazo P.S., Dorfman K., Noguchi T., Mattei M.-G., Bravo R.;
+RT   "Structure and mapping of the fosB gene. FosB downregulates the
+RT   activity of the fosB promoter.";
+RL   Nucleic Acids Res. 20:343-350(1992).
+CC   -!- FUNCTION: FosB interacts with Jun proteins enhancing their DNA
+CC       binding activity.
+CC   -!- SUBUNIT: Heterodimer (By similarity).
+CC   -!- SUBCELLULAR LOCATION: Nucleus.
+CC   -!- INDUCTION: By growth factors.
+CC   -!- SIMILARITY: Belongs to the bZIP family. Fos subfamily.
+CC   -!- SIMILARITY: Contains 1 bZIP domain.
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see http://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution-NoDerivs License
+CC   -----------------------------------------------------------------------
+DR   EMBL; X14897; CAA33026.1; -; mRNA.
+DR   EMBL; AF093624; AAD13196.1; -; Genomic_DNA.
+DR   PIR; S35477; TVMSFB.
+DR   UniGene; Mm.248335; -.
+DR   HSSP; P01100; 1FOS.
+DR   SMR; P13346; 157-215.
+DR   DIP; DIP:1067N; -.
+DR   TRANSFAC; T00291; -.
+DR   Ensembl; ENSMUSG00000003545; Mus musculus.
+DR   KEGG; mmu:14282; -.
+DR   MGI; MGI:95575; Fosb.
+DR   ArrayExpress; P13346; -.
+DR   GermOnline; ENSMUSG00000003545; Mus musculus.
+DR   InterPro; IPR011700; bZIP_2.
+DR   InterPro; IPR008917; Euk_TF_DNA_bd.
+DR   InterPro; IPR000837; Leuzip_Fos.
+DR   InterPro; IPR004827; TF_bZIP.
+DR   Pfam; PF07716; bZIP_2; 1.
+DR   PRINTS; PR00042; LEUZIPPRFOS.
+DR   SMART; SM00338; BRLZ; 1.
+DR   PROSITE; PS50217; BZIP; 1.
+DR   PROSITE; PS00036; BZIP_BASIC; 1.
+KW   DNA-binding; Nuclear protein.
+FT   CHAIN         1    338       Protein fosB.
+FT                                /FTId=PRO_0000076477.
+FT   DOMAIN      183    211       Leucine-zipper.
+FT   DNA_BIND    161    179       Basic motif.
+SQ   SEQUENCE   338 AA;  35977 MW;  E9D031A4BEAE48EC CRC64;
+     MFQAFPGDYD SGSRCSSSPS AESQYLSSVD SFGSPPTAAA SQECAGLGEM PGSFVPTVTA
+     ITTSQDLQWL VQPTLISSMA QSQGQPLASQ PPAVDPYDMP GTSYSTPGLS AYSTGGASGS
+     GGPSTSTTTS GPVSARPARA RPRRPREETL TPEEEEKRRV RRERNKLAAA KCRNRRRELT
+     DRLQAETDQL EEEKAELESE IAELQKEKER LEFVLVAHKP GCKIPYEEGP GPGPLAEVRD
+     LPGSTSAKED GFGWLLPPPP PPPLPFQSSR DAPPNLTASL FTHSEVQVLG DPFPVVSPSY
+     TSSFVLTCPE VSAFAGAQRT SGSEQPSDPL NSPSLLAL
+//

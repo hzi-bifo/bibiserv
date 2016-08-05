@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+   
+    <h:body>
+        <ui:composition>
+               <div id="bibiserv_progressbar" style="margin-left:auto; margin-right:auto; margin-top:20px; margin-bottom:20px; width:604px; height:30px; border:1px solid darkgrey; padding: 2px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; ">
+                    <div id="bibiserv_progressslider" style="width:60px; height:30px; color:white;background-color: #4F4F4F; position: relative; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; "/>
+               </div>
+               
+                <script type="text/javascript">
+                  
+                    var progress = document.getElementById('bibiserv_progressbar');
+                    var slider = document.getElementById('bibiserv_progressslider');
+                    
+                    var progressbarId;
+                    
+                    
+                    //  check if progressbar width is given in
+                    var progresswidth = progress.style.width;
+                    var progresspadding = progress.style.padding;
+                    var sliderwidth = slider.style.width;
+                    
+                    if (progresswidth.substr(progresswidth.length-2,2) == 'px' 
+                        &amp;&amp; sliderwidth.substr(sliderwidth.length-2,2) == 'px' 
+                        &amp;&amp; progresspadding.substr(progresspadding.length-2,2) == 'px') {
+                        
+                        progresswidth = progresswidth.substr(0,progresswidth.length-2);
+                        progresspadding = progresspadding.substr(0,progresspadding.length-2);                  
+                        sliderwidth = sliderwidth.substr(0,sliderwidth.length-2);
+                       
+                        
+                        var maxsliderpos = progresswidth - 2 * progresspadding - sliderwidth;
+                        var sliderstep = maxsliderpos * 0.02 ;
+                    
+                        var sliderpos=0;
+                    
+                        start_bibiservprogress();
+                    
+                        
+                            
+                    } else {
+                        alert ('Progressbar width and margin and Progressbarslider width must be set in pixel, percent values aren\'t allowed!');
+                        
+                    }
+                    
+                    function start_bibiservprogress(){
+                        this.progressbarId = setInterval( function() {
+                            if (sliderpos &gt; maxsliderpos) { 
+                                sliderpos = maxsliderpos; 
+                                sliderstep = -sliderstep;
+                            }
+                            if (sliderpos &lt; 0) { 
+                                sliderpos = 0;
+                                sliderstep = -sliderstep;
+                            }                          
+                            slider.style.left=sliderpos +'px';
+                            sliderpos = sliderpos + sliderstep;   
+                            },100);
+                    }
+                    
+                   
+                   function stop_bibiservprogress(){
+                       clearInterval(this.progressbarId);
+                   }
+                   
+                   function show_bibiservprogress(){
+                       progress.style.visibility='visible';
+                       progress.style.position='static';
+                   }
+                   
+                   function hide_bibiservprogress() {                 
+                       progress.style.visibility='hidden';
+                       progress.style.position='absolute';
+                   }
+                   
+                   
+                </script>
+            
+        </ui:composition>
+    </h:body>
+</html>

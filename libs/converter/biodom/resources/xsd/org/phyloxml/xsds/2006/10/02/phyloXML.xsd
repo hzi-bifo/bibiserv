@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--                                              -->
+<!-- phyloXML                                     -->
+<!-- ========                                     -->
+<!--                                              -->
+<!-- schema in XMLSchema                          -->
+<!-- Level: 1                                     -->
+<!-- Version: 0.06                                -->
+<!-- Last modifed: 02/12/2006 by Christian Zmasek -->
+<!--                                              -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.phyloxml.org/xsds/2006/10/02/phyloXML" targetNamespace="http://www.phyloxml.org/xsds/2006/10/02/phyloXML" elementFormDefault="qualified" attributeFormDefault="unqualified">
+      <!-- phyloxml is the root element:-->
+      <xs:element name="phyloxml" type="Phyloxml"/>
+      <!-- -->
+
+      <!-- Phyloxml definition:-->
+      <xs:complexType name="Phyloxml">
+            <xs:sequence>
+                  <xs:element name="phylogeny" type="Phylogeny" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"
+                        namespace="##other"/>
+            </xs:sequence>
+      </xs:complexType>
+      <!-- -->
+      <!-- Phylogeny defintion:-->
+
+      <xs:complexType name="Phylogeny">
+            <xs:sequence>
+                  <xs:element name="name" type="Name" minOccurs="0"/>
+                  <xs:element name="description" type="Description" minOccurs="0"/>
+                  <xs:element name="support" type="Support" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="URI" type="Uri" minOccurs="0"/>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"
+                        namespace="##other"/>
+                  <xs:element name="clade" type="Clade" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="custom" type="Custom" minOccurs="0" maxOccurs="unbounded"/>
+
+            </xs:sequence>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- Used by Phylogeny:-->
+      <!-- ````````````````` -->
+      <!-- Clade:-->
+      <xs:complexType name="Clade">
+            <xs:sequence>
+                  <xs:element name="name" type="Name" minOccurs="0"/>
+
+                  <xs:element name="taxonomy" type="Taxonomy" minOccurs="0"/>
+                  <xs:element name="sequence" type="Sequence" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="event" type="Event" minOccurs="0"/>
+                  <xs:element name="custom" type="Custom" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+                  <xs:element name="URI" type="Uri" minOccurs="0"/>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"
+                        namespace="##other"/>
+                  <xs:element name="branch" type="Branch" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="clade" type="Clade" minOccurs="0" maxOccurs="unbounded"/>
+
+            </xs:sequence>
+            <xs:attribute name="branch_length" type="BranchLengthAttribute"/>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- Types used by Clade:-->
+      <!-- ``````````````````` -->
+      <!-- Taxonomy:-->
+      <xs:complexType name="Taxonomy">
+            <xs:sequence>
+
+                  <xs:element name="scientific_name" type="ScientificName" minOccurs="0"/>
+                  <xs:element name="common_name" type="Name" minOccurs="0"/>
+                  <xs:element name="taxonomy_identifier" type="Identifier" minOccurs="0"/>
+                  <xs:element name="rank" type="Rank" minOccurs="0"/>
+                  <xs:element name="distribution" type="Distribution" minOccurs="0"/>
+                  <xs:element name="custom" type="Custom" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+                  <xs:element name="URI" type="Uri" minOccurs="0"/>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"
+                        namespace="##other"/>
+
+            </xs:sequence>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- Sequence:-->
+      <xs:complexType name="Sequence">
+            <xs:sequence>
+                  <xs:element name="name" type="Name" minOccurs="0"/>
+                  <xs:element name="sequence_identifier" type="Identifier" minOccurs="0"/>
+                  <xs:element name="description" type="SequenceDescription" minOccurs="0"
+                        maxOccurs="unbounded"/>
+
+                  <xs:element name="GO_term" type="GoTerm" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="EC_number" type="EcNumber" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="location" type="SeqLocation" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="sequence_relation" type="SequenceRelation" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                  <xs:element name="custom" type="Custom" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="URI" type="Uri" minOccurs="0"/>
+                  <xs:element name="seq" type="NucleotideSequence" minOccurs="0"/>
+                  <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"
+                        namespace="##other"/>
+            </xs:sequence>
+
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- Event:-->
+      <xs:complexType name="Event">
+            <xs:sequence>
+                  <xs:element name="name" type="EventName"/>
+                  <xs:element name="support" type="Support" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="Id"/>
+
+      </xs:complexType>
+      <!-- Branch:-->
+      <xs:complexType name="Branch">
+            <xs:sequence>
+                  <xs:element name="length" type="BranchLength" minOccurs="0"/>
+                  <xs:element name="support" type="Support" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="custom" type="Custom" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="color" type="BranchColor"/>
+
+            <xs:attribute name="width" type="BranchWidth"/>
+            <xs:attribute name="clade_ref" type="IdRef"/>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- BranchLengthAttribute:-->
+      <xs:simpleType name="BranchLengthAttribute">
+            <xs:restriction base="xs:double"/>
+      </xs:simpleType>
+      <!-- Types used by Phylogeny, Clade, Taxonomy, Sequence:-->
+
+      <!-- `````````````````````````````````````````````````` -->
+      <!-- Uri:-->
+      <xs:complexType name="Uri">
+            <xs:simpleContent>
+                  <xs:extension base="UriValue">
+                        <xs:attribute name="description" type="UriDescription"/>
+                        <xs:attribute name="id" type="Id"/>
+                  </xs:extension>
+            </xs:simpleContent>
+
+      </xs:complexType>
+      <!-- Types used by Phylogeny, Clade, Taxonomy, Sequence, Branch:-->
+      <!-- `````````````````````````````````````````````````````````` -->
+      <!-- Custom:-->
+      <xs:complexType name="Custom">
+            <xs:sequence>
+                  <xs:element name="name" type="CustomName"/>
+                  <xs:element name="value" type="CustomValue"/>
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+
+            </xs:sequence>
+            <xs:attribute name="unit" type="Unit"/>
+            <xs:attribute name="type" type="CustomType"/>
+            <xs:attribute name="property" type="CustomProperty"/>
+            <xs:attribute name="interval" type="IntervalValue"/>
+            <xs:attribute name="id_ref" type="IdRef"/>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- Used by Phylogeny, Clade, Event, Branch, Custom, GoTerm, SequenceDescription,
+            SequenceRelation, Taxonomy:-->
+
+      <!-- ````````````````````````````````````````````````````````````````````````` -->
+      <!-- Support:-->
+      <xs:complexType name="Support">
+            <xs:simpleContent>
+                  <xs:extension base="SupportValue">
+                        <xs:attribute name="type" type="Type" use="required"/>
+                        <xs:attribute name="interval" type="IntervalValue"/>
+                        <xs:attribute name="id" type="Id"/>
+                  </xs:extension>
+
+            </xs:simpleContent>
+      </xs:complexType>
+      <!-- SupportValue:-->
+      <xs:simpleType name="SupportValue">
+            <xs:restriction base="xs:double"/>
+      </xs:simpleType>
+      <!--  Used by Taxonomy, Sequence:-->
+      <!-- ``````````````````````````` -->
+      <!-- Identifier:-->
+
+      <xs:complexType name="Identifier">
+            <xs:simpleContent>
+                  <xs:extension base="IdentifierValue">
+                        <xs:attribute name="source" type="IdentifierSource"/>
+                  </xs:extension>
+            </xs:simpleContent>
+      </xs:complexType>
+      <!-- Types used by Taxonomy:-->
+      <!-- `````````````````````` -->
+
+      <!-- ScientificName:-->
+      <xs:simpleType name="ScientificName">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- Rank:-->
+      <xs:simpleType name="Rank">
+            <xs:restriction base="xs:token">
+                  <xs:enumeration value="kingdom"/>
+                  <xs:enumeration value="phylum"/>
+
+                  <xs:enumeration value="division"/>
+                  <xs:enumeration value="subphylum"/>
+                  <xs:enumeration value="superclass"/>
+                  <xs:enumeration value="class"/>
+                  <xs:enumeration value="subclass"/>
+                  <xs:enumeration value="superorder"/>
+                  <xs:enumeration value="order"/>
+                  <xs:enumeration value="suborder"/>
+                  <xs:enumeration value="superfamily"/>
+
+                  <xs:enumeration value="family"/>
+                  <xs:enumeration value="subfamily"/>
+                  <xs:enumeration value="genus"/>
+                  <xs:enumeration value="subgenus"/>
+                  <xs:enumeration value="species"/>
+                  <xs:enumeration value="subspecies"/>
+                  <xs:enumeration value="variety"/>
+                  <xs:enumeration value="form"/>
+                  <xs:enumeration value="cultivar"/>
+
+                  <xs:enumeration value="unknown"/>
+                  <xs:enumeration value="other"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- Distribution:-->
+      <xs:simpleType name="Distribution">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- Types used by Sequence:-->
+
+      <!-- `````````````````````` -->
+      <!-- NucleotideSequence:-->
+      <xs:complexType name="NucleotideSequence">
+            <xs:simpleContent>
+                  <xs:extension base="NucleotideSequenceString">
+                        <xs:attribute name="mol_type" type="MolTypeAttribute" use="required"/>
+                        <xs:attribute name="id" type="Id"/>
+                  </xs:extension>
+            </xs:simpleContent>
+
+      </xs:complexType>
+      <!-- NucleotideSequenceStrin:-->
+      <xs:simpleType name="NucleotideSequenceString">
+            <xs:restriction base="xs:token">
+                  <xs:pattern value="[a-zA-Z\.\-\?\*\+_]+"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- MolTypeAttribute:-->
+      <xs:simpleType name="MolTypeAttribute">
+
+            <xs:restriction base="xs:token">
+                  <xs:enumeration value="dna"/>
+                  <xs:enumeration value="rna"/>
+                  <xs:enumeration value="protein"/>
+                  <xs:enumeration value="unknown"/>
+                  <xs:enumeration value="other"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- SeqLocation:-->
+
+      <xs:complexType name="SeqLocation">
+            <xs:simpleContent>
+                  <xs:extension base="SeqLocationValue">
+                        <xs:attribute name="type" type="SeqLocationType"/>
+                        <xs:attribute name="unit" type="SeqLocationUnit"/>
+                        <xs:attribute name="id" type="Id"/>
+                  </xs:extension>
+            </xs:simpleContent>
+      </xs:complexType>
+
+      <!-- SeqLocationValue:-->
+      <xs:simpleType name="SeqLocationValue">
+            <xs:restriction base="xs:normalizedString"/>
+      </xs:simpleType>
+      <!-- SeqLocationType:-->
+      <xs:simpleType name="SeqLocationType">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- SeqLocationUnit:-->
+
+      <xs:simpleType name="SeqLocationUnit">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- GoTerm:-->
+      <xs:complexType name="GoTerm">
+            <xs:sequence>
+                  <xs:element name="id" type="GoTermId" minOccurs="0"/>
+                  <xs:element name="name" type="GoTermName"/>
+                  <xs:element name="namespace" type="GoTermNamespace" minOccurs="0"/>
+
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- GoTermName:-->
+      <xs:simpleType name="GoTermName">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- GoTermId:-->
+
+      <xs:simpleType name="GoTermId">
+            <xs:restriction base="xs:token">
+                  <xs:pattern value="GO:\d{7,}"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- GoTermNamespace:-->
+      <xs:simpleType name="GoTermNamespace">
+            <xs:restriction base="xs:token">
+                  <xs:enumeration value="molecular_function"/>
+
+                  <xs:enumeration value="biological_process"/>
+                  <xs:enumeration value="cellular_component"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- EcNumber:-->
+      <xs:complexType name="EcNumber">
+            <xs:sequence>
+                  <xs:element name="value" type="EcNumberValue"/>
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+
+            </xs:sequence>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+      <!-- EcNumberValue:-->
+      <xs:simpleType name="EcNumberValue">
+            <xs:restriction base="xs:token">
+                  <xs:pattern value="(\d{1,3}|-)\.(\d{1,3}|-)\.(\d{1,3}|-)\.(\d{1,3}|-)"/>
+            </xs:restriction>
+      </xs:simpleType>
+
+      <!-- SequenceDescription:-->
+      <xs:complexType name="SequenceDescription">
+            <xs:sequence>
+                  <xs:element name="value" type="Description"/>
+                  <xs:element name="type" type="Type" minOccurs="0"/>
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+
+      <!-- SequenceRelation:-->
+      <xs:complexType name="SequenceRelation">
+            <xs:sequence>
+                  <xs:element name="type" type="SequenceRelationType"/>
+                  <xs:element name="support" type="Support" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="sequence_ref" type="IdRef" use="required"/>
+            <xs:attribute name="id" type="Id"/>
+      </xs:complexType>
+
+      <!-- SequenceRelationType:-->
+      <xs:simpleType name="SequenceRelationType">
+            <xs:restriction base="xs:token">
+                  <xs:enumeration value="orthology"/>
+                  <xs:enumeration value="super_orthology"/>
+                  <xs:enumeration value="paralogy"/>
+                  <xs:enumeration value="ultra_paralogy"/>
+                  <xs:enumeration value="xenology"/>
+                  <xs:enumeration value="unknown"/>
+
+                  <xs:enumeration value="other"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- Types used by Event:-->
+      <!-- ``````````````````` -->
+      <!-- EventName:-->
+      <xs:simpleType name="EventName">
+            <xs:restriction base="xs:token">
+                  <xs:enumeration value="speciation"/>
+
+                  <xs:enumeration value="duplication"/>
+                  <xs:enumeration value="gene_duplication"/>
+                  <xs:enumeration value="tandem_duplication"/>
+                  <xs:enumeration value="segmental_duplication"/>
+                  <xs:enumeration value="chromosome_duplication"/>
+                  <xs:enumeration value="genome_duplication"/>
+                  <xs:enumeration value="transfer"/>
+                  <xs:enumeration value="fusion"/>
+                  <xs:enumeration value="root"/>
+
+                  <xs:enumeration value="unknown"/>
+                  <xs:enumeration value="other"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- Types used by Uri:-->
+      <!-- ````````````````` -->
+      <!-- "UriValue:-->
+      <xs:simpleType name="UriValue">
+            <xs:restriction base="xs:anyURI"/>
+
+      </xs:simpleType>
+      <!-- UriDescription:-->
+      <xs:simpleType name="UriDescription">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- Types used by Custom:-->
+      <!-- ```````````````````` -->
+      <!-- CustomValue:-->
+      <xs:simpleType name="CustomValue">
+
+            <xs:restriction base="xs:normalizedString"/>
+      </xs:simpleType>
+      <!-- CustomName:-->
+      <xs:simpleType name="CustomName">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- CustomType:-->
+      <xs:simpleType name="CustomType">
+            <xs:restriction base="xs:token">
+
+                  <xs:enumeration value="string"/>
+                  <xs:enumeration value="double"/>
+                  <xs:enumeration value="long"/>
+                  <xs:enumeration value="boolean"/>
+                  <xs:enumeration value="uri"/>
+                  <xs:enumeration value="expression"/>
+                  <xs:enumeration value="expression_description"/>
+                  <xs:enumeration value="other"/>
+            </xs:restriction>
+
+      </xs:simpleType>
+      <!-- CustomProperty:-->
+      <xs:simpleType name="CustomProperty">
+            <xs:restriction base="xs:token">
+                  <xs:enumeration value="phylogeny"/>
+                  <xs:enumeration value="clade"/>
+                  <xs:enumeration value="node"/>
+                  <xs:enumeration value="sequence"/>
+                  <xs:enumeration value="taxonomy"/>
+
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- Types used by Branch:-->
+      <!-- ```````````````````` -->
+      <!-- BranchLength:-->
+      <xs:complexType name="BranchLength">
+            <xs:simpleContent>
+                  <xs:extension base="BranchLengthValue">
+                        <xs:attribute name="unit" type="Unit"/>
+
+                        <xs:attribute name="interval" type="IntervalValue"/>
+                        <xs:attribute name="id" type="Id"/>
+                  </xs:extension>
+            </xs:simpleContent>
+      </xs:complexType>
+      <!-- BranchLengthValue:-->
+      <xs:simpleType name="BranchLengthValue">
+            <xs:restriction base="xs:double"/>
+      </xs:simpleType>
+
+      <!-- BranchColor:-->
+      <xs:simpleType name="BranchColor">
+            <xs:restriction base="xs:token">
+                  <xs:pattern value="([a-z]{3,30})|(rgb:\d{1,3},\d{1,3},\d{1,3})"/>
+            </xs:restriction>
+      </xs:simpleType>
+      <!-- BranchWidthn:-->
+      <xs:simpleType name="BranchWidth">
+            <xs:restriction base="xs:double"/>
+
+      </xs:simpleType>
+      <!-- Types used by Id:-->
+      <!-- ```````````````` -->
+      <!-- IdentifierValue:-->
+      <xs:simpleType name="IdentifierValue">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- IdentifierSource:-->
+      <xs:simpleType name="IdentifierSource">
+
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- General purpose types: -->
+      <!-- `````````````````````` -->
+      <!-- used by all complex types: -->
+      <xs:simpleType name="Id">
+            <xs:restriction base="xs:ID"/>
+      </xs:simpleType>
+      <!-- used by Branch to refer to ids of clades; by SequenceRelation to refer to ids of sequences;
+            and by Custom to refer to ids of various elements: -->
+
+      <xs:simpleType name="IdRef">
+            <xs:restriction base="xs:IDREF"/>
+      </xs:simpleType>
+      <!-- used by SequenceDescription, Phylogeny: -->
+      <xs:simpleType name="Description">
+            <xs:restriction base="xs:normalizedString"/>
+      </xs:simpleType>
+      <!-- used by Custom, Support, BranchLength: -->
+      <xs:simpleType name="IntervalValue">
+
+            <xs:restriction base="xs:double"/>
+      </xs:simpleType>
+      <!-- used by Phylogeny, Clade, Taxonomy, Sequence: -->
+      <xs:simpleType name="Name">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+      <!-- used by Support, SequenceDescription: -->
+      <xs:simpleType name="Type">
+            <xs:restriction base="xs:token"/>
+
+      </xs:simpleType>
+      <!-- used by Custom, BranchLength: -->
+      <xs:simpleType name="Unit">
+            <xs:restriction base="xs:token"/>
+      </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2011 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted 2011 BiBiServ Curator Team"
+
+Contributor(s): Christian Henke
+-->
+
+<!--
+    Document   : moduleManager
+    Created on : Aug 07, 2011, 8:58:21 PM
+    Author     : Christian Henke <chenke@cebitec.uni-bielefeld.de>
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://java.sun.com/jstl/fmt"
+                template="../../WEB-INF/templates/moduleTpl.xhtml">
+
+    <ui:define name="moduletitle">ModuleManager</ui:define>
+
+
+    <ui:define name="modulecontent">
+            <p:messages id="moduleManagerMsg" showDetail="true"/> 
+
+            <h:form id="moduleUploadForm" enctype="multipart/form-data" >              
+                <div>
+                    <p:fileUpload fileUploadListener="#{moduleManager.receiveModuleUpload}"
+                                  auto="true" 
+                                  id="moduleUpload" 
+                                  update=":moduleManagerMsg :moduleListForm"
+                                  label="Upload new Module"                                 
+                                  />
+                </div>
+           </h:form>
+
+          <hr/>
+
+            <h:form id="moduleListForm" >
+                <p:dataTable id="moduleListTable" 
+                             
+                             value="#{moduleManager.modules}" 
+                             var="mo" 
+                             rows="10"
+                             paginator="true" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             >
+                    
+                    <f:facet name="header">
+                        Admin Modules
+                    </f:facet>
+
+                    <!--<p:column headerText="ID">
+                        <h:outputText value="#{mo.id}"/>
+                    </p:column> -->
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{mo.info.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Manual" width="60">
+                        <p:rowToggler />
+                    </p:column>
+
+
+                    <p:column headerText="Description" width="250">
+                        <h:outputText styleClass="modulemanager-description" value="#{mo.info.description}"/>
+                    </p:column>
+
+                    <p:column headerText="Access" width="70">
+                       <p:selectCheckboxMenu value="#{mo.info.roleRestrictions}" label="Roles"  converter="authorityConverter">
+                            <f:selectItems value="#{moduleManager.authorities}"/>
+                            <p:ajax event="change" listener="#{moduleManager.saveInfoChanges(mo.info)}" update="@this"/>
+                        </p:selectCheckboxMenu> 
+                    </p:column>
+
+                    <p:column headerText="Actions" width="240">                      
+                            <p:commandButton           
+                                value="Enable" 
+                                icon="ui-icon ui-icon-play"
+                                action="#{moduleManager.modifyModuleActive(mo.id, true)}" 
+                                update=":moduleListForm :moduleManagerMsg" 
+                                style="border-color:green;" 
+                                disabled="#{mo.active}"
+                                title="enable module  '#{mo.info.name}'"/>
+                            <p:commandButton 
+                                value="Disable" 
+                                icon="ui-icon ui-icon-stop"
+                                action="#{moduleManager.modifyModuleActive(mo.id, false)}" 
+                                update=":moduleListForm :moduleManagerMsg" 
+                                style="border-color:orangered;" 
+                                disabled="#{!mo.active}"
+                                title="disable module '#{mo.info.name}'" />
+                            <p:commandButton 
+                                icon="ui-icon ui-icon-trash"                      
+                                update=":moduleListForm :moduleManagerMsg"
+                                action="#{moduleManager.deleteModule(mo.id)}"
+                                title="delete module '#{mo.info.name}'"/>
+                    </p:column>
+
+                    <p:rowExpansion>
+                        <p:accordionPanel dynamic="true" value="#{mo.info.manual}" var="chapter">
+                            <p:tab title="#{chapter.title}">   
+                                <h:outputText value="#{chapter.content}"/>
+                            </p:tab> 
+                        </p:accordionPanel>  
+                    </p:rowExpansion>
+
+                </p:dataTable>
+            </h:form>
+
+      
+    </ui:define>
+
+
+
+</ui:composition>

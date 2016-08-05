@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<linkedItem xmlns="bibiserv:de.unibi.techfak.bibiserv.cms"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd" id="download">
+    <name>download</name>
+    <shortDescription>Necessary for requests to classic bibiserv !NO TOOL FOR MENU!</shortDescription>
+    <description></description>
+    <url>http://bibiserv.cebitec.uni-bielefeld.de/</url>
+</linkedItem>
+
+     
+       

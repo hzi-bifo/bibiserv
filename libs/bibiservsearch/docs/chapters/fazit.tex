@@ -1,0 +1,280 @@
+
+\chapter{Ergebnisse}
+\label{fazit}
+
+\paragraph{} Abschließend bleibt nun noch auszuwerten, wie effizient die implementierten Lösungen sind (siehe \ref{fazit-complexity}) und ob die gestellten Anforderungen erfüllt wurden (siehe \ref{fazit-evaluation}). Außerdem sind in Abschnitt \ref{fazit-ausblick} noch Ansätze dokumentiert, mit denen \textit{BiBiServSearch} weiter verbessert werden kann.
+
+\section{Komplexität}
+\label{fazit-complexity}
+
+\paragraph{} Die Komplexität der implementierten Algorithmen wird für drei Fälle betrachtet: Das Einfügen von Dokumenten in den Suchraum (siehe \ref{compl-insert}), die Suche selbst (siehe \ref{compl-search}) und schließlich das Entfernen von Dokumenten aus dem Suchraum (siehe \ref{compl-remove}). %Außerdem sind die Ergebnisse noch einmal in Kürze in einer tabellarischen Übersicht zusammengefasst (siehe \ref{compl-table}).
+\paragraph{} Die Analyse erfolgt so weit möglich nicht nur theoretisch sondern auch empirisch. Praktische Laufzeit- und Speicherverbrauchsanalysen wurden dabei mit Hilfe von NetBeans\texttrademark Profiling vorgenommen (die entsprechende Konfiguration kann in Anhang \ref{profiling} nachgelesen werden).
+\paragraph{} Die empirischen Testdaten waren eine Mischung aus 76 Dateien verschiedener Formate (XML, PDF und einfacher Text) in Deutsch und Englisch mit einer Dateigröße von insgesamt 257 MB, 104441 verschiedenen Worten und einer Textlänge von 369325 Worten.
+
+\subsection{Einfügen von Dokumenten}
+\label{compl-insert}
+
+\paragraph{} Wie bereits in \ref{algo-addDoc} beschrieben erfolgt das Einfügen von Dokumenten in den Suchraum in zwei Schritten: Zuerst werden die Worte in Hash-Tabellen eingefügt und dann im Suchraum indiziert.
+\paragraph{} Das Einfügen von Einträgen in die Hash-Tabellen hat die Laufzeit $\mathcal{O}(1)$. Insgesamt müssen dabei für $d$ Dokumente mit $v$ Vorkommen von $w$ Worten $\mathcal{O}(d + w + v)$ Einträge gemacht werden. Lediglich das Einlesen des Dokumenteninhalts und die Vorverarbeitung der Worte hat die Laufzeit $\mathcal{O}(n_{neu})$, wobei $n_{neu}$ die Länge des neu eingefügten Textinhalts in Zeichen ist.
+\paragraph{} Die Laufzeitklasse wird auch durch das Einfügen in den Suffixbaum grundsätzlich nicht verändert, weil Ukkonnens Algorithmus in linearer Zeit läuft (siehe \cite{gusfield}, S. 94).
+\paragraph{} Allerdings wird durch den Neuaufbau des Suffixbaumes vor der Einfügung des neuen Inhalts die Laufzeit deutlich verschlechtert, weil hier der gesamte alte Wortinhalt erneut berücksichtigt wird. Die Laufzeit erhöht sich also auf $\mathcal{O}(w_{alt} + n_{neu})$\footnote{Es ist allerdings implementiert, dass die Laufzeit sich nicht weiter verschlechtert, wenn mehrere Dokumente eingefügt werden. Es wird nur einmal, vor dem ersten Dokument, der Baum neu aufgebaut und ab dann mit der Baumkopie weiter gearbeitet, bis alle Dokumente eingefügt sind (siehe auch Session-System in \ref{arch-session}).}. Das zeigt sich auch im Praxistest (siehe Abbildung \ref{fig-insert}).
+
+\graph{resources/graph_insert.pdf}{fig-insert}{Laufzeit (in Millisekunden) für die Einfügung von Dokumenten in den Suchraum abhängig von der indizierten Textlänge in Worten. Wie in Kapitel \ref{compl-insert} beschrieben ist hier eine lineare Abhängigkeit von der indizierten Textlänge in Zeichen zu erwarten. Leichte Abweichungen von einer Geraden im Graphen sind also durch eine variierende durchschnittliche Wortlänge zu erklären.}
+
+\paragraph{} Die Speicherkomplexität ist ganz ähnlich, allerdings mit ein paar Besonderheiten: Suffixbaum und Wortindex sind lediglich von der Länge aller unterschiedlichen Worte des Suchraums abhängig, nicht aber von der Textlänge insgesamt. Für die worst case-Komplexität spielt das zwar keine Rolle, in der Praxis wiederholen sich Worte allerdings häufig und es ist in der Regel zu erwarten, dass die Anzahl der Wiederholungen mit größerer Textlänge ansteigt (siehe Abbildung \ref{fig-wordsToOccs}).
+
+\graph{resources/graph_words-occs.pdf}{fig-wordsToOccs}{Durchschnittliche Anzahl von Vorkommen pro Wort abhängig von der indizierten Textlänge in Worten.}
+
+\paragraph{} Der Dokumentenindex ist noch kleiner und lediglich von der Anzahl der Dokumente abhängig (im worst case ist die Dokumentenanzahl allerdings auch durch die Textlänge beschränkt).
+\paragraph{} Am größten bleibt der Hauptindex, der tatsächlich alle Vorkommen von Worten enthält. Insgesamt liegt die Speicherkomplexität demnach ebenfalls bei $\mathcal{O}(w + d + v)$. Diese Erwartung bestätigt sich im Praxistest: Mit wenigen Ausnahmen scheint sogar eine lineare Abhängigkeit von der Anzahl indizierter Worte, nicht von deren Vorkommen vorzuliegen (siehe Abbildung \ref{fig-storage-occs} bzw. Abbildung \ref{fig-storage-words}).
+
+\graph{resources/graph_storage-occs.pdf}{fig-storage-occs}{Speicherverbrauch der Anwendung (in Kilobyte) abhängig von der indizierten Textlänge in Worten.}
+
+\graph{resources/graph_storage-words.pdf}{fig-storage-words}{Speicherverbrauch der Anwendung (in Kilobyte) abhängig von der Anzahl unterschiedlicher indizierter Worte.}
+
+\paragraph{} Anzumerken bleibt, dass diese Berechnungen sich nur auf den Code beziehen, der zu \textit{BiBiServSearch} selbst gehört. Nicht mit einbezogen ist der Code des "`Apache Tika"'-Pakets. Die praktische Laufzeit ist durch dieses Paket schlechter. Eine genaue Analyse der Laufzeit dieses Pakets war nicht möglich, weil die Laufzeit hier offenbar von der Art des Dateiformats abhängt (das Öffnen von PDFs ist anscheinend besonders aufwändig). In einer groben Abschätzung aber kann davon ausgegangen werden, das hier wie bei der Vorverarbeitung eine lineare Abhängigkeit von der Textlänge vorliegt (siehe auch Abbildung \ref{fig-parsing}).
+
+\graph{resources/graph_parsing.pdf}{fig-parsing}{Laufzeit (in Millisekunden) für das Parsen von Dokumenten durch das "`Apache Tika"'-Paket abhängig von der indizierten Textlänge in Worten.}
+
+\subsection{Suche}
+\label{compl-search}
+
+\paragraph{} Bei der Komplexitätsberechnung für Suchanfragen ist zu beachten, dass sie in zwei Schritten abläuft: Zuerst wird die Suchanfrage bearbeitet und dann die Ergebnisse sortiert. Die Laufzeit ist die Summe beider Prozesse.
+\paragraph{} In den allermeisten Fällen blieben die Antwortzeiten bei praktischer Messung der Laufzeit selbst bei großen Suchräumen sehr klein (unter 100 Millisekunden). Sollte dort ein Zusammenhang mit der Textlänge vorliegen ließ er sich nicht messen. Die kurzen Antwortzeiten werden im Folgenden als Beleg dafür betrachtet, dass im average case die Antwortzeit nicht von der indizierten Textlänge abhängt.
+
+\subsubsection{Exakte Suche}
+
+\paragraph{} Die Komplexität lässt sich am einfachsten für Suchanfragen mit nur einem Wort bestimmen: In diesem Fall muss für das Wort nur dessen ID im Wort-Index und für die Wort-ID die Vorkommen im Haupt-Index abgefragt werden. Die Komplexität für Zugriffe auf Hash-Tabellen ist $\mathcal{O}(1)$ (siehe \cite{knuth}, S. 538). Anders sieht es allerdings für exakte Suchanfragen mit mehreren Worten aus: Hier muss für alle Vorkommen des ersten Wortes geprüft werden, ob alle übrigen Worte der Suchanfrage auch tatsächlich in der richtigen Reihenfolge vorliegen. Die Laufzeit ist also 
+
+\paragraph{} $\mathcal{O}\left(\sum_{i \in V(w_1)} \left( 1 + \sum_{j=2}^m \prod_{k=2}^j \delta(w_k,w(i+k)) \right)\right)$,
+
+\paragraph{} wobei $w_1, \dots, w_m$ die Worte der Suchanfrage sind, $V(w_1)$ die Positionen der Vorkommen für das erste Suchwort im Text meint, $w(n)$ mit $n \in \mathbb{N}$ das Wort im Text an Stelle $n$ und schließlich $\delta(w_i,w_j)$ für die Worte $w_i$ und $w_j$ definiert ist als $1$, falls $w_i = w_j$ und $0$ sonst.
+\paragraph{} Im worst case kann $\delta(w_i,w_j)$ immer $1$ sein, wenn alle Vorkommen des ersten Wortes des Suchmusters auch tatsächlich valide Ergebnisvorkommen sind. Also beträgt die worst case-Laufzeit $\mathcal{O}(m \cdot V(w_1))$.
+
+\subsubsection{Teilwortsuche}
+
+\paragraph{} Sofern das Suchmuster einer Teilwortsuche ein Suffix eines indizierten Wortes ist, ist die Frage nach der Komplexität einfach zu beantworten: Für jedes Suffix eines existierenden Wortes existiert ein eindeutiger Pfad im Suffixbaum. Dieser muss nur besucht werden. Die dafür nötige Zeit ist $\mathcal{O}(m)$, wobei $m$ die Länge des Suchmusters ist.
+\paragraph{} Komplizierter wird es allerdings, wenn das Suchmuster ein echtes Teilwort ist. In so einem Fall müssen nach dem Ende des Matchings selbst mit einer Tiefensuche alle folgenden Blätter besucht und die dort eingetragenen Wort-IDs zusammengetragen werden (siehe auch Algorithmus \ref{code-matching}). Der Vorteil ist, dass hier der Inhalt der Kanten des Baumes nicht mehr angesehen werden muss. Wir dürfen einfach durch alle Knoten springen, bis alle Blätter gefunden sind. Die Laufzeit ist also nur von der Anzahl der Knoten abhängig. Für die Knoten gilt: Es wird nur ein interner Knoten erzeugt, wenn ein Split durchgeführt werden muss. Das wiederum geschieht entweder dann, wenn von einem gegebenen Punkt im Baum ein neues Wort anders endet als ein bisheriges oder wenn ein anderes Suffix eines Wortes anders endet\footnote{Ein triviales Beispiel für diesen Fall ist das Wort \texttt{aaa\$}. Hier werden zwei Splits durchgeführt, weil die verschiedenen Suffixe unterschiedlich enden.}. Dementsprechend ist die Anzahl der Knoten abhängig von der Anzahl der Positionen, an denen das Muster die Matches matcht. Das ist im schlimmsten Fall an jeder Position der Matches der Fall. Die Laufzeit ist dementsprechend $\mathcal{O}(m + |w|)$, wobei $|w|$ die summierte Länge aller Ergebnisworte meint (das ist analog zur Beschreibung von Gusfield; siehe \cite{gusfield}, S. 122).
+
+\subsubsection{Reguläre Ausdrücke}
+
+\paragraph{} Noch komplizierter wird es, sobald reguläre Ausdrücke im Suchmuster auftreten. In diesem Fall lässt sich die Anzahl der benötigten Rechenschritten nicht mehr auf eine einfache Formel bringen: Es ist immer entscheidend, an welcher Stelle im Baum das Matching gerade ist und wie viele der verfügbaren Zeichen im Baum vom momentanen Zustand des NEA akzeptiert werden. Es entsteht also eine rekursive Gleichung:
+\paragraph{} $r(z_i,\alpha_i)$ $=$ $1$ $+$ 
+$\sum_{p_{i+1} \in P(z_i)}$ 
+$\sum_{c_{i+1} \in M(p_{i+1}, \alpha_i)}$ 
+$ r\left(z_{i+1}(z_i,p_{i+1}),\alpha_{i+1}(\alpha_i,c_{i+1})\right)$ und $r(z_{m'},\alpha_{m'}) = 1$,
+\paragraph{}wobei gilt:
+\begin{itemize}
+ \item $r(z_i,\alpha_i)$ ist die Anzahl der Rechenschritte, die im Schritt $i$ noch nötig sind.
+ \item ${m'}$ ist hier \underline{nicht} die Länge des Suchmusters, sondern die Anzahl der Schritte des Matching-Algorithmus. Dass sich das unterscheiden kann wird am Beispiel \texttt{a*} klar: Hier kann der Matching-Prozess beliebig viele Schritte brauchen.
+ \item $\alpha_i$ $:=$ Position im Baum im Schritt $i$.
+ \item $z_i$ $:=$ Zustand des NEA im Schritt $i$.
+ \item $c_{i+1}$ $:=$ Zeichen im Baum, das zum Schritt $i+1$ führt.
+ \item $p_{i+1}$ $:=$ \texttt{PatternChar} bzw. Ausdruck auf einer Kante im NEA, der zum Schritt $i+1$ führt.
+ \item $\alpha_{i+1}(\alpha_i,c_{i+1})$ $:=$ Position im Baum im Schritt $i+1$, wenn die Position im Baum in Schritt $i$ $\alpha_i$ war und man sich im Baum entlang des Zeichens $c_{i+1}$ weiterbewegt.
+ \item $z_{i+1}(z_i,p_{i+1})$ $:=$ Zustand des NEA im Schritt $i+1$, wenn der Zustand im Schritt $i$ $z_i$ war und man sich entlang der Kante mit dem Ausdruck $p_{i+1}$ weiterbewegt.
+ \item $P(z_i)$ $:=$ Alle ausgehenden Kantenausdrücke für $z_i$.
+ \item $M(p_{i+1},\alpha_i)$ $:=$ Alle ausgehenden nächsten Buchstaben für $\alpha_i$, die vom Ausdruck $p_{i+1}$ akzeptiert werden.
+\end{itemize}
+
+\paragraph{} Die Laufzeit für die Suche insgesamt entspricht dann $r(z_0,\alpha_0)$, wobei $z_0$ der Initialzustand des Automaten und $\alpha_0$ die Wurzel des Suffixbaums ist.
+\paragraph{} Dabei ist im Allgemeinen die Anzahl der Elemente für $P(z_i)$ durch die Länge des Suchmusters $m$ beschränkt. Hier ist der worst case ein Muster des Typs \texttt{a*b*c*d* $\dots$}, weil in diesem Fall vom ersten Zustand aus für alle folgenden Zeichen des Musters eine ausgehende Kante zum Finalzustand existieren muss (siehe auch \ref{algo-regex}). Für die Anzahl der Elemente von $M(p_{i+1},\alpha_i)$ ist hingegen der worst case der Ausdruck \texttt{.*} \footnote{Tatsächlich ist dieser Spezialfall explizit im Code untersagt. Allerdings lassen sich trivial Fälle konstruieren, in denen ähnliche Ausdrücke mit bestimmten Bäumen eine gleiche Laufzeit erzeugen.}, weil dann für jeden Knoten im Baum alle ausgehenden Kanten bearbeitet werden müssen. Die obere Schranke für die ausgehenden Kanten ist $|A|$, also die Größe des Alphabets.
+\paragraph{} Die beiden worst cases sind allerdings inkompatibel, weil bei der vorliegenden Implementierung des Algorithmus in der Vorverarbeitung von Suchmustern der Ausdruck \texttt{.*.*.* $\dots$} zu \texttt{.*} optimiert wird (siehe auch \ref{algo-regex}) und demnach die Anzahl für $P(z_i)$ in jedem Rechenschritt auf 1 absinkt. Es folgt also für die Laufzeit:
+
+\paragraph{} $r(z_i,\alpha_i)$ $=$ $1 + |A| \cdot r(z_{i+1},\alpha_{i+1})$ $\Rightarrow$ $r(z_0,\alpha_0) = \sum_{i=0}^{m'} |A|^i$ $\Rightarrow$ $\mathcal{O}(|A|^{m'})$
+
+\paragraph{} oder:
+
+\paragraph{} $r(z_i,\alpha_i)$ $=$ $1 + |m| \cdot r(z_{i+1},\alpha_{i+1})$ $\Rightarrow$ $r(z_0,\alpha_0) = \sum_{i=0}^{m'} m^i$ $\Rightarrow$ $\mathcal{O}(m^{m'})$
+
+\paragraph{} Dabei ist ${m'}$ durch die Länge des längsten indizierten Wortes beschränkt. Ebenfalls beschränkt ist die Anzahl der nötigen Rechenschritte für die Suche durch die Summe aller indizierten Wortlängen. Noch genauer ist die Laufzeit also: $\mathcal{O}(min \lbrace \left(max \lbrace m, |A| \rbrace \right)^{m'} , |w| \rbrace)$. In der Tat deutet sich dieser lineare Zusammenhang mit der Anzahl indizierter Worte auch in der Praxis an (siehe Abbildung \ref{fig-graph-regex}).
+
+\graph{resources/graph_regex.pdf}{fig-graph-regex}{Laufzeit (in Millisekunden) für eine Suche mit regulären Ausdrücken abhängig von der Anzahl unterschiedlicher indizierter Worte. Suchmuster war hier \texttt{![abc][\^{}z]*[abc]!}.}
+
+\paragraph{} Bei Berücksichtigung der Laufzeit für die Kompilierung kommt noch ein Summand $\mathcal{O}(m^2)$ hinzu, weil im worst case für alle Zustände alle jeweils nachfolgenden Zustände berücksichtigt werden müssen (das ist z.B. beim Suchmuster \texttt{ab*c*d*e} der Fall, siehe auch Algorithmus \ref{code-pattern-compiling}).
+
+\subsubsection{Inexakte Suche}
+
+\paragraph{} Bei der inexakten Suche werden zusätzlich zum ursprünglichen Suchmuster alle Varianten gesucht, die bei einer Edit-Distanz von 1 aus dem Suchmuster entstehen (siehe \ref{algo-inexact}). Zwar werden hier durch die Konstruktion des Algorithmus nur solche Varianten benutzt, die auch tatsächlich im Suffixbaum auftreten, aber im schlimmsten Fall müssen tatsächlich alle gesucht werden. Dabei setzt sich die Anzahl der Varianten wie folgt zusammen (im folgenden ist $m$ die Länge des Suchmusters und $|A|$ die Größe des Alphabets):
+
+\paragraph{}
+
+\begin{tabularx}{\textwidth}{lX}
+\hline
+\textbf{Bezeichnung} & \textbf{Anzahl der Varianten} \\ [0.1cm]
+\hline
+insertion & An $m+1$ Positionen können je $|A|$ Zeichen eingefügt werden. Das macht insgesamt $|A| \cdot (m+1)$ Varianten.\\ [0.1cm]
+\hline
+deletion & Bei einer Länge des Suchmusters von $m$ kann nur an $m$ Stellen ein Zeichen entfernt werden, also $m$ Varianten. \\ [0.1cm]
+\hline
+substitution & An $m$ Positionen kann ein Zeichen des Suchmusters durch je $|A|-1$ andere ersetzt werden, also existieren hierfür $m \cdot (|A|-1)$ Varianten. \\ [0.1cm]
+\hline
+transposition & An $m-1$ Positionen (nicht an der letzten) kann ein Zeichen mit dem folgenden Zeichen vertauscht werden, also kommen noch einmal $m-1$ Varianten hinzu. \\ [0.1cm]
+\hline
+\end{tabularx}
+
+\paragraph{} Insgesamt entsteht so eine Anzahl von $2 \cdot |A| \cdot m + |A| + m -1$ Varianten (siehe auch \cite{peterson}, S. 635) und eine Laufzeit von $\mathcal{O}(|A| \cdot m \cdot t_{Suche})$, wobei $t_{Suche}$ die Zeit für die Suche nach dem Wort im Suffixbaum ist. Im "`normalen"' Fall ohne reguläre Ausdrücke wäre die worst case-Laufzeit demnach $\mathcal{O}(|A| \cdot m^2 )$.
+
+\subsubsection{Bewertung von Suchergebnissen}
+
+\paragraph{} Bei der Bewertung eines Dokuments muss jedes der $k$ Ergebnisvorkommen, das gefunden wurde, noch einmal angeschaut werden. Wie im Pseudocode-Algorithmus \ref{code-scoring} zu sehen wird dabei nur einmal über die Menge der Vorkommen iteriert. Die Ergebnisliste von Dokumenten muss dann noch einmal abhängig vom Score sortiert werden. Die Sortierung hat gemäß Java\texttrademark-Dokumentation (siehe \cite{javaCollectionSort}) eine worst case-Laufzeit von $\mathcal{O}(d \cdot log(d))$, wobei $d$ hier die Anzahl der Ergebnisdokumente ist. Das Heraussuchen des Kontextes geschieht dank der Implementierung der Vorkommen als doppelt verketteter Liste in konstanter Laufzeit. Insgesamt ergibt sich für die Bewertung der Suchergebnisse also eine Laufzeit von $\mathcal{O}(k + d \cdot log(d))$. Dabei ist $d$ im Allgemeinen sehr viel kleiner als $k$.
+
+\subsection{Entfernen von Dokumenten}
+\label{compl-remove}
+
+\paragraph{} Die verschiedenen Indizes der Anwendung sind darauf ausgelegt, für eine Wort-ID Vorkommen, für Vorkommen Dokumente und für Dokumente deren URLs zu finden - der umgekehrte Weg ist weniger einfach. Tatsächlich müssen Dokumenten- und Hauptindex, wie in Abschnitt \ref{algo-removeDoc} bereits angedeutet, iterativ durchlaufen werden, um erst für die gegebene URL eine Dokumenten-ID und dann für die Dokumenten-ID alle Vorkommen zu finden. Allerdings müssen die Vorkommen selbst nicht durchlaufen werden: Vorkommensmengen (Klasse \texttt{OccurenceSet}) sind als \texttt{HashMap} implementiert, in denen wiederum Mengen von Vorkommen abhängig von Dokumenten-IDs abgespeichert werden. Es muss also nur über die Schlüssel, nicht über die Werte des Haupt-Index iteriert werden. Das verbessert die Laufzeit auf $\mathcal{O}(d + w)$, wobei $d$ die Anzahl der indizierten Dokumente und $w$ die Anzahl der unterschiedlichen, indizierten Worte ist.
+\paragraph{} Im Praxistest lässt sich die Laufzeit nur schwer messen, weil eine einzelne Entfernen-Operation außer bei unrealistisch großen Dokumenten relativ schnell abgeschlossen ist. Deshalb wurde für den Test über alle indizierten Dokumente iteriert. Dementsprechend ist die erwartete Laufzeit $\Theta(d^2 + d \cdot w)$ bzw. $\Theta(d \cdot w)$, weil in der Praxis $d$ deutlich kleiner als $w$ ist. Das deckt sich auch mit den tatsächlichen Ergebnissen (siehe auch \ref{fig-remove}).
+
+\graph{resources/graph_remove}{fig-remove}{Laufzeit (in Millisekunden) für die Entfernung \underline{aller} indizierten Dokumente in Millisekunden abhängig vom Produkt aus der Anzahl indizierter Dokumente und Worte.}
+
+% \subsection{Tabellarische Übersicht}
+% \label{compl-table}
+% 
+% \paragraph{} Als Syntax gilt hier:
+% 
+% \paragraph{}
+% 
+% \begin{tabularx}{\textwidth}{lX}
+% \hline
+% \textbf{Buchstabe} & \textbf{Bedeutung}\\ [0.1cm]
+% \hline
+% $d$ & Anzahl der Dokumente\\ [0.1cm]
+% \hline
+% $n$ & Anzahl der Zeichen bzw. der Textlänge in Zeichen \\ [0.1cm]
+% \hline
+% $v$ & Anzahl der Vorkommen von Worten bzw. der Textlänge in Worten \\ [0.1cm]
+% \hline
+% $w$ & Anzahl der (unterschiedlichen) Worte \\ [0.1cm]
+% \hline
+% $|w|$ & Länge der (unterschiedlichen) Worte \\ [0.1cm]
+% \hline
+% $m$ & Länge des Suchmusters \\ [0.1cm]
+% \hline
+% $m'$ & Länge des gematchten Teilwortes \\ [0.1cm]
+% \hline
+% $k$ & Anzahl der Vorkommen für Matches \\ [0.1cm]
+% \hline
+% $V(w_1)$ & Anzahl der Vorkommen für das erste Wort einer exakten Suche \\ [0.1cm]
+% \hline
+% $|A|$ & Größe des indizierten Alphabets \\ [0.1cm]
+% \hline
+% \end{tabularx}
+% 
+% \paragraph{} Die Laufzeit der Algorithmen ist jeweils:
+% 
+% \paragraph{}
+% 
+% \begin{tabularx}{\textwidth}{lX}
+% \hline
+% \textbf{Algorithmus} & \textbf{worst case Komplexität} \\ [0.1cm]
+% \hline
+% Einfügen & $\mathcal{O}(w_{alt} + n_{neu})$ \\ [0.1cm]
+% \hline
+% Exakte Suche & $\mathcal{O}(m \cdot V(w_1))$ \\ [0.1cm]
+% \hline
+% Teilwortsuche & $\mathcal{O}(m + k)$ \\ [0.1cm]
+% \hline
+% Reguläre Ausdrücke & $\mathcal{O}(min\lbrace |A|^{m'},w\rbrace + m^2)$ \\ [0.1cm]
+% \hline
+% Inexakte Suche & $\mathcal{O}(|A| \cdot m^2)$ \\ [0.1cm]
+% \hline
+% Scoring & $\mathcal{O}(k + d \cdot log(d)))$ \\ [0.1cm]
+% \hline
+% Entfernen & $\mathcal{O}(d + w))$ \\ [0.1cm]
+% \hline
+% \end{tabularx}
+
+\newpage
+
+\section{Bewertung}
+\label{fazit-evaluation}
+
+\paragraph{} Zum Schluss der Arbeit ist nun anhand der in Kapitel \ref{anforderungen} aufgeführten Anforderungen festzustellen, in wie weit \textit{BiBiServSearch} die gesteckten Ziele erreicht hat. Dabei wird in der gleichen Kategorisierung vorgegangen wie schon in der Einleitung.
+
+\subsection{Kompatibilität mit dem BiBiServ2}
+
+\paragraph{} Es ist erfolgreich gelungen, \textit{BiBiServSearch} in die Struktur des \textit{BiBiServ2} zu integrieren: Die Indizierung wird nun automatisch aufgerufen, wenn der Server gestartet und neue Dokumente auf den Server geladen werden. Dabei ist durch die Einbindung von "`Apache Tika"' auch das Einlesen aller geforderten Textformate möglich (siehe Abschnitt \ref{intro-compatibility}). Als Java\texttrademark-Paket konnte \textit{BiBiServSearch} als übliche Java\texttrademark-Abhängigkeit in das Gesamtprojekt eingebunden werden. Die Kompatibilitätsziele wurden also vollumfänglich erfüllt.
+
+\subsection{Bedienbarkeit}
+
+\paragraph{} Zur Bedienbarkeit wurde eine gut sichtbare Suchleiste auf die Homepage des \textit{BiBiServ2} eingefügt. Daneben existiert ein Hilfs-Button, der Nutzende auf eine deutsch- und englischsprachig implementierte Erläuterungsseite führt. Die Syntax der Suchsprache (siehe \ref{algo-pattern-language}) ist an gängige Standards angelehnt und insofern möglichst eingängig. Auch die inexakte Suche (siehe \ref{algo-index}) und das geforderte Scoring (siehe \ref{algo-scoring}) wurden implementiert. Ferner steht Nutzenden eine Kontextansicht zur Verfügung, bei der zur besseren Übersicht auch die umstehenden Worte eines Suchtreffers angezeigt werden (siehe auch Abbildung \ref{fig-matches-screenshot}). Auch hier können demnach die Ziele als erreicht gelten.
+
+\subsection{Funktionsumfang}
+
+\paragraph{} Wie gefordert stehen Nutzenden Exakte, Teilwort- und inexakte Suche zur Verfügung. In den letzten beiden Fällen sogar mit regulären Ausdrücken (siehe Kapitel \ref{impl-algorithms}). Auch die Synchronisationsmechanismen wurden umgesetzt. Lediglich bei der Nutzung regulärer Ausdrücke wurden Abstriche gemacht: Nutzende können nicht den vollen Umfang der regulären Sprachen nutzen (siehe auch \ref{algo-regex}). Insofern wurden hier die gesetzten Ziele nur beinahe erfüllt.
+
+\subsection{Effizienz}
+\label{fazit-eficiency}
+
+\subsubsection{Speicherverbrauch}
+
+\paragraph{} In Sachen Speicherverbrauch erscheint das Ergebnis insgesamt recht erfreulich: Die häufigsten Objekte im Speicher, \texttt{Occurence}, sind platzsparend implementiert, indem nur Referenzen auf andere Objekte (Worte, Dokumente, Nachfolger und Vorgänger) gespeichert sind und nicht die Objekte selbst. Die beinahe lineare Abhängigkeit des Speicherverbrauchs von der Anzahl indizierter Worte (siehe Abbildung \ref{fig-storage-words}) deutet daraufhin, dass den größten Posten im Speicher nach wie vor der Suffixbaum einnimmt, dessen Größe von der Länge der indizierten, unterschiedlichen Worte abhängt. Eine in der Praxis beinahe lineare Abhängigkeit von der Summe der Längen unterschiedlicher Worte ist allerdings als Textrepräsentation bereits komprimiert und kann daher als hinreichend speichereffizient gelten.
+
+\subsubsection{Exakte Suche}
+
+\paragraph{} Auf den ersten Blick enttäuschend wirkt die Laufzeit der exakten Suche mit $\mathcal{O}(m \cdot V(w_1) + k + d \cdot log(d))$ (einschließlich Sortierung der $k$ Ergebnisvorkommen). Dennoch ist die praktische Laufzeit deutlich erfreulicher (in keinem der Testfälle hat die exakte Suche länger als 100 Millisekunden gebraucht). Dies hängt mit zwei Phänomenen zusammen, die sich in der Praxis beobachten lassen:
+\paragraph{} Auch wenn $V(w_1)$ groß ist nimmt die Anzahl der verbleibenden validen Vorkommen bei erhöhter Suchtiefe sehr schnell sehr stark ab. Deutlicher gesprochen: Für ein Wort allein gibt es unter Umständen sehr viele Vorkommen. Deutlich seltener ist es allerdings, dass dieses Wort genau in der richtigen Reihenfolge mit einem zweiten vorkommt (Suchtiefe 1), noch seltener, dass es in genau der gleichen Reihenfolge mit zwei weiteren Worten vorkommt (Suchtiefe 2) und so fort. Es hat sich herausgestellt, dass bereits bei einer Suchtiefe von 1 die Anzahl der verbleibenden Vorkommen auf im Schnitt 9,78\% der ursprünglichen Anzahl reduziert wird (siehe auch Abbildung \ref{fig-depth}). Bei Suchtiefe 2 sinkt die Anzahl der Vorkommen auf im Schnitt 4,87\%, bei Suchtiefe 3 auf 3,9\%.
+
+\graph{resources/graph_depth-remainingOccs.pdf}{fig-depth}{Anteil verbleibender Suchergebnisse abhängig von der Suchtiefe bei exakter Suche und einer realistischen Stichprobe. Eine höhere Suchtiefe bedeutet, dass alle Suchergebnisse des vorausgehenden Schrittes ausgesondert werden, für die das nächste Wort nicht dem nächsten Wort des Suchmusters entspricht (z.B. stimmt der Satz "`Ein holder Knabe mit lockigem Haar"' mit dem Suchmuster "`Ein holder Knabe mit wehendem Gewand"' bis zur Suchtiefe 3 (von 0 gezählt) überein, ab Suchtiefe 4 ist der Satz aber kein valides Suchergebnis mehr.}
+
+\paragraph{} Zweitens ist $V(w_1)$ für längere Worte deutlich kleiner. Im Testfall mit über 100000 Worten treten beispielsweise im Schnitt 13633 Vorkommen für Worte mit nur einem Buchstaben auf, aber bereits für eine Wortlänge von 2 fällt die durchschnittliche Anzahl von Vorkommen auf 632 ab (siehe auch Abbildung \ref{fig-length}). Dabei wurde im Test als Wort gewertet, was auch das Programm selbst als Wort werten würde (siehe auch \ref{algo-index}). Dadurch, dass in der vorliegenden Implementierung das Matching mit dem längsten Wort begonnen wird sind hier deutliche Laufzeitgewinne zu erwarten. Insgesamt ist in der Praxis von einer Laufzeit von etwa $\Theta(m \cdot k)$ auszugehen (man beachte, dass $m$ hier die Länge des Suchmusters in Worten, nicht in Zeichen ist).
+
+\graph{resources/graph_length-occs.pdf}{fig-length}{Durchschnittliche Anzahl von Vorkommen für Worte mit einer bestimmten Länge in einer realistischen Stichprobe. Bitte beachten Sie, dass dies eine logarithmische Auftragung ist. Der letzte Eintrag des Diagramms meint die Summe der durchschnittlichen Anzahl von Vorkommen für alle Worte mit einer Länge über 40.}
+
+\subsubsection{Teilwortsuche}
+
+\paragraph{} Dieses Problem ist nach Gusfield (siehe \cite{gusfield}, S. 122) in $\mathcal{O}(m + k_w)$ zu lösen, wobei $k_w$ hier nicht die Anzahl der Ergebnisvorkommen von Worten sondern die Anzahl der Vorkommen des Suchmusters in allen Ergebnisworten meint. Das entspricht auch der vorliegenden Implementierung. Bei Berücksichtigung des nachfolgenden Scorings erfolgt eine leichte Veränderung auf $\mathcal{O}(m + |w| + k + d \cdot log(d))$. Dennoch erscheint diese Laufzeitklasse für das Problem insgesamt optimal (siehe auch Kapitel \ref{methoden}).
+
+\subsubsection{Reguläre Ausdrücke}
+
+\paragraph{} Die Unterstützung regulärer Ausdrücke ist insgesamt wohl der größte Schwachpunkt der Anwendung: Die Suchanfragen scheinen hier selbst für praktische Beispiele abhängig von der Länge des indizierten Textes zu sein. Ungewöhnlich ist das allerdings nicht: Auch Baeza-Yates und Gonnet beschreiben die Umsetzung von Matching mit allgemeinen regulären Ausdrücken in weniger als linearer Zeit abhängig von der indizierten Textlänge als "`offenes Problem"' (siehe \cite{baeza-yates}). Dennoch bleibt die vorliegende Implementierung angesichts der deutlichen Einschränkungen im Funktionsumfang regulärer Ausdrücke deutlich hinter den Ergebnissen von Baeza-Yates und Gonnet zurück (dort wurde immerhin für eine eingeschränkte Klasse von regulären Ausdrücken logarithmische worst case-Laufzeit abhängig von der Textlänge realisiert).
+\paragraph{} Trotzdem genügt insgesamt auch diese schlechte Laufzeitklasse noch den gestellten Erwartungen: Selbst bei großem Index blieb die Antwortzeit deutlich unter 3 Sekunden. Der konstante Faktor ist also hinreichend gut.
+
+\subsubsection{Inexakte Suche}
+
+\paragraph{} Mit der Einschränkung auf eine edit-Distanz von 1 ist es gelungen, die worst case-Laufzeit der inexakten Suche auf $\mathcal{O}(|A| \cdot m^2 + k + d \cdot log(d))$ (mit Scoring) zu optimieren. Das entspricht etwa der Laufzeit des Algorithmus von Cobbs (siehe \cite{approxTreesCobbs}), obwohl der hier vorgestellte Algorithmus deutlich einfacher ist. Damit kann das als hinreichend gute Lösung des Problems gelten.
+
+\subsubsection{Administrative Anfragen}
+
+\paragraph{} Die Laufzeit des Einfügens von Dokumenten erscheint mit $\mathcal{O}(w_{alt} + n_{neu})$ durchaus akzeptabel. Problematisch ist hier höchstens der schlechte konstante Faktor, den die Verwendung von "`Apache Tika"' mit sich bringt. Da dies aber durch geschickte Synchronisation die Nutzenden des \textit{BiBiServ2} nicht betrifft sondern nur die Administration ist auch das verschmerzbar.
+\paragraph{} Das Entfernen von Dokumenten ist mit $\mathcal{O}(d + w)$ erfreulich schnell, weil keine direkte Abhängigkeit von der indizierten Textlänge besteht. In realistischen Szenarien dürfte das implementierte Löschverfahren um den Faktor 2 bis 4 schneller sein als eines, das statt auf den Worten auf den Vorkommen arbeiten würde (siehe auch Abbildung \ref{fig-wordsToOccs}).
+
+\newpage
+
+\section{Ausblick und Fazit}
+\label{fazit-ausblick}
+
+\paragraph{} Insgesamt ist es gelungen, bei fast allen Suchvorgängen eine Unabhängigkeit von der indizierten Textlänge zu erreichen. Das schlägt sich auch im Praxistest nieder, wo für fast alle Fälle eine Antwortzeit von unter 100 Millisekunden gemessen werden konnte.
+\paragraph{} Wie ließe sich nun das Projekt noch weiter fortführen? In Sachen Laufzeit bietet es sich an, an den genannten Stellen Optimierungen vorzunehmen. Konkrete Ansätze gibt es dabei vor allem für die exakte Suche und die Suche mit regulären Ausdrücken:
+\paragraph{} Die exakte Suche ließe sich auch in der worst case-laufzeit weiter optimieren, wenn für die Verwaltung der Wortvorkommen nicht - wie hier - eine doppelt verkettete Liste sondern eine Art "`Meta-Suffixbaum"' verwendet würde, auf dessen Kanten nicht etwa Zeichen sondern Worte referenziert werden. Damit könnten sehr schnell von einem Startwort ausgehend alle Positionen in den indizierten Dokumenten gefunden werden, an denen eine Wortfolge in einer gegebenen Reihenfolge auftritt und die Laufzeit so auf $\mathcal{O}(m+k)$ statt $\mathcal{O}(m \cdot k)$ verringert werden.
+\paragraph{} Bei der Suche mit regulären Ausdrücken wäre eine Adaptierung des Algorithmus von Baeza-Yates und Gonnet (siehe \cite{baeza-yates}) ohne die Binärkodierung denkbar. Möglicherweis ließe sich damit auch der Funktionsumfang deutlich vergrößern: Man könnte Nutzenden des \textit{BiBiServ2} den vollen üblichen Umfang von Werkzeugen für reguläre Ausdrücke zur Verfügung stellen, ohne die worst case-Laufzeit zu verschlechtern. Eine solche, weitreichende Adaptierung hätte allerdings den Rahmen dieser Arbeit gesprengt.
+\paragraph{} In Sachen Speichereffizienz könnte es hilfreich sein, den Suffixbaum doch noch als lazy-Version umzusetzen (siehe \cite{lazyTrees}). Das würde zwar Aufbau- und Suchzeit verschlechtern, könnte aber im Falle knappen Speicherplatzes zu enormen Gewinnen in der Praxis führen.
+\paragraph{} Außerdem ist noch viel Raum für Erweiterungen, was Komfortfunktionen bei der Suche angeht: Man könnte z.B. anbieten, bei der inexakten und Teilwortsuche zu erzwingen, dass \underline{alle} Worte der Anfrage im Ergebnisdokument vorkommen müssen statt nur eines der Worte. Auch die Kombination verschiedener Suchmodi innerhalb einer Anfrage ist denkbar oder die Benutzung von regulären Ausdrücken bei der exakten Suche.
+\paragraph{} Schließlich lassen sich auch die bestehenden Funktionen verbessern: Das Scoring könnte etwa anders implementiert oder bei der inexakten Suche größere Edit-Distanzen berücksichtigt werden. Dann allerdings müssten in jedem Fall Techniken dynamischer Programmierung wie bei Cobbs (siehe \cite{approxTreesCobbs}) genutzt werden.
+
+\paragraph{} Zuletzt noch eine weitergehende Frage: In wie weit sind die hier angewandten Techniken allgemein anwendbar?
+\paragraph{} Für Internetsuchmaschinen mit gigantischen Suchräumen erscheint der Platzverbrauch von Suffixbäumen nach wie vor abschreckend. Damit muss aber auch auf Funktionsumfang verzichtet werden, der bei der Benutzung von Suffixbäumen ganz naheliegend erscheint: Die inexakte und die Teilwortsuche sowie die Suche mit regulären Ausdrücken statten Nutzende mit mächtigen Werkzeugen aus und machen bei kleineren Suchräumen auch diese komplexen Datenstrukturen reizvoll.
+\paragraph{} Für eine Seitensuche also, die auf einen kleinen bis mittleren Suchraum (einige hunderttausend Worte) beschränkt bleibt, ist ein System, das auf den hier vorgestellten Algorithmen aufbaut, durchaus vorstellbar und wünschenswert. Das Anwendungsbeispiel \textit{BiBiServ2} zeigt, wie der Weg von der theoretischen Informatik bis in die Praxis gegangen werden kann.
+
+\newpage
+
+\section*{Danksagung}
+
+\paragraph{} Diese Arbeit war eine Reise in die glitzernd zauberhafte Welt der Suchalgorithmen. Die meisten davon sind bereits bekannt und in der Literatur dokumentiert, tauchen in Vorlesungen auf und geistern durch allerlei Projekte. Persönlich einen ganzen Haufen solcher Algorithmen anwendungsnah zu programmieren und zu optimieren war jedoch noch einmal ein ganz neues Erlebnis. Abstrakte Konzepte wie Suffixbäume, endliche Automaten, reguläre Ausdrücke und Hashing-Techniken werden plötzlich lebendig und lugen hinter allen Ecken hervor.
+\paragraph{} Ich bin dankbar, schon für meine Bachelorarbeit so tief in die Materie eindringen und mit allerlei verschiedenen Methoden experimentieren zu dürfen. Konzepte aus der Bioinformatik - die mir neu sind - sind hier genau so zur Anwendung gelangt wie Ideen, die ich in der Sprachverarbeitung und der theoretischen Informatik gelernt habe.
+\paragraph{} Unterstützt hat mich dabei vor allem Jan Krüger, der mir immer mit Rat und Tat zur Seite stand, Madis Rumming und Herr Professor Stefan Kurtz mit vielen Tips und Hinweisen und mein Kommilitone Thomas Gatter, der Anregungen zur inexakten Suche geliefert hat. Danken möchte ich nicht zuletzt auch Herrn Professor Robert Giegerich, der mich schon im zweiten Semester in die Arbeitsgruppe Praktische Informatik und auf Suffixbäume brachte, die nun das Herzstück meines Programms bilden.
+
+\newpage
+
+\section*{Erklärung der eigenständigen Arbeit}
+
+\paragraph{} Ich versichere hiermit, dass ich die vorliegende Arbeit selbstständig verfasst und keine
+anderen als die angegebenen Quellen und Hilfsmittel verwendet habe.
+
+\paragraph{}
+\paragraph{}
+
+\begin{tabularx}{\textwidth}{p{3cm}cp{2cm}X}
+\cline{2-4}
+ & Ort, Datum & &Unterschrift \\ [0.1cm]
+\end{tabularx}

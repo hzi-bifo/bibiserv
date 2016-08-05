@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rnastructML xmlns="http://hobit.sourceforge.net/xsds/20060201/rnastructML"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060201/rnastructML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/rnastructML.xsd">
+    <rnastructure>
+        <sequence seqID="aga-let-7">
+            <description>description of aga-let-7</description>
+            <nucleicAcidSequence>GCCUACUCCCGUGUUGAGGUAGUUGGUUGUAUAGUACCGUGGUUCCAAUACUCGACUAUACAAUCCGCUAACUUACCUCGUGGGUAGAGU</nucleicAcidSequence>
+        </sequence>
+      
+        <structure energy="-31.4">((((((((.((...((((.((((.(((((((((((...(((.......)))...))))))))))).)))).))))...)).)))))).))</structure>
+        
+    </rnastructure>
+    <rnastructure>
+        <sequence seqID="cbr-let-7">
+            <description>description of cbr-let-7</description>
+            <nucleicAcidSequence>ACUGGGGUACGGUGAGGUAGUAGGUUGUAUAGUUUAGAAUAUUACUCUCGGUGAACUAUGCAAGUUUCUACCUCACCGAAUACCAGG</nucleicAcidSequence>
+        </sequence>
+     
+        <structure  energy="-41.7">.((((.((.(((((((((((.((.((((((((((((((.......)))....))))))))))).)).))))))))))).)).)))).</structure>
+       
+    </rnastructure>
+    <rnastructure>
+        <sequence seqID="cel-let-7">
+            <description>description of cel-let-7</description>
+            <nucleicAcidSequence>UACACUGUGGAUCCGGUGAGGUAGUAGGUUGUAUAGUUUGGAAUAUUACCACCGGUGAACUAUGCAAUUUUCUACCUUACCGGAGACAGAACUCUUCG</nucleicAcidSequence>
+        </sequence>
+       
+        <structure energy="-42.9">....((((...(((((((((((((.((((((((((((........(((((...))))))))))))))))).))))))))))))).)))).........</structure>
+      
+        <structure energy="-39.6">.......((..(((((((((((((.((((((((((((........(((((...))))))))))))))))).)))))))))))))..))((.....)).</structure>    
+    </rnastructure>
+    
+    <rnastructure>
+    	<structure> ...()()()()()....</structure>
+		<structure energy="-9999.9999">...()[]&lt;&gt;{}......</structure>
+        <structure>.((.........{})).</structure>
+    </rnastructure>
+</rnastructML>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ns3:rnastructML 
+  xmlns="http://hobit.sourceforge.net/xsds/20060201/rnastructML" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ns3="http://hobit.sourceforge.net/xsds/20060201/rnastructML" 
+  version="0.1" 
+  xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060201/rnastructML 
+  http://hobit.sourceforge.net/xsds/20060201/rnastructML.xsd">
+  <rnastructure id="IDBHi2VABJ7b">
+    <sequence seqID="Sequence_1">
+      <description/>
+      <nucleicAcidSequence>UAAUCGGGUGCAACUCCCGCCCUUUUCCGAGGUCAUCGGA</nucleicAcidSequence>
+    </sequence>
+    <structure>....((((.......))))[[....{{{{{]]...}}}}}</structure>
+  </rnastructure>
+</ns3:rnastructML>

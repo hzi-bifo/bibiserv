@@ -1,0 +1,8 @@
+LOCUS       sample1                   32 bp                                   
+ORIGIN      
+        1 A------CGT AGCAGCGATA GGCATGCATT GC
+//
+LOCUS       sample2                   32 bp                                   
+ORIGIN      
+        1 ACCGTTTCGT AGCAGCGATA GGCATGCATT GC
+//

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alignmentML
+    xmlns="http://hobit.sourceforge.net/xsds/20060602/alignmentML"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060602/alignmentML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060602/alignmentML.xsd">
+    <alignment>
+        <sequence seqID="MMLV">
+            <alignedAminoAcidSequence>PDADHTWYTDGSSLLQEGQRKAGAAVTTETEVIWAKALDAGTSAQRAELIALTQALK-MAEGKKLNVYTDSRYAFATAHIHGEIYRRRGLLTSEGKEIKNKDEILALLKALFLPKRLSIIHCPGHQKGHSAEARGNRMADQAARKAAITETPDTSTLL</alignedAminoAcidSequence>
+        </sequence>
+        <sequence seqID="ECOL">
+            <alignedAminoAcidSequence>MLKQVEIFTDGSCLGNPGPGGYGAILRYRGREKTFSAGYTRTTNNRMELMAAIVALEALKEHCEVILSTDSQYVRQGITQWIHNWKKRGWKTADKKPVKNVD-LWQRLDAALGQHQIKWEWVKGHAG-HPENERCDELARAAAMNPTLEDTGYQVEV-</alignedAminoAcidSequence>
+        </sequence>
+        <sequence seqID="HTL2">
+            <alignedAminoAcidSequence>LDTAPCLFSDGSPQKAAYVLWDQTILQQD---ITPLPSHETHSAQKGELLALICGLRAAKPWPSLNIFLDSKYLIK----YLHSLAIGAFLGTSAHQT-----LQAALPPLLQGKTIYLHHVRSHTNLPDPISTFNEYTDSLILAPL-----------</alignedAminoAcidSequence>
+        </sequence>
+        <sequence seqID="HEPB">
+            <alignedAminoAcidSequence>RPGLCQVFADATPTG------WGLVMGHQRMRGTFSAPLPIHTAELLAACFARSRSGANIIGTDNSVVLSRKYTSFP---WLLGCAAN-WILRGTSFVYVPSALNPADDPSRGRLGLSRPLLR--LPFRPTTGRTSLYADSPSVPSHLPDRVH-----</alignedAminoAcidSequence>
+        </sequence>
+    </alignment>
+</alignmentML>

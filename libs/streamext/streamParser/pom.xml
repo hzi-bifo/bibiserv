@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.unibi.cebitec.bibiserv</groupId>
+    <artifactId>streamParser</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>streamParser</name>
+    
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>validator</artifactId>
+            <version>0.9</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.codehaus.woodstox/stax2-api -->
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>stax2-api</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.msv/msv-core -->
+        <dependency>
+            <groupId>net.java.dev.msv</groupId>
+            <artifactId>msv-core</artifactId>
+            <version>2010.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.woodstox/woodstox-core-asl -->
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>woodstox-core-asl</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+
+
+        
+
+    </dependencies>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+</project>

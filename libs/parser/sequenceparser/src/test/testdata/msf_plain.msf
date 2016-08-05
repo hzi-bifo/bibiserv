@@ -1,0 +1,23 @@
+
+   MSF:  32  Type: A    Check:  7736   ..
+
+ Name: DQ160058 oo  Len:  32  Check:  7842  Weight:  16.0
+ Name: chkhba oo  Len:  32  Check:  8553  Weight:  17.8
+
+//
+
+
+DQ160058     taatacagag atccgaaaga actctaagga aaacttgttt tggaaaagta 
+chkhba       ACACAGAGGT GCAACCATGG TGCTGTCCGC TGCTGACAAG AACAACGTCA
+
+             51                                                 100
+DQ160058     tggaaccgag ttttatattc tacaccggta ccctcttgct gtccggcctt
+chkhba       AGGGCATCTT CACCAAAATC GCCGGCCATG CTGAGGAGTA TGGCGCCGAG
+
+                                                             150
+DQ160058     tctacacaat gccatgtcgt gacaacgagt tgtatagcaa ctcatttgat
+chkhba       ACCTTGGAAA GGATGTTCAC .......... .......... ..........
+
+             151                          
+DQ160058     gttttcatta gaggggagga gataatttca
+chkhba       .......... .......... ..........

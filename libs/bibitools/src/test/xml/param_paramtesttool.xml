@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param>
+    <!-- "NORMAL" parameter -->
+    <parametertesttool_param_boolean>true</parametertesttool_param_boolean>
+    <parametertesttool_param_boolean2>false</parametertesttool_param_boolean2>
+    <parametertesttool_param_int>42</parametertesttool_param_int>
+    <!-- <parametertesttool_param_int_min_max_default>50</parametertesttool_param_int_min_max_default> -->
+    <parametertesttool_param_float>0.5</parametertesttool_param_float>
+    <!-- <parametertesttool_param_float_max_min_default>99.9</parametertesttool_param_float_max_min_default> -->
+    <parametertesttool_param_string>test</parametertesttool_param_string>
+    <parametertesttool_param_string_regexp>32278 Kirchlengern</parametertesttool_param_string_regexp>
+    <parametertesttool_param_string_min_max>abcdefghijklmn</parametertesttool_param_string_min_max>
+    <!-- <parametertesttool_param_string_regexp_default>ACGU</parametertesttool_param_string_regexp_default> -->
+
+    <!-- "ENUM" parameter -->
+    <parametertesttool_enum_selectoneradio>DE</parametertesttool_enum_selectoneradio>
+    <parametertesttool_enum_selectonelistbox>NL NL</parametertesttool_enum_selectonelistbox><!-- double entries should be removed -->
+    <parametertesttool_enum_selectonemenu>US</parametertesttool_enum_selectonemenu>
+    <parametertesttool_enum_selectmanycheckbox>DE NL US</parametertesttool_enum_selectmanycheckbox>
+    <!-- <parametertesttool_enum_selectmanylistbox>DE US SE</parametertesttool_enum_selectmanylistbox> -->
+    <parametertesttool_enum_selectmanymenu>DE SE DE</parametertesttool_enum_selectmanymenu> <!-- double entries should be removed -->
+</param>

@@ -1,0 +1,12 @@
+sample1         1   -------CGT AGCAGCGATA GGCnnnnnnn nnnnnnnnnn nnnnnnnnnn
+sample2         1   ACCGTTTCGT AGCAGCGATA G--GCATGCA TTGC------ ----------
+
+
+sample1        44   nnnnnnnnnn nnnnnnnnnn nnnnnnnnnn nnnnnnnnnn nnnnnnnnnn
+sample2             ---------- ---------- ---------- ---------- ----------
+
+
+sample1        94   nnnnnnnnnn nnnnnnnnnn nnnnATGCAT TGC
+sample2             ---------- ---------- ---------- ---
+
+

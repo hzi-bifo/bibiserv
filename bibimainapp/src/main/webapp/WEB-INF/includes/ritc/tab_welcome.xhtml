@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"            
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <p:panel id="welcome_panel" header="Welcome to RITC">
+
+        <p:messages id="msgs" />
+
+        The feature 'Run in the Cloud' offers the possibility of
+        outsourcing BiBiGrid-calculation to the Amazon Elastic-Cloud (EC2).
+        This wizard will guide you within 3 steps through a successfull
+        grid creation in the cloud. <br />
+        For further information please have a look at the <p:commandLink onclick="PF('userguideDialog').show();" value="Userguide - Run in the Cloud" />.
+        <p:separator />
+        An overview of all running Cloud instances can be found at the <a href="/admin/amazonsecuritycredentials/web/">AmazonSecurityCredentials Module</a>.
+        <p:separator />
+        <h:outputText style="color: red; font-weight: bold" value="We, the BiBiServ-Team, do not incur liability for any damage taken (even pecuniary damage) which could occur while using the 'Run in the Cloud' feature!" />
+        <br />
+        <p:panelGrid columns="2" styleClass="disclaimerGrid" >
+            <p:outputLabel style="font-weight: bold" for="disclaimer" value="Yes, I have understand the risk and want to proceed!" />
+            <p:selectBooleanButton onchange="PF('spot').hide();" id="disclaimer" value="#{ec2InstanceWizard.disclaimerAccepted}" required="true" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+        </p:panelGrid>
+    </p:panel>
+
+    <p:spotlight target="welcome_panel" widgetVar="spot" />
+
+    <p:dialog modal="true" header="Userguide - Run in the Cloud" dynamic="true" widgetVar="userguideDialog" width="600" height="500" >
+        <h3>USERGUIDE</h3>
+        <object type="application/pdf" data="https://bibiserv.cebitec.uni-bielefeld.de/resources/userguide.pdf" title="Userguide - Run in the Cloud" width="100%" height="100%">
+            Your browser can't display pdf, <a href="https://bibiserv.cebitec.uni-bielefeld.de/resources/userguide.pdf">click</a> to download pdf instead.
+        </object>
+        <f:facet name="footer">
+            <p:commandButton value="Close" onclick="PF('userguideDialog').hide()" />
+        </f:facet>
+    </p:dialog>
+    
+</ui:composition>

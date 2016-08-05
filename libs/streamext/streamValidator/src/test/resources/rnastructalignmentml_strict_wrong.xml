@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rnastructAlignmentML xmlns="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML http://bibiserv/xsd/net/sourceforge/hobit/20060515/rnastructAlignmentML.xsd">
+    <rnastructurealignment score="-1111">
+        <sequence seqID="1">
+            <description>human ferritin 5'</description>
+            <alignedFreeSequence>CCAGACGUUCUUCGCCGAGAGUCGUCGGGGUUUCCUGCUUCAACAGUGCUUGGACGGAACCCGGCGCUCGUUCCCCACCCCGGCCGGCCGCCCAUAGCCAGCCCUCCGUCACCUCUUCACCGCACCCUCGGACUGCCCCAAGGCCCCCGCCGCCGCUCCAGCGCCGCGCAGCCACCGCCGCCGCCGCCGCCUCUCCUUAGUC-G--CCG------------------------------------C-C-</alignedFreeSequence>
+            <structure>...(((............(((.(((((((..((((.(.(((((......))))))))))))))))))))...........((((((((.((.........((..((((....................))))..)).....(((...(((.((.((....)))).)))..)))...)).))))..))))..........)))-.--...------------------------------------.-.-</structure>
+        </sequence>
+        <sequence seqID="2">
+            <description>mouse ferritin 5'</description>
+            <alignedFreeSequence>CAGACGUUCUCGCCCAGAGUCGCCGCGGU--UUCCUGCUUCAACAGUGCUUGAACGG-AACC-CGGU-------------------GC-UC--------------------------------------------------GACCCCU-C-CGACCCCC-GCCG-GCCGCUUC---GA-GCCUGAGCCCUUUGCAACUUCGUCGUUCCGCCGCUCCAGCGUCGCCACCGCGCCUCGCCCCGCCGCCACC</alignedFreeSequence>
+            <structure>..((((........(((((..((((.(((--(.((.(.(((((......))))))))-))))-))))-------------------((-((--------------------------------------------------((.....-(-((......-..))-).....))---))-)).......)))))......)))).....((.((....(((..((......))..)))...)).))....</structure>
+        </sequence>
+        <program
+            command="/vol/biotools/bin/RNAforester --xml -f=/var/bibiwssv/spool/rnaforester/29/09/28/bibiwsserv_2011-09-29_092807_QaBdQ/input_data.txt -2d -bm=1 -bd=-10 -br=0 -pm=10 -pd=-5 "
+        />
+    </rnastructurealignment>
+</rnastructAlignmentML>

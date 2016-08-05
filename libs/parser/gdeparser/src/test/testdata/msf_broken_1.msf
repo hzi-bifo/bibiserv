@@ -1,0 +1,36 @@
+
+
+!!NA_MULTIPLE_ALIGNMENT 1.0
+PileUp of: @seqlist
+
+ Symbol comparison table: GenRunData:blosum62.cmp  CompCheck: 6430
+
+                   GapWeight: 12
+             GapLengthWeight: 4 
+
+ seqlist.msf  MSF: 46  Type: A  September 5, 1997 15:15  Check: 8487 ..
+
+ Name: DQ1600581 oo  Len:  46  Check:  7842  Weight:  16.0
+
+
+//
+
+             1                                                   50
+DQ160058     taatacagag atccgaaaga actctaagga aaacttgttt tggaaaagta 
+chEkhba       ACACAGAGGT GCAACCATGG TGCTGTCCGC TGCTGACAAG AACAACGTCA
+
+             51                                                 100
+DQ160058     tggaaccgag ttttatattc tacaccggta ccctcttgct gtccggcctt
+chkhba       AGGGCATCTT CACCAAAATC GCCGGCCATG CTGAGGAGTA TGGCGCCGAG
+
+             101                                                150
+DQ160058     tctacacaat gccatgtcgt gacaacgagt tgtatagcaa ctcatttgat
+chkhba       ACCTTGGAAA GGATGTTCAC .......... .......... ..........
+
+             151                          180
+DQ160058     gttttcatta gaggggagga gataatttca
+chkhba       .......... .......... ..........
+             
+             
+
+

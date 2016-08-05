@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runnableItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd"
+    xmlns="bibiserv:de.unibi.techfak.bibiserv.cms" 
+    id="test_runnableitem">
+    
+    <name>RunnableItem Test Description</name>
+    <shortDescription>This is a example for an RunnableItem, used mainly for bibitools junit test</shortDescription>
+    <description>This is a example for an RunnableItem, used mainly for bibitools junit test. This description should 
+        normally more useful content ...
+    </description>
+    <responsibleAuthor>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+    </responsibleAuthor>
+    <executable>
+        <version>1.0</version>
+        <execInfo>
+            <executableType>binary</executableType>
+            <path>/usr/bin/echo</path>
+            <callingInformation></callingInformation>
+        </execInfo>
+        <output id="runnableitem_output">
+            <name></name>
+            <shortDescription></shortDescription>
+            <description></description>
+            <type></type>
+            <handling></handling>
+            <example></example>
+        </output>
+        <function id="runnableitem_function">
+            <shortDescription></shortDescription>
+            <outputref ref="runnableitem_output"/>
+            <paramAndInputOutputOrder>
+                <reference>runnableitem_output</reference>
+            </paramAndInputOutputOrder>
+        </function>
+    </executable>
+    <view type="webservice" id="runableitem_webservice"/>
+    <manual id="runableitem_manual">
+        <introductoryText>This is an introduction to complete nonsense</introductoryText>
+    </manual>
+    
+    
+    
+</runnableItem>    

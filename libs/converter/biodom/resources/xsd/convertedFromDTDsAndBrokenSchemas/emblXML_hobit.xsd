@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+IMPORTANT: THSI IS NOT!!!! the original EMBL Sequence Format,
+but a slightly modified version for internal use within the Hobit BioDOM
+project! 
+The inclusion of 'EMBL_common.xsd' was changed to an explicit copy of
+that file's definitions into this one to get the full schema in ONE file
+(avoiding the problem of finding the LOCALLY DEFINED location of said
+file for inclusion during validation)
+
+No further changes were made, although an explicit namespace declaratino
+for this schema would greatly enhance its usability...
+Sven Hartmeier, 2006-08-28 (shartmei@techfak.uni-bielefeld.de)
+
+
+************************************************************************
+XML Schema for the components of an EMBL sequence record
+This version supports error handlers(mainly for External Services Group)
+Version 1.0, 01 August 2005
+by Vincent Lombard
+
+************************************************************************
+The EMBL Nucleotide Sequence Database (also known
+as EMBL-Bank) constitutes Europe's primary nucleotide
+sequence resource.
+This XML Schema describes the structure of entries in the EMBL database.
+These entries incorporate DNA or RNA sequences descriptive
+information that includes biological features, cross-references to
+other databases and references to published literature.
+Further documentation regarding the elements of this XML Schema can
+be found within documentation tags.
+
+This schema include EMBL_common.xsd
+
+For more details please contact dbgroup@ebi.ac.uk
+
+IMPORTANT:
+-->
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1" xmlns:ebi="http://www.ebi.ac.uk/xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="entryType">
+		<xs:sequence>
+			<xs:element name="secondaryAccession" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>secondaryAccession (AC line) lists the secondary accession numbers associated with This entry.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Description  (DE line) contains general descriptive information about the sequence stored</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="keyword" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>KeyWord (KW line)  provides information which can be used to generate cross-reference indexes of the sequence entries based on functional, structural, or other categories deemed important</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="reference" type="referenceType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>reference comprise the literature citations and data submissions within the database</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dbreference" type="dbReferenceType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>dbreference  (DR line)  cross-references other databases which contain information related to other entry </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>comment (CC line)  is an optional linetype which appears if the reference has a comment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="feature" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Feature (FT lines) provide a mechanism for the annotation of the sequence data. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="featureType">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="accession" type="xs:string" use="required"/>
+		<xs:attribute name="version" type="xs:integer" use="required"/>
+		<xs:attribute name="dataClass" type="xs:string" use="required"/>
+		<xs:attribute name="taxonomicDivision" type="xs:string" use="required"/>
+		<xs:attribute name="created" type="xs:date" use="required"/>
+		<xs:attribute name="releaseCreated" type="xs:integer" use="required"/>
+		<xs:attribute name="lastUpdated" type="xs:date" use="required"/>
+		<xs:attribute name="releaseLastUpdated" type="xs:integer" use="required"/>
+		<xs:attribute name="status"  use="optional">
+		    <xs:simpleType>
+				<xs:restriction base="xs:string">
+     			    <xs:enumeration value="private"/>
+					<xs:enumeration value="suppressed"/>
+					<xs:enumeration value="killed"/>
+					<xs:enumeration value="draft"/>
+					<xs:enumeration value="cancelled"/>
+					<xs:enumeration value="public"/>
+				</xs:restriction>
+			</xs:simpleType>
+	     </xs:attribute>
+	     <xs:attribute name="statusDate" type="xs:date" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="featureType">
+		<xs:sequence>
+			<xs:element name="organism" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>contains information of the feature source</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nameset">
+							<xs:annotation>
+								<xs:documentation>nameset  (OS line)  specifies the preferred scientific name of the organism which was the source of the stored sequence</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="scientificName" type="xs:string"/>
+									<xs:element name="preferredCommonName" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="taxId" type="xs:unsignedInt" minOccurs="0"/>
+						<xs:element name="lineage" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>lineage (OC line) contains the taxonomic classification of the source organism.  Note : lineage should be part of the taxonomy database. Therefor lineage shouldn't appear in the flat file</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="taxon" type="xs:string" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dbreference" type="dbReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="qualifier" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>qualifier provide a general mechanism for supplying information about features </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" type="xs:string" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="location" type="locationtype"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--Reference section begins-->
+	<xs:group name="emblCitationGroup">
+		<xs:sequence>
+			<xs:element name="refPosition" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>RP line</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="begin" type="xs:integer" use="required"/>
+					<xs:attribute name="end" type="xs:integer" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="comment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>RC line can contains the information of an electronic (or online) article.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="referenceType">
+		<xs:annotation>
+			<xs:documentation>Stores all information of the reference block in EMBL (RN, RP, RC, RA, RT and RL line).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="citation">
+				<xs:annotation>
+					<xs:documentation>citation comprise the literature citations within the database</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="citationType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:group ref="emblCitationGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="citationType">
+		<xs:annotation>
+			<xs:documentation>The citation type stores all information about a citation. The equivalent information in the flatfile can be found in the RA (authors), RT (title), RX (PubMed/MEDLINE IDs) and RL (citation location information such journal name, volume numbers, pages, etc.) lines.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dbreference" type="dbReferenceType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>dbreference cross-references other databases which contain information related to other entry </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="consortium" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>consortium (RG line: Reference Group) lists the working groups/consortia that produced the record</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>title ( RT line) gives the title of the paper (or other work)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="editor" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>editor of a book. Stored in the RL line in the flatfile format. Only valid for books. Example:
+                    RL   (In) Magnusson S., Ottesen M., Foltmann B., Dano K.,
+                    RL   Neurath H. (eds.);
+                    RL   Regulatory proteolytic enzymes and their inhibitors, pp.163-172,
+                    RL   Pergamon Press, New York (1978).
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The authors of the citation. Stored in the RA line in the flatfile format, except for citing citation where it is stored in the RL line. Example (standard citation):
+                    RA   Galinier A., Bleicher F., Negre D., Perriere G., Duclos B.,
+                    RA   Cozzone A.J., Cortay J.-C.;
+                    Example (citing citation):
+                    RL   Unpublished results, cited by:
+                    RL   Shelnutt J.A., Rousseau D.L., Dethmers J.K., Margoliash E.;
+                    RL   Biochemistry 20:6485-6497(1981).
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="patentApplicant" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>patentApplicant (RL line) lists the patent applicants, normally company names.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="locator" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>locator (RL line)  contains the conventional citation information for :                  - data submissions Example   RL   Submitted (19-NOV-1990) to the EMBL/GenBank/DDBJ databases.                       RL   M.A. Hughes, UNIVERSITY OF NEWCASTLE UPON TYNE, MEDICAL SCHOOL, NEW   RL   CASTLE UPON TYNE, NE2  4HH, UK                   - in the case of an electronic journal where the citation information does not have the same format as for "normal" journals Example RL   (er) Microbial Ecology DOI: 10.1007/s00248-002-2038-4 </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:integer" use="required"/>
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="book"/>
+					<xs:enumeration value="journal article"/>
+					<xs:enumeration value="online journal article"/>
+					<xs:enumeration value="patent"/>
+					<xs:enumeration value="submission"/>
+					<xs:enumeration value="thesis"/>
+					<xs:enumeration value="unpublished"/>
+					<xs:enumeration value="electronic resource"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="date" type="xs:date" use="optional"/>
+		<xs:attribute name="name" type="xs:string" use="optional"/>
+		<xs:attribute name="volume" type="xs:string" use="optional"/>
+		<xs:attribute name="issue" type="xs:string" use="optional"/>
+		<xs:attribute name="first" type="xs:string" use="optional"/>
+		<xs:attribute name="last" type="xs:string" use="optional"/>
+		<xs:attribute name="publisher" type="xs:string" use="optional"/>
+		<xs:attribute name="patentNumber" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Used by type: patent.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="institute" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Used by type: thesis.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="year" type="xs:gYear" use="optional"/>
+	</xs:complexType>
+	<!--Reference section ends-->
+	<!--  DB reference definition begins  -->
+	<xs:complexType name="dbReferenceType">
+		<xs:annotation>
+			<xs:documentation>Database cross-references, equivalent to the flatfile format's DR line.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="db" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of the database this cross-reference is referring to.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="primary" type="xs:string" use="required"/>
+		<xs:attribute name="secondary" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<!--  DB reference definition ends  -->
+	<!--  Feature location definition begins  -->
+	<xs:complexType name="positionType">
+		<xs:annotation>
+			<xs:documentation>used to defin position in the RP Line</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="position" type="xs:unsignedLong" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="baseType">
+		<xs:annotation>
+			<xs:documentation>base points to a position
+                Type : left angle bracket, right angle bracket, simple, fuzzy(= interval)
+                extend : belong to an interval only e.g. +3</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:integer">
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="simple"/>
+							<xs:enumeration value="fuzzy"/>
+							<xs:enumeration value="left open"/>
+							<xs:enumeration value="right open"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="extent" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="locationElementType">
+		<xs:annotation>
+			<xs:documentation>Type points to a topology 3 types of topology (simple, site, range) </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="basePosition" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>base points to a position
+                        Type : left angle bracket, right angle bracket, simple, fuzzy(= interval)
+                        extend : belong to an interval only e.g. +3</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="baseType"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="simple"/>
+					<xs:enumeration value="site"/>
+					<xs:enumeration value="range"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="accession" type="xs:string" use="optional"/>
+		<xs:attribute name="version" type="xs:integer" use="optional"/>
+		<xs:attribute name="complement" type="xs:boolean" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="locationtype">
+		<xs:annotation>
+			<xs:documentation>Type can be either a single a join or an order </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="locationElement" type="locationElementType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="single"/>
+					<xs:enumeration value="join"/>
+					<xs:enumeration value="order"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="complement" type="xs:boolean" use="required"/>
+	</xs:complexType>
+	<xs:element name="EMBL_Services">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="entry" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="entryType">
+								<xs:sequence>
+									<xs:choice>
+										<xs:element name="sequence">
+											<xs:annotation>
+												<xs:documentation>sequence ( SQ line + sequence)  Gives a summary of its content: length, topology, version</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="type" type="xs:string" use="required"/>
+														<xs:attribute name="length" type="xs:unsignedLong" use="required"/>
+														<xs:attribute name="topology" use="optional">
+															<xs:simpleType>
+																<xs:restriction base="xs:string">
+																	<xs:enumeration value="circular"/>
+																	<xs:enumeration value="linear"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+														<xs:attribute name="version" type="xs:unsignedInt" use="required"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="contig">
+											<xs:annotation>
+												<xs:documentation>(Only in CON entries) Con(structed) or Con(tig) sequences in the CON database division represent complete chromosomes, genomes and other long sequences constructed from segment entries.</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string"/>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Error" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Message" type="xs:string" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:attribute name="accessionNumber" type="xs:string" use="optional"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

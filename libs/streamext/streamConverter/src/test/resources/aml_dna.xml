@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alignmentML
+    xmlns="http://hobit.sourceforge.net/xsds/20060602/alignmentML"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060602/alignmentML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060602/alignmentML.xsd">
+    <alignment>
+        <sequence seqID="sample1">
+            <description>32 bp</description>
+            <alignedNucleicAcidSequence>A------CGTAGCAGCGATAGGCATGCATTGC</alignedNucleicAcidSequence>
+        </sequence>
+        <sequence seqID="sample2">
+            <description>32 bp</description>
+            <alignedNucleicAcidSequence>ACCGTTTCGTAGCAGCGATAGGCATGCATTGC</alignedNucleicAcidSequence>
+        </sequence>
+    </alignment>
+</alignmentML>

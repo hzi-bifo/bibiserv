@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://java.sun.com/jstl/fmt"
+                xmlns:p="http://primefaces.org/ui"
+                template="WEB-INF/templates/bibiserv2Tpl.xhtml">
+
+    <ui:define name="headContentTitle">
+        Login
+    </ui:define>
+
+    <ui:define name="north">
+        <span class="title">Login</span>
+        <div class="separator"/>
+    </ui:define>
+
+    <ui:define name="center">
+        <h:form prependId="true" id="loginform">
+            <p:focus context="loginform" />
+            <h:panelGroup rendered="#{login.messageAvailable}" layout="block" styleClass="ui-messages ui-widget ui-messages-error ui-corner-all">
+                <span class="ui-messages-error-icon"/>
+                <span class="ui-messages-error-summary">#{login.message}</span>
+            </h:panelGroup>
+            <p:messages id="blablablabla"/>  <!-- easy to includes PF CSS styles for above panelgroup -->
+            <table>
+                <tr>
+                    <td>User:</td>
+                    <td><p:inputText id="j_username" value="#{login.j_username}"/></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><p:password id="j_password" value="#{login.j_password}" feedback="false"/></td>
+                </tr>
+
+                <tr>
+                    <td><p:commandButton value="Log In" actionListener="#{login.submit}" ajax="false"/></td>
+                    <td><p:commandButton value="Reset" type="reset" ajax="false"/></td>
+                </tr>
+            </table>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="south">
+        <ul>
+            <li>No Login ? Use <a href="register.jsf">registration form</a> to create one !</li>
+            <li><a href="forgotpassword.jsf">Forgot your Password?</a></li>
+        </ul>
+
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,507 @@
+package de.unibi.techfak.bibiserv.impl;
+
+import de.unibi.techfak.bibiserv.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
+
+import de.unibi.techfak.bibiserv.exception.DBConnectionException;
+
+/**
+ * <p>
+ * <b>SGECall</b> - Class to submit a SunGridEngine call. The interaction between Java
+ * (SGECall) and SGE is done by SGE command line calls. The central function
+ * call (see below) block until the SGE call is finished (successfull or with an
+ * error).
+ * The Status is also updated if an error occours. </p>
+ * <p>
+ * Remark:<br>
+ * The runtime overhead for submitting a job in the grid engine take about 10-20
+ * seconds. For a typical short running job (less than 5 seconds) this overhead is 
+ * subjectivly too large. So every <i>call</i> starts the SGE shellwrapperscript 
+ * directly using /vol/bibiadm/bin/lsub. If the job is not finished within 'runtime' 
+ * milliseconds, is killed and resubmitted to SGE pool. The default runtime is defined
+ * in the bibiproperties  or toolproperties or (as fallback) in current class.
+ * 
+ * </p>
+ * 
+ * <p>
+ * Example: <br>
+ * 
+ * <pre>
+ * SGECall call = new SGECall(wsstools, status);
+ * boolean success = call.call(&quot;echo hallo&quot;);
+ * if (!success) {
+ *     return; // Statuscode is set by SGECall to errorcode
+ * }
+ * </pre>
+ * </p>
+ * @author Henning Mersch <hmersch@techfak.uni-bielefeld.de> and Jan Krueger
+ *         <jkrueger@techfak.uni-bielfeld.de>
+ * @version $Id: SGECall.java,v 1.44 2007/05/16 06:34:13 shartmei Exp shartmei $
+ *  
+ */
+public class SGECall extends CallImpl {
+
+    /**
+     * params for sge-call (will load defaults from bibiprops)
+     */
+    private String userSgeParams;
+    /**
+     * params for sge-call (will load from bibiprops and are strict)
+     */
+    private String bibiSgeParams;
+    /**
+     * private instance of an logger
+     */
+    private final static Logger log = Logger.getLogger(SGECall.class);
+    /**
+     * private instance of maximum runtime (in sec) of a local call
+     */
+    private long runtime = 5;
+    
+    File batchFile = new File("dummy");
+    
+    /////////////////////////
+    //Contructors
+    //////////////////////////
+    /**
+     * Generates a new SGECall object
+     * @param wsstools
+     */
+    public SGECall(WSSTools wsstools) {
+        this(wsstools, wsstools.getStatus());
+    }
+
+    /**
+     * will generate a new SGECall-object
+     * 
+     * @param submitted_wsstools
+     *            WSSTools reference to wsstools for getting properties and
+     *            logging
+     * @param submitted_status
+     *            Status reference to status for updating on errors
+     */
+    public SGECall(WSSTools submitted_wsstools, Status submitted_status) {
+        wsstools = submitted_wsstools;
+        status = submitted_status;
+
+        /* get (and set) sge qsub (hard) parameter from bibi properties */
+        bibiSgeParams = wsstools.getProperty("sge.qsub.params.bibi");
+        /*
+         * get sge qsub (soft) parameter from tool properties (if set),
+         * otherwise get default from bibi properties
+         */
+        userSgeParams = wsstools.getProperty("sge.qsub.params.user");
+
+        /* get runtime from tool properties (if set) */
+
+        //runtime = Long.parseLong(wsstools.getProperty("runtime"));
+
+        log.debug("successfully created SGECall");
+    }
+    /////////////////////////
+    // getter / setter methods
+    /////////////////////////
+    /**
+     * sets user parameters for the SGE Call for overriding defaults !
+     * 
+     * <br/>all params may have a prefix <i>-soft </i> or <i>-hard </i> if param
+     * is recommend or required <br/>
+     * 
+     * Useful Params: <br/><b>arch= </b>- <i>solaris86|solaris64 </i> (default:
+     * <i>solaris86 </i> for useing SunFires first ) - which architecture <br/>
+     * <b>h_vmem= </b>- <i>xM </i> set hard limit of max memory <br/><b>s_vmem=
+     * </b>- <i>xM </i> set soft limit of max memory <br/>
+     * 
+     * Example: <br/><b>-hard arch=solaris64 </b>- SGE will only use SPARC
+     * Solaris machines (if tool isnt cmpiled on x86) <br/>
+     * 
+     * 
+     * @param submitted_usersgeparams
+     *            String sgeparams to set
+     */
+    public void setUserSgeParams(String submitted_usersgeparams) {
+        if (submitted_usersgeparams != null) {
+            userSgeParams = submitted_usersgeparams;
+        } else {
+            log.debug("ignoring UserSgeParams setting to null");
+        }
+    }
+
+    /**
+     * @return String of parameters of SGE Call
+     */
+    public String getUserSgeParams() {
+        return userSgeParams;
+    }
+
+    /**
+     * default params by bibi Params: (hard restrictions) <br/><b>s_cpu=24:0:0
+     * </b>- Jobs get a SIGHUP after 24h <br/><b>h_cpu=24:1:0 </b>- Jobs get a
+     * SIGKILL after 24h1m <br/><b>s_core=0 </b>- set core file size to 0 bytes
+     * </br> <b>h_fsize=102400 - set maximum file block (512 Bytes) size which
+     * can be created by this job
+     * 
+     * @return String of parameters of SGE Call
+     *  
+     */
+    //no set because we force to use this params
+    public String getBibiSgeParams() {
+        return bibiSgeParams;
+    }
+
+    /////////////////////////
+    // public methods
+    /////////////////////////
+    /**
+     * @see public boolean call(String,boolean) - call call(submitted_exec,true);
+     * 
+     * @param submitted_exec
+     *            String executeable and params to calls
+     * @return boolean true for successful executing or false for an error
+     */
+    public boolean call(String submitted_exec) {
+        return call(new String[]{submitted_exec});
+    }
+
+    /**
+     * runs the system call on SunGridEngine <br/>STDOUT and STDERR of the exec
+     * are accessible via getStdOutStream() and getStdErrStream() <br/>sets
+     * status.jid and status.Statuscode if required <br/>returns AFTER finishing
+     * the Job !
+     * 
+     * @param submitted_exec
+     *            String[] (list of line in sh file) executeable and params to
+     *            call
+     * @param without_grid
+     *            if true try to start job without grid engine first
+     * @return boolean true for successful executing or false for an error
+     */
+    public boolean call(String[] submitted_exec) {
+        
+        
+        try {
+            //SGE Environment variables
+            String[] sgeenv = new String[5];
+            sgeenv[0] = "SGE_ROOT=" + wsstools.getProperty("sge.root");
+            sgeenv[1] = wsstools.getProperty("sge.cell").equals("") ? ""
+                    : "SGE_CELL=" + wsstools.getProperty("sge.cell");
+            sgeenv[2] = wsstools.getProperty("sge.debug_level").equals("") ? ""
+                    : "SGE_DEBUG_LEVEL=" + wsstools.getProperty("sge.debug_level");
+            sgeenv[3] = wsstools.getProperty("sge.commd_port").equals("") ? ""
+                    : "COMMD_PORT=" + wsstools.getProperty("sge.commd_port");
+            sgeenv[4] = wsstools.getProperty("sge.commd_host").equals("") ? ""
+                    : "COMMD_HOST=" + wsstools.getProperty("sge.commd_host");
+         
+            try {
+                //log.debug("Calling "+batchFile.toString()+" locally!");
+                //log.debug("id   ::"+status.getId());
+                //log.debug("tool ::"+status.getToolname().toLowerCase());
+                //status.setStatuscode(699);
+                String cmd = "/vol/bibiadm/bin/lsub " + wsstools.getProperty("toolname").toLowerCase() + " " + status.getId() + " " + batchFile.getName() + " " + runtime;
+                log.debug("CMD ::" + cmd);
+                Process localProcess = Runtime.getRuntime().exec(cmd);
+                status.setDrmaaId("0");
+                if (localProcess.waitFor() == 0) {
+                    log.debug("lsub finished ...");
+                    //checking for succes on touchfile SUCCESS_SGE_CALL
+                    File sucSgeFile = new File(wsstools.getSpoolDir().toString() + "/" + status.getDrmaaId() + ".SUCCESS_SGE_CALL");
+                    File sucExecFile = new File(wsstools.getSpoolDir().toString() + "/" + status.getDrmaaId() + ".SUCCESS_EXEC");
+                    if (sucSgeFile.exists()) { // check if ulimit killed job
+                        log.debug("found finished sge job");
+//                        if (strict && sucExecFile.exists()) { // if strict,
+//                                /*
+//                             * check for succ file
+//                             */
+//                            log.debug("found succ strict finished job");
+//                        } else if (strict) {
+//                            log.fatal("found strict unsuccessful finished job (not found SUCCESS_EXEC: " + sucExecFile.toString() + ")");
+//                            status.setStatuscode(721);
+//                            return false;
+//                        }
+                        /*
+                         * else unstrict job - so dont check for SUCCESS_EXEC file
+                         */
+                        status.setStatuscode(605);
+                        return true;
+                    } else {
+                        /// killed by System
+                        }
+                } else {
+                    log.debug("lsub failed");
+                }
+
+                // if the function reach this place
+                log.info("local process runs longer than " + runtime + " s - start as grid job");
+
+
+
+            } catch (FileNotFoundException e) {
+                status.setStatuscode(721, "internal Server error", e.getMessage());
+                log.error(status);
+                return false;
+            } catch (IOException e) {
+                status.setStatuscode(721, "internal Server error", e.getMessage());
+                log.error(status);
+                return false;
+            } catch (InterruptedException e) {
+                status.setStatuscode(721, "Process can not sleep.");
+                log.warn(status);
+
+            }
+
+
+            //call SGE
+            try {
+                log.debug("Calling SGE with params bibi:" + bibiSgeParams + " and user " + userSgeParams);
+                Process qsubProcess = Runtime.getRuntime().exec(
+                        wsstools.getProperty("sge.qsub") + " -e " + wsstools.getSpoolDir() + " -o " + wsstools.getSpoolDir() + " " + userSgeParams + " " + bibiSgeParams + " " + batchFile.toString(),
+                        sgeenv);
+                if (qsubProcess.waitFor() == 0) {
+                    //retrieve and store JID
+                    try {
+                        status.setDrmaaId(parseQsub(qsubProcess.getInputStream()));
+                    } catch (IOException e) {
+                        log.fatal("couldnt get JID from qsub : " + e.getMessage());
+                        /*wsstools.mail(wsstools.getBibiProperty("mailfatal.email"),
+                        "Fatal ERROR at "
+                        + wsstools.getBibiProperty("server"),
+                        "couldnt get JID from qsub : " + e.getMessage());*/
+                        status.setStatuscode(721);
+                        return false;
+                    }
+                    //wait until JID has finished
+                    boolean running = true;
+                    Pattern holeP = Pattern.compile(".*\\s+" + status.getDrmaaId() + "\\s+.*", Pattern.DOTALL); // matches id somewhere within stdout
+                    Pattern lineP = Pattern.compile("^\\s+\\d+\\s+.*$",
+                            Pattern.MULTILINE); // matches some id within stdout
+                    Pattern idP = Pattern.compile("^\\s+" + status.getDrmaaId() + "\\s+.*$", Pattern.MULTILINE); // matches id within stdout
+                    while (running) {
+                        Process qstatfinishedProcess = Runtime.getRuntime().exec(
+                                wsstools.getProperty("sge.qstat") + " " + wsstools.getProperty("sge.qstat.finishedparams"),
+                                sgeenv);
+                        qstatfinishedProcess.waitFor();
+                        Matcher finishedMatcher = holeP.matcher(is2string(qstatfinishedProcess.getInputStream()));
+                        if (finishedMatcher.matches()) { // job found as finished
+                            running = false;
+                            log.debug("found finished job - wait for succ check");
+                            //checking for succes on touchfile SUCCESS_SGE_CALL
+                            File sucSgeFile = new File(wsstools.getSpoolDir().toString() + "/" + status.getDrmaaId() + ".SUCCESS_SGE_CALL");
+                            File sucExecFile = new File(wsstools.getSpoolDir().toString() + "/" + status.getDrmaaId() + ".SUCCESS_EXEC");
+                            if (sucSgeFile.exists()) { // check if SGE killed job
+                                log.debug("found finished sge job");
+                                if (!sucExecFile.exists()) {
+                                    log.fatal("found strict unsuccessful finished job (not found SUCCESS_EXEC: " + sucExecFile.toString() + ")");
+                                    status.setStatuscode(721);
+                                    return false;
+                                }
+                            /*
+                             * else unstrict job - so dont check for SUCCESS_EXEC file
+                             */
+                            } else {
+                                log.fatal("found killed job (not found SUCCESS_SGE_CALL: " + sucSgeFile.toString() + ")");
+                                //lets find out what's going wrong :-)
+                                File STDERR = getSGESTDERRFile();
+                                long STDERRlength = STDERR.length();
+
+                                FileReader r = new FileReader(getSGESTDERRFile());
+                                // skip length - 25 chars
+                                if (STDERRlength > 24) {
+                                    r.skip(STDERRlength - 25);
+                                }
+                                // expected content is file size exceeded
+                                char c[] = new char[24];
+                                if (r.read(c) != -1) {
+                                    log.debug("error reading error file (" + STDERR.toString() + ")");
+                                }
+                                r.close();
+                                if (new String(c).matches("File Size Limit Exceeded")) {
+                                    status.setStatuscode(
+                                            703,
+                                            "Your job (" + status.getId() + ") reached FILE size limit and was killed!");
+                                    log.error("job (" + status.getId() + " with JID" + status.getDrmaaId() + " was removed from queue (" + new String(c) + ").");
+                                    return false;
+                                } else if (new String(c).matches("Cpu Limit Exceeded")) {
+                                    status.setStatuscode(
+                                            705,
+                                            "Your job (" + status.getId() + ") reached CPU size limit and was killed!");
+                                    log.error("job (" + status.getId() + " with JID" + status.getDrmaaId() + " was removed from queue (" + new String(c) + ").");
+                                    return false;
+                                // TODO: der folgende Fall tritt nie auf
+                                } else if (new String(c).matches("Mem Size Limit Exceeded")) {
+                                    status.setStatuscode(
+                                            705,
+                                            "Your job (" + status.getId() + ") reached CPU size limit and was killed!");
+                                    log.error("job (" + status.getId() + " with JID" + status.getDrmaaId() + " was removed from queue (" + new String(c) + ").");
+                                    return false;
+                                } else {
+                                    status.setStatuscode(703);
+                                    log.error(status.toString());
+                                    return false;
+                                }
+                            }
+                        } else { // not yet finished
+                            //look if pending
+                            int queueNo = 1; //number in Queue
+                            boolean found = false;
+                            Process qstatpendingProcess = Runtime.getRuntime().exec(
+                                    wsstools.getProperty("sge.qstat") + " " + wsstools.getProperty("sge.qstat.pendingparams"),
+                                    sgeenv);
+                            qstatpendingProcess.waitFor();
+                            Matcher pendingMatcher = lineP.matcher(is2string(qstatpendingProcess.getInputStream()));
+                            while (pendingMatcher.find()) {
+                                Matcher idM = idP.matcher(pendingMatcher.group());
+                                if (idM.matches()) {
+                                    found = true;
+                                    break;
+                                } else {
+                                    queueNo++;
+                                }
+                            }
+                            if (found) {//pending job found
+                                log.debug("setting to pending (queeNo " + queueNo + ")..." + status.getStatuscode());
+                                status.setStatuscode(603);
+                                status.setDescription(); // reset to default
+                                // description
+                                status.setDescription(status.getDescription() + " (Job " + queueNo + " in queue) "); //append
+                            // queue
+                            // no.
+                            } else { //not pending -> running
+                                log.debug("setting to running...");
+                                status.setStatuscode(604);
+                            }
+                            qstatpendingProcess.getInputStream().close();
+                            qstatpendingProcess.getErrorStream().close();
+                            qstatpendingProcess.getOutputStream().close();
+                            qstatpendingProcess = null;
+                            // calculate how log to wait:
+                            // sec*(ceil(queueNo/(slots*2)))
+                            int waittime = Integer.parseInt(wsstools.getProperty("sge.waittime")) * (int) (Math.ceil(queueNo / (Double.parseDouble(wsstools.getProperty("sge.slots")) * 2)));
+                            //wait a bit and have another look
+                            log.debug("waiting for JID " + status.getDrmaaId() + " for " + waittime + " msecs...");
+                            Thread.sleep(waittime);
+                        }
+                        //close qstatfinishedProcess
+                        qstatfinishedProcess.getInputStream().close();
+                        qstatfinishedProcess.getErrorStream().close();
+                        qstatfinishedProcess.getOutputStream().close();
+                        qstatfinishedProcess = null;
+                    }
+                //log.debug("found finished job");
+                } else {
+                    String STDERR = is2string(qsubProcess.getErrorStream());
+                    String STDOUT = is2string(qsubProcess.getInputStream());
+                    log.fatal("Could not qsub:\n" + STDERR + "\n" + STDOUT + "\n");
+                    /*wsstools.mail(wsstools.getBibiProperty("mailfatal.email"),
+                    "Fatal ERROR at " + wsstools.getBibiProperty("server"),
+                    "Could not qsub:\n" + STDERR + "\n" + STDOUT + "\n");*/
+                    status.setStatuscode(721);
+                    return false;
+                }
+                //close qsubprocess
+                qsubProcess.getInputStream().close();
+                qsubProcess.getErrorStream().close();
+                qsubProcess.getOutputStream().close();
+            /*
+             * ####################################################################
+             * check, if sge job aborts with an error message
+             * ####################################################################
+             */
+
+            } catch (InterruptedException e) {
+                log.fatal("Could not sleep ... " + e.getMessage());
+                /*wsstools.mail(wsstools.getBibiProperty("mailfatal.email"),
+                "Fatal ERROR at " + wsstools.getBibiProperty("server"),
+                "Could not sleep ... " + e.getMessage());*/
+                status.setStatuscode(721);
+                return false;
+            } catch (IOException e) {
+                log.fatal("IO-Error " + e.getMessage());
+                /*wsstools.mail(wsstools.getBibiProperty("mailfatal.email"),
+                "Fatal ERROR at " + wsstools.getBibiProperty("server"),
+                "IO-Error : " + e.getMessage());*/
+                status.setStatuscode(721);
+                return false;
+            }
+            status.setStatuscode(605);
+            return true;
+        } catch (DBConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    /////////////////////////
+    // private methods
+    /////////////////////////
+    /**
+     * Returns an file handle on STDERR SGE file
+     * 
+     * @param spooldir
+     * @return File on STDERR SGE file
+     * @throws FileNotFoundException
+     */
+    private File getSGESTDERRFile() throws FileNotFoundException {
+        return new File(batchFile.toString() + ".e" + status.getDrmaaId());
+    }
+
+    /**
+     * Returns an file handle on STDOUT SGE file
+     * 
+     * @param spooldir
+     * @return File on STDOUT SGE file
+     * @throws FileNotFoundException
+     */
+    /*private File getSGESTDOUTFile() throws FileNotFoundException {
+    return new File(wsstools.getSpoolDir() + "/" + batchFile.toString() + ".o"
+    + status.getDrmaaId());
+    }*/
+    /**
+     * parses qsub-call for retrieving the JobID of SGE
+     * 
+     * @param is
+     *            InputStream of qsub process
+     * @return String Jid
+     */
+    private String parseQsub(InputStream is) throws IOException {
+        String qsubString = is2string(is);
+        StringTokenizer st = new StringTokenizer(qsubString, " ");
+        List<String> list = new ArrayList<String>();
+        while (st.hasMoreTokens()) {
+            list.add(st.nextToken());
+        }
+        return (String) list.get(2);
+    }
+
+    /**
+     * converts a stream to a string
+     * 
+     * @param in
+     *            InputStream to convert
+     * @return String contains data of InputStream
+     * @exception IOException
+     *                if occours
+     */
+    private String is2string(InputStream in) throws IOException {
+        StringBuffer buf_s = new StringBuffer();
+        BufferedReader r = new BufferedReader(new InputStreamReader(in));
+        String line;
+        while ((line = r.readLine()) != null) {
+            buf_s.append(line);
+        }
+        return buf_s.toString();
+    }
+}

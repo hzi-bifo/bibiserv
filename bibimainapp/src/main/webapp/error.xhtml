@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<!--This Page will be displayed when error occured in RequestFilter class-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="WEB-INF/templates/bibiserv2Tpl.xhtml">
+
+    <ui:define name="headContentTitle">
+        ERROR
+    </ui:define>
+
+    <ui:define name="north">
+        <h:outputText styleClass="title" id="errorMessage" value="BiBiServ-ERROR"/>
+        <div class="separator"/>
+    </ui:define>
+
+    <ui:define name="center">
+        The following ERROR occurred:<br/><br/>
+        
+        <h:outputText styleClass="content" escape="false" value="#{errorBean.errorMessage}"/>
+    </ui:define>
+    
+    <ui:define name="south">
+        <div style='visibility:hidden'>#{menuBean.setCurrentItemId("")}</div>
+    </ui:define>
+
+</ui:composition>

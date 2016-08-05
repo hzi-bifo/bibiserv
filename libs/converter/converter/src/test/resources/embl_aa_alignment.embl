@@ -1,0 +1,8 @@
+ID   sample1        STANDARD;       PRT;    43 AA.
+SQ   SEQUENCE    43 AA;  D567A0F6 CRC32;
+     --LDTAPCLF ---------- --------SD GSPQKAAYVL WDQ                          43
+//
+ID   sample2        STANDARD;       PRT;    43 AA.
+SQ   SEQUENCE    43 AA;  643CC148 CRC32;
+     VILSTDSQYV RQGITQWIHN WKKRGWKTAD KKPVKNVD-L WQR                          43
+//

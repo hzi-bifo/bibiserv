@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	:PromideML schema definition
+	version 		: 0.1
+	date 		: 2006-02-01
+	author		:  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+	released 	: no
+	buglevel	: uses the latest (not yet released) version 1.1 BioTypes
+	todo		:  ...
+-->
+
+<xs:schema
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060221/PromideML"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:os="http://hobit.sourceforge.net/xsds/20060221/PromideML"
+	xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+	elementFormDefault="qualified"
+	attributeFormDefault="qualified">
+	
+	<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://schemas.bioservices.net/2005/biotypes_1.1.xsd" />
+	
+	<!-- Elements -->
+	<xs:element name="targetList" type="os:targetList"/>
+
+	<!-- Types -->
+	<xs:complexType name="targetList">
+		<xs:sequence>
+			<xs:element name="target" type="os:target" nillable="false" minOccurs="2" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="target">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"><xs:annotation><xs:documentation>The name of the Target</xs:documentation></xs:annotation></xs:element>
+			<xs:element name="oligo" type="os:oligo" nillable="false" maxOccurs="unbounded"><xs:annotation><xs:documentation>Oligo information for this target</xs:documentation></xs:annotation></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="oligo">
+		<xs:sequence>
+			<xs:element name="id" type="xs:unsignedInt" minOccurs="0"/>
+			<xs:element name="nucleicAcidSequence" type="bt:ambiguousNucleotideSequence">
+				<xs:annotation><xs:documentation>The probe sequence</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="startPosition" type="xs:int" minOccurs="0">
+				<xs:annotation><xs:documentation>Probe start postion in the Target sequence</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="gibbsFreeEnergy" type="xs:float" minOccurs="0">
+				<xs:annotation><xs:documentation>Gibbs free energy of the perfect oligo duplex</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="estimatedEnergyDifference" type="xs:float" minOccurs="0">
+				<xs:annotation><xs:documentation>estimated energy difference to the most stable secondary binding site</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="lcf" type="xs:int" minOccurs="0">
+				<xs:annotation><xs:documentation>longest common factor length of oligo and secondary binding sites</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="bgCols" type="xs:int" minOccurs="0">
+				<xs:annotation><xs:documentation>number of background collections containing the full oligo (for unique oligos, this is 1)</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="badnessValue" type="xs:float">
+				<xs:annotation>	<xs:documentation>badness value</xs:documentation></xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

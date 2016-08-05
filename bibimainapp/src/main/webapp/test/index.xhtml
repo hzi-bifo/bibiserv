@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010-2012 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted 2010-2012 BiBiServ Curator Team"
+
+Contributor(s): BiBiServ Developer Team
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://java.sun.com/jstl/fmt"
+                template="../WEB-INF/templates/moduleTpl.xhtml">
+    <!-- Do not change the template definition above if not absolutely necessary.
+         The above template is used to provide a more unified look across all modules.
+    -->
+
+
+    <!-- The test environment uses the module template -->
+
+    <style type="text/css">
+        .preformatted {
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <!-- set title -->
+    <ui:define name="moduletitle">Test Playground</ui:define>
+
+    <!-- set up content -->
+    <ui:define name="modulecontent">
+
+
+
+        <!-- Table of Keypairs -->
+        <h:form id="tableOfKeyPairs">
+            <p:growl autoUpdate="true" id="growl" showDetail="true" />
+            <p:dataTable var="ssh" 
+                         value="#{keyChainModule.sshKeys}" 
+                         selectionMode="single" 
+                         selection="#{keyChainModule.selectedKeyPair}"
+                         rowKey="#{ssh.setDate}">
+                <f:facet name="header">
+                    Table of stored SSH-Keypairs
+                </f:facet>
+                <p:column headerText="Created on" >
+                    <h:outputText value="#{ssh.setDate}" />
+                </p:column>
+                <p:column headerText="Filesize" >
+                    <h:outputText value="#{ssh.filesize} bytes" />
+                </p:column>
+                <p:column headerText="Active" style="width:32px;text-align: center;">
+                    <p:commandButton icon="ui-icon-closethick" rendered="#{ssh.active == 'false'}" onsuccess="editKeypairDlg.show();" update=":editkeypairdialog:bool_btn_edit" >
+                        <f:setPropertyActionListener value="#{ssh}" target="#{keyChainModule.selectedKeyPair}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-check" rendered="#{ssh.active == 'true'}"  />
+                </p:column>
+                <f:facet name="footer" >
+                    <p:commandButton onclick="newKeypairDlg.show();" value="Add new Keypair" />
+                    <p:commandButton onclick="showKeypairDlg.show();" update=":showkeypairdialog:s" value="Show Keypair" />
+                    <p:commandButton onclick="editKeypairDlg.show();" update=":editkeypairdialog:bool_btn_edit" value="Edit Keypair" />
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+
+        <p:separator style="background-color: rgb(42,157,223);"/>
+        <!-- Table of UniquefolderIDs -->
+        <h:form id="tableOfUfis">
+            <p:dataTable id="ufiDatatable" 
+                         var="ufi" 
+                         value="#{keyChainModule.uniqueFolderIDs}" >
+                <f:facet name="header">
+                    Table of stored UniqueFolderID (RITC)
+                </f:facet>
+                <p:column headerText="JobID" >
+                    <h:outputText value="#{ufi.getClusterid()}" />
+                </p:column>
+                <p:column headerText="Created on" >
+                    <h:outputText value="#{ufi.setDate}" />
+                </p:column>
+                <p:column headerText="UniqueFolderID" >
+                    <h:outputText value="#{ufi.uniquefolderid}" />
+                </p:column>
+                <p:column headerText="Status" >
+                    <h:outputText value="Running" rendered="#{ufi.active == 'true'}" style="color: red;" />
+                    <h:outputText  value="Finished" rendered="#{ufi.active == 'false'}" style="color: green;" />
+                </p:column>
+                <p:column headerText="StopGrid" style="width:32px;text-align: center;">
+                    <p:tooltip for="stopCluster_btn" value="Stop the Cluster" />
+                    <p:commandButton id="stopCluster_btn" value="Stop" oncomplete="stopGridDialog.show();" update=":stopGridForm:stopGridDialog" >
+                        <f:setPropertyActionListener value="#{ufi}" target="#{keyChainModule.selectedUniqueFolderID}" />
+                    </p:commandButton>
+                </p:column>
+                <p:column headerText="Redirect" style="width:32px;text-align: center;">
+                    <p:tooltip for="redirect_btn" value="Redirect to Cloud-Instance" />
+                    <p:commandButton id="redirect_btn" icon="ui-icon-extlink" oncomplete="redirectDlg.show();" update=":redirectForm:redirectDialog" >
+                        <f:setPropertyActionListener value="#{ufi}" target="#{keyChainModule.selectedUniqueFolderID}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+
+        <!-- DIALOGS -->
+        <h:form id="stopGridForm">
+            <p:dialog onShow="#{keyChainModule.resetStream()}" widgetVar="stopGridDialog" id="stopGridDialog" header="Stop-Cluster Dialog" >
+                <p:panel id="gridStopperLabel" rendered="#{keyChainModule.selectedUniqueFolderID.active}" header="Stop Cluster Procedure">
+                    <!-- STOPGRID_CONFIRM -->
+                    <p:panelGrid columns="2" id="gridStopGrid" rendered="#{!keyChainModule.activeStreaming and !keyChainModule.finishedStreaming}">
+                        <h:outputLabel for="uniqueFolderID" value="UniqueFolderID:" />
+                        <h:outputText id="uniqueFolderID" value="#{keyChainModule.selectedUniqueFolderID.uniquefolderid}" />
+                        <h:outputLabel for="clusterid" value="ClusterID:" />
+                        <h:outputText id="clusterid" value="#{keyChainModule.selectedUniqueFolderID.clusterid}" />
+                        <f:facet name="footer">
+                            <p:commandButton 
+                                value="Stop Grid Now!" 
+                                action="#{keyChainModule.stopCluster()}"
+                                oncomplete="poller.start()"
+                                update=":tableOfUfis" />
+                            <p:commandButton
+                                value="Go back"
+                                ajax="false"
+                                oncomplete="stopGridDialog.hide()"/>
+                        </f:facet>
+                    </p:panelGrid>
+
+                    <!-- SCROLLPANEL -->
+                    <p:scrollPanel id="scrollPanel" widgetVar="scroller" rendered="#{keyChainModule.activeStreaming and !KeyChainModule.finishedStreaming}" style="width: 500px; height: 200px; background-color: black; color: white;">
+                        <h:outputText escape="false" id="result" value="#{keyChainModule.result}" styleClass="preformatted" />
+                    </p:scrollPanel>
+
+                    <p:panelGrid columns="2" id="finishPanel" rendered="#{keyChainModule.finishedStreaming and !keyChainModule.activeStreaming}" >
+                        <h:outputLabel for="done" value="Stopping the Cluster: " />
+                        <h:outputText id="done" value="Done!" style="color: green;" rendered="#{keyChainModule.finishedStreaming and !keyChainModule.activeStreaming}"/>
+                        <f:facet name="footer">
+                            <p:commandButton value="Close" oncomplete="stopGridDialog.hide()" update=":tableOfUfis" />
+                        </f:facet>
+                    </p:panelGrid>
+
+                </p:panel>
+                <p:panel id="gridStopped" rendered="#{!keyChainModule.selectedUniqueFolderID.active}" header="Cluster already Stopped!">
+                    <h:outputText value="The selected Cluster has already been shutdown!" />
+                    <f:facet name="footer">
+                        <p:commandButton value="Back" onclick="stopGridDialog.hide()" />
+                    </f:facet>
+                </p:panel>
+            </p:dialog>
+            <p:poll widgetVar="poller" 
+                    stop="#{keyChainModule.finishedStreaming}" 
+                    autoStart="false"
+                    listener="#{keyChainModule.scroll()}"
+                    interval="2" 
+                    update=":stopGridForm:result :stopGridForm:gridStopperLabel" />
+        </h:form>
+
+        <!-- REDIRECT DIALOG -->
+        <h:form id="redirectForm">
+            <p:dialog widgetVar="redirectDlg" id="redirectDialog" header="Redirect to EC2-Maschine?" >
+                <p:panelGrid columns="2" rendered="#{keyChainModule.selectedUniqueFolderID.active}">
+                    <h:outputLabel for="red" value="Redirect to:" />
+                    <h:outputText id="red" value="#{keyChainModule.selectedUniqueFolderID.redirect}" />
+                    <f:facet name="footer">
+                        <p:commandButton onclick="redirectDialog.hide()" value="Back" />
+                        <p:commandButton action="#{keyChainModule.connectToInstance()}" value="Go!" />
+                    </f:facet>
+                </p:panelGrid>
+                <p:panel id="gridStopped" rendered="#{!keyChainModule.selectedUniqueFolderID.active}" header="Cluster already Stopped!">
+                    <h:outputText value="No redirection possible! (Cluster has been shutdown yet...)" />
+                    <f:facet name="footer">
+                        <p:commandButton value="Back" onclick="redirectDlg.hide()" />
+                    </f:facet>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+
+        <!-- show Keypair Dialog -->
+        <h:form id="showkeypairdialog">
+            <p:dialog widgetVar="showKeypairDlg" id="showkeypairdlg" header="Keypair Content" width="500" height="300">
+                <h:outputText id="s" value="#{keyChainModule.selectedKeyPair.identityfile}" styleClass="preformatted"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Back" update=":tableOfKeyPairs" onclick="showKeypairDlg.hide();" />
+                </f:facet>
+            </p:dialog>
+        </h:form>
+
+        <!-- new Keypair Dialog -->
+        <h:form id="keypairdialog" enctype="multipart/form-data">
+            <p:dialog widgetVar="newKeypairDlg" id="newkeypairdlg" header="Adding new Keypair">
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="clob_in" value="SSH-Key: " />
+                    <p:fileUpload id="clob_in" value="#{keyChainModule.fileToUpload}" mode="simple" />
+
+                    <h:outputLabel for="bool_btn" value="Set to active SSH-Key? " />
+                    <p:selectBooleanButton id="bool_btn" value="#{keyChainModule.active}" onLabel="Active" offLabel="Not Active" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+                </p:panelGrid>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Store" ajax="false" update=":tableOfKeyPairs" action="#{keyChainModule.saveSshKey()}" onsuccess="newKeypairDlg.hide();" />
+                    <p:commandButton value="Back" onclick="newKeypairDlg.hide();" />
+                </f:facet>
+            </p:dialog>
+        </h:form>
+
+        <!-- edit Keypair Dialog -->
+        <h:form id="editkeypairdialog" enctype="multipart/form-data">
+            <p:dialog widgetVar="editKeypairDlg" id="editkeypairdlg" header="Editing existing Keypair">
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="clob_in" value="Set to active SSH-Key? " />
+                    <p:selectBooleanButton id="bool_btn_edit" rendered="#{keyChainModule.selectedKeyPair ne null}" value="#{keyChainModule.selectedKeyPair.active}" onLabel="Active" offLabel="Not Active" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+                </p:panelGrid>
+                <f:facet name="footer" >
+                    <p:commandButton value="Update" update=":tableOfKeyPairs" action="#{keyChainModule.updateSshKey()}" onsuccess="editKeypairDlg.hide();" />
+                    <p:commandButton value="Delete" update=":tableOfKeyPairs" action="#{keyChainModule.deleteSshKey()}" onsuccess="editKeypairDlg.hide();" />
+                    <p:commandButton value="Back" onclick="editKeypairDlg.hide();" />
+                </f:facet>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+
+
+</ui:composition>

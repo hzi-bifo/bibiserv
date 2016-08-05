@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rnastructAlignmentML xmlns="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060515/rnastructAlignmentML.xsd">
+  <rnastructurealignment>
+    <sequence seqID="Sequence_1" size="13">
+      <alignedNucleicAcidSequence>AAA-CGG-ACGTA</alignedNucleicAcidSequence>
+      <structure>(..(-..)(-).)</structure>
+    </sequence>
+    <sequence seqID="Sequence_2" size="13">
+      <description>Name und Description</description>
+      <alignedNucleicAcidSequence>ATTGC-A-TTAAC</alignedNucleicAcidSequence>
+      <structure>..((..-..).-)</structure>
+    </sequence>
+  </rnastructurealignment>
+</rnastructAlignmentML>

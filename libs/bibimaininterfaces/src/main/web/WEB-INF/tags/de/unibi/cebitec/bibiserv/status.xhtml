@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <!-- following getter & setter ::
+        - helpAction
+        - help
+        - uploadvisible
+        - textareavisible
+        - selectedInput
+        - selectItems
+        - changelistener
+        - uploadMessage
+        - textarea
+        - validated
+        - valid
+        - input  => input.source
+        - showInfoAction
+        - showInfo
+        - 
+    -->
+
+    <h:body>
+        <ui:composition>
+            <script type="text/javascript">
+                function dlg_controller(){
+                    function handlePollComplete_redirect(xhr, status, args){
+                        var validated = args.validated;
+                        var error = args.error;
+                        if(validated){
+                            PF('#{widgetVar}_dlg').hide();
+                            PF('#{widgetVar}_poll').stop();
+                            var redirect=args.redirection;
+                            if(redirect){
+                               window.location="#{redirectURI}";
+                            }
+                        }                
+                            
+                     }
+                     function handlePollComplete(xhr, status, args){
+                        PF('#{widgetVar}_dlg').hide();
+                        PF('#{widgetVar}_poll').stop();
+                        PF('#{widgetVar}_confirmation').show();                            
+                    }
+                    function handleDialog(){
+                        PF('#{widgetVar}_dlg').show();
+                        PF('#{widgetVar}_poll').start();                    
+                    }
+                    this.handlepollcomplete_redirect = handlePollComplete_redirect;
+                    this.handlepollcomplete =  handlePollComplete;
+                    this.handledialog = handleDialog;
+                }
+                
+                
+                var #{widgetVar} = new dlg_controller();
+            </script>
+            <c:choose>
+                <c:when test="#{redirectURI != null}">
+                    <p:poll interval="1" listener="#{callbackBean.callback}" update="#{update}" oncomplete="#{widgetVar}.handlepollcomplete_redirect(xhr, status, args)"  widgetVar="#{widgetVar}_poll" autoStart="false"/>
+                </c:when>
+                <c:when test="#{redirectURI == null}"> 
+                    <p:poll interval="1" update="#{update}" onstart="PF('#{widgetVar}_poll').stop();" oncomplete="#{widgetVar}.handlepollcomplete(xhr, status, args)"  widgetVar="#{widgetVar}_poll" autoStart="false"/>
+                    <p:confirmDialog id="#{widgetVar}_confirm_dialog" message="#{infoMessage}" header="#{infoHeader}" severity="alert" widgetVar="#{widgetVar}_confirmation"> 
+                        <p:commandButton id="#{widgetVar}_confirm" value="OK" onclick="PF('#{widgetVar}_confirmation').hide()" />  
+                    </p:confirmDialog>  
+                </c:when>
+            </c:choose>
+
+            <p:dialog header="#{header}" id="#{widgetVar}" height="60" closable="false" modal="true" widgetVar="#{widgetVar}_dlg">
+                <h:panelGrid columns="1">  
+                    <h:outputText value="#{message}"/>
+                    <p:graphicImage value="/misc/images/ajax-loader.gif" />
+                </h:panelGrid>
+            </p:dialog>        
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: AlignmentML schema definition
+	version 	: 1.1
+	date 		: 2006-06-02
+	author(s)	: Henning Mersch <hmersch@techfak.uni-bielefeld.de>
+			  Jan Krueger <jkrueger@techfak.uni-bielefeld.de>
+		     	  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+			  Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:aml="http://hobit.sourceforge.net/xsds/20060602/alignmentML"
+	xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+	xmlns:ht="http://hobit.sourceforge.net/xsds/20060403/hobitTypes"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060602/alignmentML"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/bioservices/schemas/2005/biotypes_1.1.xsd" />
+	<xs:import namespace="http://hobit.sourceforge.net/xsds/20060403/hobitTypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060403/hobitTypes.xsd" />
+	
+	<!--                   -->
+	<!-- ELEMENTS -->
+	<!--                   -->
+	<xs:element name="alignmentML" nillable="true">
+		<xs:annotation>
+			<xs:documentation>AlignmentML is a format containing (multiple) alignment information any alignment program like ClustalW can produce. Like in SequenceML different 
+				sequence types are supported.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="alignment" type="aml:alignmentWithProgramType" minOccurs="1" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>element contains alignment information with program data</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="bt:version" use="optional">
+				<xs:annotation>
+					<xs:documentation>optional version tag</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<!--             -->
+	<!-- TYPES -->
+	<!--             -->
+	
+	<xs:complexType name="alignmentWithProgramType">
+		<xs:annotation>
+			<xs:documentation>type for alignment information with program information</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aml:alignmentType">
+				<xs:sequence>
+					<xs:element name="program" type="ht:programType" minOccurs="0" maxOccurs="1" >
+						<xs:annotation>
+							<xs:documentation>this element can contain program data</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="alignmentType">
+		<xs:annotation>
+			<xs:documentation>represents an alignment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sequence" type="aml:sequenceType" minOccurs="2" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>sequences can be stored in this elements. at least two sequence elements are required</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="score" type="xs:int" use="optional">
+			<xs:annotation>
+				<xs:documentation>optional score value for the alignment</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax">
+			<xs:annotation>
+				<xs:documentation>additional very specific information can be placed in unrestricted additional attributes</xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:annotation>
+			<xs:documentation>represents a sequence in a sequence alignment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>name of the sequence</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="synonyms" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>synonyms for the sequence name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>a description can be placed here</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="alignedAminoAcidSequence" type="bt:alignedAminoAcidSequence">
+					<xs:annotation>
+						<xs:documentation>sequence data for aligned amino acid sequences</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="alignedNucleicAcidSequence" type="aml:alignedNucleotideSequence">
+					<xs:annotation>
+						<xs:documentation>sequence data for aligned nucleotide sequences</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="alignedFreeSequence" type="aml:alignedFreeSequence">
+					<xs:annotation>
+						<xs:documentation>sequence data for aligned unrestricted sequences</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice> 
+			<xs:element name="comment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>a comment element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="bt:accessionNumber" use="required">
+			<xs:annotation>
+				<xs:documentation>required sequence identifier</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax" >
+			<xs:annotation>
+				<xs:documentation>additional unrestricted attributes for specific needs</xs:documentation>
+			</xs:annotation>
+		</xs:anyAttribute>
+	</xs:complexType>
+	
+	<!-- Types, currently not within BioTypes. -->
+	<xs:simpleType name="alignedFreeSequence">
+		<xs:annotation>
+			<xs:documentation>A unrestricted sequence of chars, does not allow  gaps</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="replace"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="alignedNucleotideSequence">
+		<xs:annotation>
+			<xs:documentation>An aligned nucleic acid sequence. TODO: Add this to Biotypes!</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="bt:gappedAmbiguousNucleotideSequence">
+				<xs:attributeGroup ref="bt:alignedSequenceAttrs"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

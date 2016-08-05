@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<comment>Useful and necessary properties for the BioDOM conversion library</comment>
+
+
+
+<!-- *******************************************************************************
+						namespaces of supported schemas
+     ******************************************************************************* -->
+
+<entry key="BioDOM.namespace.AlignmentML">http://hobit.sourceforge.net/xsds/20060602/alignmentML</entry>
+<entry key="BioDOM.namespace.EBIApplicationResult">http://www.ebi.ac.uk/schema</entry>
+<entry key="BioDOM.namespace.PhyloML">http://bibiserv.techfak.uni-bielefeld.de/xsd/2005/11/phyloML</entry>
+<entry key="BioDOM.namespace.PhyloXML">http://www.phyloxml.org/xsds/2006/10/02/phyloXML</entry>
+<entry key="BioDOM.namespace.PromideML">http://hobit.sourceforge.net/xsds/20060221/PromideML</entry>
+<entry key="BioDOM.namespace.RNAStructAlignmentML">http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML</entry>
+<entry key="BioDOM.namespace.RNAStructML">http://hobit.sourceforge.net/xsds/20060201/rnastructML</entry>
+<entry key="BioDOM.namespace.SequenceAnnotationML">http://hobit.sourceforge.net/xsds/20060505/sequenceAnnotationML</entry>
+<entry key="BioDOM.namespace.SequenceML">http://hobit.sourceforge.net/xsds/20060201/sequenceML</entry>
+<entry key="BioDOM.namespace.TaxonomyML">http://hobit.sourceforge.net/xsds/20060201/taxonomyML</entry>
+
+
+<!-- *******************************************************************************
+				in-jar NameSpace Locations for the supported Schemas 
+	 ******************************************************************************* -->
+
+<!--  SequenceML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/2005/sequenceML">/resources/xsd/net/sourceforge/hobit/2005/sequenceML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060102/sequenceML">/resources/xsd/net/sourceforge/hobit/20060102/sequenceML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060201/sequenceML">/resources/xsd/net/sourceforge/hobit/20060201/sequenceML.xsd</entry>
+<!--  AlignmentML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/2005/alignmentML">/resources/xsd/net/sourceforge/hobit/2005/alignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060126/alignmentML">/resources/xsd/net/sourceforge/hobit/20060126/alignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060201/alignmentML">/resources/xsd/net/sourceforge/hobit/20060201/alignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060602/alignmentML">/resources/xsd/net/sourceforge/hobit/20060602/alignmentML.xsd</entry>
+<!--  RNAStructML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060111/RNAStructML">/resources/xsd/net/sourceforge/hobit/20060111/RNAstructML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060201/rnastructML">/resources/xsd/net/sourceforge/hobit/20060201/rnastructML.xsd</entry>
+<!--  RNAStructAlignmentML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060126/RNAStructAlignmentML">/resources/xsd/net/sourceforge/hobit/20060126/RNAStructAlignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060201/rnastructAlignmentML">/resources/xsd/net/sourceforge/hobit/20060201/rnastructAlignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML">/resources/xsd/net/sourceforge/hobit/20060515/rnastructAlignmentML.xsd</entry>
+<!--  SequenceAnnotationML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/2005/sequenceAnnotationML.xsd">/resources/xsd/net/sourceforge/hobit/2005/sequenceAnnotationML.xsd</entry>
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060505/sequenceAnnotationML">/resources/xsd/net/sourceforge/hobit/20060505/sequenceAnnotationML.xsd</entry>
+<!--  EBI ApplicationResult -->
+<entry key="BioDOM.nslocation.jar.http://www.ebi.ac.uk/schema">/resources/xsd/uk/ac/ebi/www/schema/ApplicationResult.xsd</entry>
+<!--  PhyloML -->
+<entry key="BioDOM.nslocation.jar.http://bibiserv.techfak.uni-bielefeld.de/xsd/2005/11/phyloML">/resources/xsd/de/uni-bielefeld/techfak/bibiserv/xsd/2005/11/phyloML.xsd</entry>
+<!--  PhyloXML -->
+<entry key="BioDOM.nslocation.jar.http://www.phyloxml.org/xsds/2006/10/02/phyloXML">/resources/xsd/org/phyloxml/xsds/2006/10/02/phyloXML.xsd</entry>
+<!--  PromideML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060221/PromideML">/resources/xsd/net/sourceforge/hobit/20060221/PromideML.xsd</entry>
+<!--  TaxonomyML -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060201/taxonomyML">/resources/xsd/net/sourceforge/hobit/20060201/taxonomyML.xsd</entry>
+<!--  BioTYPES -->
+<entry key="BioDOM.nslocation.jar.http://schemas.bioservices.net/2005/biotypes">/resources/xsd/net/bioservices/schemas/2005/biotypes_1.1.xsd</entry>
+<!-- HOBITTypes -->
+<entry key="BioDOM.nslocation.jar.http://hobit.sourceforge.net/xsds/20060403/hobitTypes">/resources/xsd/net/sourceforge/hobit/20060403/hobitTypes.xsd</entry>
+<!-- EmblXML -->
+<entry key="BioDOM.nslocation.jar.http://www.ebi.ac.uk/xml/EMBLxml">/resources/xsd/convertedFromDTDsAndBrokenSchemas/emblXML_hobit.xsd</entry>
+<!-- TSeqXML -->
+<entry key="BioDOM.nslocation.jar.http://www.ncbi.nlm.nih.gov/xml/TSEQxml">/resources/xsd/convertedFromDTDsAndBrokenSchemas/TSeqXML_hobit.xsd</entry>
+<!-- INSDSeqXML -->
+<entry key="BioDOM.nslocation.jar.http://www.ncbi.nlm.nih.gov/xml/INSDSEQxml">/resources/xsd/convertedFromDTDsAndBrokenSchemas/INSDSeqXML_hobit.xsd</entry>
+ 
+
+   
+<!-- *******************************************************************************
+                 BiBiServ NameSpace Locations for the supported Schemas 
+	 ******************************************************************************* -->
+	 
+<!--  SequenceML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/2005/sequenceML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/2005/sequenceML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060102/sequenceML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060102/sequenceML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060201/sequenceML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/sequenceML.xsd</entry>
+<!--  AlignmentML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/2005/alignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/2005/alignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060126/alignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060126/alignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060201/alignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/alignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060602/alignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060602/alignmentML.xsd</entry>
+<!--  RNAStructML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060111/RNAStructML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060111/RNAstructML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060201/rnastructML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/rnastructML.xsd</entry>
+<!--  RNAStructAlignmentML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060126/RNAStructAlignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060126/RNAStructAlignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060201/rnastructAlignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/rnastructAlignmentML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060515/rnastructAlignmentML.xsd</entry>
+<!--  SequenceAnnotationML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/2005/sequenceAnnotationML.xsd">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/2005/sequenceAnnotationML.xsd</entry>
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060505/sequenceAnnotationML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060505/sequenceAnnotationML.xsd</entry>	 
+<!-- EBIApplicationResult -->
+<entry key="BioDOM.nslocation.remote.http://www.ebi.ac.uk/schema">http://bibiserv.techfak.uni-bielefeld.de/xsd/uk/ac/ebi/www/schema/ApplicationResult.xsd</entry>
+<!-- PhyloML -->
+<entry key="BioDOM.nslocation.remote.http://bibiserv.techfak.uni-bielefeld.de/xsd/2005/11/phyloML">http://bibiserv.techfak.uni-bielefeld.de/xsd/de/uni-bielefeld/techfak/bibiserv/xsd/2005/11/phyloML.xsd</entry>
+<!-- PhyloXML -->
+<entry key="BioDOM.nslocation.remote.http://www.phyloxml.org/xsds/2006/10/02/phyloXML">http://www.phyloxml.org/xsds/2006/10/02/phyloXML.xsd</entry>
+<!--  PromideML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060221/PromideML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060221/PromideML.xsd</entry>
+<!-- TaxonomyML -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060201/taxonomyML">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/taxonomyML.xsd</entry>
+<!--  BioTYPES -->
+<entry key="BioDOM.nslocation.remote.http://schemas.bioservices.net/2005/biotypes">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/bioservices/schemas/2005/biotypes_1.1.xsd</entry>
+<!--  HOBITTypes -->
+<entry key="BioDOM.nslocation.remote.http://hobit.sourceforge.net/xsds/20060403/hobitTypes">http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060403/hobitTypes.xsd</entry>   
+
+<!-- shortcuts for supported Schemas -->
+<entry key="http://hobit.sourceforge.net/xsds/2005/sequenceML">sml2005</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060102/sequenceML">sml20060102</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060201/sequenceML">sml20060201</entry>
+<entry key="http://hobit.sourceforge.net/xsds/2005/alignmentML">aml2005</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060126/alignmentML">aml20060126</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060201/alignmentML">aml20060201</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060602/alignmentML">aml20060602</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060111/RNAStructML">rml20060111</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060201/rnastructML">rml20060201</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060126/RNAStructAlignmentML">raml20060126</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060201/rnastructAlignmentML">raml20060201</entry>
+<entry key="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML">raml20060515</entry>
+<entry key="http://hobit.sourceforge.net/xsds/2005/sequenceAnnotationML.xsd">saml2005</entry>
+<entry key="http://www.ebi.ac.uk/xml/EMBLxml">emblxml20050801</entry>
+<entry key="http://www.ncbi.nlm.nih.gov/xml/TSEQxml">tseq</entry>
+<entry key="http://www.ncbi.nlm.nih.gov/xml/INSDSEQxml">insdseq</entry>
+
+<!--   <entry key="http://hobit.sourceforge.net/xsds/"></entry> -->
+
+</properties>

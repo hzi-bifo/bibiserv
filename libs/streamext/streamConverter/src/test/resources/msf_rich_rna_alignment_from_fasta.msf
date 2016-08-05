@@ -1,0 +1,15 @@
+!!NA_MULTIPLE_ALIGNMENT 1.0
+PileUp of: @seqlist
+
+ Symbol comparison table: NONE  CompCheck: NONE
+
+                   GapWeight: NONE
+             GapLengthWeight: NONE
+
+ NONE.msf  MSF: 46  Type: A Check: NONE ..
+
+
+
+sample1      ACGUU----- --GACGUGGA GCUGGUCUAU GUCGAUGCUA UGGACG
+sample2      ACGCGGCCGC UUGACGUGGA GCUGGUCUAU GUCGAUGCUA UGGACG
+

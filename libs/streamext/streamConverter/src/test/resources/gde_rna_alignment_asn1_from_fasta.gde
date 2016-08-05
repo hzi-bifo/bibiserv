@@ -1,0 +1,32 @@
+{
+name        "sample1"
+type        "DNA/RNA"
+longnamename        "sample1"
+sequence-ID ""
+descrip ""
+creator ""
+creation-date ""
+direction ""
+strandedness ""
+comments        "This file was created via GDEParser directly from fasta
+without any meta information. Placeholders are given above.
+"
+sequence        "
+ACGUU-------GACGUGGAGCUGGUCUAUGUCGAUGCUAUGGACG"
+}
+{
+name        "sample2"
+type        "DNA/RNA"
+longnamename        "sample2"
+sequence-ID ""
+descrip ""
+creator ""
+creation-date ""
+direction ""
+strandedness ""
+comments        "This file was created via GDEParser directly from fasta
+without any meta information. Placeholders are given above.
+"
+sequence        "
+ACGCGGCCGCUUGACGUGGAGCUGGUCUAUGUCGAUGCUAUGGACG"
+}

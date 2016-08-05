@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequenceML xmlns="http://hobit.sourceforge.net/xsds/20060201/sequenceML"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060201/sequenceML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/sequenceML.xsd">
+    <sequence seqID="aga-let-7"> 
+        <description>description of aga-let-7</description>
+        <nucleicAcidSequence>GCCUACUCCCGUGUUGAGGUAGUUGGUUGUAUAGUACCGUGGUUCCAAUACUCGACUAUACAAUCCGCUAACUUACCUCGUGGGUAGAGU</nucleicAcidSequence>
+    </sequence>
+    <sequence seqID="cbr-let-7">
+        <description>description of cbr-let-7</description>
+        <nucleicAcidSequence>ACUGGGGUACGGUGAGGUAGUAGGUUGUAUAGUUUAGAAUAUUACUCUCGGUGAACUAUGCAAGUUUCUACCUCACCGAAUACCAGG</nucleicAcidSequence>
+    </sequence>
+    <sequence seqID="cel-let-7">
+        <description>description of cel-let-7</description>
+        <nucleicAcidSequence>UACACUGUGGAUCCGGUGAGGUAGUAGGUUGUAUAGUUUGGAAUAUUACCACCGGUGAACUAUGCAAUUUUCUACCUUACCGGAGACAGAACUCUUCG</nucleicAcidSequence>
+    </sequence>
+</sequenceML>

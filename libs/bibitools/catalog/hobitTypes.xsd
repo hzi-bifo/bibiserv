@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+                    xmlns:hobit="http://hobit.sourceforge.net/xsds/20060403/hobitTypes" 
+                    targetNamespace="http://hobit.sourceforge.net/xsds/20060403/hobitTypes">
+    
+    <xs:complexType name="programType" mixed="true">
+        <xs:annotation>
+            <xs:documentation>This type is used to hold information about a software  program run</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="name" type="xs:string" use="optional" />
+        <xs:attribute name="command" type="xs:string" use="optional" />
+        <xs:attribute name="version" type="xs:string" use="optional" />
+        <xs:attribute name="date" type="xs:date" use="optional" />
+        <xs:anyAttribute processContents="lax"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: RNAStructML schema definition
+	version 		: 1.0
+	date 		: 2006-01-11
+	author		: Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+	released 	: no
+	buglevel	: document valid, uses the latest (not yet released) version 1.1 BioTypes
+-->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bt="http://schemas.bioservices.net/2006/01/biotypes"
+	xmlns:cr="http://schemas.bioservices.net/2006/01/crossrefs"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060111/RNAStructML"
+	xmlns:rna="http://hobit.sourceforge.net/xsds/20060111/RNAStructML"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<!-- RNAStructureML is based on BioTypes 1.1 and Crossrefs 1.0 -->
+	<xs:import namespace="http://schemas.bioservices.net/2006/01/biotypes" schemaLocation="http://schemas.bioservices.net/2006/01/biotypes_1.1.xsd" />
+	<xs:import namespace="http://schemas.bioservices.net/2006/01/crossrefs" schemaLocation="http://schemas.bioservices.net/2006/01/crossrefs_0.1.xsd" />
+	
+	<!--                    	-->
+	<!-- ELEMENTS -->
+	<!--                   	-->
+	<xs:element name="rnastructml" nillable="true">
+		<xs:annotation>
+			<xs:documentation>
+				This is the root element for rnastructml. Represents a unsorted list of structures.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence> 
+				<xs:element name="rnastructure" type ="rna:rnastructureType" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" fixed="0.1"/>
+		</xs:complexType>
+	</xs:element>
+	
+
+	<!--             	-->
+	<!-- TYPES 	-->
+	<!--             	-->
+	<xs:complexType name="rnastructureType">
+		<xs:sequence maxOccurs="1">
+			<xs:element name="sequence" type="rna:sequenceType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="program" type="rna:programType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:sequence minOccurs="1" maxOccurs="unbounded">
+				<xs:choice>
+					<xs:element name="shape" type="rna:shapeType" />
+					<xs:element name="structure" type="rna:structureType" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="synonyms" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Synonyms for this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="description" type="xs:string" />
+			<xs:choice minOccurs="0">
+				<xs:element name="nucleicAcidSequence" type="bt:ambiguousNucleotideSequence" />
+				<xs:element name="freeSequence" type="bt:sequence" />
+			</xs:choice>
+			<xs:element minOccurs="0" ref="cr:crossRefs" />
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="rna:propertyType" />
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="comment" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="seqID" type="xs:string" use="required" />
+		<xs:attribute name="size" type="xs:int" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="programType" mixed="true">
+		<xs:attribute name="command" type="xs:string" use="optional" />
+		<xs:attribute name="version" type="xs:string" use="optional" />
+		<xs:attribute name="date" type="xs:date" use="optional" />
+		<xs:anyAttribute />
+	</xs:complexType>
+	
+	<xs:complexType name="shapeType">
+		<xs:simpleContent>
+			<xs:extension base="bt:rnaSecondaryStructureSequenceClass">  
+				<xs:attribute name="probability" type="rna:probability" use="optional" />
+				<xs:attribute name="id" type="xs:ID" use="optional" />
+				<xs:anyAttribute />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="structureType">
+		<xs:simpleContent>
+			<xs:extension base="bt:rnaSecondaryStructureSequence">
+				<xs:attribute name="evalue" type="xs:double" use="optional" />
+				<xs:attribute name="probability" type="rna:probability" use="optional"/>
+				<xs:attribute name="shaperef" type="xs:IDREF" use="optional" />
+				<xs:anyAttribute />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="probability">
+		<xs:restriction base="xs:double">
+			<xs:maxInclusive value="1.0" />
+			<xs:minInclusive value="0.0" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="propertyType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="value" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
+
+

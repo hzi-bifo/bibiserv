@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition>
+            <h:form>
+                <c:if test="#{publication.getReferences(toolid) != null}">
+                    <h:panelGrid id="publications" columns="2" cellspacing="10px" styleClass="publications">
+                        <c:forEach items="#{publication.getReferences(toolid)}" var="pub">                           
+                            <h:panelGroup layout="block">
+                                <a name="#{pub.pubkey}"/>
+                                 <h:outputText escape="false" value="#{pub.getExport('html')}"/>
+                            </h:panelGroup>
+                            
+                            <h:commandLink>
+                                <p:fileDownload value="#{publication.getBibTex(pub)}"/>
+                                <h:graphicImage value="#{conf.getProperty('icon.save')}"/>
+                            </h:commandLink>
+                        </c:forEach>
+
+                    </h:panelGrid>
+                </c:if>
+                <c:if test="#{publication.getReferences(toolid) == null}">    
+                    <h:outputText escape="false" styleClass="content" value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.NOREFERENCES')}"/>
+<!--                    <c:if test="#{noreftext == null}">
+                    No references available!
+                    </c:if>
+                    <c:if test="#{noreftext != null}">
+                        <h:outputText escape="false" class="content" value="#{noreftext}"/>
+                    </c:if>-->
+                </c:if>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

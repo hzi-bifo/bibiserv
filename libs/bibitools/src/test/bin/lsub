@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+usage() {
+ echo ERROR: $1
+ echo usage: $0 \<spooldir\> \<script\> \<runtime in sec\> \<memory in mb\> 
+ echo
+ exit
+}
+
+#local script parameter : 
+#1)spooldir 
+if [ -z $1 ]; then usage 'spooldir is missing!!!'; fi;
+spooldir=$1
+#2)name of script to call
+if [ -z $2 ]; then usage 'script is missing!!!';fi;
+script=$2
+#3)max. runtime on cpu in seconds
+if [ -z $3 ]; then usage 'max_runtime is missing!!!';fi;
+max_runtime=$3;
+#4)max. memory consumption in MBytes
+if [ -z $4 ]; then usage 'max_mem is missing!!!';fi;
+let max_mem=$4*1024
+#set limit for current shell/prozess
+ulimit -t $max_runtime -c 0 -v $max_mem
+root=$spooldir/$script
+export JOB_ID=0
+#call $shellscript and redirect STDOUT and STDERR
+$root > $root.stdout 2> $root.stderr

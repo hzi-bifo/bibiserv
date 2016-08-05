@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================
+  ::DATATOOL:: Generated from "tinyseq.asn"
+  ::DATATOOL:: by application DATATOOL version 1.5.0
+  ::DATATOOL:: on 06/06/2006 23:03:48
+  ============================================
+-->
+<!--
+  NCBI_TSeq.dtd
+  This file is built from a series of basic modules.
+  The actual ELEMENT and ENTITY declarations are in the modules.
+  This file is used to put them together.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <!-- ============================================ -->
+  <!--
+    This section is mapped from module "NCBI-TSeq"
+    =================================================
+  -->
+  <!--
+    $Revision: 1.1 $
+    **********************************************************************
+    
+    ASN.1 for a tiny Bioseq in XML
+    basically a structured FASTA file with a few extras
+    in this case we drop all modularity of components
+    All ids are Optional - simpler structure, less checking
+    Components of organism are hard coded - can't easily add or change
+    sequence is just string whether DNA or protein
+    by James Ostell, 2000
+    
+    **********************************************************************
+  -->
+    <xs:element name="TSeq">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="TSeq_seqtype"/>
+          <xs:element minOccurs="0" ref="TSeq_gi"/>
+          <xs:element minOccurs="0" ref="TSeq_accver"/>
+          <xs:element minOccurs="0" ref="TSeq_sid"/>
+          <xs:element minOccurs="0" ref="TSeq_local"/>
+          <xs:element minOccurs="0" ref="TSeq_taxid"/>
+          <xs:element minOccurs="0" ref="TSeq_orgname"/>
+          <xs:element ref="TSeq_defline"/>
+          <xs:element ref="TSeq_length"/>
+          <xs:element ref="TSeq_sequence"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name="TSeq_seqtype">
+      <xs:complexType>
+        <xs:attributeGroup ref="attlist.TSeq_seqtype"/>
+      </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.TSeq_seqtype">
+      <xs:attribute name="value" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="nucleotide"/>
+            <xs:enumeration value="protein"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="TSeq_gi" type="xs:string"/>
+    <xs:element name="TSeq_accver" type="xs:string"/>
+    <xs:element name="TSeq_sid" type="xs:string"/>
+    <xs:element name="TSeq_local" type="xs:string"/>
+    <xs:element name="TSeq_taxid" type="xs:string"/>
+    <xs:element name="TSeq_orgname" type="xs:string"/>
+    <xs:element name="TSeq_defline" type="xs:string"/>
+    <xs:element name="TSeq_length" type="xs:string"/>
+    <xs:element name="TSeq_sequence" type="xs:string"/>
+    <!-- a bunch of them -->
+    <xs:element name="TSeqSet">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="TSeq"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,85 @@
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <comment>BiBiServ global properties</comment>
+    <!-- used by many classes within the package de.unibi.techfak.bibiserv.* -->
+    <entry key="chmod.bin">chmod</entry>
+    <entry key="chmod.param">2755</entry>
+    <!-- entries used by de.unibi.techfak.bibiserv.impl.CallFactoryImpl -->
+    <entry key="DefaultCallClass">de.unibi.techfak.bibiserv.impl.LocalCall</entry>
+    <entry key="LocalCallClass">de.unibi.techfak.bibiserv.impl.LocalCall</entry>
+    <entry key="GridCallClass">de.unibi.techfak.bibiserv.impl.DRMAACall</entry>
+    <!-- entries used by de.unibi.techfak.bibiserv.impl.CallImpl -->
+    <entry key="batchfile.concat">&amp;&amp;</entry>
+    <entry key="batchfile.shell">/bin/bash</entry>
+    <entry key="batchfile.prefix">BatchFile_</entry>
+    <entry key="batchfile.suffix">.sh</entry>
+    <!-- entries used by de.unibi.techfak.bibiserv.impl.LocalCall && SGECALL && DRMAACall -->
+    <entry key="lsub.bin">src/test/bin/lsub</entry> <!-- ATTENTION !!! change this in production system -->
+    <entry key="lsub.maxcpu">3</entry> <!-- resourcelimit : max. cputime in seconds -->
+    <entry key="lsub.maxmem">512</entry> <!-- resourcelimit : max. memory consumption in MBytes -->
+    <!-- entries used by de.unibi.techfak.bibiserv.impl.SGECall -->
+    <entry key="sge.root">/opt/SUNWsge</entry>
+    <entry key="sge.cell">bibiws</entry>
+    <entry key="sge.debug"/>
+    <entry key="sge.commd_port"/>
+    <entry key="sge.commd_host"/>
+    <entry key="qsub.bin">/opt/SUNWsge/bin/qsub</entry>
+    <entry key="qsub.param.user">-soft -l arch=solaris86 -p 8</entry>
+    <entry key="qsub.param.adm">-hard -l h_cpu=6:1:0,s_cpu=6:0:0,s_core=0,s_data=1073741824,h_data=1073741824 -p 9</entry>
+    <entry key="qstat.bin">/opt/SUNWsge/bin/qsub</entry>
+    <!-- entries used by de.unibi.techfak.bibiserv.impl.DRMAACall -->
+    <entry key="drmaa.waittime">3000</entry> <!-- waittime between every active polling ... -->
+    <entry key="drmaa.native.param.user"></entry>
+    <entry key="drmaa.native.param.admin">-hard -l h_cpu=6:1:0,s_cpu=6:0:0,s_core=0,s_data=1073741824,h_data=1073741824</entry>
+    <entry key="drmaa.grid_only">true</entry>
+    <!-- used by de.unibi.techfak.bibiserv.WSSTools -->
+    <!-- Attention spooldir.base and tmpdir.base MUST be accessible (write- and readable) from every possible compute node -->
+    <entry key="spooldir.base">/vol/tmp/testresult</entry>
+    <entry key="tmpdir.base">/vol/tmp/testresult/tmp/</entry>
+    <!-- used by de.unibi.techfak.bibiserv.Status -->
+    <entry key="statuscode.undef">unknown (not default) statuscode</entry>
+    <entry key="statuscode.undef.internal">no further internal description </entry><!--#6xx Processing ... -->
+    <entry key="statuscode.600">Finished ok</entry>
+    <entry key="statuscode.601">Submitted</entry>
+    <entry key="statuscode.602">Preprocessing</entry>
+    <entry key="statuscode.603">Processing: Pending</entry>
+    <entry key="statuscode.604">Processing: Running</entry>
+    <entry key="statuscode.605">Postprocessing</entry><!-- #7xx Error -->
+    <entry key="statuscode.700">General Error</entry><!-- #->701.. Fatal Errors -->
+    <entry key="statuscode.701">Input Format Error (submitted data does not follow input format)</entry>
+    <entry key="statuscode.702">Input Size Error (submitted data to large)</entry>
+    <entry key="statuscode.703">Execution Error (executeable gives enhaned errormsg)</entry>
+    <entry key="statuscode.704">RAM Size Error (Job consumed too much memory)</entry>
+    <entry key="statuscode.705">CPU Time Error (Job consumed too much CPU time)</entry>
+    <entry key="statuscode.706">ID unknown (or older than 30 days)</entry>
+    <entry key="statuscode.707">ID data deleted (older than 3 days, result data deleted)</entry>
+    <entry key="statuscode.708">Mail Check Failed (notification email is not valid)</entry>
+    <entry key="statuscode.709">This Response method is not allowed after used request method</entry><!-- #->720.. Temp Errors -->
+    <entry key="statuscode.720">General Temporary Error - please try again later.</entry>
+    <entry key="statuscode.721">statuscode.721=Internal Resource Error </entry>
+    <entry key="statuscode.722.internal">Internal Rescource Error (DB)</entry>
+    <entry key="statuscode.723">Resource Error - BiBiServ Team is informed, please try
+        again later.</entry>
+    <entry key="statuscode.723.internal">Internal Rescource Error (HDD)</entry>
+    <entry key="statuscode.724">Internal Resource Error - BiBiServ Team is informed, please try
+        again later.</entry>
+    <entry key="statuscode.724.internal">Internal Rescource Error (WS-Error)</entry>
+    <entry key="statuscode.725">Internal Resource Error - BiBiServ Team is informed, please try
+        again later.</entry>
+    <entry key="statuscode.725.internal">Internal Rescource Error (BiBiWSS-Lib Error)</entry>
+    <entry key="statuscode.726">External Resource Error - An error occoured while calling an
+        external WebService - please try again later.</entry>
+    <entry key="statuscode.727">This feature is not yet implemented. Please contact author of tool.</entry>
+    <entry key="statuscode.730">WebService Server busy - please try again later.</entry>
+    <entry key="statuscode.731">Resource busy </entry>
+    <entry key="statuscode.731.internal">Resource busy (Grid)</entry>
+    <entry key="statuscode.732">Resource busy </entry>
+    <entry key="statuscode.732.internal">Resource Busy (DB)</entry>
+    <entry key="statuscode.733">Resource busy</entry>
+    <entry key="statuscode.733.internal">Resource Busy (HDD)</entry>
+    <!-- Mail Settings -->
+    <entry key="mail.host">smtp-relay.CeBiTec.Uni-Bielefeld.DE</entry>
+    <entry key="mail.from">bibi-bounces@techfak.uni-bielefeld.de</entry>
+    
+
+</properties>

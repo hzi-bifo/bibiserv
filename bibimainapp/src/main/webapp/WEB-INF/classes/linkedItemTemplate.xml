@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<linkedItem xmlns="bibiserv:de.unibi.techfak.bibiserv.cms" id="BellmansGAPPages">
+    <name>Bellmans GAP Pages</name>
+    <shortDescription>This course is a showcase of ADP algorithms, classic and new ones, from computer science and bioinformatics.</shortDescription>
+    
+    <url>http://bibiserv2.cebitec.uni-bielefeld.de:9080/</url>
+</linkedItem>

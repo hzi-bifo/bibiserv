@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"            
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <style type="text/css">
+        .preformatted {
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <p:panel id="confirmation_panel" header="Confirmation" >
+        <!-- streaming NOT ACTIVE and NOT FINISHED -->
+        <p:panelGrid style="width: 100%;" id="confirmation_grid_notfinished" columns="2" rendered="#{bashExecutor.readCompletely eq false and bashExecutor.active eq false}">
+
+            <h:outputText value="Credentials set: " />
+            <h:outputText value="#{ec2InstanceWizard.awsbean.awsCredentialsSet}" styleClass="outputLabel" style="font-weight: bold;"/>
+
+            <h:outputText value="Selected Region: " />
+            <h:outputText value="#{ec2InstanceWizard.selectedRegion}" styleClass="outputLabel" style="font-weight: bold;"/>
+
+            <h:outputText value="Selected Master-Instance-Type: " />
+            <h:outputText value="#{ec2InstanceWizard.selectedEc2MasterInstance.instanceName}" styleClass="outputLabel" style="font-weight: bold;"/>
+
+            <h:outputText value="Selected Slave-Instance-Type: " />
+            <h:outputText value="#{ec2InstanceWizard.selectedEc2SlaveInstance.instanceName}" styleClass="outputLabel" style="font-weight: bold;"/>
+
+            <h:outputText value="Number of Slaves: " />
+            <h:outputText value="#{ec2InstanceWizard.numberOfSlaves}" styleClass="outputLabel" style="font-weight: bold;"/>
+
+            <h:outputLabel for="pricing_conf" style="width: 50%;" value="Estimated price: " />
+            <h:outputText id="pricing_conf" style="font-weight: bolder; width: 50%; color: green;" value="#{ec2InstanceWizard.estimatedPrice} $ per hour" />
+
+            <h:outputText style="color: red; font-weight: lighter" value="We highly recommend you to check all started and stopped EC2-instances at your Amazon Web Services account! - BiBiServ Team" />
+
+        </p:panelGrid>
+
+        <!-- streaming ACTIVE and NOT FINISHED -->
+        <p:scrollPanel widgetVar="scroller" rendered="#{bashExecutor.readCompletely or bashExecutor.active}" style="width: 100%; height: 200px; background-color: black; color: white;">
+            <h:outputText escape="false" id="result" value="#{bashExecutor.result}" styleClass="preformatted" />
+        </p:scrollPanel>
+
+        <p:remoteCommand autoRun="true" rendered="#{bashExecutor.readCompletely}" action="#{bashExecutor.checkInstanceAccess()}" onstart="PF('blockerWithProgress').show(); PF('progressBar').start(); PF('reset').enable()" name="checker" />
+
+        <p:blockUI widgetVar="blockerWithProgress" block="confirmation_panel">
+            <h:outputText value="Please be patient while we are preparing your access to the EC2-instance." />
+            <br />
+            <h:outputText escape="false" >Once the connection is available you will be <strong>automatically redirected</strong> to your instance in the cloud! </h:outputText>
+            <p:separator />
+            <p:graphicImage value="/misc/images/progressBar.GIF" />
+            <p:separator />
+            <p:progressBar labelTemplate="{value}%" ajax="true" interval="2000" value="#{bashExecutor.progressBarValue}" styleClass="ritc_progressBar_animated" id="progressBar" widgetVar="progressBar" />
+        </p:blockUI>
+    </p:panel>
+
+    <p:poll widgetVar="poller" stop="#{bashExecutor.readCompletely}" autoStart="false" update="confirmation_panel" global="false" listener="#{bashExecutor.scroll()}" />
+
+    <p:commandButton id="run" 
+                     widgetVar="run"
+                     value="Run!" 
+                     action="#{bashExecutor.createGrid()}" 
+                     onclick="PF('poller').start();
+                             PF('run').disable();
+                             PF('reset').disable();
+                             PF('wiz').hideBackNav();"
+                     icon="ui-icon-power"
+                     iconPos="right"
+                     style="float: right; background-color: rgb(42,157,223) !important;" />
+    <p:tooltip for="reset" widgetVar="reset_tooltip" value="Reset to Welcome-Tab" />
+    <p:commandButton id="reset"
+                     widgetVar="reset"
+                     value="Reset"
+                     action="#{bashExecutor.deleteUniqueFolder()}"
+                     onsuccess="PF('wiz').loadStep(PF('wiz').cfg.steps [0], true); PF('reset_tooltip').hide();"
+                     icon="ui-icon-arrowthickstop-1-w"
+                     style="float: right;  background-color: rgb(245,159,0) !important;" />
+
+
+
+</ui:composition> 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item xmlns="bibiserv:de.unibi.techfak.bibiserv.cms"
+    xmlns:h="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml"
+    xmlns:m="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd" id="impressum">
+    <name xml:lang="en">Impressum</name>
+    <shortDescription xml:lang="en">Disclaimer/Impressum of http://bibiserv[2].cebitec.uni-bielefeld.de</shortDescription>
+    <description xml:lang="en">
+        <h:p> Please contact us by e-mail to <h:a href="mailto:bibi-help@CeBiTec.Uni-Bielefeld.DE">
+            BiBiServ administrators</h:a> if there are mistakes,errors or questions. Any error
+            report is welcome! Check again in the near future for added functionality and updated
+            information. </h:p>
+        
+      
+    </description>
+    <toolTipText>impressum</toolTipText>
+    <keywords>impressum copyright contact</keywords>
+    <responsibleAuthor>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>Bielefeld university, CeBiTec, BiBiServ</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+    </responsibleAuthor>
+    <support>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>Bielefeld university, CeBiTec, BiBiServ</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+    </support>
+    <customContent>
+        <m:h4>External link disclaimer</m:h4>
+        <h:p>
+            Some links provided on these pages will lead you to external web pages (in a new window
+            of your browser) that we did not implement. We do not have any influence on the contents
+            of these web pages, they are provided for your information only. Although carefully
+            checked, we are not responsible in any way for contents or layout of these pages. We are
+            also not responsible for electronic messages that you may receive from the owners of
+            these web pages.</h:p>
+        <m:h4>Copyright</m:h4> 
+        <h:p>
+            The copyright for texts, graphics, images, design, and code belongs to Bielefeld University 
+            / CeBiTec / BiBiServ. Copying and distributing this content in parts or as a whole, either 
+            electronically or printed, is subject to written approval.</h:p> 
+        <m:h4>Contact</m:h4>
+        <m:table>
+            <m:tr>
+                <m:td>Dr. Alexander Sczyrba</m:td>
+            </m:tr>
+            <m:tr>
+                <m:td>CeBiTec Bielefeld University</m:td>
+            </m:tr>
+            <m:tr>
+                <m:td>D-33594 Bielefeld Germany</m:td>
+            </m:tr>
+            <m:tr>
+                <m:td> Mail: <h:a href="mailto:bibi-help@cebitec.uni-bielefeld.de"
+                        >bibi-help@cebitec.uni-bielefeld.de</h:a></m:td>
+            </m:tr>
+        </m:table>
+        
+        <h:p> 
+            See also <h:a href="http://www.uni-bielefeld.de/Universitaet/impressum.html">Disclaimer / Impressum
+            Bielefeld University</h:a>
+        </h:p> 
+    </customContent>
+   
+</item>

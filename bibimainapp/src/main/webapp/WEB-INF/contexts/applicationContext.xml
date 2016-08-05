@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr" 
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    
+    
+    <!-- Was machen die folgenden Zeilen ?? -->
+    <context:annotation-config /> 
+    <context:component-scan base-package="*"/> 
+
+    <bean id="coreHelper" class="de.unibi.cebitec.bibiserv.server.manager.CoreHelper" scope="singleton" lazy-init="false"/>
+    
+    <!-- user statistic -->
+    <bean id="userstatsbean" class="de.unibi.cebitec.bibiserv.statistics.charts.UserStatsBean" scope="session" />
+    
+    <!-- Statistic Logging class -->
+    <bean id="statsLogger" class="de.unibi.cebitec.bibiserv.statistics.logging.StatsLogger" scope="session" >
+        <property name="dbcon" ref="db"/>
+        <property name="user" ref="user"/>
+        <property name="uasparser" ref="uasparser"/>
+        <property name="geoip" ref="geoip"/>
+    </bean>
+    
+    <!-- UserAgent String Parser -->
+    <bean id="uasparser" class="de.unibi.cebitec.bibiserv.statistics.logging.UASparser" scope="singleton"/>
+    
+    <!-- GeoIp bean -->
+    <bean id="geoip" class="de.unibi.cebitec.bibiserv.statistics.logging.GeoIP" scope="singleton"/>
+        
+    <!-- Database Access Class for logging -->
+    <bean id="db" class="de.unibi.cebitec.bibiserv.statistics.logging.database.DBConnector" scope="singleton"/>
+
+    <!--extracts language dependent names etc. from bibiserv-structure-->
+    <bean id="messageSource" class="de.unibi.cebitec.bibiserv.server.manager.context.BiBiMessageSource">
+        <property name="basenames">
+            <list>
+                <value>/WEB-INF/BiBiServMessages</value>  <!-- STDMessages e.g. FileUpload Error etc ... -->
+            </list>
+        </property>
+    </bean>
+
+    <!-- Login / Logout Bean -->
+    <bean id="login" class="de.unibi.cebitec.bibiserv.web.administration.beans.LoginBean" scope="session"/>
+
+    <!-- Configuration Bean -->
+    <bean id="conf" class="de.unibi.cebitec.bibiserv.web.beans.session.ExtendedProperties">
+        <property name="resource" value="/Configuration.properties"/>
+    </bean>
+      
+    <!-- Publication Bean -->
+    <bean id="publication" class="de.unibi.cebitec.bibiserv.web.beans.session.PublicationBean" scope="session"/>
+      
+    <!-- XMLToolsBean -->
+    <bean id="xmltools" class="de.unibi.cebitec.bibiserv.web.administration.beans.XMLToolsBean"/>
+
+    <!-- Bean for register form -->
+    <bean id="register" class="de.unibi.cebitec.bibiserv.web.beans.session.RegisterBean" scope="session"/>
+    <!-- Forgot and Reset password form -->
+     <bean id="resetpassword" class="de.unibi.cebitec.bibiserv.web.beans.session.ResetPasswordBean" scope="session"/> 
+        	
+    <!-- ModuleManager (begin) -->
+    <bean id="moduleManager" class="de.unibi.cebitec.bibiserv.web.administration.beans.modulemanager.ModuleManager" scope="session">
+        <property name="moduleDatabase" ref="moduleDatabase"/>
+        <property name="adminFilterInvocationSecurityMetadataSource" ref="adminFilterInvocationSecurityMetadataSource"/>
+    </bean>
+    <bean id="moduleDatabase" class="de.unibi.cebitec.bibiserv.web.administration.beans.modulemanager.ModuleDatabase" scope="singleton"/>
+    <!-- ModuleManager (end) -->
+
+    <bean id="newsBean" class="de.unibi.cebitec.bibiserv.web.beans.app.NewsAnchor" scope="singleton"/>
+  
+
+    <!-- Bean for containing current user id,role -->
+    <bean id="user" class="de.unibi.cebitec.bibiserv.web.beans.session.UserBean"  scope="session"/>
+    
+    <bean id="awsBean" class="de.unibi.cebitec.bibiserv.web.beans.session.AwsBean" scope="session">
+        <property name="messages" ref="messages"/>
+        <property name="user" ref="user"/>
+    </bean>
+    
+    
+    <!-- RunInTheCloud (RITC) - BA Johannes Steiner  (begin) -->
+    <bean id="ec2InstanceWizard" class="de.unibi.cebitec.bibiserv.web.beans.runinthecloud.Ec2InstanceWizard" scope="session" >
+        <property name="awsbean" ref="awsBean" />
+    </bean>
+    
+    <bean id="bashExecutor" class="de.unibi.cebitec.bibiserv.web.beans.runinthecloud.BashExecutor" scope="session" >
+        <property name="ec2InstanceWizard" ref="ec2InstanceWizard" />
+        <property name="user" ref="user" />
+        <property name="dc" ref="KeyChainDatabaseConnect" />
+    </bean>
+    
+    <bean id="ec2InstanceMasterConverter" class="de.unibi.cebitec.bibiserv.web.beans.runinthecloud.Ec2InstanceMasterConverter" scope="session" >
+        <property name="ec2InstanceWizard" ref="ec2InstanceWizard" />
+    </bean>
+    <bean id="ec2InstanceSlaveConverter" class="de.unibi.cebitec.bibiserv.web.beans.runinthecloud.Ec2InstanceSlaveConverter" scope="session" >
+        <property name="ec2InstanceWizard" ref="ec2InstanceWizard" />
+    </bean>
+    
+    <!-- KeyChain Module Testing --> 
+    <bean id="KeyChainDatabaseConnect" class="de.unibi.cebitec.bibiserv.web.beans.runinthecloud.DatabaseConnect" scope="session" />
+    
+    <bean id="keyChainModule" class="de.unibi.cebitec.bibiserv.web.beans.runinthecloud.KeyChainModule" scope="session">
+        <property name="dc" ref="KeyChainDatabaseConnect" />
+        <property name="user" ref="user" />
+        <property name="awsbean" ref="awsBean" />
+    </bean>
+    <!-- RunInTheCloud (RITC) - BA Johannes Steiner  (end) -->
+
+    
+    
+    
+    <bean id="toolChainingBean" class="de.unibi.cebitec.bibiserv.web.beans.session.ToolChainingBean" scope="session" />
+    
+    <!--The bean handlung urls that have to be opened in extra windows for illumina basespace-->
+    <bean id="urlQueueBean" class="de.unibi.cebitec.bibiserv.web.beans.session.RequestOpenUrlQueueBean"  scope="session"/>
+    
+    <!--The bean handling all access to illumina basespace-->
+    <bean id="illuminaBean" class="de.unibi.cebitec.bibiserv.web.beans.session.IlluminaBean"  scope="session">
+        <property name="urlQueueBean" ref="urlQueueBean"/>
+    </bean>
+    
+    <bean id="formatBean" class="de.unibi.cebitec.bibiserv.web.beans.session.FormatBean" scope="session"/>
+
+    <!--The messages bean can be used to retrieve language dependent properties out of messagesource... -->
+    <bean id="messages" class="de.unibi.cebitec.bibiserv.web.beans.session.Messages"  scope="singleton" />
+
+    <!--The Category Bean keeps the information about the current category-->
+    <bean id="categoryBean" class="de.unibi.cebitec.bibiserv.web.beans.session.CategoryBean" scope="session" />
+    
+    <!--The Item Bean keeps the information about a "normal" item -->
+    <bean id="itemBean" class="de.unibi.cebitec.bibiserv.web.beans.session.ItemBean" scope="session" />
+
+    <!--Error bean is used by ModelAndViewSelector class ...contents will be displayed by error.xhtml-->
+    <bean id="errorBean" class="de.unibi.cebitec.bibiserv.web.beans.session.ErrorBean" scope="session"/>
+    
+    <!-- Database Access Class for server structure description -->
+    <bean id="bibiservXmlReader" class="de.unibi.cebitec.bibiserv.web.xmlreader.BiBiServXMLReader" scope="singleton" />
+
+    <!-- Tool Menu Information Creation Bean -->
+    <bean id="toolMenuCreator" class="de.unibi.cebitec.bibiserv.web.menu.ToolMenuCreator" scope="singleton" />
+
+    <!-- Tool Menu Information Creation Bean -->
+    <bean id="menuHolder" class="de.unibi.cebitec.bibiserv.web.beans.app.MenuHolder" scope="singleton" />
+       
+    <!-- bean holding information for one menu instance per session -->
+    <bean id="menuBean" class="de.unibi.cebitec.bibiserv.web.beans.session.MenuBean" scope="session" depends-on="toolMenuCreator" />
+
+    <!-- bean holding information for the navigation within a runnable item -->
+    <bean id="naviBean" class="de.unibi.cebitec.bibiserv.web.beans.session.NaviBean" scope="session" />
+
+    <!-- bean holding information for current faw tree (if available) -->
+    <bean id="faqBean" class="de.unibi.cebitec.bibiserv.web.beans.session.FAQBean" scope="session"/>
+    
+    <!-- search bean -->
+    <bean id="searchBean" class="de.unibi.cebitec.bibiserv.web.beans.session.SearchBean" scope="session" />
+    
+    <!-- prev(ious)res(ult) bean -->
+    <bean id="prevres" class="de.unibi.cebitec.bibiserv.web.beans.session.PrevRes" scope="session">
+        <property name="user" ref="user"/>
+    </bean>
+    
+    <!-- session timeout bean -->
+    <bean id="sessionTimeoutBean" class="de.unibi.cebitec.bibiserv.web.beans.session.SessionTimeout" scope="session" />
+
+    <!--ModelAndViewSelector is responsible for wiring the views with the underlying models -->
+    <bean id="modelAndViewSelectorBean" class="de.unibi.cebitec.bibiserv.web.controller.ModelAndViewSelector" scope="session" />
+
+    <!--RequestFilter is first when HTTP-Request is made and organizes the Requests.
+    Uses ModelAndView Selector to select display and appropriate model
+    Gets instance of MVS from Applicationcontext cause it implements applicationcontextaware interface-->
+
+    <bean id="ToolRequestFilter" class="de.unibi.cebitec.bibiserv.web.controller.ToolRequestFilter" scope="singleton" />
+
+    <bean id="ResetPasswordFilter" class="de.unibi.cebitec.bibiserv.web.controller.ResetPasswordFilter" scope="singleton" />
+    
+    <!--  ApplicationsContext  allows accessing Spring beans from Legacy Code -->
+    <bean id="SpringApplicationContext" class="de.unibi.techfak.bibiserv.web.beans.SpringApplicationContext" scope="singleton"/>
+    
+    
+    <!-- two utilities beans -->
+    <bean id="SHA1" class="de.unibi.cebitec.bibiserv.utils.SHA1" scope="singleton"/>
+    <bean id="Generator" class="de.unibi.cebitec.bibiserv.utils.Generator" scope="session"/>
+        
+    <!-- DEVELOPMENT/TEST BEANS - START -->
+    
+    <bean id="helloworld" class="de.unibi.cebitec.bibiserv.test.Hello"/>
+    <bean id="sgedrmaa" class="de.unibi.cebitec.bibiserv.test.SGEDRMAA_Check"/>
+    <bean id="widgetTesting" class="de.unibi.cebitec.bibiserv.test.WidgetTesting" />
+    
+    <!-- <bean id="usermanagementModuleBean" class="de.unibi.cebitec.bibiserv.web.modules.usermanagement.UserManagement" scope="session"/>   -->
+
+    <!-- DEVELOPMENT/TEST BEANS - END -->
+    
+</beans>

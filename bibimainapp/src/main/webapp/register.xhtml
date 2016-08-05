@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010-2012 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted 2010-2012 BiBiServ Curator Team"
+
+Contributor(s): Jan Krueger - jkrueger(at)cebitec.uni-bielefeld.de
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:s="http://java.sun.com/jstl/fmt"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="WEB-INF/templates/bibiserv2Tpl.xhtml">
+
+    <ui:define name="headContentTitle">
+        Registration
+    </ui:define>
+
+    <ui:define name="north">
+        <h:outputText escape="false"  styleClass="title" value="Registration"/>
+        <div class="separator"/>
+    </ui:define>
+
+    <ui:define name="center">
+        <h:form  id="register" >
+            <p:growl id="global" showDetail="true" />
+            <h:panelGrid  columns="1">
+                Please provide the following information to create a new account.
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="LoginId:"/> 
+                    <h:panelGrid columns="1">
+                        <p:inputText size="30" id="id" value="#{register.id}" validator="#{register.checkId}" required="true" requiredMessage="Id is mandatory!"/> 
+                        <p:message id="idmsg" for="id" />
+                    </h:panelGrid>
+
+                    <h:outputText value="Title:"/>
+                    <h:panelGrid columns="1">
+                        <p:inputText size="30" id="title" value="#{register.title}"/>
+                        <p:message id="titlemsg" for="title" />
+                    </h:panelGrid>
+
+                    <h:outputText value="Name:"/>
+                    <h:panelGrid columns="1">
+                        <p:inputText size="30" id="name" value="#{register.name}" required="true" requiredMessage="Name is mandatory!" />
+                        <p:message id="namemsg" for="name" />
+                    </h:panelGrid>
+                    <h:outputText value="Last Name:"/> 
+                    <h:panelGrid columns="1">
+                        <p:inputText size="30" id="surname" value="#{register.surname}" required="true" requiredMessage="Surname is mandatory!"/>
+                        <p:message id="surnamemsg" for="surname" />
+                    </h:panelGrid>
+
+                    <h:outputText value="Organisation:"/> 
+                    <h:panelGrid columns="1">
+                        <p:inputText size="30" id="organisation" value="#{register.organisation}"/> 
+                        <p:message id="organisationmsg" for="organisation" />
+                    </h:panelGrid>
+
+                    <h:outputText value="Email"/> 
+                    <h:panelGrid columns="1">
+                        <p:inputText size="30" id="email" value="#{register.email}" validator="#{register.checkEmail}"  required="true" requiredMessage="Email adress is mandatory!"/> 
+                        <p:message id="emailemsg" for="email" />
+                    </h:panelGrid>
+
+                    <h:outputText value="Password:"/>
+                    <h:panelGrid columns="1">
+                        <p:password size="30" id="password" value="#{register.password}"  required="true" feedback="true" /> 
+                        <p:message id="passwordmsg" for="password" />
+                    </h:panelGrid>
+
+                    <h:outputText value="Confirm Password "/> 
+                    <h:panelGrid columns="1">
+                        <p:password size="30" id="confirmpassword"  value="#{register.confirmPassword}" requiredMessage="Confirm password!" required="true" feedback="false"/> 
+                        <p:message id="confirmpasswordmsg" for="confirmpassword" />
+                    </h:panelGrid>
+                </h:panelGrid>
+
+
+
+
+                <h:panelGroup rendered="#{register.recaptcha}" layout="block">
+                    <p:captcha id="captcha" theme="white" required="true" secure="true" requiredMessage="Captcha must be answered!"/>
+                    <p:message id="captchamsg" for="captcha"/>
+                </h:panelGroup>
+                
+                <h:panelGroup rendered="#{!register.recaptcha}" style="width:500px; padding-top:10px; padding-bottom:10px; font-style: italic" layout="block">
+                    <strong>Attention:</strong> The Register form uses the <a href="http//www.google.com/recaptcha">ReCaptcha</a> service to distinguish between 
+                    computer and human users. To activate ReCaptcha search the web.xml and uncomment then "primefaces.ReCaptcha" context-param entries and add your
+                    private/public ReCaptcha key.
+                </h:panelGroup>
+                
+                
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Finish Registration" actionListener="#{register.registerAction}" ajax="false" />
+                    <p:commandButton value="Clear" type="reset" actionListener="#{register.clearAction}" update="@form"/>
+                </h:panelGrid>
+                
+                <h:panelGroup  style="width:500px; padding-top:10px; padding-bottom:10px; font-style: italic" layout="block">
+                    <strong>Attention:</strong> The non-anonymous usage is currently in a non public test state, so therefore not opened 
+                    to the public. 
+                </h:panelGroup>
+                
+                <h:panelGroup style="font-size: small; padding-top: 20px" layout="block">
+                    Registration is only necessary for ...
+                    
+                    <ul>
+                        <li>... some non public tools</li>
+                        <li>... some tools working on non public data </li>
+                        <li>... easier access of previous finished requests</li>
+                        <li>... longer hold-back time of previous requests</li>
+                    </ul>
+             
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

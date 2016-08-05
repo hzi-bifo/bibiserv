@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alignmentML xmlns="http://hobit.sourceforge.net/xsds/20060602/alignmentML"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060602/alignmentML http://bibiserv/xsd/net/sourceforge/hobit/20060602/alignmentML.xsd">
+    <alignmen>
+        <sequence seqID="sample1">
+            <alignedAminoAcidSequence>--LDTAPCLF------------------SDGSPQKAAYVLWDQ</alignedAminoAcidSequence>
+        </sequence>
+        <sequence seqID="sample2">
+            <alignedAminoAcidSequence>VILSTDSQYVRQGITQWIHNWKKRGWKTADKKPVKNVD-LWQR</alignedAminoAcidSequence>
+        </sequence>
+    </alignmen>
+</alignmentML>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: phyloML schema definition
+           version 	: 0.9
+           date           : 2006-04-03
+           author        :  Alexander Kaiser <akaiser@techfak.uni-bielefeld.de>
+                            : Philipp Seibel <philipp.seibel@biozentrum.uni-wuerzburg.de>
+           released 	: no
+        buglevel	: ...
+        todo		: ...
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+  xmlns="http://bibiserv.techfak.uni-bielefeld.de/xsd/20060403/phyloML" 
+  targetNamespace="http://bibiserv.techfak.uni-bielefeld.de/xsd/20060403/phyloML" 
+  elementFormDefault="qualified">
+  <xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://schemas.bioservices.net/2005/biotypes_1.1.xsd"/>
+  <xs:element name="phylogenies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" name="phylogeny" type="phylogenyType"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="bt:version" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="phylogenyType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="clade" type="cladeType"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="cladeType" >
+    <xs:complexContent>
+      <xs:extension base="terminalType">
+        <xs:choice>
+           <xs:element minOccurs="1" maxOccurs="unbounded" name="clade"  type="cladeType"/>
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="leaf"  type="terminalType"/>
+        </xs:choice>
+        <xs:attribute name="distance" type="xs:float" use="optional"/>
+        <xs:attribute name="bootstrap" type="xs:float" use="optional"/>
+        <xs:anyAttribute/>
+      </xs:extension>
+    </xs:complexContent>  
+  </xs:complexType>
+  
+  <xs:complexType name="terminalType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

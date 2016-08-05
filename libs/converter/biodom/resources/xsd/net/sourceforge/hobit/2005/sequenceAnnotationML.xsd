@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited  by  Knut Schwarzer (UKG Abteilung Bioinformatik)-->
+<!-- edited by Andreas Kuntzagk (MDC-Berlin) -->
+<!-- created  by  Knut Schwarzer (UKG Abteilung Bioinformatik)-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:seq="http://hobit.sourceforge.net/xsds/20060102/sequenceML" xmlns:bt="http://schemas.bioservices.net/2006/01/biotypes" xmlns="http://hobit.sourceforge.net/xsds/2005/sequenceAnnotationML.xsd" xmlns:anno="http://hobit.sourceforge.net/xsds/2005/sequenceAnnotationML.xsd" targetNamespace="http://hobit.sourceforge.net/xsds/2005/sequenceAnnotationML.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <!-- annotationXML based on sequenceML 0.2 - http://hobit.sourceforge.net/xsds/2005/sequenceML.xsd  -->
+    <!--<xs:import namespace="http://hobit.sourceforge.net/xsds/2005/sequenceML.xsd" schemaLocation="http://hobit.sourceforge.net/xsds/2005/sequenceML.xsd"/>-->
+    <!-- annotationXML based on biotypes 1.0 - http://schemas.bioservices.net/2005/biotypes -->
+    <!--<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://schemas.bioservices.net/2005/biotypes_1.0.xsd"/>-->
+    <!-- for local usage download sequenceML and biotypes and take this include -->
+    <xs:import namespace="http://hobit.sourceforge.net/xsds/20060102/sequenceML" schemaLocation="sequenceML.xsd"/>
+    <xs:import namespace="http://schemas.bioservices.net/2006/01/biotypes" schemaLocation="biotypes_1.1.xsd"/>
+    <!--  Definitions   -->
+    <xs:element name="sequenceAnnotation" type="sequenceAnnotationType" nillable="true">
+        <xs:annotation>
+            <xs:documentation>root element containing all information concerning one annotated
+                sequence</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="annotationSourceType">
+        <xs:annotation>
+            <xs:documentation>Source the annotation was accrued from.</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="author" maxOccurs="2">
+                <xs:annotation>
+                    <xs:documentation>Use this for hand annotated features</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="occasion" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>information wether it is the first
+                                            author/date or the last one</xs:documentation>
+                                </xs:annotation>
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="creator"/>
+                                        <xs:enumeration value="updater"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="datetime" type="xs:dateTime" use="optional">
+                                <xs:annotation>
+                                    <xs:documentation>Time of the Annotation</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="source" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Use this if the annotation is the output of a
+                            program</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="citation" type="seq:citationType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Use this if a paper is the source of the
+                            annotation</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <!--Complex Types to use outside of annotationXML-->
+    <xs:complexType name="sequenceAnnotationType">
+        <xs:sequence>
+            <xs:element name="sequence" type="seq:sequenceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Information about the annotated sequence</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="organism" type="organismType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Species the sequence is derived from. Prefered is to fill out
+                        the attribute taxid. Otherwise use genus species [subspecies] [cell line].
+                        "artificial" or "unknown" are allowed as well.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="location" type="locationType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>position of the annotated sequence as a whole relative to a
+                        bigger context (see coordinate system and position0)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="featureSet" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>AnnotatedFeature or group of (nested)
+                    features.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="feature" type="featureType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="additionalInformation" type="additionalInformationType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Any type of property not listet elsewhere.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="version" type="bt:version" fixed="0.2">
+            <xs:annotation>
+                <xs:documentation>number of the AnnotationXML version</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="organismType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="taxid" type="xs:positiveInteger" use="optional">
+                    <xs:annotation>
+                        <xs:documentation> Taxonomy Identifier. Prefered
+                        declaration</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="lsid" type="bt:lsid" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="locationType">
+        <xs:sequence>
+            <xs:element name="position" type="positionType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>sometimes a feature is correlated to more than one position
+                        (e.g. splicing). In this case use this combination of more then one
+                        position.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="coordinateSystem" use="required">
+            <xs:annotation>
+                <xs:documentation>Specification of the coordinate system of the
+                position.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="1st NT of Chr X">
+                        <xs:annotation>
+                            <xs:documentation>first nucleotide of Chromsome number X (X should be
+                                given in position0)</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="1st NT of Exon X">
+                        <xs:annotation>
+                            <xs:documentation>first nucleotide of Exon number X of the current Gen
+                                (X should be given in position0)</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="TSS">
+                        <xs:annotation>
+                            <xs:documentation>Transcriptional start side</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="ATG">
+                        <xs:annotation>
+                            <xs:documentation>Start codon</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="other">
+                        <xs:annotation>
+                            <xs:documentation>other description of position 0 (should be given in
+                                position0)</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="definitionForOther" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Additional Information to coordinateSystem Number of
+                    Chromosom/Exon or freetext description</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="positionType">
+        <xs:attribute name="start" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation>Number of the first Base/AS of the sequence relativ to the
+                    coordinateSystem</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="end" type="xs:int" use="optional">
+            <xs:annotation>
+                <xs:documentation>Number of the last Base/AS of the sequence relativ to the
+                    coordinateSystem</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="strand" type="xs:string" use="optional"/>
+        <xs:attribute name="chromosomeName" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Specification of the chromosome number</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="exonName" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>Specification of the number of the exon. Required if
+                    coordinateSystems = '1st NT of Exon X'</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="commentType">
+        <xs:annotation>
+            <xs:documentation>TODO!!</xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+    <xs:complexType name="featureType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Name of the feature if any</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="synonyms" type="xs:string" nillable="false" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Synonyms for this element</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>a more descriptive explanation of the
+                    feature</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sequenceAnnotation" type="sequenceAnnotationType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Information about the annotated sequence corresponding to this
+                        feature</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="annotationSource" type="annotationSourceType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="featureID" type="bt:accessionNumber" use="optional">
+            <xs:annotation>
+                <xs:documentation>Individual id for each feature. Required if you want to link to
+                    this FeatureSet (see featureRef)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="featureType" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Classification of the feature </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="featureRef" type="bt:accessionNumber" use="optional">
+            <xs:annotation>
+                <xs:documentation>Reference, pointing to another FeatureSet
+                entry.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="additionalInformationType">
+        <xs:sequence>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

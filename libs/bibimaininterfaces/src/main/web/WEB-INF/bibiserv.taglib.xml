@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+    Document   : bibiserv.taglib.xml
+    Created on : 8. August 2011, 11:08
+    Author     : jkrueger
+    Description:
+        Purpose of the document follows.
+-->
+
+
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+                version="2.0">
+
+
+    <namespace>http://bibiserv.cebitec.uni-bielefeld.de/facelets</namespace>
+    <tag>
+        <description>Render a simple intermediate progressbar.</description>
+        <tag-name>progressbar</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/progressbar.xhtml</source>
+        <attribute>
+            <description>Width of progressbar measured in pixel</description>
+            <name>width</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Render a list of all authors for the given tool</description>
+        <tag-name>authors</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/authors.xhtml</source>
+        <attribute>
+            <description>Tool id</description>
+            <name>toolid</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+
+    <tag>
+        <description>Render a list of publication for given tool</description>
+        <tag-name>publications</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/publications.xhtml</source>
+        <attribute>
+            <description>Tool id</description>
+            <name>toolid</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Text to appear if no reference(s) available for this tool</description>
+            <name>noreftext</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+    <tag>
+        <description>Render a primary publication for given tool</description>
+        <tag-name>primarypublication</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/primarypublication.xhtml</source>
+        <attribute>
+            <description>Tool id</description>
+            <name>toolid</name>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Tool Name - default : toolid</description>
+            <name>toolname</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Introduction text - default : 'Users of #{toolid} are requested to cite:'</description>
+            <name>introduction</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+             
+    </tag>
+    
+    
+    <tag>
+        <description>Render a BiBiServ2 input (file upload / copy &amp; paste) box. 
+            Work on abstract input type (see attribute)
+        </description>
+        <tag-name>input</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/input.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation of InputBean type bean</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractInputBean</type>
+        </attribute>
+        <attribute>
+            <name>supportedFormats</name>
+            <description>Which formats need to be displayed as supported.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>mainFormat</name>
+            <description>Which formats need to be displayed as supported as original tool format without conversion.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+    <tag>
+        <description>Render an extended BiBiServ2 input (file upload / cop &amp; paste / AWS S3 support) box.
+            Work on abstract Cloud input type (see attribute)
+        </description>
+        <tag-name>cloudinput</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/cloudinput.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool depended implementation of CloudInputBean type bean</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractCloudInputBean</type>
+        </attribute>
+        <attribute>
+            <name>supportedFormats</name>
+            <description>Which formats need to be displayed as supported.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>supportedStreamFormats</name>
+            <description>Which formats need to be displayed as supported for AWS.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>mainFormat</name>
+            <description>Which formats need to be displayed as supported as original tool format without conversion.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+     <tag>
+        <description>Render an extended BiBiServ2 input (file upload / cop &amp; paste / Server File support / AWS S3 support) box.
+            Work on abstract Cloud input type (see attribute)
+        </description>
+        <tag-name>serverandcloudinput</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/serverandcloudinput.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool depended implementation of CloudInputBean type bean</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractServerAndCloudInputBean</type>
+        </attribute>
+        <attribute>
+            <name>supportedFormats</name>
+            <description>Which formats need to be displayed as supported.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>supportedStreamFormats</name>
+            <description>Which formats need to be displayed as supported for AWS.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>mainFormat</name>
+            <description>Which formats need to be displayed as supported as original tool format without conversion.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+     <tag>
+        <description>Render a BiBiServ2 input (aws for url transfer) box. 
+            Work on abstract input type (see attribute)
+        </description>
+        <tag-name>s3transferinput</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/s3tranferinput.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation of InputBean type bean</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractS3TransferInputBean</type>
+        </attribute>
+        <attribute>
+            <name>supportedFormat</name>
+            <description>Which format needs to be displayed as supported.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <description>Render a dialog for validation or status info
+        </description>
+        <tag-name>status</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/status.xhtml</source>
+        <attribute>
+            <name>callbackBean</name>
+            <description>Implementation of PollInterface type bean</description>
+            <required>false</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.PollInterface</type>
+        </attribute>        
+        <attribute>
+            <name>widgetVar</name>
+            <description>Tool depended variable name for status tag</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>update</name>
+            <description>Task specific update target</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>message</name>
+            <description>Message for dialog</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>infoMessage</name>
+            <description>Warningmessage for dialog</description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>infoHeader</name>
+            <description>Warningmessage for dialog</description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>header</name>
+            <description>Header for dialog</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>redirectURI</name>
+            <description>Redirect attribute for page redirection</description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Render a BiBiServ2 result page for downloading and visualization.
+        </description>
+        <tag-name>toolresults</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/toolresults.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.ToolFunctionResult</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <description>Show the pogress of all down- and uploads of a tool. 
+        </description>
+        <tag-name>loadprogress</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/loadprogress.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.ToolFunctionResult</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <description>Render a part of the BiBiServ2 result page for downloading extra files.
+        </description>
+        <tag-name>tooloutputfiles</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/tooloutputfiles.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.ToolFunctionResult</type>
+        </attribute>
+        <attribute>
+            <name>columns</name>
+            <description>Defines how many columns are rendered in a single line (default 4)</description>
+            <required>false</required>
+            <type>java.lang.String</type> 
+        </attribute>
+    </tag>
+    
+    <tag>
+        <description>Contains a single selectonemenu with all correctly validated representations.
+        </description>
+        <tag-name>formatchooser</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/formatchooser.xhtml</source>
+         <attribute>
+            <name>bean</name>
+            <description>Tool depended implementation of CloudInputBean type bean</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractInputBean</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <description>An element to choose the way how to handle results.</description>
+        <tag-name>toolresulthandling</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/toolresulthandling.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool depended implementation of ResultHandlingBean type bean</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractResultHandlingBean</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <description>A tag that generates a button with description for redirecting.</description>
+        <tag-name>redirect</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/redirectbutton.xhtml</source>
+        <attribute>
+            <name>instant</name>
+            <description>If true the page will redirect instantly without user interaction. If false a button and text will appear.</description>
+            <required>true</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>url</name>
+            <description>Where to redirect to.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>message</name>
+            <description>Message to show before the button</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>buttonMessage</name>
+            <description>Message to show on the button</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <description>Specifies the target attribute or target name of the window; 
+                the following values are supported : _blank, _parent, _self, _top or #name#.
+                Ignored if instant is set to true.
+            </description>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+    <tag>
+        <description>Generates a FAQ list on top of bibimainapp:FAQBEan</description>
+        <tag-name>faq</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/faq.xhtml</source>
+        <attribute>
+            <name>toolid</name>
+            <description>tool id</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Render a table that display the content of an SQL-Database with given constraints.
+        </description>
+        <tag-name>sqltable</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/sqlTable.xhtml</source>
+        <attribute>
+            <name>tableBean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.AbstractSqlTableBean</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Render the elements for advancing to a next tool in the toolchain.
+        </description>
+        <tag-name>toolchaining</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/toolchaining.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.ToolFunctionResult</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Render the elements for advancing to the next tool in the toolchain.
+        </description>
+        <tag-name>toolchaining</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/toolchaining.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.ToolFunctionResultChaining</type>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <description>id of the element</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>Render the elements for advancing to the start of a new toolchain.
+        </description>
+        <tag-name>toolchainstart</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/toolchainstart.xhtml</source>
+        <attribute>
+            <name>bean</name>
+            <description>Tool dependend implementation containing the needed methods.</description>
+            <required>true</required>
+            <type>de.unibi.techfak.bibiserv.web.beans.session.ToolFunctionController</type>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <description>id of the element</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>input</name>
+            <description>id of the input this is for</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+    <tag>
+        <description> Render the element for a statistical logged href. Bases on JSF outputLink.</description>
+        <tag-name>downloadlink</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/downloadlink.xhtml</source>
+        <attribute>
+            <name>id</name>
+            <description>tool id, should be same tool id like the bibiserv application. id is the primary key
+                used in the statistic database. ie: id used in a application named 'REPuter' (with id reputer) 
+                should be 'reputer'</description> 
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <description>Name of resource, should be unique for a given id. Normally this is the name of the resource.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>url</name>
+            <description>URL of resoruce</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+    <tag>
+        <description> Render the element for a statistical logged button. Bases on primefaces commandButton.</description>
+        <tag-name>downloadbutton</tag-name>
+        <source>tags/de/unibi/cebitec/bibiserv/downloadbutton.xhtml</source>
+        <attribute>
+            <name>id</name>
+            <description>tool  id, should be same tool id like the bibiserv application. id is the primary key
+                used in the statistic database. ie: tool id used in a application named 'REPuter' (with id reputer) 
+                should be 'reputer'</description> 
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+
+        <attribute>
+            <name>name</name>
+            <description>Name of resource, should be unique for a given id. Normally this is the name of the resource.</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>url</name>
+            <description>URL of resoruce</description>
+            <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    
+
+</facelet-taglib>

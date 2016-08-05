@@ -1,0 +1,18 @@
+   MSF:  133  Type: P    Check:  NONE   ..
+
+ Name: sample1  Len: 133  Check: NONE  Weight: NONE
+ Name: sample2  Len: 35  Check: NONE  Weight: NONE
+
+//
+
+sample1      -------CGT AGCAGCGATA GGCnnnnnnn nnnnnnnnnn nnnnnnnnnn
+sample2      ACCGTTTCGT AGCAGCGATA G--GCATGCA TTGC------ ----------
+
+
+sample1      nnnnnnnnnn nnnnnnnnnn nnnnnnnnnn nnnnnnnnnn nnnnnnnnnn
+sample2      ---------- ---------- ---------- ---------- ----------
+
+
+sample1      nnnnnnnnnn nnnnnnnnnn nnnnATGCAT TGC
+sample2      ---------- ---------- ---------- ---
+

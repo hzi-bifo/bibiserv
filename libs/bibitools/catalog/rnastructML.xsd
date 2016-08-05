@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: rnastructML schema definition
+	version 		: 2.0
+	date 		: 2006-02-01
+	author		: Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+			  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+			  Jan Krueger <jkrueger.techfak.uni-bielefeld.de>
+-->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+	xmlns:ht="http://hobit.sourceforge.net/xsds/20060403/hobitTypes"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060201/rnastructML"
+	xmlns:rna="http://hobit.sourceforge.net/xsds/20060201/rnastructML"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<!-- RNAStructAlignmentML is based on BioTypes 1.1 and HobitTypes -->
+	<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/bioservices/schemas/2005/biotypes_1.1.xsd" />
+	<xs:import namespace="http://hobit.sourceforge.net/xsds/20060403/hobitTypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060403/hobitTypes.xsd" />
+	
+	
+	
+	<!--                    	-->
+	<!-- ELEMENTS -->
+	<!--                   	-->
+	<xs:element name="rnastructML" nillable="true">
+		<xs:annotation>
+			<xs:documentation>
+				RNAStructML is a format for storing rna secondary structure information. 
+				One widely accepted usage for rnatools, such as 
+				RNAshapes {http://bibiserv.techfak.uni-bielefeld.de/rnashapes}, 
+				RNAfold {http://www.tbi.univie.ac.at/~ivo/RNA/} and 
+				Mfold {http://www.bioinfo.rpi.edu/applications/mfold/old/rna/form1.cgi}
+				is the proprosal of rna secondary structures, based on thermodynamic principles.
+				RNAStructML is based on SequenceML and uses Vienna style DotBracket strings for storing 
+				the structure information.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence> 
+				<xs:element name="rnastructure" type ="rna:rnastructureWithProgramType" minOccurs="1" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>element for storing RNA secondary structure information and some meta data</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="bt:version" use="optional" >
+				<xs:annotation>
+					<xs:documentation>optional version tag</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<!--             	-->
+	<!-- TYPES 	-->
+	<!--             	-->
+	<xs:complexType name="rnastructureWithProgramType">
+		<xs:annotation>
+			<xs:documentation>
+				This contains the basic rna secondary structure data along with sequence information and program information
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="rna:rnastructureType">
+				<xs:sequence>
+					<xs:element name="program" type="ht:programType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>data concerning programs and tools (e.g. commandline calls) can be stored in this element</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="rnastructureType">
+		<xs:annotation>
+			<xs:documentation>
+				This contains the basic rna secondary structure data along with sequence information, but does not contain program information
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="1">
+			<xs:element name="sequence" type="rna:sequenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>contains sequence information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>comment element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="1" maxOccurs="unbounded">
+				<xs:choice>
+					<xs:element name="shape" type="rna:shapeType">
+						<xs:annotation>
+							<xs:documentation>This element is for storing rna secondary structure shapes. A shape defines a class of rna secondary structures.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="structure" type="rna:structureType">
+						<xs:annotation>
+							<xs:documentation>This element is for storing a specific rna secondary structure. A rna secondary structure may be related to a shape element.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:sequence>
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:annotation>
+			<xs:documentation>Type for storing sequence information. Inspired by SequenceML, but can not contain amino acid sequences</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>name of the sequence</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="synonyms" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>synonyms for sequence name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="description" type="xs:string" >
+				<xs:annotation>
+					<xs:documentation>description for sequence</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="nucleicAcidSequence" type="bt:ambiguousNucleotideSequence">
+					<xs:annotation>
+						<xs:documentation>this element can contain nucleotid sequences</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="freeSequence" type="bt:sequence">
+					<xs:annotation>
+						<xs:documentation>this element can contain unrestricted sequence strings</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="emptySequence" fixed="">
+					<xs:annotation>
+						<xs:documentation>this element is used if no sequence information is provided, it must be empty</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" name="comment" type="xs:string" >
+				<xs:annotation>
+					<xs:documentation>A comment can be placed in this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="bt:accessionNumber" use="required">
+			<xs:annotation>
+				<xs:documentation>a mandatory sequence id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+	
+	<xs:complexType name="shapeType">
+		<xs:annotation>
+			<xs:documentation>Type for storing rna secondary structure shapes</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="bt:rnaSecondaryStructureSequenceClass">  
+				<xs:attribute name="probability" type="rna:probability" use="optional" >
+					<xs:annotation>
+						<xs:documentation>probability value for shape</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="id" type="xs:ID" use="optional">
+					<xs:annotation>
+						<xs:documentation>optional identifier for reference from structures</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="structureType">
+		<xs:annotation>
+			<xs:documentation>Type for storing rna secondary structure information</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="bt:rnaSecondaryStructureSequence">
+				<xs:attribute name="energy" type="xs:double" use="optional">
+					<xs:annotation>
+						<xs:documentation>energy value for rna secondary structure</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="probability" type="rna:probability" use="optional">
+					<xs:annotation>
+						<xs:documentation>probability value for rna secondary structure</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="shaperef" type="xs:IDREF" use="optional" >
+					<xs:annotation>
+						<xs:documentation>this attribute can contain a reference to a shape identifier</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="probability">
+		<xs:annotation>
+			<xs:documentation>simple type for probability attributes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:double">
+			<xs:maxInclusive value="1.0" />
+			<xs:minInclusive value="0.0" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

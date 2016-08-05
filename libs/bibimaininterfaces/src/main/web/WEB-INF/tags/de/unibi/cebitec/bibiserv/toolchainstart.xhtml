@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition>
+                <script type="text/javascript">
+                    function setCSSclass(id,cssclass){
+                        document.getElementById(id).className = cssclass;
+                    }
+                </script>
+            
+                <h:panelGrid id="#{id}_grid" columns="2" cellspacing="13px"> 
+                    
+                        <h:outputText style="font-weight: bold" value="Retrieve data from other tool: "/>
+                    
+                        <h:panelGrid columns="1" cellspacing="13px">
+                            <c:forEach items="#{bean.getToolchainStarts(input)}" var="pair" varStatus="counter">                           
+                                <h:commandLink value="#{pair.getKey()}" id="#{id}_chain_item_#{counter.count}" styleClass="tool_result_button"
+                                               onmouseover="setCSSclass(this.id,'tool_result_button tool_result_button_highlighted')" 
+                                               onmouseout="setCSSclass(this.id,'tool_result_button')"
+                                               action="#{bean.startToolChain(pair.getValue().getKey(),pair.getValue().getValue())}">
+                                </h:commandLink>
+                            </c:forEach>
+                        </h:panelGrid>
+                </h:panelGrid>
+            
+        </ui:composition>
+    </h:body>
+</html>

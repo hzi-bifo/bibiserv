@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rnastructML xmlns="http://hobit.sourceforge.net/xsds/20060201/rnastructML" xmlns:NS1="http://www.w3.org/2001/XMLSchema-instance" NS1:schemaLocation="http://hobit.sourceforge.net/xsds/20060201/rnastructML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/rnastructML.xsd">
+    <rnastructure>
+        <sequence seqID="sample1">
+            <description>description</description>
+            <nucleicAcidSequence>ACGUUGACGUGGAGCUGGUCUAUGUCGAUGCUAUGGACG</nucleicAcidSequence>
+        </sequence>
+        <structure energy="-13.9">.((((((((((((.....)))))))))))).........</structure>
+    </rnastructure>
+</rnastructML>

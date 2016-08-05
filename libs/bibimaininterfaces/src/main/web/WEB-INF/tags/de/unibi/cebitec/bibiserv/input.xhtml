@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+   
+    <!-- following getter & setter ::
+        - helpAction
+        - help
+        - uploadvisible
+        - textareavisible
+        - selectedInput
+        - selectItems
+        - changelistener
+        - uploadMessage
+        - textarea
+        - validated
+        - valid
+        - input  => input.source
+        - showInfoAction
+        - showInfo
+        - 
+    -->
+
+    <h:body>
+        <ui:composition>
+
+
+            <h:panelGroup id="#{bean.id}" styleClass="boxMain">
+
+                <!-- Selection of Textarea or FileUpload  -->
+                <h:panelGrid columns="2" 
+                             headerClass="input_header" 
+                             footerClass="input_footer" 
+                             rowClasses="input_header_top, input_header_mid" 
+                             columnClasses="input_column_left, input_column" 
+                             frame="box" cellpadding="5" cellspacing="0"
+                             styleClass="inputTable">
+                    <f:facet name="header">
+                        <div class="padding">
+                            <span class="formblock_title">#{messages.property(bean.id.concat('_name'))}:
+                                <h:commandButton styleClass="icon"
+                                                 image="#{conf.getProperty('icon.help')}"
+                                                 alt="help on input #{messages.property(bean.id.concat('_name'))}" 
+                                                 actionListener="#{bean.helpAction}"/>
+                            </span>
+                            <span class="formblock_shortDescription">#{messages.property(bean.id.concat('_shortDescription'))}</span>
+                        </div>
+                        <h:panelGroup layout="block" rendered="#{bean.help}" styleClass="formblock_helpbox_input formblock_normal input_text">
+                            <div class="left">?</div><div class="right">
+                                <span class="description"><h:outputText escape="false" value="#{messages.property(bean.id.concat('_description'))}"/></span><br/><br/>
+                                <span class="formats_pre">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.SUPPORTEDFORMATS')}: </span><span class="formats">#{supportedFormats}</span>
+                            </div>
+                            <div style="clear: both"></div>
+                        </h:panelGroup>
+                    </f:facet>
+                    <h:outputText value="(1) #{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.SELECT_METHOD')} : "/>
+                    <h:panelGroup>
+                        <h:outputText rendered="#{bean.uploadvisible}"
+                                      value="(2) #{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.UPLOAD')}:"/>
+                        <h:outputText rendered="#{bean.textareavisible}"
+                                      value="(2) #{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.COPYPASTE')}:"/>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block">
+                        <h:selectOneRadio value="#{bean.selectedInput}" 
+                                          layout="pageDirection" styleClass="input_text">
+                            <f:selectItems value="#{bean.selectedItems}" />
+                            <f:ajax event="valueChange" 
+                                    render="#{bean.id}"
+                                    listener="#{bean.changelistener}" />
+                        </h:selectOneRadio>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block">
+                         <!-- File Upload  -->
+                        <h:panelGroup styleClass="formblock_inputbox formblock_normal" 
+                                      rendered="#{bean.uploadvisible}"> <!-- limit upload file size to 100MB -->
+                            <p:fileUpload label="Upload"
+                                          fileUploadListener="#{bean.uploadAction}"
+                                          sizeLimit="100000000" 
+                                          auto="true"
+                                          update="#{bean.id}_uploadmsg1 #{bean.id}_error #{bean.id}_error_info"
+                                          />  
+                            <div class="uploadmsg">
+                                <h:outputText id="#{bean.id}_uploadmsg1" value="#{bean.uploadMessage}"/>
+                            </div>
+                        </h:panelGroup>
+
+                        <!--                         Copy & Paste Textarea  -->
+                        <h:panelGroup styleClass="formblock_inputbox formblock_normal" 
+                                      rendered="#{bean.textareavisible}">
+                            <h:inputTextarea value="#{bean.textarea}"
+                                             cols="60" rows="10" >
+                                <f:ajax event="valueChange" render="#{bean.id}_error #{bean.id}_error_info" listener="#{bean.resetValidated}" />
+                            </h:inputTextarea>
+                        </h:panelGroup>
+                        
+                        <!--File located on server-->
+                        <h:panelGroup styleClass="formblock_inputbox formblock_normal" 
+                                      rendered="#{bean.chainingServerFileVisible}">
+                            
+                            <h:panelGrid columns="1">
+                                <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.TOOLCHAINFILE')} '#{bean.lastToolname}'!" style="font-weight: bold;"/>
+                                   <br/>
+                                   <h:commandLink value="Download" target="_blank" id="#{bean.id}_chain_download_" styleClass="tool_result_button"
+                                           onmouseover="setCSSclass(this.id,'tool_result_button tool_result_button_highlighted')" 
+                                           onmouseout="setCSSclass(this.id,'tool_result_button')">
+                                      <p:fileDownload value="#{bean.getServerFileAsDownload()}" contentDisposition="inline" />
+                                   </h:commandLink>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                        
+                        <br/>
+
+                        <h:panelGrid columns="2">
+                             <h:selectOneRadio value="#{bean.skipValidation}" style="width:120px;">  
+                                <f:selectItem itemLabel="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.YES')}" itemValue="true" />  
+                                <f:selectItem itemLabel="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.NO')}" itemValue="false" />
+                                 <f:ajax/>
+                             </h:selectOneRadio>
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.SKIP_VALIDATION')} #{mainFormat}"/>
+                        </h:panelGrid>
+                        
+                        <br/>
+                         
+                        <h:panelGroup id="#{bean.id}_error">
+                            <h:panelGrid styleClass="formblock_feedback invalid" columns="3" rendered="#{bean.validated and !bean.valid}">
+                            <img class="icon" alt="error" src="#{conf.getProperty('icon.error')}"/>
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.INPUT_DATA_IS_INVALID')} (#{bean.input.source})!"/>
+                            <h:commandButton
+                                styleClass="icon"
+                                alt="info about error"
+                                image="#{conf.getProperty('icon.info')}"
+                                actionListener="#{bean.showInfoAction}"/>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                </h:panelGrid>
+
+                <!-- Error Popup Window -->
+                <h:panelGroup id="#{bean.id}_error_info">
+                    <h:panelGroup  layout="block" rendered="#{bean.showInfo}" styleClass="formblock_errorbox">
+                        <h:outputText escape="false" value="#{bean.input.message}"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+
+        </ui:composition>
+    </h:body>
+</html>

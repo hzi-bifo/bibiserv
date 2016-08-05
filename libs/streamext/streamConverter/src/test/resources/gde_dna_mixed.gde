@@ -1,0 +1,55 @@
+#sample1
+ACGTAGCAGCGATAGGCATGCATTGC
+{
+name	"sample2"
+type		"DNA"
+longname	Petunia integrifolia subsp. inflata
+sequence-ID	"L27173"
+creator		"Karunanandaa,B., Singh,A. and Kao,T.H."
+creation-date	 4/ 4/1995 12: 9: 4
+direction	1
+strandedness	1
+comments	"VERSION     L27173.1  GI:499654KEYWORDS    gamma-thionin.
+SOURCE      Petunia integrifolia subsp. inflata
+            Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta;
+            Spermatophyta; Magnoliophyta; eudicotyledons; core eudicots;
+            asterids; lamiids; Solanales; Solanaceae; Petunia.
+REFERENCE   1  (bases 1 to 1561)
+  TITLE     Characterization of a predominantly pistil-expressed gene encoding
+            a gamma-thionin-like protein of Petunia inflata
+  JOURNAL   Plant Mol. Biol. 26 (1), 459-464 (1994)
+  MEDLINE   95036017
+   PUBMED   7948892
+COMMENT     Original source text: Petunia inflata pistil DNA.
+FEATURES             Location/Qualifiers
+     source          1..1561
+                     /organism=`Petunia integrifolia subsp. inflata`
+                     /mol_type=`genomic DNA`
+                     /sub_species=`inflata`
+                     /db_xref=`taxon:212142`
+                     /tissue_type=`pistil`
+     TATA_signal     542..548
+     exon            <693..794
+                     /number=1
+     5'UTR           <693..730
+     CDS             join(731..794,1127..1299)
+                     /note=`gamma-thionin homolog`
+                     /codon_start=1
+                     /protein_id=`AAA64740.1`
+                     /db_xref=`GI:499655`
+                     /translation=`MGRSIRLFATFFLIAMLFLSTEMGPMTSAEARTCESQSHRFHGT
+                     CVRESNCASVCQTEGFIGGNCRAFRRRCFCTRNC`
+     mat_peptide     1156..1296
+                     /product=`gamma-thionin homolog`
+     intron          795..1126
+                     /number=1
+     exon            1127..1410
+                     /number=2
+     3'UTR           1296..1410
+     polyA_signal    1376..1381
+     polyA_site      1411
+"
+sequence	"
+ACCGTTTCGTAGCAGCGATAGGCATGCATTGC"
+}
+

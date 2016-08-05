@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns5:runnableItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd"
+    xmlns:ns2="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml"
+    xmlns:ns3="http://bibtexml.sf.net/" 
+    xmlns:ns4="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml" 
+    xmlns:ns5="bibiserv:de.unibi.techfak.bibiserv.cms" 
+    id="guugle">
+    <ns5:name xml:lang="en">GUUGle</ns5:name>
+    <ns5:shortDescription xml:lang="en">A utility for fast exact matching under RNA base pairing rules</ns5:shortDescription>
+    <ns5:description xml:lang="en">
+        <ns2:p>RNA secondary structure analysis often requires searching for
+potential helices in large sequence data. We present a utility
+program   that efficiently locates potential helical
+regions under RNA base pairing rules, which include Watson-Crick
+as well as G-U pairs. It accepts a target and a query set of
+sequences, and determines all exact matches under RNA rules
+between target and query sequences that exceed a specified
+length.</ns2:p>
+        <ns2:p>If you need to create larger output than we permit for online
+use, or want to incorporate   into your own pipeline,
+please download the   program from the BiBiServ
+download department.</ns2:p>
+    </ns5:description>
+    <ns5:toolTipText xml:lang="en">A utility for fast exact matching under RNA base pairing rules</ns5:toolTipText>
+    <ns5:keywords xml:lang="en">RNA BASEPAIRING</ns5:keywords>
+    <ns5:responsibleAuthor>
+        <ns5:firstname>Wolfgang</ns5:firstname>
+        <ns5:lastname>Gerlach</ns5:lastname>
+        <ns5:organisation>Bielefeld University</ns5:organisation>
+        <ns5:email>wolfgang.gerlach@cebitec.uni-bielefeld.de</ns5:email>
+    </ns5:responsibleAuthor>
+    <ns5:author>
+        <ns5:firstname>Robert</ns5:firstname>
+        <ns5:lastname>Giegerich</ns5:lastname>
+        <ns5:organisation>Bielefeld University</ns5:organisation>
+        <ns5:email>robert@techfak.uni-bielfeld.de</ns5:email>
+    </ns5:author>
+    <ns5:support>
+        <ns5:firstname>BiBiServ</ns5:firstname>
+        <ns5:lastname>Mitarbeiter</ns5:lastname>
+        <ns5:email>bibi-help@cebitec.uni-bielefeld.de</ns5:email>
+    </ns5:support>
+    <ns5:customContent xml:lang="en"/>
+   
+    
+    <ns5:executable>
+        <ns5:version>1.1</ns5:version>
+        <ns5:execInfo>
+            <ns5:executableType>binary</ns5:executableType>
+            <ns5:path></ns5:path>
+            <ns5:callingInformation>guugle</ns5:callingInformation>
+        </ns5:execInfo>
+        <ns5:input id="guugle_input_targetsequence">
+            <ns5:name xml:lang="en">Target Sequence</ns5:name>
+            <ns5:shortDescription xml:lang="en">Target Sequence of hybridisation</ns5:shortDescription>
+            <ns5:description xml:lang="en">The 'Target' sequence input accepts a set of  RNA sequences in different formats.</ns5:description>
+            <ns5:type>Fasta_RNA_Multi</ns5:type>
+            <ns5:handling>FILE</ns5:handling>
+            <ns5:example>PnRhcmdldDEgdGhpcyBpcyBhbiBhdXRvZ2VuZXJhdGVkIHNhbXBsZSBybmEgc2VxdWVuY2UNCkFD
+                R0FVQ0dVQUNHVUFHQ1VBR0NVR1VHVUdBQ0dBVUdDVUFHVUdVR0NHQ1VHQQ0KQUNHVUdBQ1VBVUNH
+                QVVHQ0FVQ0FVQ0NBVUNBVUNHQVVDR0FVQw0KPnRhcmdldDIgdGhpcyBpcyBhbiBhdXRvZ2VuZXJh
+                dGVkIHNhbXBsZSBybmEgc2VxdWVuY2UNCkNHVUdVQUNHVUFHQ1VBR0NVR0NHR0dHR0NHQVVDR1VH
+                VUdDVUFVQ0dBVUdDQw0KQ0FDR1VHVUdDVUFHQ1VBQ1VBR0NVQUdDVUFDR0FVQ0dBVUNHR0dHR0NB
+                VUNHDQpBQ0NHQVVDR1VBR1VDR1VDQQ==</ns5:example>
+        </ns5:input>
+        <ns5:input id="guugle_input_querysequence">
+            <ns5:name xml:lang="en">Query Sequence</ns5:name>
+            <ns5:shortDescription xml:lang="en">Query Sequence of hybridisation</ns5:shortDescription>
+            <ns5:description xml:lang="en">The 'Query' sequence input accepts a set of  RNA sequences in different formats.</ns5:description>
+            <ns5:type>Fasta_RNA_Multi</ns5:type>
+            <ns5:handling>FILE</ns5:handling>
+            <ns5:example>PnF1ZXJ5MSB0aGlzIGlzIGFuIGF1dG9nZW5lcmF0ZWQgc2FtcGxlIHJuYSBzZXF1ZW5jZQ0KVUFH
+                Q1VBR0NVR1VHVUdBQ0dBDQo+cXVlcnkyIHRoaXMgaXMgYW4gYXV0b2dlbmVyYXRlZCBzYW1wbGUg
+                cm5hIHNlcXVlbmNlDQpDR1VHVUFDR1VBR0NVQUdDVUdDR0dHR0dDR0FVQ0dVR1VHQ1VBVUNHQVVH
+                Q0MNCkNBQ0dVR1VHQ1VDVUFDR0FVQ0dBVUNHR0dHR0NBVUNHDQpBQ0NHQVVDR1VBR1VDR1VDQQ==</ns5:example>
+        </ns5:input>
+        <ns5:output id="guugle_output">
+            <ns5:name xml:lang="en">Output</ns5:name>
+            <ns5:shortDescription xml:lang="en">Query Sequence of hybridisation</ns5:shortDescription>
+            <ns5:description xml:lang="en">The 'Query' sequence input accepts a set of  RNA sequences in different formats.</ns5:description>
+            <ns5:type>ToolDependentRepresentation</ns5:type>
+            <ns5:handling>STDOUT</ns5:handling>
+            <ns5:example></ns5:example>
+        </ns5:output>      
+        <ns5:param id="guugle_param_matchatleast">
+            <ns5:name xml:lang="en">Match at least </ns5:name>
+            <ns5:shortDescription xml:lang="en">The output matches at least with this length.</ns5:shortDescription>
+            <ns5:description xml:lang="en">The output matches at least with this length.</ns5:description>
+            <ns5:type>int</ns5:type>
+            <ns5:option>-d </ns5:option>
+            <ns5:min included="true">1</ns5:min>
+            <ns5:max included="true">100</ns5:max>
+            <ns5:guiElement>INPUTTEXT</ns5:guiElement>
+        </ns5:param>
+        <ns5:param id="guugle_param_targetseedsextendedbyxbases">
+            <ns5:name xml:lang="en">Target Seeds extended by x bases</ns5:name>
+            <ns5:shortDescription xml:lang="en">Extends the target seed by x bases in either direction</ns5:shortDescription>
+            <ns5:description xml:lang="en">If option 'Target Seeds extended by x bases' is used, the output mode changes. The matching target 
+                sequences are reported, and extended by given bases in either direction, if possible. The output mode now is similiar to Fasta 
+                format.</ns5:description>
+            <ns5:type>int</ns5:type>
+            <ns5:option>-e </ns5:option>
+            <ns5:min included="true">1</ns5:min>
+            <ns5:max included="true">10</ns5:max>
+            <ns5:guiElement>INPUTTEXT</ns5:guiElement>
+        </ns5:param>
+        
+        <ns5:param id="guugle_param_outputlimit">
+            <ns5:name xml:lang="en">Output Limit</ns5:name>
+            <ns5:name xml:lang="de">Anzahl der Ergebnisse</ns5:name>
+            <ns5:shortDescription xml:lang="en">Limit the number of outputs</ns5:shortDescription>
+              <ns5:shortDescription xml:lang="de">Begrenzt die Ausgabe</ns5:shortDescription>
+            <ns5:description xml:lang="en">Limit the number of outputs to the given constraint</ns5:description>
+            <ns5:description xml:lang="de">Anzahl der ausgegebenen besten Treffer</ns5:description>
+            <ns5:type>int</ns5:type>
+            <ns5:option>-l </ns5:option>
+            <ns5:min included="false">1</ns5:min>
+            <ns5:max included="false">1000</ns5:max>
+            <ns5:guiElement>INPUTTEXT</ns5:guiElement>
+        </ns5:param>
+        <ns5:param id="guugle_param_showmatchlengthdistribution">
+            <ns5:name xml:lang="en">Show Match Length Distribution</ns5:name>
+            <ns5:name xml:lang="de">Anzeige der Treffer-Laengenverteilung</ns5:name>
+            <ns5:shortDescription xml:lang="en">Shows the match length distribution</ns5:shortDescription>
+            <ns5:description xml:lang="en">Shows the match length dsitribution</ns5:description>
+            <ns5:type>boolean</ns5:type>
+            <ns5:option>-s</ns5:option>
+            <ns5:guiElement>SELECTBOOLEANCHECKBOX</ns5:guiElement>
+        </ns5:param>
+        <ns5:paramGroup id="guugle_paramgroup_submission">
+            <ns5:name xml:lang="en">Submission</ns5:name>
+            <ns5:shortDescription xml:lang="en">Default paramgroup of guugle</ns5:shortDescription>
+            <ns5:description xml:lang="en"/>
+            <ns5:paramref ref="guugle_param_matchatleast"/>
+            <ns5:paramref ref="guugle_param_showmatchlengthdistribution"/>
+            <ns5:paramref ref="guugle_param_outputlimit"/>
+            <ns5:paramref ref="guugle_param_targetseedsextendedbyxbases"/>
+        </ns5:paramGroup>
+        <ns5:function id="guugle_function_0">
+            <ns5:name xml:lang="en"/>
+            <ns5:shortDescription xml:lang="en">Default Function</ns5:shortDescription>
+            <ns5:description xml:lang="en"/>
+            <ns5:inputref ref="guugle_input_targetsequence"/>
+            <ns5:inputref ref="guugle_input_querysequence"/>
+            <ns5:outputref ref="guugle_output"/>
+            <ns5:paramGroup id="guugle_funtion_0_paramgroup">
+                <ns5:paramGroupref ref="guugle_paramgroup_submission"/>
+            </ns5:paramGroup>
+            <ns5:paramAndInputOutputOrder>
+                <ns5:reference>guugle_param_showmatchlengthdistribution</ns5:reference>
+                <ns5:reference>guugle_param_outputlimit</ns5:reference>
+                <ns5:reference>guugle_param_matchatleast</ns5:reference>
+                <ns5:reference>guugle_param_targetseedsextendedbyxbases</ns5:reference>
+                <ns5:reference>guugle_input_targetsequence</ns5:reference>
+                <ns5:reference>guugle_input_querysequence</ns5:reference>
+            </ns5:paramAndInputOutputOrder>
+        </ns5:function>
+        
+        
+    </ns5:executable>
+    
+    <ns5:downloadable id="guugle_downloadable_src_1.1">
+        <ns5:name>GUUGle Source Package</ns5:name>
+        <ns5:version>1.1</ns5:version>
+        <ns5:filename>guugle-1.1.src.tar.gz</ns5:filename>
+        <ns5:shortDescription>GUUGle source tape archive version 1.1.</ns5:shortDescription>
+        <ns5:description>GUUGle source tape archive version 1.1. It can be unpacked using 
+            <ns2:a href="http://www.gzip.org">gzip</ns2:a> and 
+            <ns2:a  href="http://www.gnu.org/software/tar">tar</ns2:a> on an unix like system 
+            or a tool like <ns2:a href="http://www.winzip.com">winzip</ns2:a> on a Windows
+            based system. Beside GUUGle is written for an unix like system (Linux, OSX, Solaris, ...)
+            it can be compiled and run on a windows system using the 
+            <ns2:a href="http://www.cygwin.com">cygwin</ns2:a> environment.            
+        </ns5:description>
+        <ns5:platform>source</ns5:platform>
+    </ns5:downloadable>
+    
+    <ns5:view id="guugle_view_webservice" type="webservice">
+        <ns5:title>GUUGle Webservice interface description</ns5:title>
+    </ns5:view>
+    <ns5:view id="guugle_view_submission" type="submission">
+        <ns5:title>GUUGle Submission Page</ns5:title>     
+    </ns5:view>
+    <ns5:view type="download" id="guugle_view_download">
+        <ns5:title>GUUGLE Download Page</ns5:title>
+    </ns5:view>
+    <ns5:manual id="guugle_manual">
+        <ns5:introductoryText xml:lang="en">GUUGle efficiently locates potential helical regions under RNA base pairing rules,
+                which include Watson-Crick as well as G-U pairs. It takes two Fasta files as input.
+         </ns5:introductoryText>
+        <ns5:customContent xml:lang="en">
+If you need to create larger output than we permit for online use, or want to incorporate GUUGle into your own pipeline,
+please <ns2:a href="guugle?viewType=download">download</ns2:a> the GUUGle program.
+ </ns5:customContent>
+    </ns5:manual>
+</ns5:runnableItem>

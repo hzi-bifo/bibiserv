@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:runnableItem xmlns:ns2="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml" xmlns:ns3="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml" xmlns:ns4="bibiserv:de.unibi.techfak.bibiserv.cms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dialign" xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd">
+    <ns4:name xml:lang="en">Dialign</ns4:name>
+    
+    <ns4:shortDescription xml:lang="en">DIALIGN is a multiple alignment program based on segment-to-segment comparison.</ns4:shortDescription>
+    <ns4:description xml:lang="en">DIALIGN is a software program for multiple sequence alignment
+        developed by <ns2:a href="http://www.gobics.de/burkhard/">Burkhard
+            Morgenstern</ns2:a><ns2:em>et al.</ns2:em>. <ns2:p>While standard alignment methods rely
+            on comparing <ns2:em>single</ns2:em> residues and imposing <ns2:em>gap
+                penalties</ns2:em>, DIALIGN constructs pairwise and multiple alignments by comparing
+            entire <ns2:em>segments</ns2:em> of the sequences. No gap penalty is used. This approach
+            can be used for both global and local alignment, but it is particularly successful in
+            situations where sequences share only <ns2:em>local</ns2:em> homologies.</ns2:p>
+        <ns2:p>The latest version of the program, <ns2:a href="http://dialign-tx.gobics.de/"
+                >DIALIGN-TX</ns2:a>, is described in <ns2:a
+                href="http://www.almob.org/content/3/1/6/abstract/">Subramanian <ns2:em>et
+                    al.</ns2:em> (2008), <ns2:em>Algorithms Mol. Biol.</ns2:em> 3:6</ns2:a>. A web
+            server for this program is available at <ns2:a href="http://www.gobics.de">Goettingen
+                Bioinformatics Compute Server (GOBICS)</ns2:a>. A web server for multiple alignment
+            with user-defined constraints (anchor points) as described by <ns2:a
+                href="http://www.almob.org/content/1/1/6/abstract">Morgenstern <ns2:em>et
+                    al.</ns2:em> (2006), <ns2:em>Algorithms Mol. Biol.</ns2:em> 1:6</ns2:a> is also
+            available through GOBICS.</ns2:p>
+        <ns2:p>During the last few years, DIALIGN has been successfully used by many researchers to
+            <ns2:a href="http://bioinformatics.oxfordjournals.org/cgi/content/abstract/16/10/948">align
+                genomic sequences</ns2:a>; some break-through discoveries have been made based on
+            these alignments. We set up a
+            <ns2:a href="http://dialign.gobics.de/chaos-dialign-submission">WWW server for multiple
+                alignment of genomic sequences</ns2:a> using Mike Brudno's program CHAOS and DIALIGN
+            at GOBICS, see
+            <ns2:a href="http://nar.oxfordjournals.org/cgi/content/abstract/32/suppl_2/W41">Brudno
+                    <ns2:em>et al.</ns2:em> (2004), <ns2:em>Nuc. Acids. Res.</ns2:em>
+                32:W41-W44</ns2:a>.</ns2:p>
+    </ns4:description>
+    
+    <ns4:toolTipText xml:lang="en">Dialign - multiple alignment program</ns4:toolTipText>
+    <ns4:keywords xml:lang="en">multiple alignment segment-to-segment dna rna protein</ns4:keywords>
+    <ns4:responsibleAuthor>
+        <ns4:firstname>Burkhard</ns4:firstname>
+        <ns4:lastname>Morgenstern</ns4:lastname>
+        <ns4:organisation>Universitaet Goettingen</ns4:organisation>
+        <ns4:email>bmorgen@gwdg.de</ns4:email>
+    </ns4:responsibleAuthor>
+    <ns4:author>
+        <ns4:firstname>Said</ns4:firstname>
+        <ns4:lastname>Abdeddaim</ns4:lastname>
+        <ns4:email>unkown@unknown.de</ns4:email>
+    </ns4:author>
+   
+    <ns4:support>
+        <ns4:firstname>BiBiServ</ns4:firstname>
+        <ns4:lastname>Mitarbeiter</ns4:lastname>
+        <ns4:email>bibi-help@cebitec.uni-bielefeld.de</ns4:email>
+    </ns4:support>
+   
+   <ns4:references>
+       <ns4:reference>@article{MOR:2004,
+           author={Morgenstern,B.},
+           title={DIALIGN: Multiple DNA and Protein Sequence Alignment at BiBiServ},
+           year=2004,
+           URL={http://nar.oxfordjournals.org/cgi/content/full/32/suppl_2/W33},
+           DOI={10.1093/nar/gkh373},
+           journal={Nucleic Acids Research},
+           number={32},
+           pages={W33-W36}
+           }</ns4:reference>
+       <ns4:reference>@article{SUB:KAU:MOR:2008,
+           author={Subramanian,A.R. and Kaufmann,M. and Morgenstern,B.},
+           title={DIALIGN-TX: greedy and progressive approaches for segment-based multiple sequence alignment.}
+           year=2008,
+           URL={http://www.almob.org/content/3/1/6/abstract},
+           journal={Algorithms for Molecular Biology}
+           number={3}
+           }</ns4:reference>
+       <ns4:reference>@article{MOR:PRO:POEH:STA:2006,
+           author={Morgenstern,B. and  Prohaska,S.J. and Poehler,D. and Stadler,P.F.},
+           title={Multiple sequence alignment with user-defined anchor points},
+           year={2006},
+           URL={http://www.almob.org/content/1/1/6},
+           journal={Algorithms for Molecular Biology},
+           number={1}
+           }</ns4:reference>
+       <ns4:reference>@article{POEH:WER:STE:MOR:2005,
+           author={Poehler,D. and  Wernera,N. and Steinkamp,R. and Morgenstern,B.},
+           title={Multiple Alignment of Genomic Sequences using CHAOS, DIALIGN and ABC},
+           year={2005},
+           URL={http://nar.oxfordjournals.org/cgi/content/abstract/33/suppl_2/W532},
+           journal={Nucleic Acids Research},
+           number={33},
+           pages={W532-W534}
+           }</ns4:reference>
+       <ns4:reference>@article{SCHMO:NIE:KAU:MOR:2004,
+           author={Schmollinger,M. and Nieselt,K. and Kaufmann,M. and  Morgenstern,B.},
+           title={DIALIGN P: Fast pair-wise and multiple sequence alignment using parallel processors.},
+           year={2004},
+           URL={http://www.biomedcentral.com/1471-2105/5/128/abstract},
+           journal={BMC Bioinformatics},
+           number={5},
+           pages={128}
+           }</ns4:reference>
+   </ns4:references>
+    
+    <ns4:executable>
+        <ns4:version>2.2.1</ns4:version>
+        <ns4:execInfo>
+            <ns4:executableType>binary</ns4:executableType>
+            <ns4:path></ns4:path>
+            <ns4:callingInformation>dialign2</ns4:callingInformation>
+        </ns4:execInfo>
+        <ns4:input id="dialign_input_aa_sequences">
+            <ns4:name xml:lang="en">aa_sequences</ns4:name>
+            <ns4:shortDescription xml:lang="en">aminoacid sequences</ns4:shortDescription>
+            <ns4:description xml:lang="en">A set of amino acid sequences to be aligned.</ns4:description>
+            <ns4:type>Fasta_AA_Multi</ns4:type>
+            <ns4:handling>FILE</ns4:handling>
+            <ns4:example>PnByb3RlaW5fMApXWVJQRFREQ1ZQQ1FLTUxWS1RUU0RIUVFLWUFDUElMUlRXVlBQVFdRR0tBR0FUV0RTS1ZZRlFHV1lXUENNSU5MVkNDTVBITFNMUUROSExOVEhXCj5wcm90ZWluXzEKRUhMUU1DVktZUlJXRVlFTkNBUFNHTk5OVFlHUVZFTElQVEhNU0xFV01SU0hBVllGSUVNTUNGSFBEQ1FZV0lHWU5FQVlDVFJRQUtMSFZNQVNMTVNSVAo+cHJvdGVpbl8yCldRSURTR1NMV1ZORURBRVBSV0FUSEhGU0dBVlZQRFdOTExIUldWSENQUkhLU05GTVRWSFlGR1FNRVNDS0tQTUFFV0hEREhQU1lRTUdSUUNLRkNQRlRERwo+cHJvdGVpbl8zClNNTVNLQ1JGQUlFVklTRkxFTk1EVExZQVlQWVBQVEZQRklQTlJISUlJVFdRUlZITU1ETVJORFZJQ1lNSURMSUZQWUhITkVEVFFQU1FMRVlXSwo+cHJvdGVpbl80CkZRTFRIV0lWS0VDUVJLRkFTWUhBSFlJTFZOTVFTVk1RSFZRUVZGWUlJS0FMRktXVENWRlRJR0ZXRFdUSFZMVllFRkNSUFBXR1lDVFJIR1ZUUUUK</ns4:example>
+        </ns4:input>
+        <ns4:input id="dialign_input_dna_sequences">
+            <ns4:name xml:lang="en">dna_sequences</ns4:name>
+            <ns4:shortDescription xml:lang="en">deoxyribonucleic acid sequences</ns4:shortDescription>
+            <ns4:description xml:lang="en">Deoxyribonucleic acid sequences to be aligned.</ns4:description>
+            <ns4:type>Fasta_DNA_Multi</ns4:type>
+            <ns4:handling>FILE</ns4:handling>
+            <ns4:example>PmRuYV8wCmNjYWd0YWdhY2d0dGFjYWdnYXR0Z2FhY3R0Y3RjZ2F0Y2d0dHRjdHRnYWF0Z3R0Z3RhZ3R0dHRnZ2FnYWNjY2d0Y2F0Y2NnYWF0Z2d0Z2NjYWFhZwo+ZG5hXzEKZ2FjZ2NjYWFjY2dhYXRhYXRnZ2djZ3RjYXR0Y2d0Z2FjZ2NjY2F0YWd0Z3RnZ2dnY2NjZ3RjY2F0Z2F0Z2FjZ2N0Z3R0Y3RhY2dhZ2djY2EKPmRuYV8yCmFjYWFnYWdjZ2dnYXRjdGNnY3RnZ2NndHR0dGdnZ3RhdGFnZ2dndHR0Z2FjdGN0YWF0YXR0Z2N0Y3RnYWF0Y2NhdGdjZ3RhZ2d0YWdjY3RhYWdhY2FjdGdjCj5kbmFfMwpnYWN0Y2FndGFhZ2d0YWdhdGFnY2FjYWdnZ3RhY2NhY3RhY2NhdGNhZ2FnY3RjZ2d0Y2dhZ2F0Y2NhYWN0YWdhYWdhZ3RhYXRnYWNhZ3RjYwo+ZG5hXzQKY2dnY2FjZ2F0dHRjYWF0dHRjZ3RhY2dhYWFnYXRndHRhYWNhYXRjZ2FjdGF0Z2NhZ3RjZ2NnZ2djYXRnY2djZ2FndGd0YWNjdGF0Z2djZ2FnZ2dhZ3RhYQo=</ns4:example>
+        </ns4:input>
+        <ns4:input id="dialign_input_rna_sequences">
+            <ns4:name xml:lang="en">rna_sequences</ns4:name>
+            <ns4:shortDescription xml:lang="en">ribonucleic acid sequences</ns4:shortDescription>
+            <ns4:description xml:lang="en">Ribonucleic acid sequences to be aligned.</ns4:description>
+            <ns4:type>Fasta_RNA_Multi</ns4:type>
+            <ns4:handling>FILE</ns4:handling>
+            <ns4:example>PnJuYV8wClVVQUFBVVVBVVVBQUNVQ1VVQVVVVVVBQ0FVQ1VDQVVBQ0NVQVVDQ1VVQ0FDQ1VVQ1VDVUFBQ0NBQUFDQUNBVUNVQ0FDVUNBQUFBQ0FDVUFDVUFBVUMKPnJuYV8xCkNBQ0NVVVVBQ0FVQ0FBVUNVVVVBQ0FBVUFVVUFVQ0NDVUFVQ0FBVUFDQ0FVVVVBQUFDQVVDVUNVVUNDQVVVVUNBVUNDQUNVQVVVQ1VVVVVVQUEKPnJuYV8yCkFVQ1VDQ0FVQ0NBQ0NVQ0FDQ1VBQUNBVUFVQVVDQUFBQUFDQUNBQ0FDVUNVVVVDVVVBVUFDQUNVQVVVQVVBQVVDQ1VVVVVDQUFDQUNVQUNDQQo+cm5hXzMKQUNVQ0FVVVVVQ0NDVUFVVVVVQ1VVVVVDQ0NVQ1VDVVVDVVVDVUFBQVVVVVVDQ0FBVUFVVUNBVVVBQUFBVUNVQVVVQUNDQUNDVVVBQ0NVQ0NDQ0FVVUNBVUMKPnJuYV80CkFBQUNDQ1VVVUFBQUFDVUNDVUNVVUFVVUFBQVVVQ0NBQ1VVQVVDVUFBVVVVVUNBVVVBQ0FBQUNVVUFDQUFVQVVVVUFBQ0FBVUNDQ0NVQUNDQ1VVVUEK</ns4:example>
+        </ns4:input>
+        <ns4:output id="dialign_output_aaalignment">
+            <ns4:name xml:lang="en">AA alignment</ns4:name>
+            <ns4:shortDescription xml:lang="en">multiples amino acid alignment</ns4:shortDescription>
+            <ns4:description xml:lang="en">Multiples Amino Acid Alignment.</ns4:description>
+            <ns4:type>Fasta_AA_Alignment</ns4:type>
+            <ns4:handling>FILE</ns4:handling>
+            <ns4:option>-fa -fn </ns4:option>
+            <ns4:example></ns4:example>
+        </ns4:output>
+        <ns4:output id="dialign_output_dnaalignment">
+            <ns4:name xml:lang="en">DNA alignment</ns4:name>
+            <ns4:shortDescription xml:lang="en">multiples deoxyribonucleic acid alignment</ns4:shortDescription>
+            <ns4:description xml:lang="en">Multiples deoxyribonucleic acid alignment.</ns4:description>
+            <ns4:type>Fasta_DNA_Alignment</ns4:type>
+            <ns4:handling>FILE</ns4:handling>
+            <ns4:option>-fa -fn </ns4:option>
+            <ns4:example></ns4:example>
+        </ns4:output>
+        <ns4:output id="dialign_output_rnaalignment">
+            <ns4:name xml:lang="en">RNA alignment</ns4:name>
+            <ns4:shortDescription xml:lang="en">multiples ribonucleic acid alignment</ns4:shortDescription>
+            <ns4:description xml:lang="en">Multiples ribonucleic acid alignment.</ns4:description>
+            <ns4:type>Fasta_RNA_Alignment</ns4:type>
+            <ns4:handling>FILE</ns4:handling>
+            <ns4:option>-fa -fn </ns4:option>
+            <ns4:example></ns4:example>
+        </ns4:output>
+        <ns4:param id="dialign_param_threshold">
+            <ns4:name xml:lang="en">threshold</ns4:name>
+            <ns4:shortDescription xml:lang="en">Threshold for fragments weights</ns4:shortDescription>
+            <ns4:description xml:lang="en">
+                <ns2:p>As described in our papers, DIALIGN constructs alignments from gapfree pairs of segments of the sequences. 
+Such segment pairs are referred to as <ns2:em>diagonals</ns2:em>.</ns2:p>
+                <ns2:p>Every possible diagonal is given a so-called weight reflecting the degree of similarity among the two segments involved. 
+The overall score of an alignment ist then defined as the sum of weights of the diagonals it consists of and the program 
+tries to find an alignment with maximum score -- in other words: the program tries to find a consistent collection of diagonals 
+with maximum sum of weights. This novel scoring scheme for alignments is the basic difference between DIALIGN and 
+other global or local alignment methods. Note that DIALIGN does not employ any kind of gap penalty.</ns2:p>
+                <ns2:p>It is possible to use a threshold T for the quality of the diagonals. In this case, diagonals are considered only if their <ns2:em>weights</ns2:em> 
+exceed this threshold, and regions of lower similarity are ignored.</ns2:p>
+                <ns2:p>In the first version of the program (DIALIGN 1), this threshold was in many situations absolutely necessary to obtain meaningful alignments. 
+By contrast, DIALIGN 2 should produce reasonable alignments without a threshold, i.e. with T = 0. This is the most important difference 
+between DIALIGN 2 and the first version of the program.</ns2:p>
+                <ns2:p>Nevertheless, it is still possible to use a threshold T, so it is up to the user to experience with this option.</ns2:p>
+            </ns4:description>
+            <ns4:type>int</ns4:type>
+            <ns4:option>-thr </ns4:option>
+            <ns4:defaultValue>0</ns4:defaultValue>
+            <ns4:min included="true">0.0</ns4:min>
+            <ns4:max included="true">10.0</ns4:max>
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:enumParam maxoccurs="1" minoccurs="1" id="dialign_enumparam_nucleicacidsequencehandling">
+            <ns4:name xml:lang="en">nucleic acid sequence handling</ns4:name>
+            <ns4:shortDescription xml:lang="en">nucleic acid sequence handling</ns4:shortDescription>
+            <ns4:description xml:lang="en">If (possibly) coding nucleic acid sequences are to be aligned, DIALIGN optionally translates the compared `nucleic acid segments' to `peptide segments' according to the genetic code -- without (necessarily) presupposing any of the three possible reading frames, so all three of them get checked for significant similarity. In this case, the similarity among segments will be assessed on the `peptide level' rather than on the `nucleic acid level'. We strongly recommend this option if nucleic acid sequences are expected to contain protein coding regions, as it will significantly increase the sensitivity of the alignment procedure in such cases.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:values>
+                <ns4:key>dialign_enumparam_nucleicacidsequencehandling_key0</ns4:key>
+                <ns4:value>-n </ns4:value>
+                <ns4:name xml:lang="en">nucleic acid without translation</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>dialign_enumparam_nucleicacidsequencehandling_key1</ns4:key>
+                <ns4:value>-nt </ns4:value>
+                <ns4:name xml:lang="en">nucleic acid with translation</ns4:name>
+            </ns4:values>
+            <ns4:guiElement>SELECTONERADIO</ns4:guiElement>
+        </ns4:enumParam>
+        <ns4:function id="dialign_function_aa">
+            <ns4:name xml:lang="en">AA alignment</ns4:name>
+            <ns4:shortDescription xml:lang="en">multiples amino acid alignment</ns4:shortDescription>   
+            <ns4:inputref ref="dialign_input_aa_sequences"/>
+            <ns4:outputref ref="dialign_output_aaalignment"/>
+            <ns4:paramGroup id="dialign_paramgroup_for_dialign_function_aa">
+                <ns4:description xml:lang="en"/>
+                <ns4:paramref ref="dialign_param_threshold"/>
+            </ns4:paramGroup>
+            <ns4:paramAndInputOutputOrder>
+                <ns4:reference>dialign_param_threshold</ns4:reference>
+                <ns4:reference>dialign_output_aaalignment</ns4:reference>
+                <ns4:reference>dialign_input_aa_sequences</ns4:reference>
+            </ns4:paramAndInputOutputOrder>
+            <ns4:example>
+                <ns4:name>Dialign (AA) example</ns4:name>
+                <ns4:prop idref="dialign_input_aa_sequences">PkhUTDINCkxEVEFQQ0xGU0RHU1BRS0FBWVZMV0RRVElMUVFESVRQTFBTSEVUSFNBUUtHRUxMQUxJ
+Q0dMUkFBS1BXUA0KU0xOSUZMRFNLWUxJS1lMSFNMQUlHQUZMR1RTQUhRVExRQUFMUFBMTFFHS1RJ
+WUxISFZSU0hUTkxQRFBJDQpTVEZORVlURFNMSUxBUEwNCj5NTUxWDQpQREFESFRXWVRER1NTTExR
+RUdRUktBR0FBVlRURVRFVklXQUtBTERBR1RTQVFSQUVMSUFMVFFBTEtNQUUNCkdLS0xOVllURFNS
+WUFGQVRBSElIR0VJWVJSUkdMTFRTRUdLRUlLTktERUlMQUxMS0FMRkxQS1JMU0lJSA0KQ1BHSFFL
+R0hTQUVBUkdOUk1BRFFBQVJLQUFJVEVUUERUU1RMTA0KPkhFUEINClJQR0xDUVZGQURBVFBUR1dH
+TFZNR0hRUk1SR1RGU0FQTFBJSFRBRUxMQUFDRkFSU1JTR0FOSUlHVEROUw0KVlZMU1JLWVRTRlBX
+TExHQ0FBTldJTFJHVFNGVllWUFNBTE5QQUREUFNSR1JMR0xTUlBMTFJMUEZSUFRUDQpHUlRTTFlB
+RFNQU1ZQU0hMUERSVkgNCj5FQ09MDQpNTEtRVkVJRlRER1NDTEdOUEdQR0dZR0FJTFJZUkdSRUtU
+RlNBR1lUUlRUTk5STUVMTUFBSVZBTEVBTEsNCkVIQ0VWSUxTVERTUVlWUlFHSVRRV0lITldLS1JH
+V0tUQURLS1BWS05WRExXUVJMREFBTEdRSFFJS1dFVw0KVktHSEFHSFBFTkVSQ0RFTEFSQUFBTU5Q
+VExFRFRHWVFWRVYNCg==</ns4:prop>
+            </ns4:example>
+        </ns4:function>
+        <ns4:function id="dialign_function_dna">
+            <ns4:name xml:lang="en">DNA alignment</ns4:name>
+            <ns4:shortDescription xml:lang="en">multiples deoxyribonucleic acid alignment</ns4:shortDescription>
+            <ns4:description xml:lang="en"/>
+            <ns4:inputref ref="dialign_input_dna_sequences"/>
+            <ns4:outputref ref="dialign_output_dnaalignment"/>
+            <ns4:paramGroup id="dialign_paramgroup_nasequencehandling">
+                <ns4:name xml:lang="en">na sequencehandling</ns4:name>
+                <ns4:shortDescription xml:lang="en"></ns4:shortDescription>
+                <ns4:description xml:lang="en"/>
+                <ns4:paramref ref="dialign_param_threshold"/>
+                <ns4:paramref ref="dialign_enumparam_nucleicacidsequencehandling"/>
+            </ns4:paramGroup>
+            <ns4:paramAndInputOutputOrder>
+                <ns4:reference>dialign_param_threshold</ns4:reference>
+                <ns4:reference>dialign_enumparam_nucleicacidsequencehandling</ns4:reference>
+                <ns4:reference>dialign_output_dnaalignment</ns4:reference>
+                <ns4:reference>dialign_input_dna_sequences</ns4:reference>
+            </ns4:paramAndInputOutputOrder>
+            <ns4:example>
+                <ns4:name>Dialign (DNA) example</ns4:name>
+                <ns4:prop idref="dialign_input_dna_sequences">PmRuYV8wCmNjYWd0YWdhY2d0dGFjYWdnYXR0Z2FhY3R0Y3RjZ2F0Y2d0dHRjdHRnYWF0Z3R0Z3RhZ3R0dHRnZ2FnYWNjY2d0Y2F0Y2NnYWF0Z2d0Z2NjYWFhZwo+ZG5hXzEKZ2FjZ2NjYWFjY2dhYXRhYXRnZ2djZ3RjYXR0Y2d0Z2FjZ2NjY2F0YWd0Z3RnZ2dnY2NjZ3RjY2F0Z2F0Z2FjZ2N0Z3R0Y3RhY2dhZ2djY2EKPmRuYV8yCmFjYWFnYWdjZ2dnYXRjdGNnY3RnZ2NndHR0dGdnZ3RhdGFnZ2dndHR0Z2FjdGN0YWF0YXR0Z2N0Y3RnYWF0Y2NhdGdjZ3RhZ2d0YWdjY3RhYWdhY2FjdGdjCj5kbmFfMwpnYWN0Y2FndGFhZ2d0YWdhdGFnY2FjYWdnZ3RhY2NhY3RhY2NhdGNhZ2FnY3RjZ2d0Y2dhZ2F0Y2NhYWN0YWdhYWdhZ3RhYXRnYWNhZ3RjYwo+ZG5hXzQKY2dnY2FjZ2F0dHRjYWF0dHRjZ3RhY2dhYWFnYXRndHRhYWNhYXRjZ2FjdGF0Z2NhZ3RjZ2NnZ2djYXRnY2djZ2FndGd0YWNjdGF0Z2djZ2FnZ2dhZ3RhYQo=</ns4:prop>
+                <ns4:prop idref="dialign_enumparam_nucleicacidsequencehandling">-n </ns4:prop>
+            </ns4:example>
+            <ns4:example>
+                <ns4:name>Dialign (DNA) example 2</ns4:name>
+                <ns4:prop idref="dialign_input_dna_sequences">PnRlc3RzZXF1ZW5jZTENCkFDR1RHQ0dhVENHQ1RHQUNHQUdDQVRHQ0FUR0NUR0NBVEdDQVRHQ0FUQ0dBVEdDQVRDR0FUR0cNCj50ZXN0c2VxdWVuY2UyDQpBQ0FHQVRDR0FUQ0FUR0NBVEdDQVRHQ0FUQ0dBVENHVEFDR0FUR0NBVEdDVEFHQ0dUQUNDQUFB</ns4:prop>
+                <ns4:prop idref="dialign_enumparam_nucleicacidsequencehandling">-nt </ns4:prop>
+            </ns4:example>
+        </ns4:function>
+        <ns4:function id="dialign_function_rna">
+            <ns4:name xml:lang="en">RNA alignment</ns4:name>
+            <ns4:shortDescription xml:lang="en">multiples ribonucleic acid alignment</ns4:shortDescription>
+            <ns4:description xml:lang="en">ONLYFORTESTEXECUTABLE</ns4:description>
+            <ns4:inputref ref="dialign_input_rna_sequences"/>
+            <ns4:outputref ref="dialign_output_rnaalignment"/>
+            <ns4:paramGroup id="dialign_paramgroup_for_dialign_function_rna">
+                <ns4:paramref ref="dialign_param_threshold"/>
+                <ns4:paramref ref="dialign_enumparam_nucleicacidsequencehandling"/>
+            </ns4:paramGroup>
+            <ns4:paramAndInputOutputOrder>
+                <ns4:reference>dialign_param_threshold</ns4:reference>
+                <ns4:reference>dialign_enumparam_nucleicacidsequencehandling</ns4:reference>
+                <ns4:reference>dialign_output_rnaalignment</ns4:reference>
+                <ns4:reference>dialign_input_rna_sequences</ns4:reference>
+            </ns4:paramAndInputOutputOrder>
+            <ns4:example>
+                <ns4:name>Dialign (RNA) example 1</ns4:name>
+                <ns4:prop idref="dialign_input_rna_sequences">PnJuYV8wClVVQUFBVVVBVVVBQUNVQ1VVQVVVVVVBQ0FVQ1VDQVVBQ0NVQVVDQ1VVQ0FDQ1VVQ1VDVUFBQ0NBQUFDQUNBVUNVQ0FDVUNBQUFBQ0FDVUFDVUFBVUMKPnJuYV8xCkNBQ0NVVVVBQ0FVQ0FBVUNVVVVBQ0FBVUFVVUFVQ0NDVUFVQ0FBVUFDQ0FVVVVBQUFDQVVDVUNVVUNDQVVVVUNBVUNDQUNVQVVVQ1VVVVVVQUEKPnJuYV8yCkFVQ1VDQ0FVQ0NBQ0NVQ0FDQ1VBQUNBVUFVQVVDQUFBQUFDQUNBQ0FDVUNVVVVDVVVBVUFDQUNVQVVVQVVBQVVDQ1VVVVVDQUFDQUNVQUNDQQo+cm5hXzMKQUNVQ0FVVVVVQ0NDVUFVVVVVQ1VVVVVDQ0NVQ1VDVVVDVVVDVUFBQVVVVVVDQ0FBVUFVVUNBVVVBQUFBVUNVQVVVQUNDQUNDVVVBQ0NVQ0NDQ0FVVUNBVUMKPnJuYV80CkFBQUNDQ1VVVUFBQUFDVUNDVUNVVUFVVUFBQVVVQ0NBQ1VVQVVDVUFBVVVVVUNBVVVBQ0FBQUNVVUFDQUFVQVVVVUFBQ0FBVUNDQ0NVQUNDQ1VVVUEK</ns4:prop>
+                <ns4:prop idref="dialign_enumparam_nucleicacidsequencehandling">-n </ns4:prop>
+            </ns4:example>
+        </ns4:function>
+    </ns4:executable>
+    <ns4:downloadable id="dialign_downloadable_src">
+        <ns4:name>Dialign Sourcen</ns4:name>
+        <ns4:version>2.2.1</ns4:version>
+        <ns4:filename>dialign-2.2.1-src.tar.gz</ns4:filename>
+        <ns4:shortDescription>Dialign source package. Should compile on every Unix like operating system 
+            (Linux, Solaris, OSX, ...)</ns4:shortDescription>
+        <ns4:platform>Source Package</ns4:platform>
+    </ns4:downloadable>
+    <!--
+    <ns4:downloadable id="dialign_downloadable_solaris10x86">
+        <ns4:name>Dialign Solaris 10, X86 binary package</ns4:name>
+        <ns4:filename>dialign-2.2.1-solaris.x86.v10.tar.gz</ns4:filename>
+        <ns4:shortDescription>Dialign binary package for Solaris 10 running on X86 based architecture</ns4:shortDescription>
+        <ns4:platform>Solaris 10 / X86</ns4:platform>
+    </ns4:downloadable>
+    <ns4:downloadable id="dialign_downloadable_solaris8sparc">
+        <ns4:name>Dialign Solaris 8, SPARC binary package</ns4:name>
+        <ns4:filename>dialign-2.2.1-solaris.sparc.v8.tar.gz</ns4:filename>
+        <ns4:shortDescription>Dialign binary package for Solaris 8 running on SPARC based architecture</ns4:shortDescription>
+        <ns4:platform>Solaris 8 / SPARC</ns4:platform>
+    </ns4:downloadable>
+    <ns4:downloadable id="dialign_downloadable_win32">
+        <ns4:name>Dialign Windows (2000,XP,Vista,7) binary package</ns4:name>
+        <ns4:filename>dialign-2.2.1-win32.tar.gz</ns4:filename>
+        <ns4:shortDescription>Dialign binary package for Windows (supports Windows 2000,XP,VISTA,7)</ns4:shortDescription>
+        <ns4:platform>Win32</ns4:platform>
+    </ns4:downloadable>
+    <ns4:downloadable id="dialign_downloadable_osx">
+        <ns4:name>Dialign OSX binary package</ns4:name>
+        <ns4:filename>dialign-2.2.1-universal-osx.dmg.zip</ns4:filename>
+        <ns4:shortDescription>Dialign binary package for OSX (10.5) running on X86/PPC based architecture</ns4:shortDescription>
+        <ns4:platform>OSX 10.5 , X86/PPC</ns4:platform>
+    </ns4:downloadable>
+   --> 
+    <ns4:view type="submission" id="dialign_view_id">
+        <ns4:title xml:lang="en">Submission</ns4:title>
+        <ns4:customContent xml:lang="en"/>
+    </ns4:view>
+    <ns4:view type="webservice" id="dialign_view_webservice">
+        <ns4:title xml:lang="en">WebService</ns4:title>
+        <ns4:customContent xml:lang="en"/>
+    </ns4:view>
+    <ns4:view type="download" id="dialign_view_download">
+        <ns4:title xml:lang="en">Download</ns4:title>
+        <ns4:customContent xml:lang="en">A various number 
+            
+        </ns4:customContent>
+    </ns4:view>
+    <ns4:manual id="dialign_manual">
+        <ns4:introductoryText xml:lang="en">This manual describes all parameters, input and output data supported by this Dialign online service. The variation and count of 
+parameters, the parameter range and input/ output types can differ from the standalone used program.</ns4:introductoryText>
+        <ns4:customContent>ONLYFORTESTMANUAL</ns4:customContent>
+    </ns4:manual>
+</ns4:runnableItem>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rnastructAlignmentML xmlns="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060515/rnastructAlignmentML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060515/rnastructAlignmentML.xsd">
+    <rnastructurealignment id="align1" score="216">
+            
+        <sequence seqID="aga-let-7">
+            <description>description of aga-let-7</description>
+            <alignedNucleicAcidSequence>CCUACUCCCGUGUUGAGGUAGUUGGUUGUAUAGUACCGUGGUUCCAAUACUCG-ACUAUACAAUCCGCUAACUUACCUCGUGGGUAG</alignedNucleicAcidSequence>
+            <structure>.((((((.((...((((.((((.(((((((((((...(((.......)))...-))))))))))).)))).))))...)).))))))</structure>
+        </sequence>
+     
+        <sequence seqID="cbr-let-7">
+            <description>decsription of cbr-let-7</description>
+            <alignedNucleicAcidSequence>CUGGGGUACGGUGAGGUAGUAGGUUGUAUAGUUU---AGAAUAUUACUCUCGGUGAACUAUGCAAGUUUCUACCUCACCGAAUACCA</alignedNucleicAcidSequence>
+            <structure>.(((.((.(((((((((((.((.(((((((((((---(((.......)))....))))))))))).)).))))))))))).)).)))</structure>           
+        </sequence>
+
+        <program>RNAforester -f=input_data.txt -2d -l -so=80 -bm=1 -bd=-10 -br=0 -pm=10 -pd=-5</program>
+    </rnastructurealignment>
+</rnastructAlignmentML>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:runnableItem xmlns:ns2="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml" xmlns:ns3="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml" xmlns:ns4="bibiserv:de.unibi.techfak.bibiserv.cms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="RNAMovies_WebVis" xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd">
+    <ns4:name xml:lang="en">RNAMovies</ns4:name>  
+    <ns4:shortDescription xml:lang="en"></ns4:shortDescription>
+    <ns4:description></ns4:description>
+    <ns4:keywords></ns4:keywords>
+    <ns4:responsibleAuthor>
+        <ns4:firstname></ns4:firstname>
+        <ns4:lastname></ns4:lastname>
+        <ns4:email></ns4:email>
+    </ns4:responsibleAuthor>
+    <ns4:author>
+        <ns4:firstname></ns4:firstname>
+        <ns4:lastname></ns4:lastname>
+        <ns4:email></ns4:email>
+    </ns4:author>
+    <ns4:customContent></ns4:customContent>
+   <ns4:executable>
+       <ns4:version></ns4:version>
+       <ns4:execInfo>
+           <ns4:executableType>binary</ns4:executableType>
+           <ns4:path></ns4:path>
+           <ns4:callingInformation></ns4:callingInformation>
+       </ns4:execInfo>
+       <ns4:output id="raeda_visualisation">
+           <ns4:name></ns4:name>
+           <ns4:shortDescription></ns4:shortDescription>
+           <ns4:description></ns4:description>
+           <ns4:type></ns4:type>
+           <ns4:handling></ns4:handling>
+           <ns4:example></ns4:example>
+       </ns4:output>
+       <ns4:function id="rnamovies_function">
+           <ns4:shortDescription></ns4:shortDescription>
+           <ns4:outputref ref="raeda_visualisation"/>
+           <ns4:paramAndInputOutputOrder><ns4:reference>raeda_visualisation</ns4:reference></ns4:paramAndInputOutputOrder>
+       </ns4:function>
+   </ns4:executable>
+    
+    <ns4:view type="submission" id="rnamovies_submission"></ns4:view>   
+    <ns4:manual id="raeda_manual">
+        <ns4:introductoryText xml:lang="en">T</ns4:introductoryText>
+        
+    </ns4:manual>
+</ns4:runnableItem>

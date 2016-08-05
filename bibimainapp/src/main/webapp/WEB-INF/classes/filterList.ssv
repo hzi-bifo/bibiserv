@@ -1,0 +1,7 @@
+#semicolon separated file
+#prefix
+/stats;/Stats/;/proxy/;/misc/;/dwr/;/admin/;/scripts;/register;/login;/rest/;/sswap/;/toolontologies/;/prevres;/test/;
+#substring
+/xmlhttp/;/uploadHtml;/block/;/resources/;/faces/;/images/;
+#suffix
+.jsf;.gif;.css;.ico;jspx;.jsp;.xhtml

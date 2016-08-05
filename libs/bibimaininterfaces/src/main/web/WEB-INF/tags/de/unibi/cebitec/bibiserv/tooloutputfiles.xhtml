@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition>
+            <script type="text/javascript">
+                function setCSSclass(id, cssclass) {
+                    document.getElementById(id).className = cssclass;
+                }
+            </script>
+            
+            <c:if test="#{(bean != null) &amp;&amp; (bean.getAllOutputFiles()!= null)}">
+                <h:panelGrid id="resultsOutputFileGrid" columns="#{(empty columns)?'4':columns}" cellspacing="13px"> 
+                    <c:forEach items="#{bean.getAllOutputFiles()}" var="pair" varStatus="counter">                           
+                        <h:commandLink value="#{pair.getKey()}" target="_blank" id="download_file_#{counter.count}" styleClass="tool_result_button"
+                                       onmouseover="setCSSclass(this.id, 'tool_result_button tool_result_button_highlighted')" 
+                                       onmouseout="setCSSclass(this.id, 'tool_result_button')">
+                            <p:fileDownload value="#{bean.getAdditionalResult(pair.getValue().getKey(),pair.getValue().getValue())}" contentDisposition="inline" />
+                        </h:commandLink>
+                    </c:forEach>                        
+                </h:panelGrid>
+            </c:if>
+            <c:if test="#{(bean == null)}">
+                <h:panelGroup>
+                    <strong>Something went wrong!</strong> 
+                    Please send a mail to server curators containing the following informations :
+                    <ul>
+                        <li>Tool used</li>
+                        <li>request id (if available)</li>
+                        <li>approximated running time (otherwise)</li>
+                    </ul>
+                </h:panelGroup>
+            </c:if>
+        </ui:composition>
+    </h:body>
+</html>

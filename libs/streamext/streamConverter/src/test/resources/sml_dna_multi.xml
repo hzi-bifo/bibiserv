@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequenceML xmlns="http://hobit.sourceforge.net/xsds/20090917/sequenceML"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20090917/sequenceML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20090917/sequenceML.xsd">
+    <sequence seqID="sample1">
+        <description>26 bp</description>
+        <nucleicAcidSequence>ACGTAGCAGCGATAGGCATGCATTGC</nucleicAcidSequence>
+    </sequence>
+    <sequence seqID="sample2">
+        <description>32 bp</description>
+        <nucleicAcidSequence>ACCGTTTCGTAGCAGCGATAGGCATGCATTGC</nucleicAcidSequence>
+    </sequence>
+</sequenceML>

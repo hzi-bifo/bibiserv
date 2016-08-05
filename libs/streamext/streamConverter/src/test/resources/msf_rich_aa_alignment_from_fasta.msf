@@ -1,0 +1,15 @@
+!!AA_MULTIPLE_ALIGNMENT 1.0
+PileUp of: @seqlist
+
+ Symbol comparison table: NONE  CompCheck: NONE
+
+                   GapWeight: NONE
+             GapLengthWeight: NONE
+
+ NONE.msf  MSF: 43  Type: P Check: NONE ..
+
+
+
+sample1      --LDTAPCLF ---------- --------SD GSPQKAAYVL WDQ
+sample2      VILSTDSQYV RQGITQWIHN WKKRGWKTAD KKPVKNVD-L WQR
+

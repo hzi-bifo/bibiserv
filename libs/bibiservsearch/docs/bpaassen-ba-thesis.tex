@@ -1,0 +1,97 @@
+\documentclass{book}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{verbatim}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[absolute]{textpos}
+\usepackage{pdfpages}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+
+\newcommand{\bibiserv}{\textit{BiBiServ2}}
+
+\newcommand{\bibiservsearch}{\textit{BiBiServSearch}}
+
+%figure standard befehl für Graphen
+\newcommand{\graph}[3]{
+\begin{figure}
+\centering
+\includegraphics[scale=0.85]{#1}
+\caption{#3}
+\label{#2}
+\end{figure}
+}
+
+\begin{document}
+
+\includepdf{resources/titlepage.pdf}
+
+\paragraph{Bachlorarbeit} von Benjamin Paaßen, Student der Kognitiven Informatik an der Technischen Fakultät der Universität Bielefeld.
+
+\paragraph{Abgabefrist:} 05.10.2012
+
+\paragraph{Programm:} Diese Arbeit betrifft das Programm \textit{BiBiServSearch}, verfügbar als Java\texttrademark-Paket auf dem CeBiTec-Server der Universität Bielefeld (\url{http://bibiserv.cebitec.uni-bielefeld.de/ivy-rep/de.unibi.cebitec.bibiserv/bibiservsearch/} [Stand 17.09.2012]).
+\paragraph{} Der Programmcode ist im Mercurial\texttrademark-System des CeBiTec unter \url{ssh://hg@hg.cebitec.uni-bielefeld.de/bibiadm/bibiserv2/main/bibiservsearch} einsehbar (Stand 17.09.2012).
+
+\paragraph{Gutachter:}
+
+\begin{itemize}
+ \item[] Prof. Dr. Robert Giegerich
+ \item[] Dipl. Inf. Jan Krüger
+\end{itemize}
+
+\tableofcontents
+
+\include{chapters/einleitung}
+
+\include{chapters/methoden_und_konzepte}
+
+\include{chapters/implementierung}
+
+\include{chapters/fazit}
+
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\begin{thebibliography}{99}
+ \bibitem{hagemeier} Hagemeier, Daniel: Vereinfachte Bereitstellung von bioinformatischen Anwendungen auf BiBiServ2, Masterarbeit, Technische Fakultät der Universität Bielefeld, Bielefeld, 2008
+ \bibitem{ukkonen} Ukkonen, Esko: On-line construction of suffix-trees, Algorithmica, Nr. 14, Jahrgang 1995, S. 249-260
+ \bibitem{gusfield} Gusfield, Dan: Algorithms on Strings, Trees and Sequences, 2. Auflage, Cambridge, 1999
+ \bibitem{jurafsky&martin} Jurafsky, Daniel; Martin, James H.: Speech and Language Processing, Prentice Hall, Upper Saddle River, 2000
+ \bibitem{knuth} Knuth, Donald Ervin: The Art of Computer Programming, Volume 3 / Sorting and searching, Addison-Wesley, Reading, 1973
+ \bibitem{automata} Hopcroft, John; Ullman, Jeffrey; Motwani, Rajeev: Introduction to Automata Theory, Languages, and Computation, 3. Ausgabe, Addison-Wesley, Boston, 2007
+ \bibitem{google} Brin, Sergey; Page, Lawrence: The anatomy of a large-scale hypertextual Web search engine, Proceedings of the seventh international conference on World Wide Web, Elsevier, Amsterdam, 1998, S. 107-117
+ \bibitem{peterson} Peterson, James L.: A note on undetected typing errors, Communications of the ACM, Volume 29 Issue 7, Juli 1986, S. 633 - 637
+ \bibitem{damerau} Damerau, Fred J.: A technique for computer detection and correction of spelling errors, Communications of the ACM, Volume 7 Issue 3, März 1964, S. 171 - 176
+ \bibitem{lazyTrees} Giegerich, Robert; Kurtz, Stefan; Stoye, Jens: Efficient implementation of lazy suffix trees, Software - Practice and Experience, Ausgabe 33, 2003, S. 1035-1049
+ \bibitem{baeza-yates} Baeza-Yates, Ricardo A.; Gonnet, Gaston H.: Fast Text Searching for Regular Expressions or
+ Automaton Searching on Tries, Journal of the ACM (JACM), Volume 43 Issue 6, New York, November 1996, S. 915 - 936 
+ \bibitem{approximateIndexing} Navarro, Gonzalo; Baeza-Yates, Ricardo; Sutinen, Erki; Tarhio, Jorma: Indexing Methods for Approximate String Matching, IEEE Data Engineering Bulletin, 24(4), 2001, S. 19-27
+ \bibitem{approxTreesUkkonen1} Ukkonen, Esko; Jokinen, Petteri: Two algorithms for approximate string matching in static texts, Lecture Notes in Computer Science, 2nd Ann. Symp. on Mathematical Foundations of Computer Science, Volume 520, No. 06., Springer, 1991, S. 240-248
+ \bibitem{approxTreesUkkonen2} Ukkonen, Esko: Approximate String-Matching over Suffix Trees, Lecture Notes in Computer Science, Volume 684, CPM 93., Springer, 1993, S. 228-242
+ \bibitem{approxTreesCobbs} Cobbs, Archie L.: Fast Approximate Matching using Suffix Trees, Lecture Notes in Computer Science, Volume 937, Springer, 1995, S. 41-54
+ \bibitem{dynamicTrees} Chan, Ho-Leung; Hon, Wing-Kai; Lam, Tak-Wah; Sadakane, Kunihiko: Dynamic dictionary matching and compressed suffix trees, SODA '05 Proceedings of the sixteenth annual ACM-SIAM symposium on Discrete algorithms, 2005, Philadelpha, S. 13-22
+ \bibitem{javaHashMap} Oracle: Dokumentation der Klasse "`HashMap"', Java\texttrademark Platform
+Standard Ed. 6, Online: \url{http://docs.oracle.com/javase/6/docs/api/java/util/HashMap.html} (Stand 10.09.2012)
+ \bibitem{javaCollectionSort} Oracle: Dokumentation der Klasse "`Collections"', Java\texttrademark 2 Platform
+Std. Ed. v1.4.2, Online: \url{http://docs.oracle.com/javase/1.4.2/docs/api/java/util/Collections.html} (Stand 27.08.2012)
+ \bibitem{javaRegex} Oracle: Dokumentation der Klasse "`Pattern"', Java\texttrademark 2 Platform
+ Std. Ed. v1.4.2, Online: \url{http://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html} (Stand 10.09.2012)
+ \bibitem{perlRegex} perl5-porters: Regular Expressions, perlre, Dokumentation der Sprache Perl, Online: \url{http://perldoc.perl.org/perlre.html#Regular-Expressions} (Stand 10.09.2012)
+ \bibitem{regexISO} ISO/IEC/IEEE und OpenGroup: Information technology — Portable Operating System Interface (POSIX®) Base Specifications, Issue 7, Referenznummer ISO/IEC/IEEE 9945:2009(E), 2009
+\end{thebibliography}
+
+\begin{appendix}
+
+\include{chapters/uml}
+
+\include{chapters/profiling}
+
+\include{chapters/ukkonen}
+
+\end{appendix}
+\end{document}

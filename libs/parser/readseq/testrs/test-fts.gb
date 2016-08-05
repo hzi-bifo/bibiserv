@@ -1,0 +1,199 @@
+LOCUS       XLRHODOP_7              1265 bp                         12-DEC-1992
+            
+ACCESSION   L07770
+DEFINITION  selected_feature: CDS loc=110..1174
+            /codon_start=1
+            /db_xref="SWISS-PROT:P29403"
+            /note='"gene accession number U23808"'
+            /product="rhodopsin"
+            /protein_id="AAC42232.1"
+            /translation="MNGTEGPNFYVPMSNKTGVVRSPFDYPQYYLAEPWQYSALAAYMFLLILLGLP
+            INFMTLFVTIQHKKLRTPLNYILLNLVFANHFMVLCGFTVTMYTSMHGYFIFGQTGCYIEGFFATLG
+            GEVALWSLVVLAVERYMVVCKPMANFRFGENHAIMGVAFTWIMALSCAAPPLFGWSRYIPEGMQCSC
+            GVDYYTLKPEVNNESFVIYMFIVHFTIPLIVIFFCYGRLLCTVKEAAAQQQESATTQKAEKEVTRMV
+            VIMVVFFLICWVPYAYVAFYIFTHQGSNFGPVFMTVPAFFAKSSAIYNPVIYIVLNKQFRNCLITTL
+            CCGKNPFGDEDGSSAATSKTEASSVSSSQVSPA"
+COMMENT     Extracted features: CDS, mRNA, gene, 
+COMMENT     Extracted feature subrange: -100..end100
+FEATURES             Location/Qualifiers
+     CDS             110..1174
+                     /codon_start=1
+                     /db_xref="SWISS-PROT:P29403"
+                     /note="gene accession number U23808"
+                     /product="rhodopsin"
+                     /protein_id="AAC42232.1"
+                     /translation="MNGTEGPNFYVPMSNKTGVVRSPFDYPQYYLAEPWQYSALAAYM
+                     FLLILLGLPINFMTLFVTIQHKKLRTPLNYILLNLVFANHFMVLCGFTVTMYTSMHGY
+                     FIFGQTGCYIEGFFATLGGEVALWSLVVLAVERYMVVCKPMANFRFGENHAIMGVAFT
+                     WIMALSCAAPPLFGWSRYIPEGMQCSCGVDYYTLKPEVNNESFVIYMFIVHFTIPLIV
+                     IFFCYGRLLCTVKEAAAQQQESATTQKAEKEVTRMVVIMVVFFLICWVPYAYVAFYIF
+                     THQGSNFGPVFMTVPAFFAKSSAIYNPVIYIVLNKQFRNCLITTLCCGKNPFGDEDGS
+                     SAATSKTEASSVSSSQVSPA"
+     extracted_range 9..1273
+                     /note="Location extracted from source. Feature locations are
+                     for source, not for this extraction."
+ORIGIN      
+        9 agcttcagtt gggatcacag gcttctaggg atcctttggg caaaaaagaa acacagaagg
+       69 cattctttct atacaagaaa ggactttata gagctgctac catgaacgga acagaaggtc
+      129 caaattttta tgtccccatg tccaacaaaa ctggggtggt acgaagccca ttcgattacc
+      189 ctcagtatta cttagcagag ccatggcaat attcagcact ggctgcttac atgttcctgc
+      249 tcatcctgct tgggttacca atcaacttca tgaccttgtt tgttaccatc cagcacaaga
+      309 aactcagaac acccctaaac tacatcctgc tgaacctggt atttgccaat cacttcatgg
+      369 tcctgtgtgg gttcacggtg acaatgtaca cctcaatgca cggctacttc atctttggcc
+      429 aaactggttg ctacattgaa ggcttctttg ctacacttgg tggtgaagtg gccctctggt
+      489 cactggtagt attggccgtt gaaagatata tggtggtctg caagcccatg gccaacttcc
+      549 gattcgggga gaaccatgct attatgggtg tagccttcac atggatcatg gctttgtctt
+      609 gtgctgctcc tcctctcttc ggatggtcca gatacatccc agagggaatg caatgctcat
+      669 gcggagtaga ctactacaca ctgaagcctg aggtcaacaa tgaatccttt gttatctaca
+      729 tgttcattgt ccacttcacc attcccctga ttgtcatctt cttctgctat ggtcgcctgc
+      789 tctgcactgt caaagaggct gcagcccagc aacaggaatc tgctaccacc cagaaggctg
+      849 agaaagaggt caccagaatg gttgttatca tggtcgtttt cttcctgatc tgttgggtgc
+      909 cctatgccta tgtggcattc tacatcttca cccaccaggg ctctaacttt ggcccagtct
+      969 tcatgaccgt cccagctttc tttgccaaga gctctgctat ctacaatcct gtcatctaca
+     1029 ttgtcttgaa caaacagttc cgtaactgct tgatcaccac cctgtgctgt ggaaagaatc
+     1089 cattcggtga tgaagatggc tcctctgcag ccacctccaa gacagaagct tcttctgtct
+     1149 cttccagcca ggtgtctcct gcataagagc ttcaccaggg ctgtctcagg gtccgctgcc
+     1209 tcacacaatt cccatcactt aagccctgtc tacttgttgc gaaggcaaag aattccacag
+     1269 tttta
+//
+LOCUS       XL23808_8               3655 bp                         23-APR-1995
+            
+ACCESSION   U23808
+DEFINITION  selected_feature: mRNA
+            loc=join(1181..1650,1899..2067,2669..2834,3085..3324,4030..4687)
+            /product="rhodopsin"
+COMMENT     Extracted features: CDS, mRNA, gene, 
+COMMENT     Extracted feature subrange: -100..end100
+FEATURES             Location/Qualifiers
+     mRNA            join(1181..1650,1899..2067,2669..2834,3085..3324,
+                     4030..4687)
+                     /product="rhodopsin"
+     extracted_range 1080..4734
+                     /note="Location extracted from source. Feature locations are
+                     for source, not for this extraction."
+ORIGIN      
+     1080 acagtgatta atagtgcgct aaatcctttg ttcgtgacgc tgggggttgc aagcttactc
+     1140 caggtgggac tttaaaagga cgaggggaca gtgggtcata ctgtagaaca gcttcagttg
+     1200 ggatcacagg cttctaggga tcctttgggc aaaaaagaaa cacagaaggc attctttcta
+     1260 tacaagaaag gactttatag agctgctacc atgaacggaa cagaaggtcc aaatttttat
+     1320 gtccccatgt ccaacaaaac tggggtggta cgaagcccat tcgattaccc tcagtattac
+     1380 ttagcagagc catggcaata ttcagcactg gctgcttaca tgttcctgct catcctgctt
+     1440 gggttaccaa tcaacttcat gaccttgttt gttaccatcc agcacaagaa actcagaaca
+     1500 cccctaaact acatcctgct gaacctggta tttgccaatc acttcatggt cctgtgtggg
+     1560 ttcacggtga caatgtacac ctcaatgcac ggctacttca tctttggcca aactggttgc
+     1620 tacattgaag gcttctttgc tacacttggt ggtaagttcc aatgggcttt cgtcactgat
+     1680 attgttgtag caataaattc ttggaaagct cgtaagggaa caagctacca gggaaagggt
+     1740 tatagggctg aaaaggaata tcagtacttt ctatgttctc cagcagagtg tagtgcatac
+     1800 catgttagag aaagttcaac atgtaatact gtgaggggcc aaattgcctg ggttgagtca
+     1860 tgttaacctt ttgccttttc ctgttctttt tactaacagg tgaagtggcc ctctggtcac
+     1920 tggtagtatt ggccgttgaa agatatatgg tggtctgcaa gcccatggcc aacttccgat
+     1980 tcggggagaa ccatgctatt atgggtgtag ccttcacatg gatcatggct ttgtcttgtg
+     2040 ctgctcctcc tctcttcgga tggtccaggt aaatatatat aacatcagtc agcatatccc
+     2100 tagaaaagta tatctaatga tacaactacg gtatatataa acttgtagaa acatccacca
+     2160 aagttacagc atgagttaag gaagagtaca tagaaggtca gctaatgctt tggaaaaata
+     2220 caatagaagg tcagctaatg cagaggttac caaactcctt tgggggctcc aagctttgga
+     2280 tggaagccca gtttgaggtc aaggtttgag atttgttaat tactcctgga actagaaaag
+     2340 agttagttgc ccacatctta taacagcgag acaatactga caattggtag ttgttgctga
+     2400 aattcagctt tctacacccc actacagcca ttggctgcaa tattgagttc agcttggaga
+     2460 gaactcaatc caggattgca cttctacatt ttattccagt attctattta tcagatgagc
+     2520 ttgtgcttaa accccaagga ctcaatgctg atgaataatg ttaggattta cagttcaata
+     2580 acaattgaga gatacaggat gtctattcct gtaatgtggg taacagagta tgtgcttgtt
+     2640 ggctctgaca ctatattgtc cttgtgcaga tacatcccag agggaatgca atgctcatgc
+     2700 ggagtagact actacacact gaagcctgag gtcaacaatg aatcctttgt tatctacatg
+     2760 ttcattgtcc acttcaccat tcccctgatt gtcatcttct tctgctatgg tcgcctgctc
+     2820 tgcactgtca aagaggtgag tagtcattat catttggtca tggtcacaac ccaatccaac
+     2880 tagttctaaa catagaccct ccaggtgtta ttgaactgtt actacttctt ggacttctct
+     2940 acaaccttgt ttgactgact ggagagagaa agatcagtaa aatctgatta tgaagagaac
+     3000 aaagtcctac accttgtatg cccaatatct actactagac tgttgctctt ctgtcctaac
+     3060 ttctcttatc ttacccattt cataggctgc agcccagcaa caggaatctg ctaccaccca
+     3120 gaaggctgag aaagaggtca ccagaatggt tgttatcatg gtcgttttct tcctgatctg
+     3180 ttgggtgccc tatgcctatg tggcattcta catcttcacc caccagggct ctaactttgg
+     3240 cccagtcttc atgaccgtcc cagctttctt tgccaagagc tctgctatct acaatcctgt
+     3300 catctacatt gtcttgaaca aacaggtact aaactacttc caagtctgtt cttatttttt
+     3360 aatcagcagt ttgtcaactt tatgtatatt tcctctccta tatgggtttc caagggtttc
+     3420 tatgtaatat ataggatacc aagaattctg accaccagct cttgttgaga ctcccaccag
+     3480 tctacagctg tcatctagga atggtggaag tttcagttca accaaagcaa agagtgctaa
+     3540 acatgagctg attaactatg actcccattg tctatagctg cagttaaaaa aagtcatgga
+     3600 gaatgttctg ctacttatga tgactgtgtt gccttaggat cagcatacaa cttggggtag
+     3660 taagggcatt tgtcttaggt cccaaaatgg aaggggcttt tagaggagaa acacagataa
+     3720 aactacaaag accaccagtg ttttagtatt ttaaaacacg ggtaataacc cttgagcaaa
+     3780 cttcgtgtgc tggattaatt attacgtacc tttcgttggg ggtgccgtcc tcctatgatc
+     3840 catgcaccgt gaacgttgaa agagggacca ggtgtgcatc tgcatttcgt ttggcttagt
+     3900 attttacaac cttcgtatac atcaatatgc aatgcattac ttatttttag ggtagtagag
+     3960 actaaatgag tacaacaata cagaagagat gaatggacta gataatgact gttctccttt
+     4020 ctctccccag ttccgtaact gcttgatcac caccctgtgc tgtggaaaga atccattcgg
+     4080 tgatgaagat ggctcctctg cagccacctc caagacagaa gcttcttctg tctcttccag
+     4140 ccaggtgtct cctgcataag agcttcacca gggctgtctc agggtccgct gcctcacaca
+     4200 attcccatca cttaagccct gtctacttgt tgcgaaggca aagaattcca cagttttaat
+     4260 atttaccccc attctgccca accttggaca ctgtaagagc tgaccccatt actgctggga
+     4320 aggcccaagc tttgttgcat tctgatgtga tcctttcagc agaaaatggg tggattcaat
+     4380 gaatttcacc aaggctgtac ataacaataa cattagtctg aaggcacctc ccacccagag
+     4440 aatgcaacac ttatttatct ctgtcttttc ttgacatatt gatgctgctt ctattcatgg
+     4500 tcactaacaa aaagtcccat tttacaatgc aactgaaagt aatgtatttt tgtaatataa
+     4560 taacatattt catgcaatct cctctgctta ttggcaaggt ctgatatagt gaggatagac
+     4620 agccagaccc cttgcattaa aatcctgtat taaaaatttc tttgcaagta aaaaaaaaaa
+     4680 cacaaaaagt caaatgtctt attcgattta tttcacactt tgattgtctg gttat
+//
+LOCUS       XL23808_9               1265 bp                         23-APR-1995
+            
+ACCESSION   U23808
+DEFINITION  selected_feature: CDS
+            loc=join(1290..1650,1899..2067,2669..2834,3085..3324,4030..4158)
+            /codon_start=1
+            /db_xref="SWISS-PROT:P29403"
+            /note='"cDNA sequence deposited under GenBank Accession
+            Number L07770"'
+            /product="rhodopsin"
+            /protein_id="AAC59901.1"
+            /translation="MNGTEGPNFYVPMSNKTGVVRSPFDYPQYYLAEPWQYSALAAYMFLLILLGLP
+            INFMTLFVTIQHKKLRTPLNYILLNLVFANHFMVLCGFTVTMYTSMHGYFIFGQTGCYIEGFFATLG
+            GEVALWSLVVLAVERYMVVCKPMANFRFGENHAIMGVAFTWIMALSCAAPPLFGWSRYIPEGMQCSC
+            GVDYYTLKPEVNNESFVIYMFIVHFTIPLIVIFFCYGRLLCTVKEAAAQQQESATTQKAEKEVTRMV
+            VIMVVFFLICWVPYAYVAFYIFTHQGSNFGPVFMTVPAFFAKSSAIYNPVIYIVLNKQFRNCLITTL
+            CCGKNPFGDEDGSSAATSKTEASSVSSSQVSPA"
+COMMENT     Extracted features: CDS, mRNA, gene, 
+COMMENT     Extracted feature subrange: -100..end100
+FEATURES             Location/Qualifiers
+     CDS             join(1290..1650,1899..2067,2669..2834,3085..3324,
+                     4030..4158)
+                     /codon_start=1
+                     /db_xref="SWISS-PROT:P29403"
+                     /note="cDNA sequence deposited under GenBank Accession
+                     Number L07770"
+                     /product="rhodopsin"
+                     /protein_id="AAC59901.1"
+                     /translation="MNGTEGPNFYVPMSNKTGVVRSPFDYPQYYLAEPWQYSALAAYM
+                     FLLILLGLPINFMTLFVTIQHKKLRTPLNYILLNLVFANHFMVLCGFTVTMYTSMHGY
+                     FIFGQTGCYIEGFFATLGGEVALWSLVVLAVERYMVVCKPMANFRFGENHAIMGVAFT
+                     WIMALSCAAPPLFGWSRYIPEGMQCSCGVDYYTLKPEVNNESFVIYMFIVHFTIPLIV
+                     IFFCYGRLLCTVKEAAAQQQESATTQKAEKEVTRMVVIMVVFFLICWVPYAYVAFYIF
+                     THQGSNFGPVFMTVPAFFAKSSAIYNPVIYIVLNKQFRNCLITTLCCGKNPFGDEDGS
+                     SAATSKTEASSVSSSQVSPA"
+     extracted_range join(1189..1650,1899..2067,2669..2834,3085..3324,
+                     4030..4257)
+                     /note="Location extracted from source. Feature locations are
+                     for source, not for this extraction."
+ORIGIN      
+        1 agcttcagtt gggatcacag gcttctaggg atcctttggg caaaaaagaa acacagaagg
+       61 cattctttct atacaagaaa ggactttata gagctgctac catgaacgga acagaaggtc
+      121 caaattttta tgtccccatg tccaacaaaa ctggggtggt acgaagccca ttcgattacc
+      181 ctcagtatta cttagcagag ccatggcaat attcagcact ggctgcttac atgttcctgc
+      241 tcatcctgct tgggttacca atcaacttca tgaccttgtt tgttaccatc cagcacaaga
+      301 aactcagaac acccctaaac tacatcctgc tgaacctggt atttgccaat cacttcatgg
+      361 tcctgtgtgg gttcacggtg acaatgtaca cctcaatgca cggctacttc atctttggcc
+      421 aaactggttg ctacattgaa ggcttctttg ctacacttgg tggtgaagtg gccctctggt
+      481 cactggtagt attggccgtt gaaagatata tggtggtctg caagcccatg gccaacttcc
+      541 gattcgggga gaaccatgct attatgggtg tagccttcac atggatcatg gctttgtctt
+      601 gtgctgctcc tcctctcttc ggatggtcca gatacatccc agagggaatg caatgctcat
+      661 gcggagtaga ctactacaca ctgaagcctg aggtcaacaa tgaatccttt gttatctaca
+      721 tgttcattgt ccacttcacc attcccctga ttgtcatctt cttctgctat ggtcgcctgc
+      781 tctgcactgt caaagaggct gcagcccagc aacaggaatc tgctaccacc cagaaggctg
+      841 agaaagaggt caccagaatg gttgttatca tggtcgtttt cttcctgatc tgttgggtgc
+      901 cctatgccta tgtggcattc tacatcttca cccaccaggg ctctaacttt ggcccagtct
+      961 tcatgaccgt cccagctttc tttgccaaga gctctgctat ctacaatcct gtcatctaca
+     1021 ttgtcttgaa caaacagttc cgtaactgct tgatcaccac cctgtgctgt ggaaagaatc
+     1081 cattcggtga tgaagatggc tcctctgcag ccacctccaa gacagaagct tcttctgtct
+     1141 cttccagcca ggtgtctcct gcataagagc ttcaccaggg ctgtctcagg gtccgctgcc
+     1201 tcacacaatt cccatcactt aagccctgtc tacttgttgc gaaggcaaag aattccacag
+     1261 tttta
+//

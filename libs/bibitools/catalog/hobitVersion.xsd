@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hobit.sf.net/xsds/hobitVersion" targetNamespace="http://hobit.sf.net/xsds/hobitVersion" elementFormDefault="unqualified">
+	<xs:element name="hobitVersion">
+		<xs:annotation>
+			<xs:documentation>
+		This grammar will be used by WebServices to represent their dependencies. WebServices are descripted within a WSDL document, but can't represent their used tools/databases and versions of this.
+A user might be interessted in knowing chances of underlaying tools/databases, because results might change on update.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="hash"/>
+				<xs:element ref="element" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" fixed="0.1"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Types -->
+	<xs:element name="hash" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A hash checksum over all tools and versions. Should change on any changes. Thus a easy one-step check is possible to detect any changes</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="element">
+		<xs:annotation>
+			<xs:documentation>A used tool, database - something used by a WebService, but is independent. So its not represented within the WSDL.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Name of a used tool</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="version" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Version of the tool</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

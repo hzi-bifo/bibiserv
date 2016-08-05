@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <h:body>
+        <ui:composition>
+            
+            <h:panelGrid columns="2">
+            
+               <h:outputText value="#{messages.property(bean.id.concat('_name'))}: "/>
+                
+               <p:selectOneMenu effect="fade" style="width:200px;" value="#{bean.chosenInput}" >  
+                    <f:selectItems value="#{bean.input.representations}" var="rep" itemValue="#{rep.key}" itemLabel="#{rep.formatLabel}"/>
+                    <p:ajax event="change" process="@this" listener="#{bean.inputchange}"/>
+               </p:selectOneMenu>    
+               
+            </h:panelGrid>
+        </ui:composition>
+    </h:body>
+</html>

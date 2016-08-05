@@ -1,0 +1,12 @@
+<WSPVRunResponse xmlns="http://wilab.inha.ac.kr/WSPseudoViewer/">
+<WSPVResponse>
+	<WSPVOutput>
+		<Name>E. coli mRNA</Name>
+		<Images>
+			<WSPVOut_URL>
+				http://165.246.44.42/PseudoViewer/PVWebService/WSPVOutput/Ecoli.png
+			</WSPVOut_URL>
+		</Images>
+	</WSPVOutput>
+</WSPVResponse>
+</WSPVRunResponse>

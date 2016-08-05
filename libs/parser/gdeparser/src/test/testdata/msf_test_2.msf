@@ -1,0 +1,13 @@
+
+   MSF:  32  Type: A    Check:  7736   ..
+
+ Name: sample1 oo  Len:  32  Check:  7842  Weight:  16.0
+ Name: sample2 oo  Len:  32  Check:  8553  Weight:  17.8
+
+//
+
+             1                                32
+sample1      A......CGT AGCAGCGATA GGCATGCATT GC
+sample2      ACCGTTTCGT AGCAGCGATA GGCATGCATT GC
+
+

@@ -1,0 +1,58 @@
+{
+name	"sample1"
+type		"RNA"
+longname	Solanum tuberosum
+sequence-ID	"X13180 M22140"
+creator		"Stiekema,W.J., Heidekamp,F., Dirkse,W.G., van Beckum,J., de"
+creation-date	 4/18/2005 12: 9: 4
+direction	1
+strandedness	1
+comments	"VERSION     X13180.1  GI:21393KEYWORDS    proteinase inhibitor; tuber protein.
+SOURCE      Solanum tuberosum (potato)
+            Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta;
+            Spermatophyta; Magnoliophyta; eudicotyledons; core eudicots;
+            asterids; lamiids; Solanales; Solanaceae; Solanum.
+REFERENCE   1  (bases 1 to 470)
+            Haan,P., ten Bosch,C. and Louwerse,J.D.
+  TITLE     Molecular cloning and analysis of four potato tuber mRNAs
+  JOURNAL   Plant Mol. Biol. 11, 255-269 (1988)
+COMMENT     On Feb 24, 2005 this sequence version replaced gi:169579.
+            p322 mature product AA seq shows 30% homologyto that of soybean
+            Bowman-Birk proteinase inhibitor
+            Data kindly reviewed (21-Jul-1989) by Stiekema W.J.
+FEATURES             Location/Qualifiers
+     source          1..470
+                     /organism=`Solanum tuberosum`
+                     /mol_type=`mRNA`
+                     /cultivar=`Bintje`
+                     /db_xref=`taxon:4113`
+                     /clone=`p322.`
+                     /clone_lib=`pBR322`
+     CDS             7..231
+                     /note=`unnamed protein product; put. preprotein (AA -27 to
+                     47)`
+                     /codon_start=1
+                     /protein_id=`CAA31577.1`
+                     /db_xref=`GI:21394`
+                     /db_xref=`GOA:P20346`
+                     /db_xref=`InterPro:IPR003614`
+                     /db_xref=`InterPro:IPR008176`
+                     /db_xref=`InterPro:IPR008177`
+                     /translation=`MRFFATFFLLAMLVVATKMGPMRIAEARHCESLSHRFKGPCTRD
+                     SNCASVCETERFSGGNCHGFRRRCFCTKPC`
+     sig_peptide     7..87
+                     /note=`putative`
+     mat_peptide     88..228
+                     /product=`putative mature protease inhibitor`
+     repeat_unit     231..242
+                     /note=`inverted repeat A`
+     repeat_unit     244..255
+                     /note=`inverted repeat A`
+     polyA_site      470
+                     /note=`polyA site`
+"
+sequence	"
+LDTAPCLFSDGSPQKAAYVLWDQ"
+}
+%sample2
+VILSTDSQYVRQGITQWIHNWKKRGWKTADKKPVKNVDLWQR

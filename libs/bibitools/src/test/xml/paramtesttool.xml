@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:runnableItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd"
+                    xmlns:ns2="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml" 
+                    xmlns:ns3="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml" 
+                    xmlns:ns4="bibiserv:de.unibi.techfak.bibiserv.cms" 
+                    id="parametertesttool">
+    <ns4:name xml:lang="en">ParameterTestTool</ns4:name>
+    <ns4:name xml:lang="de">ParameterTestWerkzeug</ns4:name>
+    <ns4:shortDescription xml:lang="en">This is a tool for testing all parameter possibilities</ns4:shortDescription>
+    <ns4:shortDescription xml:lang="de">Dieses Werkzeug dient ausschließlich dem Test aller Parameter Möglichkeiten, die 
+        derzeit von dem BiBiServ2 Framework unterstützt werden.</ns4:shortDescription>
+    <ns4:description xml:lang="en">This a testing tool. It's only purpose is to test all parameter combinations with different types and views, which are
+    supported by the <ns2:em>BiBiServ2</ns2:em> framework. </ns4:description>
+    <ns4:description xml:lang="de">Dieses Werkzeug ist ein Testtool. Es dient ausschliesslich dem Test aller Parameter Kombinationen und deren Darstellung im Browser.
+    Aus bioinformatischer Sicht macht das Werkzeug dementsprechend keine Sinn.</ns4:description>
+    <ns4:toolTipText xml:lang="en"></ns4:toolTipText>
+    <ns4:keywords xml:lang="en"></ns4:keywords>
+    <ns4:responsibleAuthor>
+        <ns4:firstname>Jan</ns4:firstname>
+        <ns4:lastname>Krüger</ns4:lastname>
+        <ns4:organisation>BiBiServ - CeBiTec - Bielefeld University</ns4:organisation>
+        <ns4:email>jkrueger@cebitec.uni-bielefeld.de</ns4:email>
+    </ns4:responsibleAuthor>
+    <ns4:author>
+        <ns4:firstname>Joe</ns4:firstname>
+        <ns4:lastname>User</ns4:lastname>
+        <ns4:organisation>Faculty of Dummy Users - Bielefeld University</ns4:organisation>
+        <ns4:email></ns4:email>
+    </ns4:author>
+    
+    <ns4:support>
+        <ns4:firstname>BiBiServ</ns4:firstname>
+        <ns4:lastname>Mitarbeiter</ns4:lastname>
+        <ns4:email>bibi-help@cebitec.uni-bielefeld.de</ns4:email>
+    </ns4:support>
+    <ns4:customContent xml:lang="en">This is sample text inside a custom content field. The text make absolutly no sense, beside filling the field with content.
+        <ns2:p>
+            ICEfaces is an open source Ajax framework that enables Java EE application developers to create and deploy server-based rich Internet application 
+            (RIA) using the Java language. ICEfaces leverages the entire standards-based Java EE ecosystem of tools and execution environments. Rich enterprise 
+            application features are developed in pure Java, and in a pure thin-client model. There are no Applets or proprietary browser plug-ins required. 
+            ICEfaces applications are JavaServer Faces (JSF) applications, so Java EE application development skills apply directly and Java developers are 
+            isolated from doing any JavaScript related development. (text copied from <ns2:a href="http://en.wikipedia.org/wiki/ICEfaces">wikipedia</ns2:a>).    
+        </ns2:p> 
+    </ns4:customContent>
+    <ns4:customContent xml:lang="de">Dies ist ein Beispieltext fuer ein CustomComtent Tag. Der darin enthaltene Text macht keinen Sinn, ausser das Textfeld mit
+    Inhalt zu fuellen.
+        <ns2:p>
+            ICEfaces ist ein auf JavaServer Faces (JSF) basierendes Ajax-Framework für Java, welches durch ICEsoft entwickelt wird. Seit November 2006 steht 
+            das Projekt neben einer kommerziellen Lizenz auch unter der Mozilla Public License (MPL) zur Verfügung.   
+            ICEfaces verfügt über eine umfangreiche Bibliothek an Komponenten für die Benutzerschnittstelle mit eingebauter Ajax-Funktionalität. Dazu gehören 
+            beispielsweise Bäume, Tabs und Menüs. Diese Komponenten können in einer standardkonformen JSF-Seite verwendet werden. Im Gegensatz zu den üblichen 
+            Komponenten einer Webseite können diese jedoch über Ajax mit dem Webcontainer kommunizieren und bei Bedarf Daten nachladen ohne dass die gesamte 
+            Webseite neu geladen wird. Der Entwickler muss sich dabei nicht um die Details dieser Kommunikation kümmern, da diese im Hintergrund transparent 
+            abläuft. Mit ICEfaces lassen sich so Rich Internet Application (RIA) entwickeln, ohne JavaScript programmieren zu müssen. Der schlussendlich im 
+            Browser ausgeführte JavaScript-Code wird durch das Framework zur Laufzeit generiert. (Text von <ns2:a href="http://de.wikipedia.org/wiki/ICEfaces">WikiPedia</ns2:a>
+            kopiert).
+        </ns2:p>
+    </ns4:customContent>
+    <ns4:executable>
+        <ns4:version>1.0</ns4:version>
+        <ns4:execInfo>
+            <ns4:executableType>binary</ns4:executableType>
+            <ns4:path></ns4:path>
+            <ns4:callingInformation>echo</ns4:callingInformation>
+        </ns4:execInfo>
+        <ns4:output id="parametertesttool_output_echo">
+            <ns4:name xml:lang="en">echo</ns4:name>
+            <ns4:shortDescription xml:lang="en">Returns an echo of parameter inputs</ns4:shortDescription>
+            <ns4:shortDescription xml:lang="de">Gibt die übergebenen Parameter als "echo" zurück.</ns4:shortDescription>
+            <ns4:description xml:lang="en">The output is tool specific. All input parameter values are returned like 
+            an echo.</ns4:description>
+            <ns4:description xml:lang="de">Die Rückgabe ist Werkzeug spezifisch. Alle an das Werkzeug übergebenen Parameter werden als Liste zurückgeben.</ns4:description>
+            <ns4:type>ToolDependentRepresentation</ns4:type>
+            <ns4:handling>STDOUT</ns4:handling>
+            <ns4:example></ns4:example>
+        </ns4:output>
+        <ns4:param id="parametertesttool_param_boolean">
+            <ns4:name xml:lang="en">boolean</ns4:name>
+            <ns4:shortDescription xml:lang="en">boolean test parameter</ns4:shortDescription>
+            <ns4:description xml:lang="en">This a boolean test parameter using the <ns2:em>SELECTBOOLEANCHECKBOX</ns2:em>.</ns4:description>
+            <ns4:type>boolean</ns4:type>
+            <ns4:option>-boolean</ns4:option>          
+            <ns4:guiElement>SELECTBOOLEANCHECKBOX</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_boolean2">
+            <ns4:name xml:lang="en">boolean(2)</ns4:name>
+            <ns4:shortDescription xml:lang="en">boolean test parameter (2) </ns4:shortDescription>
+            <ns4:description xml:lang="en">This a boolean test parameter using the <ns2:em>INPUTTEXT</ns2:em>.</ns4:description>
+            <ns4:type>boolean</ns4:type>
+            <ns4:option>-boolean2</ns4:option>          
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_int">
+            <ns4:name xml:lang="en">int</ns4:name>
+            <ns4:shortDescription xml:lang="en">int test parameter</ns4:shortDescription>
+            <ns4:description xml:lang="en">int test parameter with gui element inputtext.</ns4:description>
+            <ns4:type>int</ns4:type>
+            <ns4:option>-int</ns4:option>        
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_int_min_max_default">
+            <ns4:name xml:lang="en">int_min_max_default</ns4:name>
+            <ns4:shortDescription xml:lang="en">int min max  test parameter</ns4:shortDescription>
+            <ns4:description xml:lang="en">int min max test parameter with gui element <ns2:em>inputtext</ns2:em>.</ns4:description>
+            <ns4:type>int</ns4:type>
+            <ns4:option>-int_max_min_default</ns4:option>
+            <ns4:defaultValue>50</ns4:defaultValue>
+            <ns4:min included="false">0</ns4:min>
+            <ns4:max included="false">100</ns4:max>
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_float">
+            <ns4:name xml:lang="en">float</ns4:name>
+            <ns4:shortDescription xml:lang="en">float test parameter</ns4:shortDescription>
+            <ns4:description xml:lang="en">Float test parameter with gui element <ns2:em>inputext</ns2:em>.</ns4:description>
+            <ns4:type>float</ns4:type>
+            <ns4:option>-float</ns4:option>
+       
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_float_max_min_default">
+            <ns4:name xml:lang="en">float_max_min_default</ns4:name>
+            <ns4:shortDescription xml:lang="en">float test parameter with default value and min / max constraints</ns4:shortDescription>
+            <ns4:description xml:lang="en">float test parameter with default value and min / max constraints and GUI 
+element <ns2:em>INPUTTEXT</ns2:em>.</ns4:description>
+            <ns4:type>float</ns4:type>
+            <ns4:option>-float_min_max_default</ns4:option>
+            <ns4:defaultValue>99.9</ns4:defaultValue>
+            <ns4:min included="true">90.5</ns4:min>
+            <ns4:max included="true">99.99</ns4:max>
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_string">
+            <ns4:name xml:lang="en">string</ns4:name>
+            <ns4:shortDescription xml:lang="en">string test parameter</ns4:shortDescription>
+            <ns4:description xml:lang="en">string test parameter with gui element <ns2:em>inputtext</ns2:em>.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-string</ns4:option> 
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_string_regexp">
+            <ns4:name xml:lang="en">string_regexp</ns4:name>
+            <ns4:shortDescription xml:lang="en">string test parameter with regexp constraint</ns4:shortDescription>
+            <ns4:description xml:lang="en">string test parameter with regexp constraint and gui element <ns2:em>inputtext</ns2:em>.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-string_regexp</ns4:option>
+            <ns4:regexp>\d{0,5}\s.+</ns4:regexp>
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_string_min_max">
+            <ns4:name xml:lang="en">string_min_max</ns4:name>
+            <ns4:shortDescription xml:lang="en">string test parameter with min / max length restrictions</ns4:shortDescription>
+            <ns4:description xml:lang="en">string test parameter with min / max length restrictions and gui element <ns2:em>inputext</ns2:em>.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:minLength>10</ns4:minLength>
+            <ns4:maxLength>100</ns4:maxLength>
+            <ns4:guiElement>INPUTTEXT</ns4:guiElement>
+        </ns4:param>
+        <ns4:param id="parametertesttool_param_string_regexp_default">
+            <ns4:name xml:lang="en">string_regexp_default</ns4:name>
+            <ns4:shortDescription xml:lang="en">string test parameter with regexp restriction and default value</ns4:shortDescription>
+            <ns4:description xml:lang="en">string test parameter with regexp restriction and default value and gui 
+element <ns2:em>textarea</ns2:em>.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-string_regexp_default</ns4:option>
+            <ns4:defaultValue>ACGU</ns4:defaultValue>
+            <ns4:regexp>[ACGU]*</ns4:regexp>
+            <ns4:guiElement>INPUTTEXTAREA</ns4:guiElement>
+        </ns4:param>
+        <ns4:enumParam id="parametertesttool_enum_selectoneradio" minoccurs="0" maxoccurs="1">
+            <ns4:name>Enum SelectOneRadio</ns4:name>
+            <ns4:shortDescription xml:lang="en">Enumaration test parameter. Choose one country selecting a radio button.</ns4:shortDescription>
+            <ns4:description>Enumeration test parameter using GUI element <ns2:em>SELECTONERADIO</ns2:em>. Choose one country selecting a radio button.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-lang_sor </ns4:option>
+            <ns4:values>
+                <ns4:key>DE</ns4:key>
+                <ns4:value>DE</ns4:value>
+                <ns4:name xml:lang="en">German</ns4:name>
+                <ns4:name xml:lang="de">Deutsch</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>US</ns4:key>
+                <ns4:value>US</ns4:value>
+                <ns4:name xml:lang="en">United States of America</ns4:name>
+                <ns4:name xml:lang="de">Vereinigte Staaten von Amerika</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>SE</ns4:key>
+                <ns4:value>SE</ns4:value>
+                <ns4:name xml:lang="en">Sweden</ns4:name>
+                <ns4:name xml:lang="de">Schweden</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>NL</ns4:key>
+                <ns4:value>NL</ns4:value>
+                <ns4:name xml:lang="en">Netherland</ns4:name>
+                <ns4:name xml:lang="de">Holland</ns4:name>
+            </ns4:values>          
+            <ns4:guiElement>SELECTONERADIO</ns4:guiElement>
+        </ns4:enumParam>
+        <ns4:enumParam id="parametertesttool_enum_selectonelistbox" minoccurs="0" maxoccurs="1">
+            <ns4:name>Enum SelectOneListBox</ns4:name>
+            <ns4:shortDescription xml:lang="en">Enumaration test parameter. Choose one country from the list box.</ns4:shortDescription>
+            <ns4:description>Enumeration test parameter using GUI element <ns2:em>SELECTONELISTBOX</ns2:em>. Choose one country  from the list box.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-lang_sol </ns4:option>
+            <ns4:values>
+                <ns4:key>DE</ns4:key>
+                <ns4:value>DE</ns4:value>
+                <ns4:name xml:lang="en">German</ns4:name>
+                <ns4:name xml:lang="de">Deutsch</ns4:name>
+            </ns4:values>
+            <ns4:values defaultValue="true">
+                <ns4:key>US</ns4:key>
+                <ns4:value>US</ns4:value>
+                <ns4:name xml:lang="en">United States of America</ns4:name>
+                <ns4:name xml:lang="de">Vereinigte Staaten von Amerika</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>SE</ns4:key>
+                <ns4:value>SE</ns4:value>
+                <ns4:name xml:lang="en">Sweden</ns4:name>
+                <ns4:name xml:lang="de">Schweden</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>NL</ns4:key>
+                <ns4:value>NL</ns4:value>
+                <ns4:name xml:lang="en">Netherland</ns4:name>
+                <ns4:name xml:lang="de">Holland</ns4:name>
+            </ns4:values>          
+            <ns4:guiElement>SELECTONELISTBOX</ns4:guiElement>
+        </ns4:enumParam>
+        <ns4:enumParam id="parametertesttool_enum_selectonemenu" minoccurs="1" maxoccurs="1">
+            <ns4:name>Enum SelectOneMenu</ns4:name>
+            <ns4:shortDescription xml:lang="en">Enumaration test parameter. Choose one country from the menu.</ns4:shortDescription>
+            <ns4:description>Enumeration test parameter using GUI element <ns2:em>SELECTONEMENU</ns2:em>. Choose one country from the menu.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-lang_som </ns4:option>
+            <ns4:values defaultValue="true">
+                <ns4:key>DE</ns4:key>
+                <ns4:value>DE</ns4:value>
+                <ns4:name xml:lang="en">German</ns4:name>
+                <ns4:name xml:lang="de">Deutsch</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>US</ns4:key>
+                <ns4:value>US</ns4:value>
+                <ns4:name xml:lang="en">United States of America</ns4:name>
+                <ns4:name xml:lang="de">Vereinigte Staaten von Amerika</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>SE</ns4:key>
+                <ns4:value>SE</ns4:value>
+                <ns4:name xml:lang="en">Sweden</ns4:name>
+                <ns4:name xml:lang="de">Schweden</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>NL</ns4:key>
+                <ns4:value>NL</ns4:value>
+                <ns4:name xml:lang="en">Netherland</ns4:name>
+                <ns4:name xml:lang="de">Holland</ns4:name>
+            </ns4:values>          
+            <ns4:guiElement>SELECTONEMENU</ns4:guiElement>
+        </ns4:enumParam>   
+        <ns4:enumParam id="parametertesttool_enum_selectmanylistbox" maxoccurs="3">
+            <ns4:name>Enum SelectManyListBox</ns4:name>
+            <ns4:shortDescription xml:lang="en">Enumaration test parameter. Choose one or more countries from the list box.</ns4:shortDescription>
+            <ns4:description>Enumeration test parameter using GUI element <ns2:em>SELECTMANYLISTBOX</ns2:em>. Choose one or more countries from the list box.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-lang_sml </ns4:option>
+            <ns4:separator>,</ns4:separator>
+            <ns4:values defaultValue="true">
+                <ns4:key>DE</ns4:key>
+                <ns4:value>DE</ns4:value>
+                <ns4:name xml:lang="en">German</ns4:name>
+                <ns4:name xml:lang="de">Deutsch</ns4:name>
+            </ns4:values>
+            <ns4:values defaultValue="true">
+                <ns4:key>US</ns4:key>
+                <ns4:value>US</ns4:value>
+                <ns4:name xml:lang="en">United States of America</ns4:name>
+                <ns4:name xml:lang="de">Vereinigte Staaten von Amerika</ns4:name>
+            </ns4:values>
+            <ns4:values defaultValue="true">
+                <ns4:key>SE</ns4:key>
+                <ns4:value>SE</ns4:value>
+                <ns4:name xml:lang="en">Sweden</ns4:name>
+                <ns4:name xml:lang="de">Schweden</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>NL</ns4:key>
+                <ns4:value>NL</ns4:value>
+                <ns4:name xml:lang="en">Netherland</ns4:name>
+                <ns4:name xml:lang="de">Holland</ns4:name>
+            </ns4:values>          
+            <ns4:guiElement>SELECTMANYLISTBOX</ns4:guiElement>
+        </ns4:enumParam>
+        <ns4:enumParam id="parametertesttool_enum_selectmanymenu" maxoccurs="3">
+            <ns4:name>Enum SelectManyMenu</ns4:name>
+            <ns4:shortDescription xml:lang="en">Enumaration test parameter. Choose one or more countries from the menu.</ns4:shortDescription>
+            <ns4:description>Enumeration test parameter using GUI element <ns2:em>SELECTMANYMENU</ns2:em>. Choose one or more countries from the menu.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-lang_smm </ns4:option>
+            <ns4:separator>+</ns4:separator>
+            <ns4:prefix>[</ns4:prefix>
+            <ns4:suffix>]</ns4:suffix>
+            <ns4:values>
+                <ns4:key>DE</ns4:key>
+                <ns4:value>DE</ns4:value>
+                <ns4:name xml:lang="en">German</ns4:name>
+                <ns4:name xml:lang="de">Deutsch</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>US</ns4:key>
+                <ns4:value>US</ns4:value>
+                <ns4:name xml:lang="en">United States of America</ns4:name>
+                <ns4:name xml:lang="de">Vereinigte Staaten von Amerika</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>SE</ns4:key>
+                <ns4:value>SE</ns4:value>
+                <ns4:name xml:lang="en">Sweden</ns4:name>
+                <ns4:name xml:lang="de">Schweden</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>NL</ns4:key>
+                <ns4:value>NL</ns4:value>
+                <ns4:name xml:lang="en">Netherland</ns4:name>
+                <ns4:name xml:lang="de">Holland</ns4:name>
+            </ns4:values>          
+            <ns4:guiElement>SELECTMANYMENU</ns4:guiElement>
+        </ns4:enumParam>
+        <ns4:enumParam id="parametertesttool_enum_selectmanycheckbox" maxoccurs="4">
+            <ns4:name>Enum SelectManyCheckBox</ns4:name>
+            <ns4:shortDescription xml:lang="en">Enumeration test parameter. Select one or more countries from the checkboxes.</ns4:shortDescription>
+            <ns4:description>Enumeration test parameter using GUI element <ns2:em>SELECTMANYCHECKBOX</ns2:em>. Select one or more countries from the checkboxes.</ns4:description>
+            <ns4:type>string</ns4:type>
+            <ns4:option>-lang_smc </ns4:option>
+            <ns4:separator>,</ns4:separator>
+            <ns4:values defaultValue="true">
+                <ns4:key>DE</ns4:key>
+                <ns4:value>DE</ns4:value>
+                <ns4:name xml:lang="en">German</ns4:name>
+                <ns4:name xml:lang="de">Deutsch</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>US</ns4:key>
+                <ns4:value>US</ns4:value>
+                <ns4:name xml:lang="en">United States of America</ns4:name>
+                <ns4:name xml:lang="de">Vereinigte Staaten von Amerika</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>SE</ns4:key>
+                <ns4:value>SE</ns4:value>
+                <ns4:name xml:lang="en">Sweden</ns4:name>
+                <ns4:name xml:lang="de">Schweden</ns4:name>
+            </ns4:values>
+            <ns4:values>
+                <ns4:key>NL</ns4:key>
+                <ns4:value>NL</ns4:value>
+                <ns4:name xml:lang="en">Netherland</ns4:name>
+                <ns4:name xml:lang="de">Holland</ns4:name>
+            </ns4:values>          
+            <ns4:guiElement>SELECTMANYCHECKBOX</ns4:guiElement>
+        </ns4:enumParam>
+        <ns4:paramGroup id="parametertesttool_paramgroup_all_normal">
+            <ns4:name xml:lang="en">all normal</ns4:name>
+            <ns4:shortDescription xml:lang="en">Parameter group containing all &quot;normal&quot; parameters.</ns4:shortDescription>
+            <ns4:description xml:lang="en"/>
+            <ns4:paramref ref="parametertesttool_param_boolean"/>
+            <ns4:paramref ref="parametertesttool_param_boolean2"/>
+            <ns4:paramref ref="parametertesttool_param_int"/>
+            <ns4:paramref ref="parametertesttool_param_int_min_max_default"/>
+            <ns4:paramref ref="parametertesttool_param_float"/>
+            <ns4:paramref ref="parametertesttool_param_float_max_min_default"/>
+            <ns4:paramref ref="parametertesttool_param_string"/>
+            <ns4:paramref ref="parametertesttool_param_string_regexp"/>
+            <ns4:paramref ref="parametertesttool_param_string_min_max"/>
+            <ns4:paramref ref="parametertesttool_param_string_regexp_default"/>
+        </ns4:paramGroup>
+        <ns4:paramGroup id="parametertesttool_paramgroup_all_enum">
+            <ns4:name xml:lang="en">all enum</ns4:name>
+            <ns4:shortDescription xml:lang="en">Parameter group containing all &quot;enumeration&quot; parameters.</ns4:shortDescription>
+            <ns4:description xml:lang="en"/>
+            <ns4:paramref ref="parametertesttool_enum_selectoneradio"/>
+            <ns4:paramref ref="parametertesttool_enum_selectonelistbox"/>
+            <ns4:paramref ref="parametertesttool_enum_selectonemenu"/>
+            <ns4:paramref ref="parametertesttool_enum_selectmanycheckbox"/>
+            <ns4:paramref ref="parametertesttool_enum_selectmanylistbox"/>
+            <ns4:paramref ref="parametertesttool_enum_selectmanymenu"/>
+        </ns4:paramGroup>
+        
+        <ns4:function id="parametertesttool_function_0">
+            <ns4:name xml:lang="en">Param Test Function</ns4:name>
+            <ns4:shortDescription xml:lang="en">Function using a combination of all 'normal' parameter. All parameter values are returned as result.</ns4:shortDescription>
+            <ns4:description xml:lang="en">
+                The ParameterTestTool function <ns2:strong>Param Test Function</ns2:strong> is a simple <ns2:em>echo</ns2:em> function to test and explain all <ns2:em>supported</ns2:em> parameters. For simplicity this function hasn't
+                any input value. The BiBiServ2 <ns2:em>CodeGen</ns2:em> package currently support the following parameter:
+                <ns2:ul>
+                    <ns2:li>boolean - checkbox/inputbox</ns2:li>
+                    <ns2:li>int - inputbox with a default value and a restriction to a minimum/maximum value.</ns2:li>
+                    <ns2:li>float - inputbox with a default value and a restriction to a minimum/maximum value.</ns2:li>
+                    <ns2:li>string - inputbox with a restriction to a regular expression or to a minimum/maximum string length.</ns2:li>     
+                </ns2:ul>
+                Currently only two(three) different views are supported. CheckBox for boolean based parameter and Inputbox 
+                for all parameters independent of their type.
+                InputBoxes can be a single line textfield or textarea (latter makes only sense for string based parameters).
+                Each parameter is described by a so called parameter block element.
+                <ns2:img src="images/parameter_block.png" alt="Images shows a labeled parameter block"/> 
+                A parameter block consists of a parameter name (1), a parameter help action (2), which shows/hides the parameter help (3)
+                containing the parameter short description and all constraints/restrictions to this parameters, the parameter view itsself (4)
+                and an message block (5), which appears when validate the entered content.      
+            </ns4:description>
+            <ns4:description xml:lang="de">
+                Die ParameterTestWerkzeug Funktion <ns2:strong>Param Test Funktion</ns2:strong> ist eine <ns2:em>Echo</ns2:em> Funktion, um alle unterstützten parameter
+                darzustellen und zu testen. Um das Ganze möglichst einfach zu gestalten hat diese Funktion keine Eingabe Argumente. Das BiBiServ2 <ns2:em>CodeGen</ns2:em>
+                Paket unterstützt derzeit die folgenden Parameter :
+                     
+                <ns2:ul>
+                    <ns2:li>boolean - checkbox/inputbox</ns2:li>
+                    <ns2:li>int - inputbox with a default value and a restriction to a minimum/maximum value.</ns2:li>
+                    <ns2:li>float - inputbox with a default value and a restriction to a minimum/maximum value.</ns2:li>
+                    <ns2:li>string - inputbox with a restriction to a regular expression or to a minimum/maximum string length.</ns2:li>     
+                </ns2:ul>
+                
+                Derzeit werden nur zwei (bzw. drei) verschiedenen Ansichten unterstützt. CheckBoxen für Wahrheitswerte und Eingabefelder für
+                alle Parameter unabhängig von Ihrem Typ. Eingabefelder können ein- oder mehrzeilig sein. Jeder Parameter wird in der 
+                xhtml (faces) Datei durch einen Parameterblock beschrieben :
+                   
+                <ns2:img src="images/parameter_block.png" alt="Images shows a labeled parameter block"/> 
+                Ein Parameterblock besteht aus einem Namen (1), einer Hilfe Schaltfläche (2), der Hilfe zu dem Parameter (3), der Parameter
+                Darstellung (4) und einem Nachrichten Block(5).
+            </ns4:description>
+            <ns4:outputref ref="parametertesttool_output_echo"/>
+            <ns4:paramGroup id="parametertesttool_paramgroup_dummy">
+                <ns4:name xml:lang="en">dummy</ns4:name>
+                <ns4:shortDescription xml:lang="en"/>
+                <ns4:description xml:lang="en"/>
+                <ns4:paramGroupref ref="parametertesttool_paramgroup_all_normal"/>
+            </ns4:paramGroup>
+            <ns4:paramAndInputOutputOrder>
+                <ns4:reference>parametertesttool_output_echo</ns4:reference>
+                <ns4:reference>parametertesttool_param_boolean</ns4:reference>
+                <ns4:reference>parametertesttool_param_boolean2</ns4:reference>
+                <ns4:reference>parametertesttool_param_int</ns4:reference>
+                <ns4:reference>parametertesttool_param_int_min_max_default</ns4:reference>
+                <ns4:reference>parametertesttool_param_float</ns4:reference>
+                <ns4:reference>parametertesttool_param_float_max_min_default</ns4:reference>
+                <ns4:reference>parametertesttool_param_string</ns4:reference>
+                <ns4:reference>parametertesttool_param_string_regexp</ns4:reference>
+                <ns4:reference>parametertesttool_param_string_min_max</ns4:reference>
+                <ns4:reference>parametertesttool_param_string_regexp_default</ns4:reference>
+            </ns4:paramAndInputOutputOrder>
+        </ns4:function>
+        <ns4:function id="parametertesttool_function_1">
+            <ns4:name xml:lang="en">Enumeration parameter test function</ns4:name>
+            <ns4:shortDescription xml:lang="en">Function using a combination of all supported 'enum' parameter. All selected values are returned as result.</ns4:shortDescription>
+            <ns4:description xml:lang="en">
+                The ParameterTestTool function1 is an simple "echo" function to test and explain all <ns2:em>supported</ns2:em> enum parameters. For simplicity this function hasn't
+                any input value. The BiBiServ2 CodeGen package should currently support the following enumeration based parameter.
+                <ns2:ul>
+                    <ns2:li>Select One Radiobutton</ns2:li>
+                    <ns2:li>Select One ListBox</ns2:li>
+                    <ns2:li>Select One Menu</ns2:li>
+                    <ns2:li>Select Many Checkbox</ns2:li>
+                    <ns2:li>Select Many ListBox</ns2:li>
+                    <ns2:li>Select Many Menu</ns2:li>
+                </ns2:ul>
+                The only difference between all the <ns2:em>Select One ...</ns2:em> parameter is the view on the submission page. The function is the same. The user 
+                select <ns2:em>one</ns2:em> key and the corresponding value is returned (optional leading with the content of the &lt;option&gt; tag. While the 
+                <ns2:em>Select One ...</ns2:em> parameter return only one value (well, that's the reason why they are called <ns2:em>Select One ...</ns2:em>), all 
+                <ns2:em>Select Many ...</ns2:em> parameter could return a list of values (as comma separated values in one string).                 
+            </ns4:description>
+            <ns4:outputref ref="parametertesttool_output_echo"/>
+            <ns4:paramGroup id="parametertesttool_paramgroup_dummy2">
+                <ns4:name xml:lang="en">dummy2</ns4:name>
+                <ns4:shortDescription xml:lang="en"/>
+                <ns4:description xml:lang="en"/>
+                <ns4:paramGroupref ref="parametertesttool_paramgroup_all_enum"/>
+            </ns4:paramGroup>
+            <ns4:paramAndInputOutputOrder>
+                <ns4:reference>parametertesttool_enum_selectoneradio</ns4:reference>
+                <ns4:reference>parametertesttool_enum_selectonelistbox</ns4:reference>
+                <ns4:reference>parametertesttool_enum_selectonemenu</ns4:reference>
+                <ns4:reference>parametertesttool_enum_selectmanycheckbox</ns4:reference>
+                <ns4:reference>parametertesttool_enum_selectmanylistbox</ns4:reference>
+                <ns4:reference>parametertesttool_enum_selectmanymenu</ns4:reference>
+            </ns4:paramAndInputOutputOrder>
+        </ns4:function>
+    </ns4:executable>
+    <ns4:downloadable id="parametertesttool_downloadable_file1">
+        <ns4:name>Sample Text File</ns4:name>
+        <ns4:filename>file1.txt</ns4:filename>
+        <ns4:shortDescription xml:lang="en">This is sample short description for a simple text file.</ns4:shortDescription>
+    </ns4:downloadable>
+    
+    <ns4:view id="parametertesttool_view_id" type="submission">
+       
+            <ns4:title xml:lang="en">Submission Page</ns4:title>
+            <ns4:title xml:lang="de">Submission Seite</ns4:title>
+            <ns4:customContent xml:lang="en">
+                <ns2:p>This <ns2:em>Submission</ns2:em> page is similar to the tool itself written for 
+test purpose only.</ns2:p>
+                <ns2:p>This tool makes - from the view of bioinformatican - absolutely no 
+sense. This <ns2:strong>text</ns2:strong> also is absolute nonsense and is only 
+an <ns2:em>bullshit</ns2:em> sample for free content.</ns2:p>
+            </ns4:customContent>
+            <ns4:customContent xml:lang="de">
+                Diese <ns2:em>Submission</ns2:em> Seite ist ähnlich wie das Tool selbst nur für reine Testzwecke erstellt worden. Das
+                Werkzeug macht auch bioinformatischer Sicht absolut keinen Sinn und auch dieser <ns2:strong>Text</ns2:strong> 
+                ist nur eine <ns2:em>sinnfreie</ns2:em> Buchstabenmenge, die (zufälligerweise) Wörter bilden.
+            </ns4:customContent>         
+        
+    </ns4:view>
+    <ns4:view type="download" id="parametertesttool_view_download">
+       
+            <ns4:title xml:lang="en">Download Page</ns4:title>
+            <ns4:title xml:lang="de">Download Seite</ns4:title>
+            <ns4:customContent xml:lang="en"></ns4:customContent>
+        
+    </ns4:view>
+    <ns4:view type="webservice" id="parametertesttool_view_webservice">
+            <ns4:title xml:lang="en">WebService Page</ns4:title>
+            <ns4:title xml:lang="de">WebService Seite</ns4:title>
+            <ns4:customContent>No Custom Content</ns4:customContent>
+
+    </ns4:view>
+    <ns4:manual id="parametertesttool_manual">
+        <ns4:introductoryText xml:lang="en">This is an introduction text for the tools manual. At this place normally 
+all parameter, enumerations, inputs and functions are listed with their description and constraints. If this is not the 
+case it isn't implemented, yet.</ns4:introductoryText>
+        <ns4:introductoryText xml:lang="de">Die ist ein beispielhafter Einführungstext für die Anleitung des Tools. An dieser
+        Stelle sollten normalerweise alle Parameter, Aufzählungen und Ein-/Ausgabetypen und Funktionen erläutert werden. Falls
+        dies nicht der Fall, das ist diese Funktionalität leider noch nicht implementiert. </ns4:introductoryText>
+        <ns4:customContent xml:lang="en">Every Manual page also supports a custom content area at the end of page. The author every 
+        or any other authorized person can place additional explanation/description there. This a good place for e.g. a (short) description
+        of the algorithm of the tool. Sample pictures:<ns2:img src="images/The_Earth_seen_from_Apollo_17.jpg" alt="Sample Picture relative"/>
+            <ns2:img src="http://bibiserv.techfak.uni-bielefeld.de/bibi/images/bibiserv_logo.png" alt="Sample Picture absolute"/>
+        </ns4:customContent>
+        <ns4:customContent xml:lang="de"> Jede Beschreibungsseite enthält am Ende einen Bereich der vom Autor individuell mit Inhalt            
+        versehen werden kann. Das ist u.a. eine gute Stelle um z.B.  kurz den Algorithmus zu erklären der hinter dem Tool steckt. Die
+        Betonung liegt aber auf kurz, weitreichende wissenschaftliche Ergüsse sollte lieber in einem separaten Dokument im Downloadbereich
+        hinterlegt werden. Beispielbilder:<ns2:img src="images/The_Earth_seen_from_Apollo_17.jpg" alt="Beispiel Bild mit relativer Pfadangabe"/>
+            <ns2:img src="http://bibiserv.techfak.uni-bielefeld.de/bibi/images/bibiserv_logo.png" alt="Beispiel Bild mit absoluter Pfadangabe"/>
+        </ns4:customContent>
+    </ns4:manual>
+</ns4:runnableItem>

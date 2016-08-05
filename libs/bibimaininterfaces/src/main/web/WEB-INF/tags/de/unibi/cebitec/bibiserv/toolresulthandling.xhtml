@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bibiserv.cebitec.uni-bielefeld.de/facelets">
+
+   
+    <!-- following getter & setter ::
+        - helpAction
+        - help
+        - uploadvisible
+        - textareavisible
+        - selectedInput
+        - selectItems
+        - changelistener
+        - uploadMessage
+        - textarea
+        - validated
+        - valid
+        - input  => input.source
+        - showInfoAction
+        - showInfo
+        - 
+    -->
+
+    <h:body>
+        <ui:composition>
+
+
+            <h:panelGroup id="#{bean.id}" styleClass="boxMain">
+
+                <!-- Selection of Textarea or FileUpload  -->
+                <h:panelGrid columns="2" 
+                             headerClass="input_header" 
+                             footerClass="input_footer" 
+                             rowClasses="input_header_top, input_header_mid" 
+                             columnClasses="input_column_left, input_column" 
+                             frame="box" cellpadding="5" cellspacing="0"
+                             styleClass="inputTable">
+                    
+                    <h:panelGroup layout="block">
+                        <h:outputText value="(1) #{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.SELECT_OUTPUTHANDLING')} : "/>
+                        <h:selectOneRadio value="#{bean.resultHandling}" 
+                                          layout="pageDirection" styleClass="input_text">
+                            <f:selectItems value="#{bean.resultItems}" />
+                            
+                            <f:ajax event="valueChange" 
+                                    render="#{bean.id}"
+                                    listener="#{bean.changelistener}" />
+                        </h:selectOneRadio>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block">
+                        <!-- Download  -->
+                        <h:panelGroup styleClass="formblock_inputbox formblock_normal" rendered="#{bean.downloadVisible}">
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.DOWNLOAD_MESSAGE')}"/> 
+                        </h:panelGroup>
+
+                        <!-- S3 Upload  -->
+                        <h:panelGroup styleClass="formblock_inputbox formblock_normal" rendered="#{bean.s3uploadVisible}">
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.UPLOAD_MESSAGE')}"/> 
+
+                            <h:panelGrid columns="2" id="#{bean.id}_awslist">
+                            <p:selectOneMenu id="#{bean.id}_bucket_dropdown_select" effect="fade" style="width:200px;"  value="#{bean.selected_item_bucket}">  
+                                <f:selectItem itemLabel="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.SELECTBUCKET')}" itemValue="" />  
+                                <f:selectItems value="#{bean.itemlist_buckets}"/>                          
+                            </p:selectOneMenu>
+
+                            <p:commandButton id="#{bean.id}_refresh_button_select" action="#{bean.getBucketList}"  onstart="#{bean.id}_select_dialog.handledialog()"  value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.LOADBUCKETFILELIST')}" update="#{bean.id}_awslist #{bean.id}_select_dialog_confirm_dialog">
+                                <p:tooltip value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.GETAVAILABLEBUCKETS')}" for="#{bean.id}_refresh_button_select"/>
+                            </p:commandButton>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="2">   
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.SUBFOLDER')}:"/>
+                            <p:inputText id="#{bean.id}_subfolder" value="#{bean.subfolder}" size="38" />
+                            </h:panelGrid>
+                            
+                        </h:panelGroup>
+                        <b:status widgetVar="#{bean.id}_select_dialog" header="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.WAIT')}" update="#{bean.id}_awslist"  message="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.LOADINGBUCKETLIST')}" infoMessage="#{bean.loadListMsg}" infoHeader="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.input.LOADINGLISTINFO')}"/>
+                        <br/>
+                        
+                         <!-- Startmessage  -->
+                        <h:panelGroup styleClass="formblock_inputbox formblock_normal" rendered="#{bean.errorPageVisible}">
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.INFOERRORPAGE')}"/> 
+                            <br/>
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.UPLOAD_DISABLED')}" rendered="#{bean.uploadDisabled}"/>
+                            <br/>
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.UPLOAD_DESCRIPTION')}" rendered="#{bean.uploadDisabled and !awsbean.isAwsCredentialsSet()}"/>
+                            <br/>
+                            <h:outputText value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.result.DOWNLOAD_DISABLED')}" rendered="#{bean.downloadDisabled}"/> 
+                            
+                        </h:panelGroup>
+
+                         <p:messages id="#{bean.id}_msg" showDetail="true" autoUpdate="true"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:panelGroup>
+
+        </ui:composition>
+    </h:body>
+</html>

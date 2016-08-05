@@ -1,0 +1,16 @@
+
+\chapter{Konfiguration für Netbeans\texttrademark Profiling}
+\label{profiling}
+
+\paragraph{} Die Testkonfiguration für die Anwendung von NetBeans\texttrademark Profiling ist in der Klasse \texttt{ProfilingTestClass} im Hauptpaket der Anwendung abgelegt. Die Testdateien sind nicht beigelegt. Getestet wurde mit einer willkürlichen Auswahl deutscher und englischer Dateien (vornehmlich PDF-Dateien) mit möglichst vielen Worten (siehe auch \ref{fazit-complexity}). Für einen erneuten Test kann ein eigener Textdatensatz in den Ordner \texttt{test/data/mixed} im Netbeans-Arbeitsverzeichnis abgelegt werden.
+\paragraph{} In NetBeans\texttrademark selbst müssen folgende Schritte durchgeführt werden, um das Profiling nachzuvollziehen:
+\begin{itemize}
+ \item In \texttt{ProfilingTestClass} den Testmodus einstellen (der Variable \texttt{testMode} irgendeinen Wert des enums zuweisen)
+ \item Bei RAM-Tests: Die Variable \texttt{RAMTESTOCCLIMIT} einstellen. Die Variable legt das Limit indizierter Vorkommen fest, bis zu dem das Programm neue Dokumente einlesen wird. Je nachdem, wie viel Text die letzte eingelesene Datei enthält kann die Anzahl der tatsächlich eingelesenen Vorkommen deutlich darüber liegen. Sie liegt aber in jedem Falle nicht darunter.
+ \item Den Netbeans\texttrademark Profiler kalibrieren.
+ \item Den Netbeans\texttrademark Profiler für das Projekt entweder im Modus CPU oder Memory starten.
+\end{itemize}
+\paragraph{} Für diese Arbeit wurde NetBeans\texttrademark 7.2. benutzt und folgende Konfiguration verwendet:
+\paragraph{CPU:} Quick (sampled); profile only project classes; keine profiling points.
+\paragraph{Memory:} Record both object creation and garbage collection; track every 100 object allocations; keine profiling points.
+\paragraph{} Das Profiling wurde auf einem CeBiTec-Rechner (nemo) durchgeführt, um eine möglichst praxisnahe Systemkonfiguration zu gewährleisten.

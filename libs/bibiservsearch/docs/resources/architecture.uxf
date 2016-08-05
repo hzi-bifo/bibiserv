@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>70</x>
+      <y>40</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Dokumenten-
+Index</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>290</x>
+      <y>40</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Dokument</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>10</y>
+      <w>170</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+m1=1
+m2=*
+Hashing</panel_attributes>
+    <additional_attributes>30;50;150;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>70</x>
+      <y>120</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Vorkommens-
+Index</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>110</y>
+      <w>220</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+m2=  *</panel_attributes>
+    <additional_attributes>30;30;200;30;200;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>290</x>
+      <y>190</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Vorkommen</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>50</y>
+      <w>248</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+m1=1
+m2=  *
+Hashing</panel_attributes>
+    <additional_attributes>30;90;200;90;200;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>70</x>
+      <y>280</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Wort-Index</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>290</x>
+      <y>280</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Wort</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>250</y>
+      <w>170</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+m1=1
+m2=*
+Hashing</panel_attributes>
+    <additional_attributes>30;50;150;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>310</x>
+      <y>200</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=  *
+m2=  1</panel_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>70</x>
+      <y>380</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>generalisierter
+Suffixbaum</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>290</y>
+      <w>258</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+m1=1
+m2=  *
+referenziert</panel_attributes>
+    <additional_attributes>30;110;200;110;200;30</additional_attributes>
+  </element>
+</diagram>

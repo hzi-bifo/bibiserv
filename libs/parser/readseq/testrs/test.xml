@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Bioseq-set [
+<!ELEMENT accession (#PCDATA)>
+<!ELEMENT authors (#PCDATA)>
+<!ELEMENT Bioseq (accession | class | comment | date | dbxref | descr 
+	| div | ftable | keywords | length | mol | name | nid | pub | seq-data 
+	| seq-stat | source)*>
+<!ELEMENT Bioseq-set (Bioseq+)>
+<!ELEMENT class (#PCDATA)>
+<!ELEMENT comment (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT dbxref (#PCDATA)>
+<!ELEMENT descr (#PCDATA)>
+<!ELEMENT div (#PCDATA)>
+<!ELEMENT fitem (#PCDATA | floc | fnote)*>
+<!ELEMENT floc (#PCDATA)>
+<!ELEMENT fnote (#PCDATA | fval)*>
+<!ELEMENT ftable (fitem+)>
+<!ELEMENT fval (#PCDATA)>
+<!ELEMENT journal (#PCDATA)>
+<!ELEMENT keywords (#PCDATA)>
+<!ELEMENT length (#PCDATA)>
+<!ELEMENT lineage (#PCDATA)>
+<!ELEMENT mol (#PCDATA)>
+<!ELEMENT na (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT nc (#PCDATA)>
+<!ELEMENT ng (#PCDATA)>
+<!ELEMENT nid (#PCDATA)>
+<!ELEMENT nn (#PCDATA)>
+<!ELEMENT nt (#PCDATA)>
+<!ELEMENT other (#PCDATA)>
+<!ELEMENT pub (#PCDATA | authors | journal | other | pubseq | pubxref | title)*>
+<!ELEMENT pubseq (#PCDATA)>
+<!ELEMENT pubxref (#PCDATA)>
+<!ELEMENT seq-data (#PCDATA)>
+<!ELEMENT seq-stat (na, nc, ng, nt, nn?)>
+<!ELEMENT source (#PCDATA | lineage)*>
+<!ELEMENT title (#PCDATA)>
+]>
+
+<Bioseq-set>
+  <Bioseq>
+    <name>XLRHODOP</name>
+    <length>1684</length>
+    <mol>RNA</mol>
+    <div>VRT</div>
+    <date>12-DEC-1992</date>
+    <accession>L07770</accession>
+    <version>L07770.1</version>
+    <descr>Xenopus laevis rhodopsin mRNA, complete cds.</descr>
+    <keywords>G protein-coupled receptor; phototransduction protein; retinal
+protein;
+rhodopsin; transmembrane protein.</keywords>
+    <source>Xenopus laevis (African clawed frog)
+      <lineage>Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Teleostomi;
+Euteleostomi; Amphibia; Batrachia; Anura; Mesobatrachia; Pipoidea;
+Pipidae;
+Xenopodinae; Xenopus.</lineage>
+    </source>
+    <pub>1
+      <pubseq>1-1684</pubseq>
+      <authors>Knox B.E., Scalzetti L.C., Batni S., Wang J.Q.;</authors>
+      <title>Molecular cloning of the abundant rhodopsin and transducin from
+Xenopus
+laevis</title>
+      <journal>Unpublished.</journal>
+    </pub>
+    <pub>2
+      <pubseq>1-1684</pubseq>
+      <pubxref>MEDLINE; 96216396.</pubxref>
+      <authors>Batni S., Scalzetti L., Moody S.A., Knox B.E.;</authors>
+      <title>Characterization of the Xenopus rhodopsin gene</title>
+      <journal>J. Biol. Chem. 271(6):3179-3186(1996).</journal>
+    </pub>
+    <ftable>
+      <fitem>source
+        <floc>1..1684</floc>
+        <fnote>/db_xref<fval>taxon:8355</fval></fnote>
+        <fnote>/organism<fval>Xenopus laevis</fval></fnote>
+        <fnote>/dev_stage<fval>adult</fval></fnote>
+        <fnote>/tissue_type<fval>retina</fval></fnote>
+        <fnote>/tissue_lib<fval>lambda-ZAPII</fval></fnote>
+      </fitem>
+      <fitem>CDS
+        <floc>110..1174</floc>
+        <fnote>/codon_start<fval>1</fval></fnote>
+        <fnote>/db_xref<fval>SWISS-PROT:P29403</fval></fnote>
+        <fnote>/note<fval>gene accession number U23808</fval></fnote>
+        <fnote>/product<fval>rhodopsin</fval></fnote>
+        <fnote>/protein_id<fval>AAC42232.1</fval></fnote>
+        <fnote>/translation
+          <fval>MNGTEGPNFYVPMSNKTGVVRSPFDYPQYYLAEPWQYSALAAYMFLLILLGLPINFMTLFVTIQ
+HKKLRTPLNYILLNLVFANHFMVLCGFTVTMYTSMHGYFIFGQTGCYIEGFFATLGGEVALWSLVVLAVERYMVVCKPMA
+NFRFGENHAIMGVAFTWIMALSCAAPPLFGWSRYIPEGMQCSCGVDYYTLKPEVNNESFVIYMFIVHFTIPLIVIFFCYG
+RLLCTVKEAAAQQQESATTQKAEKEVTRMVVIMVVFFLICWVPYAYVAFYIFTHQGSNFGPVFMTVPAFFAKSSAIYNPV
+IYIVLNKQFRNCLITTLCCGKNPFGDEDGSSAATSKTEASSVSSSQVSPA</fval>
+        </fnote>
+      </fitem>
+      <fitem>misc_feature
+        <floc>189..1684</floc>
+        <fnote>/note<fval>sequenced from clone pXOP71</fval></fnote>
+      </fitem>
+      <fitem>variation
+        <floc>1224</floc>
+        <fnote>/note<fval>clone pX0P5 contained deletion from bp 1224-1534</fval>
+        </fnote>
+      </fitem>
+    </ftable>
+    <seq-stat>
+      <na>426</na>
+      <nc>431</nc>
+      <ng>339</ng>
+      <nt>488</nt>
+      <nn>0</nn>
+    </seq-stat>
+    <seq-data>ggtagaacagcttcagttgggatcacaggcttctagggatcctttgggcaaaaaagaaacacag
+aaggcattctttctatacaagaaaggactttatagagctgctaccatgaacggaacagaaggtccaaatttttatgtc
+cccatgtccaacaaaactggggtggtacgaagcccattcgattaccctcagtattacttagcagagccatggcaatat
+tcagcactggctgcttacatgttcctgctcatcctgcttgggttaccaatcaacttcatgaccttgtttgttaccatc
+cagcacaagaaactcagaacacccctaaactacatcctgctgaacctggtatttgccaatcacttcatggtcctgtgt
+gggttcacggtgacaatgtacacctcaatgcacggctacttcatctttggccaaactggttgctacattgaaggcttc
+tttgctacacttggtggtgaagtggccctctggtcactggtagtattggccgttgaaagatatatggtggtctgcaag
+cccatggccaacttccgattcggggagaaccatgctattatgggtgtagccttcacatggatcatggctttgtcttgt
+gctgctcctcctctcttcggatggtccagatacatcccagagggaatgcaatgctcatgcggagtagactactacaca
+ctgaagcctgaggtcaacaatgaatcctttgttatctacatgttcattgtccacttcaccattcccctgattgtcatc
+ttcttctgctatggtcgcctgctctgcactgtcaaagaggctgcagcccagcaacaggaatctgctaccacccagaag
+gctgagaaagaggtcaccagaatggttgttatcatggtcgttttcttcctgatctgttgggtgccctatgcctatgtg
+gcattctacatcttcacccaccagggctctaactttggcccagtcttcatgaccgtcccagctttctttgccaagagc
+tctgctatctacaatcctgtcatctacattgtcttgaacaaacagttccgtaactgcttgatcaccaccctgtgctgt
+ggaaagaatccattcggtgatgaagatggctcctctgcagccacctccaagacagaagcttcttctgtctcttccagc
+caggtgtctcctgcataagagcttcaccagggctgtctcagggtccgctgcctcacacaattcccatcacttaagccc
+tgtctacttgttgcgaaggcaaagaattccacagttttaatatttacccccattctgcccaaccttggacactgtaag
+agctgaccccattactgctgggaaggcccaagctttgttgcattctgatgtgatcctttcagcagaaaatgggtggat
+tcaatgaatttcaccaaggctgtacataacaataacattagtctgaaggcacctcccacccagagaatgcaacactta
+tttatctctgtcttttcttgacatattgatgctgcttctattcatggtcactaacaaaaagtcccattttacaatgca
+actgaaagtaatgtatttttgtaatataataacatatttcatgcaatctcctctgcttattggcaaggtctgatatag
+tgaggatagacagccagaccccttgcattaaaatcctgtattaaaaatttctttgcaagt
+</seq-data>
+  </Bioseq>
+
+  <Bioseq>
+    <name>XL23808</name>
+    <length>4734</length>
+    <mol>DNA</mol>
+    <div>VRT</div>
+    <date>23-APR-1995</date>
+    <accession>U23808</accession>
+    <version>U23808.1</version>
+    <descr>Xenopus laevis rhodopsin gene, complete cds.</descr>
+    <keywords>.</keywords>
+    <source>Xenopus laevis (African clawed frog)
+      <lineage>Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Teleostomi;
+Euteleostomi; Amphibia; Batrachia; Anura; Mesobatrachia; Pipoidea;
+Pipidae;
+Xenopodinae; Xenopus.</lineage>
+    </source>
+    <pub>1
+      <pubseq>1-4734</pubseq>
+      <pubxref>MEDLINE; 96216396.</pubxref>
+      <authors>Batni S., Scalzetti L., Moody S.A., Knox B.E.;</authors>
+      <title>Characterization of the Xenopus rhodopsin gene</title>
+      <journal>J. Biol. Chem. 271(6):3179-3186(1996).</journal>
+    </pub>
+    <pub>2
+      <pubseq>1-4734</pubseq>
+      <authors>Batni S., Scalzetti L., Knox B.E.;</authors>
+      <title>      </title>
+      <journal>Submitted (30-MAR-1995) to the EMBL/GenBank/DDBJ databases.
+Barry E. Knox, Biochemistry and Molecular Biology, SUNY HSC at
+Syracuse,
+750 E. Adams St., Syracuse, NY 13210, USA</journal>
+    </pub>
+    <ftable>
+      <fitem>source
+        <floc>1..4734</floc>
+        <fnote>/db_xref<fval>taxon:8355</fval></fnote>
+        <fnote>/organism<fval>Xenopus laevis</fval></fnote>
+      </fitem>
+      <fitem>mRNA
+        <floc>join(1181..1650,1899..2067,2669..2834,3085..3324,4030..4687)</floc>
+        <fnote>/product<fval>rhodopsin</fval></fnote>
+      </fitem>
+      <fitem>CDS
+        <floc>join(1290..1650,1899..2067,2669..2834,3085..3324,4030..4158)</floc>
+        <fnote>/codon_start<fval>1</fval></fnote>
+        <fnote>/db_xref<fval>SWISS-PROT:P29403</fval></fnote>
+        <fnote>/note
+          <fval>cDNA sequence deposited under GenBank Accession
+Number L07770</fval>
+        </fnote>
+        <fnote>/product<fval>rhodopsin</fval></fnote>
+        <fnote>/protein_id<fval>AAC59901.1</fval></fnote>
+        <fnote>/translation
+          <fval>MNGTEGPNFYVPMSNKTGVVRSPFDYPQYYLAEPWQYSALAAYMFLLILLGLPINFMTLFVTIQ
+HKKLRTPLNYILLNLVFANHFMVLCGFTVTMYTSMHGYFIFGQTGCYIEGFFATLGGEVALWSLVVLAVERYMVVCKPMA
+NFRFGENHAIMGVAFTWIMALSCAAPPLFGWSRYIPEGMQCSCGVDYYTLKPEVNNESFVIYMFIVHFTIPLIVIFFCYG
+RLLCTVKEAAAQQQESATTQKAEKEVTRMVVIMVVFFLICWVPYAYVAFYIFTHQGSNFGPVFMTVPAFFAKSSAIYNPV
+IYIVLNKQFRNCLITTLCCGKNPFGDEDGSSAATSKTEASSVSSSQVSPA</fval>
+        </fnote>
+      </fitem>
+    </ftable>
+    <seq-stat>
+      <na>1315</na>
+      <nc>1046</nc>
+      <ng>985</ng>
+      <nt>1388</nt>
+      <nn>0</nn>
+    </seq-stat>
+    <seq-data>cgtaactaggaccccaggtcgacacgacaccttccctttcccagttatttcccctgtagacgtt
+agaaggggaaggggtgtacttatgtcacgacgaactacgtccttgactacttagggccagagagacgaggtaaaaact
+catgtctctgaacactttagatctcttgacgttctgtactaagtttcacgattcacgttttttgttaccaccaaatat
+agacagaaacatgaaatgaacaagtgaatgtcagggatgttaacacagatcacgtcaccaggggttggtcatcgagca
+atcattgtacaacgagggggttggggaacctacaacgagggttaccggagttttgttaacgaataaaaagttaaggtc
+cgttcaaaaccaacgtatttttggtccagataccggtttgtctcgggggagacccgacgtttaggtgtttcccgatgg
+tttatctgttagtataagaaataatccgtggggttcccgaaaaaagtgcgaacacgacgaggcgttgagaaaaatgta
+aacttacaccgaatacccaatttttccacgttgtgtttgtttattagataataaatgtgtgatcagttctgaccacga
+gtcgacaccaaacttctaagattaagttacttgattaccattggtcccggcctaaacataaactgcagcccctaggcc
+atgcggtcctaacgtctgtccacgacgagtcttattgccatccacccgcaactcccgcaagtgcaaattttggagcac
+tggtgctcttcagcaagtggctgggcggcatgccgtccctaaaagttcgccgccctaggcacaggcctttgtggcctc
+tccacaaatccaagcctgatggtaactaaatgtagagggaactgagtaaaccccaaaaatggctgccctggctcctac
+aatatggaattatctcctgtaggtcagacctggatttcttcctgtcacttttaaatacactttcttcttgtgtgttta
+acagagagagagattgacaggtgtagacttaatacgtttaagggaagccaattaacactttgcaattttagcttggat
+tacagtgattaatagtgcgctaaatcctttgttcgtgacgctgggggttgcaagcttactccaggtgggactttaaaa
+ggacgaggggacagtgggtcatactgtagaacagcttcagttgggatcacaggcttctagggatcctttgggcaaaaa
+agaaacacagaaggcattctttctatacaagaaaggactttatagagctgctaccatgaacggaacagaaggtccaaa
+tttttatgtccccatgtccaacaaaactggggtggtacgaagcccattcgattaccctcagtattacttagcagagcc
+atggcaatattcagcactggctgcttacatgttcctgctcatcctgcttgggttaccaatcaacttcatgaccttgtt
+tgttaccatccagcacaagaaactcagaacacccctaaactacatcctgctgaacctggtatttgccaatcacttcat
+ggtcctgtgtgggttcacggtgacaatgtacacctcaatgcacggctacttcatctttggccaaactggttgctacat
+tgaaggcttctttgctacacttggtggtaagttccaatgggctttcgtcactgatattgttgtagcaataaattcttg
+gaaagctcgtaagggaacaagctaccagggaaagggttatagggctgaaaaggaatatcagtactttctatgttctcc
+agcagagtgtagtgcataccatgttagagaaagttcaacatgtaatactgtgaggggccaaattgcctgggttgagtc
+atgttaaccttttgccttttcctgttctttttactaacaggtgaagtggccctctggtcactggtagtattggccgtt
+gaaagatatatggtggtctgcaagcccatggccaacttccgattcggggagaaccatgctattatgggtgtagccttc
+acatggatcatggctttgtcttgtgctgctcctcctctcttcggatggtccaggtaaatatatataacatcagtcagc
+atatccctagaaaagtatatctaatgatacaactacggtatatataaacttgtagaaacatccaccaaagttacagca
+tgagttaaggaagagtacatagaaggtcagctaatgctttggaaaaatacaatagaaggtcagctaatgcagaggtta
+ccaaactcctttgggggctccaagctttggatggaagcccagtttgaggtcaaggtttgagatttgttaattactcct
+ggaactagaaaagagttagttgcccacatcttataacagcgagacaatactgacaattggtagttgttgctgaaattc
+agctttctacaccccactacagccattggctgcaatattgagttcagcttggagagaactcaatccaggattgcactt
+ctacattttattccagtattctatttatcagatgagcttgtgcttaaaccccaaggactcaatgctgatgaataatgt
+taggatttacagttcaataacaattgagagatacaggatgtctattcctgtaatgtgggtaacagagtatgtgcttgt
+tggctctgacactatattgtccttgtgcagatacatcccagagggaatgcaatgctcatgcggagtagactactacac
+actgaagcctgaggtcaacaatgaatcctttgttatctacatgttcattgtccacttcaccattcccctgattgtcat
+cttcttctgctatggtcgcctgctctgcactgtcaaagaggtgagtagtcattatcatttggtcatggtcacaaccca
+atccaactagttctaaacatagaccctccaggtgttattgaactgttactacttcttggacttctctacaaccttgtt
+tgactgactggagagagaaagatcagtaaaatctgattatgaagagaacaaagtcctacaccttgtatgcccaatatc
+tactactagactgttgctcttctgtcctaacttctcttatcttacccatttcataggctgcagcccagcaacaggaat
+ctgctaccacccagaaggctgagaaagaggtcaccagaatggttgttatcatggtcgttttcttcctgatctgttggg
+tgccctatgcctatgtggcattctacatcttcacccaccagggctctaactttggcccagtcttcatgaccgtcccag
+ctttctttgccaagagctctgctatctacaatcctgtcatctacattgtcttgaacaaacaggtactaaactacttcc
+aagtctgttcttattttttaatcagcagtttgtcaactttatgtatatttcctctcctatatgggtttccaagggttt
+ctatgtaatatataggataccaagaattctgaccaccagctcttgttgagactcccaccagtctacagctgtcatcta
+ggaatggtggaagtttcagttcaaccaaagcaaagagtgctaaacatgagctgattaactatgactcccattgtctat
+agctgcagttaaaaaaagtcatggagaatgttctgctacttatgatgactgtgttgccttaggatcagcatacaactt
+ggggtagtaagggcatttgtcttaggtcccaaaatggaaggggcttttagaggagaaacacagataaaactacaaaga
+ccaccagtgttttagtattttaaaacacgggtaataacccttgagcaaacttcgtgtgctggattaattattacgtac
+ctttcgttgggggtgccgtcctcctatgatccatgcaccgtgaacgttgaaagagggaccaggtgtgcatctgcattt
+cgtttggcttagtattttacaaccttcgtatacatcaatatgcaatgcattacttatttttagggtagtagagactaa
+atgagtacaacaatacagaagagatgaatggactagataatgactgttctcctttctctccccagttccgtaactgct
+tgatcaccaccctgtgctgtggaaagaatccattcggtgatgaagatggctcctctgcagccacctccaagacagaag
+cttcttctgtctcttccagccaggtgtctcctgcataagagcttcaccagggctgtctcagggtccgctgcctcacac
+aattcccatcacttaagccctgtctacttgttgcgaaggcaaagaattccacagttttaatatttacccccattctgc
+ccaaccttggacactgtaagagctgaccccattactgctgggaaggcccaagctttgttgcattctgatgtgatcctt
+tcagcagaaaatgggtggattcaatgaatttcaccaaggctgtacataacaataacattagtctgaaggcacctccca
+cccagagaatgcaacacttatttatctctgtcttttcttgacatattgatgctgcttctattcatggtcactaacaaa
+aagtcccattttacaatgcaactgaaagtaatgtatttttgtaatataataacatatttcatgcaatctcctctgctt
+attggcaaggtctgatatagtgaggatagacagccagaccccttgcattaaaatcctgtattaaaaatttctttgcaa
+gtaaaaaaaaaaacacaaaaagtcaaatgtcttattcgatttatttcacactttgattgtctggttat
+</seq-data>
+  </Bioseq>
+
+</Bioseq-set>

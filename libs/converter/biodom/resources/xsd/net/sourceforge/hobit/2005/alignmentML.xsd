@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.bioservices.net/2005/biotypes" targetNamespace="http://schemas.bioservices.net/2005/biotypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- sequenceFormat based on BioTypes 1.0 - http://schemas.bioservices.net/2005/biotypes  -->
+	<!-- normal remote including 
+	-->
+	<xs:include schemaLocation="http://schemas.bioservices.net/2005/biotypes_1.0.xsd"/> 
+	<!-- for local usage download biotpes_1.0.xsd and take this include 
+	<xs:include schemaLocation="biotypes_1.0.xsd"/>
+	-->
+	<!--                   -->
+	<!-- ELEMENTS -->
+	<!--                   -->
+	<xs:element name="alignmentList" nillable="true">
+		<xs:annotation>
+			<xs:documentation>represents a list of alignments</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="alignment" type="alignmentType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="version" fixed="0.1"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="alignedAminoAcidSequence" type="alignedAminoAcidSequence"/>
+	<xs:element name="alignedNucleotideAcidSequence" type="alignedNucleotideSequence"/>
+	<xs:element name="alignedFreeSequence" type="alignedFreeSequence"/>
+	<!--             -->
+	<!-- TYPES -->
+	<!--             -->
+	<!-- possible extensions: alignedFreeSequence, crossRef and Porperty -->
+	<xs:complexType name="alignmentType">
+		<xs:annotation>
+			<xs:documentation>represents an alignment</xs:documentation>
+		</xs:annotation>
+	
+					<xs:sequence>
+						<xs:element name="sequence" type="sequenceType" minOccurs="2" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute name="score" type="xs:int"/>
+	
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="0"/>
+			<xs:element name="synonyms" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Synonyms for this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:choice minOccurs="0">
+				<xs:element ref="alignedAminoAcidSequence"/>
+				<xs:element ref="alignedNucleotideAcidSequence"/>
+				<xs:element ref="alignedFreeSequence"/>
+			</xs:choice>
+			<xs:element name="crossRef" type="crossRefType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="property" type="propertyType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="comment" type="commentType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="xs:string" use="required"/>
+		<xs:attribute name="size" type="xs:int" use="optional"/>
+	</xs:complexType>
+	<!-- Types, currently not within BioTypes 1.0 , possible in 1.1 ? -->
+	<xs:simpleType name="alignedFreeSequence">
+		<xs:annotation>
+			<xs:documentation>inherit gappedFreeSequenceType from hobitTypes; do not allow gaps</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="replace"/>
+			<xs:pattern value="[A-Z\-]{0,}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="alignedNucleotideSequence">
+		<xs:annotation>
+			<xs:documentation>An aligned nucleic acid sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="gappedAmbiguousNucleotideSequence">
+				<xs:attributeGroup ref="alignedSequenceAttrs"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="crossRefType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="databaseName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>name of the database, should be from a controlled vocabulatory, to be done</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="entryID" type="xs:string"/>
+					<xs:element name="databaseURL" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+				<xs:element name="lsid"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="propertyType">
+		<xs:sequence>
+			<xs:element name="type" type="xs:string"/>
+			<xs:element name="value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="commentType">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

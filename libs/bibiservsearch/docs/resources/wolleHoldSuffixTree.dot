@@ -1,0 +1,34 @@
+digraph G {
+//Suffixbaum für die Worte "hold" und "Wolle"
+//Knoten
+Wurzel[shape=plaintext];
+leaf1[label="hold"];
+leaf2[label="hold"];
+leaf3[label="hold"];
+leaf4[label="hold"];
+leaf5[label="hold,Wolle"];
+leaf6[label="Wolle"];
+leaf7[label="Wolle"];
+leaf8[label="Wolle"];
+leaf9[label="Wolle"];
+leaf10[label="Wolle"];
+split1[label="",shape=plaintext];
+split2[label="",shape=plaintext];
+//Kanten für hold
+Wurzel -> leaf1 [label="hold$"];
+Wurzel -> split1 [label="ol"];
+split1 -> leaf2 [label="d$"];
+Wurzel -> split2 [label="l"];
+split2 -> leaf3 [label="d$"];
+Wurzel -> leaf4 [label="d$"];
+Wurzel -> leaf5 [label="$"];
+//suffixlink
+split1 -> split2 [style=dashed];
+//Kanten für Wolle
+Wurzel -> leaf6 [label="Wolle$"];
+split1 -> leaf7 [label="le$"];
+split2 -> leaf8 [label="le$"];
+split2 -> leaf9 [label="e$"];
+Wurzel -> leaf10 [label="e$"];
+{rank=same; split1 split2}
+}

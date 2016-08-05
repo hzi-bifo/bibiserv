@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>bibiserv2</display-name>
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>de.unibi.cebitec.bibiserv.server.manager.context.BiBiWebApplicationContext</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/contexts/applicationContext.xml /WEB-INF/contexts/securityContext.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.validateXml</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+    <!-- Having a ViewExpired exception though we havn't a session time out,
+         a typically problem for pages with many interactive elements  -> 
+         increasing the number of views, should help    -->
+    <context-param>
+        <param-name>com.sun.faces.numberOfViewsInSession</param-name>
+        <param-value>50</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.numberOfLogicalViews</param-name>
+        <param-value>50</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>com.sun.faces.allowTextChildren</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!-- Force JSF processor to skip HTML comments -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <!-- ReCaptcha public/private keys -->
+<!--     <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>place your PRIVATE KEY here</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>place yout PUBLIC KEY here</param-value>
+    </context-param>-->
+    
+    <!-- Listener -->
+    <listener>
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+    </listener>
+    <listener>
+        <listener-class>
+            de.unibi.cebitec.bibiserv.server.manager.context.BiBiContextLoaderListener
+        </listener-class>
+    </listener>
+    <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <!-- PrimeFaces -->
+    <filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    <!-- redirecting for resetpassword -->
+    <filter>
+        <description>Request-Filter that redirects tp password reset page</description>
+        <filter-name>ResetPasswordFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ResetPasswordFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- BiBiServ Tool Filter -->
+    <filter>
+        <description>Request-Filter that redirects requests to the specified JSF</description>
+        <filter-name>ToolRequestFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ToolRequestFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+       
+    <!-- JSF 2 Servlet -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+      <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!-- REST Servlet - JAX-RS 1.0 -->
+    <servlet>
+        <servlet-name>REST</servlet-name>
+        <servlet-class>de.unibi.cebitec.bibiserv.web.rest.BiBiServRESTServlet</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>de.unibi.cebitec.bibiserv.web.rest.BiBiServApplication</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>de.unibi.cebitec.bibiserv.web.rest.CORSFilter</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>REST</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- general session config -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <!-- welcome file list -->
+    
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+</web-app>

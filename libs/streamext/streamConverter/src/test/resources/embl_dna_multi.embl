@@ -1,0 +1,8 @@
+ID   sample1    standard; DNA; UNC; 26 BP.
+SQ   Sequence 26 BP;
+     ACGTAGCAGC GATAGGCATG CATTGC                                             26
+//
+ID   sample2    standard; DNA; UNC; 32 BP.
+SQ   Sequence 32 BP;
+     ACCGTTTCGT AGCAGCGATA GGCATGCATT GC                                      32
+//

@@ -1,0 +1,33 @@
+!!RICH_SEQUENCE 1.0
+..
+{
+name        sample1
+descrip NONE
+type        DNA/RNA
+longnamename        sample1
+sequence-ID NONE
+checksum NONE
+creation-date NONE
+strand NONE
+comments
+  This file was created via GDEParser directly from fasta
+  without any meta information. Placeholders are given above.
+sequence
+  ACGUUGACGUGGAGCUGGUCUAUGUCGAUGCUAUGGACG
+}
+{
+name        sample2
+descrip NONE
+type        DNA/RNA
+longnamename        sample2
+sequence-ID NONE
+checksum NONE
+creation-date NONE
+strand NONE
+comments
+  This file was created via GDEParser directly from fasta
+  without any meta information. Placeholders are given above.
+sequence
+  ACGCGGCCGCUUGACGUGGAGCUGGUCUAUGUCGAUGCUAUGGACG
+}
+

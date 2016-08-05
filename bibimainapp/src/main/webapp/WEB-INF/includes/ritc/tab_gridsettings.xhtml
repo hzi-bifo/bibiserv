@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"            
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <p:panel id="grid_settings_panel" header="Grid-Configuration">
+
+        <p:messages />
+
+        The EC2-instance selection ensures a maschine setting which will perfectly
+        fit to your tool- and task-requirements.
+        We recommend you to use at least an <b>m3.large</b> instance for your master node.
+
+        <p:separator />
+        For further information please have a look at the official <a href="http://aws.amazon.com/de/ec2/pricing/" target="_blank"> Amazon-EC2 pricing </a>
+        <p:separator />
+
+        <!-- REGION | MASTER | SLAVE | #SLAVES SELECTION -->
+        <p:panelGrid columns="2" id="instanceSelectionGrid" style="width: 100%;">
+
+            <h:outputLabel for="ec2instanceRegionSelection" value="Please select the region: * "/>
+            <p:selectOneMenu 
+                id="ec2instanceRegionSelection" 
+                value="#{ec2InstanceWizard.selectedRegion}"
+                var="reg">
+                <f:selectItems 
+                    value="#{ec2InstanceWizard.availableRegions}"
+                    var="region"
+                    itemLabel="#{region}"
+                    itemValue="#{region}" />
+                <p:column headerText="Region">
+                    <b><h:outputText value="#{reg}" /></b>
+                </p:column>
+                <p:ajax event="change" update="instanceSelectionGrid pricingGrid" listener="#{ec2InstanceWizard.checkRegion()}" />
+            </p:selectOneMenu> <!-- ./ec2InstanceMasterSelection -->
+
+            <h:outputLabel for="ec2instanceMasterSelection" value="Please select the MasterNode-Ec2InstanceType: *" />
+            <p:selectOneMenu 
+                id="ec2instanceMasterSelection" 
+                value="#{ec2InstanceWizard.selectedEc2MasterInstance}"
+                converter="#{ec2InstanceMasterConverter}"
+                var="ec2M">
+                <f:selectItems 
+                    value="#{ec2InstanceWizard.possibleHVMEc2MasterInstances}"
+                    var="instance"
+                    itemLabel="#{instance.instanceName}"
+                    itemValue="#{instance}" />
+                <p:column headerText="Instance">
+                    <b><h:outputText value="#{ec2M.instanceName}" /></b>
+                </p:column>
+                <p:column headerText="CPUs">
+                    <h:outputText value="CPUs: #{ec2M.vCPU}" />
+                </p:column>
+                <p:column headerText="Memory">
+                    <h:outputText value="Memory: #{ec2M.memory}" />
+                </p:column>
+                <p:column headerText="Storage">
+                    <h:outputText value="Storage: #{ec2M.storage}" />
+                </p:column>
+                <p:column headerText="ECU">
+                    <h:outputText value="ECU: #{ec2M.ecu}" />
+                </p:column>
+                <p:column headerText="Price (USD)">
+                    <h:outputText value="Price: #{ec2M.price}" />
+                </p:column>
+                <p:ajax event="change" update="pricingGrid" listener="#{ec2InstanceWizard.calculatePrice()}" />
+            </p:selectOneMenu> <!-- ./ec2InstanceMasterSelection -->
+
+            <h:outputLabel for="ec2instanceSlaveSelection" value="Please select the SlaveNode-Ec2InstanceType: *" />
+            <p:selectOneMenu 
+                id="ec2instanceSlaveSelection" 
+                value="#{ec2InstanceWizard.selectedEc2SlaveInstance}"
+                converter="#{ec2InstanceSlaveConverter}"
+                var="ec2S"
+                effect="fold">
+                <f:selectItems 
+                    value="#{ec2InstanceWizard.possibleHVMEc2SlaveInstances}"
+                    var="instance"
+                    itemLabel="#{instance.instanceName}"
+                    itemValue="#{instance}" />
+                <p:column headerText="Instance">
+                    <b><h:outputText value="#{ec2S.instanceName}" /></b>
+                </p:column>
+                <p:column headerText="CPUs">
+                    <h:outputText value="CPUs: #{ec2S.vCPU}" />
+                </p:column>
+                <p:column headerText="Memory">
+                    <h:outputText value="Memory: #{ec2S.memory}" />
+                </p:column>
+                <p:column headerText="Storage">
+                    <h:outputText value="Storage: #{ec2S.storage}" />
+                </p:column>
+                <p:column headerText="ECU">
+                    <h:outputText value="ECU: #{ec2S.ecu}" />
+                </p:column>
+                <p:column headerText="Price (USD)">
+                    <h:outputText value="Price: #{ec2S.price}" />
+                </p:column>
+                <p:ajax event="change" update="pricingGrid" listener="#{ec2InstanceWizard.calculatePrice()}" />
+            </p:selectOneMenu> <!-- ./ec2InstanceSlaveSelection -->
+
+            <h:outputLabel for="numberSlavesSpinner" value="Please select the number of slaves: *" />
+            <p:spinner id="numberSlavesSpinner"
+                       min="1" 
+                       max="10" 
+                       value="#{ec2InstanceWizard.numberOfSlaves}" >
+                <p:ajax event="change" update="pricingGrid" listener="#{ec2InstanceWizard.calculatePrice()}" />
+            </p:spinner>
+        </p:panelGrid>
+
+        <p:separator />
+
+        <p:panelGrid columns="2" id="pricingGrid" style="text-align: center !important;width: 100%;">
+            <h:outputLabel for="pricing_g pricing_o pricing_r" style="width: 50%;" value="Estimated costs: " />
+            <h:outputText id="pricing_g" rendered="#{ec2InstanceWizard.estimatedPrice lt 2}" style="font-weight: bolder; width: 50%; color: green;" value="#{ec2InstanceWizard.estimatedPrice} $ per hour" />
+            <h:outputText id="pricing_o" rendered="#{ec2InstanceWizard.estimatedPrice gt 2 and ec2InstanceWizard.estimatedPrice lt 10}" style="font-weight: bolder; width: 50%; color: orange;" value="#{ec2InstanceWizard.estimatedPrice} $ per hour" />
+            <h:outputText id="pricing_r" rendered="#{ec2InstanceWizard.estimatedPrice gt 10}" style="font-weight: bolder; width: 50%; color: red;" value="#{ec2InstanceWizard.estimatedPrice} $ per hour" />
+        </p:panelGrid>
+
+    </p:panel> <!-- ./grid-settings -->
+
+</ui:composition>

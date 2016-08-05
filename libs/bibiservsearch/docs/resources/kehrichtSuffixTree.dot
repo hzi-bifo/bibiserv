@@ -1,0 +1,25 @@
+digraph G {
+//Knoten
+Wurzel[shape=plaintext];
+leaf1[label="Kehricht"];
+leaf2[label="Kehricht"];
+leaf3[label="Kehricht"];
+leaf4[label="Kehricht"];
+leaf5[label="Kehricht"];
+leaf6[label="Kehricht"];
+leaf7[label="Kehricht"];
+leaf8[label="Kehricht"];
+leaf9[label="Kehricht"];
+split[label="",shape=plaintext];
+//Kanten
+Wurzel -> leaf1 [label="Kehricht$"];
+Wurzel -> leaf2 [label="ehricht$"];
+Wurzel -> split [label="h"];
+split -> leaf3 [label="richt$"];
+Wurzel -> leaf4 [label="richt$"];
+Wurzel -> leaf5 [label="icht$"];
+Wurzel -> leaf6 [label="cht$"];
+split -> leaf7 [label="t$"];
+Wurzel -> leaf8 [label="t$"];
+Wurzel -> leaf9 [label="$"];
+}

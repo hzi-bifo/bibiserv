@@ -1,0 +1,28 @@
+PileUp
+
+
+
+   MSF:  43  Type: P    Check:  7736   ..
+
+ Name: DQ160058 oo  Len:  43  Check:  7842  Weight:  16.0
+ Name: chkhba oo  Len:  43  Check:  8553  Weight:  17.8
+
+//
+
+
+
+DQ160058     taatacagag atccgaaaga actctaagga aaacttgttt tggaaaagta 
+chkhba       ACACAGAGGT GCAACCATGG TGCTGTCCGC TGCTGACAAG AACAACGTCA
+
+
+DQ160058     tggaaccgag ttttatattc tacaccggta ccctcttgct gtccggcctt
+chkhba       AGGGCATCTT CACCAAAATC GCCGGCCATG CTGAGGAGTA TGGCGCCGAG
+
+
+DQ160058     tctacacaat gccatgtcgt gacaacgagt tgtatagcaa ctcatttgat
+chkhba       ACCTTGGAAA GGATGTTCAC .......... .......... ..........
+
+
+DQ160058     gttttcatta gaggggagga gataatttca
+chkhba       .......... .......... ..........
+

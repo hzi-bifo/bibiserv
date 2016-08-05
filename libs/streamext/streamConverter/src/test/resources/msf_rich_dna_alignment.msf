@@ -1,0 +1,17 @@
+!!NA_MULTIPLE_ALIGNMENT 1.0
+PileUp of: @seqlist
+
+ Symbol comparison table: GenRunData:blosum62.cmp  CompCheck: 6430
+
+                   GapWeight: 12
+             GapLengthWeight: 4 
+
+ seqlist.msf  MSF: 32  Type: A  September 5, 1997 15:15  Check: 8487 ..
+
+ Name: sample1 oo  Len:  32  Check:  7842  Weight:  16.0
+ Name: sample2 oo  Len:  32  Check:  8553  Weight:  17.8
+
+//
+
+sample1      A......CGT AGCAGCGATA GGCATGCATT GC 
+sample2      ACCGTTTCGT AGCAGCGATA GGCATGCATT GC

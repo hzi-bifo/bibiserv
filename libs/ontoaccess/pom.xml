@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.unibi.cebitec.bibiserv</groupId>
+        <artifactId>libs</artifactId>
+        <version>stable.release</version>
+    </parent>
+    <groupId>de.unibi.cebitec.bibiserv</groupId>
+    <artifactId>ontoaccess</artifactId>
+    <version>0.9</version>
+    <packaging>jar</packaging>
+    <name>OntoAccess</name>
+    
+    <dependencies>
+        <!-- project dependencies -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bibiservabstraction</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>viewer</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>converter</artifactId>
+            <version>0.9</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-core -->
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.ansell.pellet/pellet-jena -->
+        <dependency>
+            <groupId>com.github.ansell.pellet</groupId>
+            <artifactId>pellet-jena</artifactId>
+            <version>2.3.6-ansell</version>
+        </dependency>
+        
+    </dependencies>    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+</project>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:tax="http://hobit.sourceforge.net/xsds/20060201/taxonomyML"
+    xmlns:bt="http://schemas.bioservices.net/2006/01/biotypes"
+    targetNamespace="http://hobit.sourceforge.net/xsds/20060201/taxonomyML"
+    elementFormDefault="qualified" 
+    attributeFormDefault="unqualified" >
+    
+    <xs:import namespace="http://schemas.bioservices.net/2006/01/biotypes" schemaLocation="http://schemas.bioservices.net/2006/01/biotypes_1.1.xsd" />
+    
+    <xs:element name="taxonomyML">     
+        <xs:annotation>
+            <xs:documentation>
+                This is the root element for taxonML. Represents a unsorted list of taxa.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence> 
+                <xs:element name="taxon" type ="tax:taxonType" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="version" type="xs:string" fixed="0.1"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="taxonType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="lineage" type="tax:taxonList" minOccurs="0" maxOccurs="1"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="comment" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="optional" />
+        <xs:attribute name="taxID" type="bt:accessionNumber" />
+        <xs:attribute name="rank" type="xs:string" />
+        <xs:anyAttribute />    
+    </xs:complexType>
+    <xs:complexType name="taxonList">
+        <xs:sequence>
+            <xs:element name="taxon" type="tax:taxonType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

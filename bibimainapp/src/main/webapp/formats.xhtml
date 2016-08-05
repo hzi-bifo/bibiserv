@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2011-2015 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted 2011-2015 BiBiServ Curator Team"
+
+Contributor(s):
+
+Thomas Gatter, Jan Krueger <jkrueger(at)cebitec.....>
+
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://java.sun.com/jstl/fmt"
+                xmlns:b="http://bibiserv.cebitec.uni-bielefeld.de/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="WEB-INF/templates/bibiserv2Tpl.xhtml">
+
+
+    <ui:define name="headContentTitle">Formats</ui:define> 
+    
+    <ui:define name="north">
+        <h:outputText styleClass="title" value="Formats &amp; Data Types" />
+        <div class="separator"/>
+    </ui:define>
+
+    <!-- modulcontent contains the "content" of current module without headline and navigation -->
+    <ui:define name="center">
+        
+        <h:form id="formats_overview_form">
+        
+        <h:panelGroup>
+            <img src="http://imgs.xkcd.com/comics/standards.png"/>
+            BiBiServ supports a wide range of different formats and data types. 
+            This page gives you a comprehensive overview. You can filter the 
+            formats by using the Format Groups, Content and Datastructure trees."/>
+            <br/><br/>
+            <!-- Three Main axis-->
+            <h:panelGrid columns="2" id="tree_table" columnClasses="verticalAlignTop,verticalAlignTop">
+                <h:outputLabel value="Format Groups" styleClass="title"/>
+                <h:outputLabel value="Content" styleClass="title"/>
+                <p:tree id="format_tree" value="#{formatBean.formats}" var="node"  selectionMode="single"  selection="#{formatBean.selectedFormat}" styleClass="navi_tree" dynamic="true">  
+                    <p:treeNode>  
+                        <h:outputText value="#{node}" />  
+                    </p:treeNode> 
+                    <p:ajax event="select" update="@form" listener="#{formatBean.onFormatSelect}" onstart="loading_dialog.show()" oncomplete="loading_dialog.hide()"/>
+                </p:tree>
+                <h:panelGrid columns="1" id="tree_table_inner" columnClasses="verticalAlignTop">
+                    <p:tree id="content_tree" value="#{formatBean.contents}" var="node"  selectionMode="single"  selection="#{formatBean.selectedContent}" styleClass="navi_tree" dynamic="true">  
+                        <p:treeNode>  
+                            <h:outputText value="#{node}" />  
+                        </p:treeNode> 
+                        <p:ajax event="select" update="@form" listener="#{formatBean.onContentSelect}" onstart="loading_dialog.show()" oncomplete="loading_dialog.hide()"/>
+                    </p:tree>
+                    <h:outputLabel value="Datastructure" styleClass="title"/>
+                    <p:tree id="datastructure_tree" value="#{formatBean.datastructures}" var="node"  selectionMode="single"  selection="#{formatBean.selectedDatastructure}" styleClass="navi_tree" dynamic="true">  
+                        <p:treeNode>  
+                            <h:outputText value="#{node}" />  
+                        </p:treeNode> 
+                        <p:ajax event="select" update="@form" listener="#{formatBean.onDatastructureSelect}" onstart="loading_dialog.show()" oncomplete="loading_dialog.hide()"/>
+                    </p:tree>
+                </h:panelGrid>
+             </h:panelGrid>
+            
+            <h:outputLabel value="Corresponding Formats (#{formatBean.selectedFormat.data}, #{formatBean.selectedContent.data}, #{formatBean.selectedDatastructure.data}):" styleClass="title"/>
+            <br/><br/>
+            <h:outputLabel value="None" rendered="#{formatBean.representations.isEmpty()}"/>
+            <p:accordionPanel id="representation_table" value="#{formatBean.representations}" var="rep" dynamic="true" cache="true" activeIndex="-1" style="width: 720px">  
+                <p:tab title="#{rep.getLabel()}">  
+
+                    <h:panelGrid columns="2" cellpadding="5">
+                        
+                        <h:outputText value="BiBiServ2 intern representation string: " style="font-weight: bold"/>  
+                        <h:outputText value="#{rep.getKey()}"/>  
+                        
+                        <h:outputText value="Edam Synonyms: " style="font-weight: bold"/>  
+                        <h:panelGroup>
+                             <ui:repeat value="#{rep.getEdamSynonyms()}" var="edam">
+                                    <h:outputLink value="#{edam}" target="_blank">#{edam}</h:outputLink><br/>
+                             </ui:repeat>
+                        </h:panelGroup>
+
+                        <h:outputText value="Formats convertable to this format: " style="font-weight: bold"/>  
+                        <h:outputText value="#{rep.getConvertableTo()}"/>  
+
+                        <h:outputText value="Formats convertable to this format as stream: "  style="font-weight: bold"/>  
+                        <h:outputText value="#{rep.getStreamConvertableTo()}" />
+                        
+                        <h:outputText value="Formats this format can be converted into: " style="font-weight: bold"/>  
+                        <h:outputText value="#{rep.getConvertableFrom()}"/>  
+
+                        <h:outputText value="Formats this format can be converted into as Stream: "  style="font-weight: bold"/>  
+                        <h:outputText value="#{rep.getStreamConvertableFrom()}" />  
+                    </h:panelGrid>  
+
+                </p:tab>  
+            </p:accordionPanel> 
+
+        </h:panelGroup>
+        
+            <p:dialog header="loading..." id="loading_dialog_id" height="60" closable="false" modal="true" widgetVar="loading_dialog">
+                <h:panelGrid columns="1">  
+                    <h:outputText value="loading formats"/>
+                    <p:graphicImage value="/misc/images/ajax-loader.gif" />
+                </h:panelGrid>
+            </p:dialog>     
+ 
+        </h:form>
+            
+    </ui:define>                
+
+</ui:composition>

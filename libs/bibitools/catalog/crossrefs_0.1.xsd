@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+  targetNamespace="http://schemas.bioservices.net/2006/01/crossrefs"
+  xmlns:cr="http://schemas.bioservices.net/2006/01/crossrefs"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:bt="http://schemas.bioservices.net/2005/biotypes" 
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  elementFormDefault="qualified" 
+  attributeFormDefault="unqualified" 
+  id="crossrefs" 
+  version="0.1"
+  xml:lang="en"
+>
+  <xs:annotation>
+    <xs:documentation>The CrossRefs (Cross References) schema is a building block for including references to biological databases, websites, etc. into an XML document.</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="http://schemas.bioservices.net/2005/biotypes_1.1.xsd" namespace="http://schemas.bioservices.net/2005/biotypes">
+    <xs:annotation>
+      <xs:documentation>The CrossRefs schema supports cross references based on LSIDs as well as on BioTypes sources.</xs:documentation>
+    </xs:annotation>
+  </xs:import>
+  
+<!--
+== Basics ==
+-->  
+  
+  <xs:complexType name="abstractReference" abstract="true">
+    <xs:anyAttribute namespace="##other"  processContents="lax"/>
+  </xs:complexType>
+  
+  <xs:element name="abstractReference" type="cr:abstractReference" abstract="true">
+  </xs:element>
+
+  <xs:simpleType name="schemaVersion">
+    <xs:annotation>
+      <xs:documentation>List of valid versions.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0.1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="crossRefs">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element ref="cr:abstractReference"/>
+    </xs:choice>
+    <xs:attribute name="schemaVersion" type="cr:schemaVersion" use="optional"/>
+    <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:complexType>
+  
+  <xs:element name="crossRefs" type="cr:crossRefs">
+  </xs:element>
+
+<!--  
+== Database ==
+-->
+  
+  <xs:simpleType name="databaseName">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="databaseEntry">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="databaseURL">
+    <xs:restriction base="xs:anyURI"/>
+  </xs:simpleType>
+    
+  <xs:complexType name="databaseReference">
+    <xs:complexContent>
+      <xs:extension base="cr:abstractReference">
+        <xs:attribute name="name" type="cr:databaseName" use="required"/>
+        <xs:attribute name="entry" type="cr:databaseEntry" use="required"/>
+        <xs:attribute name="url" type="cr:databaseURL" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:element name="database" type="cr:databaseReference" substitutionGroup="cr:abstractReference">
+  </xs:element>
+    
+<!--  
+== URL ==
+-->
+
+  <xs:complexType name="urlReference">
+    <xs:complexContent>
+      <xs:extension base="cr:abstractReference">
+        <xs:attribute name="href" type="xs:anyURI" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:element name="url" type="cr:urlReference"  substitutionGroup="cr:abstractReference">
+  </xs:element>
+  
+<!--  
+== LSID ==
+-->
+  
+  <xs:complexType name="lsidReference">
+    <xs:complexContent>
+      <xs:extension base="cr:abstractReference">
+        <xs:attribute name="value" type="bt:lsid" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:element name="lsid" type="cr:lsidReference"  substitutionGroup="cr:abstractReference">
+  </xs:element>
+  
+<!--  
+== XLink ==
+-->
+  
+  <xs:complexType name="xlinkReference">
+    <xs:complexContent>
+      <xs:extension base="cr:abstractReference">
+        <xs:anyAttribute namespace="http://www.w3.org/1999/xlink" processContents="strict"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:element name="xlink" type="cr:xlinkReference"  substitutionGroup="cr:abstractReference">
+  </xs:element>
+  
+<!--  
+== Source ==
+-->
+  
+  <xs:complexType name="sourceReference">
+    <xs:complexContent>
+      <xs:extension base="cr:abstractReference">
+        <xs:attribute name="uri" type="bt:sourceUri" use="required"/>
+        <xs:attribute name="accNumber" type="bt:accessionNumber" use="required"/>
+        <xs:attribute name="date" type="bt:sourceDate" use="optional"/>
+        <xs:attribute name="version" type="bt:sourceVersion" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:element name="source" type="cr:sourceReference"  substitutionGroup="cr:abstractReference">
+  </xs:element>
+  
+<!--  
+== User ==
+-->
+  
+  <xs:complexType name="userReference">
+    <xs:complexContent mixed="true">
+      <xs:extension base="cr:abstractReference">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:any namespace="##any" processContents="skip"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:element name="user" type="cr:userReference"  substitutionGroup="cr:abstractReference">
+  </xs:element>
+    
+</xs:schema>

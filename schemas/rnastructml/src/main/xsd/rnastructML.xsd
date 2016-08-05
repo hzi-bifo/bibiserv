@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	This work is licensed under a
+	Creative Commons Attribution-Share Alike 3.0 Unported License
+	(see http://creativecommons.org/licenses/by-sa/3.0/ for the full license text.)
+
+	document	: rnastructML schema definition
+	version 		: 2.0
+	date 		: 2006-02-01
+	author		: Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+			  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+			  Jan Krueger <jkrueger.techfak.uni-bielefeld.de>
+-->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bt="http://schemas.bioservices.net/2005/biotypes"
+	xmlns:ht="http://hobit.sourceforge.net/xsds/20060403/hobitTypes"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060201/rnastructML"
+	xmlns:rna="http://hobit.sourceforge.net/xsds/20060201/rnastructML"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">			
+			This work is licensed under a Creative Commons Attribution-Share Alike 3.0 Unported License
+			(see http://creativecommons.org/licenses/by-sa/3.0/ for the full license text.)
+		</xs:documentation>
+	</xs:annotation>
+	<!-- RNAStructML is based on BioTypes 1.1 and HobitTypes -->
+	<xs:import namespace="http://schemas.bioservices.net/2005/biotypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/bioservices/schemas/2005/biotypes.xsd" />
+	<xs:import namespace="http://hobit.sourceforge.net/xsds/20060403/hobitTypes" schemaLocation="http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060403/hobitTypes.xsd" />
+	
+	<!--                    	-->
+	<!-- ELEMENTS -->
+	<!--                   	-->
+	<xs:element name="rnastructML">
+		<xs:annotation>
+			<xs:documentation>
+				RNAStructML is a format for storing rna secondary structure information. 
+				One widely accepted usage for rnatools, such as 
+				RNAshapes {http://bibiserv.techfak.uni-bielefeld.de/rnashapes}, 
+				RNAfold {http://www.tbi.univie.ac.at/~ivo/RNA/} and 
+				Mfold {http://www.bioinfo.rpi.edu/applications/mfold/old/rna/form1.cgi}
+				is the proprosal of rna secondary structures, based on thermodynamic principles.
+				RNAStructML is based on SequenceML and uses DotBracket strings for storing 
+				the structure information.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence> 
+				<xs:element name="rnastructure" type ="rna:rnastructureWithProgramType" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="version" type="bt:version" use="optional" />
+		</xs:complexType>
+	</xs:element>
+	
+	<!--             	-->
+	<!-- TYPES 	-->
+	<!--             	-->
+	<xs:complexType name="rnastructureWithProgramType">
+		<xs:complexContent>
+			<xs:extension base="rna:rnastructureType">
+				<xs:sequence>
+					<xs:element name="program" type="ht:programType" minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="rnastructureType">
+		<xs:sequence maxOccurs="1">
+			<xs:element name="sequence" type="rna:sequenceType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:sequence minOccurs="1" maxOccurs="unbounded">
+				<xs:choice>
+					<xs:element name="shape" type="rna:shapeType" />
+					<xs:element name="structure" type="rna:structureType" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:sequence>
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="synonyms" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Synonyms for this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="description" type="xs:string" />
+			<xs:choice>
+				<xs:element name="nucleicAcidSequence" type="bt:ambiguousNucleotideSequence" />
+				<xs:element name="freeSequence" type="bt:sequence" />
+				<xs:element name="emptySequence" fixed=""/>
+			</xs:choice>
+			
+			<xs:element maxOccurs="1" minOccurs="0" name="comment" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="seqID" type="bt:accessionNumber" use="required" />
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+	
+
+	
+	<xs:complexType name="shapeType">
+		<xs:simpleContent>
+			<xs:extension base="bt:rnaSecondaryStructureSequenceClass">  
+				<xs:attribute name="probability" type="rna:probability" use="optional" />
+				<xs:attribute name="id" type="xs:ID" use="optional" />
+				<xs:anyAttribute processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="structureType">
+		<xs:simpleContent>
+			<xs:extension base="bt:rnaSecondaryStructureSequence">
+				<xs:attribute name="energy" type="xs:double" use="optional" />
+				<xs:attribute name="probability" type="rna:probability" use="optional"/>
+				<xs:attribute name="shaperef" type="xs:IDREF" use="optional" />
+				<xs:anyAttribute processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="probability">
+		<xs:restriction base="xs:double">
+			<xs:maxInclusive value="1.0" />
+			<xs:minInclusive value="0.0" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

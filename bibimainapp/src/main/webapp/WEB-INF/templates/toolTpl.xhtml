@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010-2013 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted 2010-2013 BiBiServ Curator Team"
+
+Contributor(s): Jan Krueger
+
+
+This template bases on normal tool template but offers more space for content. 
+While the default tool template has a tag cloud on right side this space will 
+used where more content space is needed .(e.g. manual, etc ...)
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/bibiserv2smallTpl.xhtml">
+
+    <ui:define name="scripts">
+        <script type="text/javascript"  src="/misc/scripts/submission.js"/> 
+    </ui:define> 
+
+
+    <ui:define name="content">
+        <table cellspacing="0" cellpadding="0" style="width:948px">
+            <tr>
+                <!-- Navigation on left side -->
+                <td style="width:180px; max-width:180px; overflow: hidden; padding-right:42px;vertical-align:top">
+                    <ui:insert name="navigation">
+                        <h:form prependId="false" >
+                            <ui:include src="../includes/menu.xhtml" />
+                        </h:form>
+                    </ui:insert>
+                </td>
+                <!-- Title / Navigation / Content  -->
+                <td style="width:728px; vertical-align:top" >
+
+                    <div>
+                        <ui:insert name="app_title"/>
+                    </div>
+
+                    <div class="app_background" >
+                        <ui:insert name="app_navigation">
+                            <h:panelGroup layout="block" styleClass="app_navigation">
+                                <div id="app_navigation_welcome"
+                                     class="app_navigation_element #{naviBean.view.type.equalsIgnoreCase('welcome')?'app_navigation_element_selected':''}" 
+                                     onclick="window.location='/#{naviBean.itemId}'"
+                                     onmouseover="setCSSclass('app_navigation_welcome','app_navigation_element app_navigation_element#{naviBean.view.type.equalsIgnoreCase('welcome')?'_selected':''}_highlighted')"
+                                     onmouseout="setCSSclass('app_navigation_welcome','app_navigation_element #{naviBean.view.type.equalsIgnoreCase('welcome')?'app_navigation_element_selected':''}')">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.WELCOME')}</div>
+                                <ui:repeat value="#{naviBean.viewLinks}" var="link">
+                                    <div id="app_navigation_#{link}" 
+                                         class="app_navigation_element #{naviBean.view.equals(link)?'app_navigation_element_selected':''}" 
+                                         onclick="window.location='/#{naviBean.itemId}?id=#{link.id}'"
+                                         onmouseover="setCSSclass('app_navigation_#{link}','app_navigation_element app_navigation_element#{naviBean.view.equals(link)?'_selected':''}_highlighted')"
+                                         onmouseout="setCSSclass('app_navigation_#{link}','app_navigation_element #{naviBean.view.equals(link)?'app_navigation_element_selected':''}')">
+                                         #{naviBean.getNameForView(link)}    
+                                    </div>                                  
+                                </ui:repeat>
+                            </h:panelGroup>
+                        </ui:insert>
+
+                        <ui:insert name="app_container">
+                            <div class="app_content">
+                                <table>
+                                    <tr>
+                                        <td class="app_content_left" >                                         
+                                            <ui:insert name="app_content"/>                                        
+                                        </td>
+                                        <td class="app_content_right" >
+                                            <p:tagCloud model="#{naviBean.tagCloudModel}" styleClass="tagcloud"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </ui:insert>
+                    </div>
+                </td>       
+            </tr>
+        </table>
+        <ui:insert name="bodyPopup"/>
+    </ui:define>
+ 
+
+</ui:composition>

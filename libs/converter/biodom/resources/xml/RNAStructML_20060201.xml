@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rnastructML xmlns="http://hobit.sourceforge.net/xsds/20060201/rnastructML"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://hobit.sourceforge.net/xsds/20060201/rnastructML http://bibiserv.techfak.uni-bielefeld.de/xsd/net/sourceforge/hobit/20060201/rnastructML.xsd">
+    <rnastructure>
+        <sequence seqID="aga-let-7">
+            <description>description of aga-let-7</description>
+            <nucleicAcidSequence>GCCUACUCCCGUGUUGAGGUAGUUGGUUGUAUAGUACCGUGGUUCCAAUACUCGACUAUACAAUCCGCUAACUUACCUCGUGGGUAGAGU</nucleicAcidSequence>
+        </sequence>
+        <shape id="aga-let-7_1">[]</shape>
+        <structure shaperef="aga-let-7_1" energy="-31.4">((((((((.((...((((.((((.(((((((((((...(((.......)))...))))))))))).)))).))))...)).)))))).))</structure>
+        <program command="RNAshapes -a -t 5 -c 10.0 -F 0 -M 30 -# 1000">RNAshapes</program>
+    </rnastructure>
+    <rnastructure>
+        <sequence seqID="cbr-let-7">
+            <description>description of cbr-let-7</description>
+            <nucleicAcidSequence>ACUGGGGUACGGUGAGGUAGUAGGUUGUAUAGUUUAGAAUAUUACUCUCGGUGAACUAUGCAAGUUUCUACCUCACCGAAUACCAGG</nucleicAcidSequence>
+        </sequence>
+        <shape id="cbr-let-7_1">[]</shape>
+        <structure  shaperef="cbr-let-7_1" energy="-41.7">.((((.((.(((((((((((.((.((((((((((((((.......)))....))))))))))).)).))))))))))).)).)))).</structure>
+        <program command="RNAshapes -a -t 5 -c 10.0 -F 0 -M 30 -# 1000">RNAshapes</program>
+    </rnastructure>
+    <rnastructure>
+        <sequence seqID="cel-let-7">
+            <description>description of cel-let-7</description>
+            <nucleicAcidSequence>UACACUGUGGAUCCGGUGAGGUAGUAGGUUGUAUAGUUUGGAAUAUUACCACCGGUGAACUAUGCAAUUUUCUACCUUACCGGAGACAGAACUCUUCG</nucleicAcidSequence>
+        </sequence>
+        <shape id="cel-let-7_1">[]</shape>
+        <structure shaperef="cel-let-7_1" energy="-42.9">....((((...(((((((((((((.((((((((((((........(((((...))))))))))))))))).))))))))))))).)))).........</structure>
+        <shape id="cel-let-7_2">[][]</shape>
+        <structure shaperef="cel-let-7_2" energy="-39.6">.......((..(((((((((((((.((((((((((((........(((((...))))))))))))))))).)))))))))))))..))((.....)).</structure>
+        <program command="RNAshapes -a -t 5 -c 10.0 -F 0 -M 30 -# 1000">RNAshapes</program>
+    </rnastructure>
+</rnastructML>
+

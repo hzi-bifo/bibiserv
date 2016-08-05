@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="bibiserv:de.unibi.cebitec.bibiserv.web.administration.beans.modulemanager.moduleinfo"
+  xmlns="bibiserv:de.unibi.cebitec.bibiserv.web.administration.beans.modulemanager.moduleinfo">
+  <xs:element name="module">
+    <xs:annotation>
+      <xs:documentation>
+      BiBiServ2 Admin Module Information File
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id">
+          <xs:annotation>
+            <xs:documentation>
+      Module ID. Must be unique. Allowed characters: [a-z0-9_]+
+    Important: If a module with this ID is already installed on the server,
+    it will be replaced (as an easy way of updating).
+            </xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[a-z0-9_]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="name" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+      Full name of the module. For display in menus etc.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="version" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+      Module version. The version number is shown at installation time.
+    It has no effect other than to be displayed.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="role-restrictions" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+      Role restrictions comma-separated.
+    e.g. ROLE_ADMIN,ROLE_DEVELOPER
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="authors">
+          <xs:annotation>
+            <xs:documentation>
+      List of the author(s) of this module.
+    Suggested schema: Firstname Lastname &lt;email&gt;
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="description" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+      Short description of this module.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="manual">
+          <xs:annotation>
+            <xs:documentation>
+      Admin-Manual displayed in the ModuleManager.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="authors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="author" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="manual">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="chapter"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="chapter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="title" type="xs:string"/>
+        <xs:element name="content" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

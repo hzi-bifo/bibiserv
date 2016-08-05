@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns="bibiserv:de.unibi.techfak.bibiserv.tools.guugle.ws.param.guugle_function_0">
+    <guugle_param_matchatleast>2</guugle_param_matchatleast>
+    <guugle_param_showmatchlengthdistribution>true</guugle_param_showmatchlengthdistribution>
+    <guugle_param_outputlimit>1</guugle_param_outputlimit>
+    <guugle_param_targetseedsextendedbyxbases>5</guugle_param_targetseedsextendedbyxbases>
+</param>

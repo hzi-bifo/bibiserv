@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:body>
+        <ui:composition>
+            <!--all chapters first -->
+        <c:forEach var="chapter" items="#{faqBean.getFaq(toolid).getFAQchapter()}">
+            <h4>#{chapter.name[0].value}</h4>
+            <c:forEach var="item" items="#{chapter.getFAQitem()}">
+                <p>
+                    <strong>#{item.question[0]}</strong><br/>
+                    <h:outputText escape="false" value="#{faqBean.FaqAnswertoString(item.answer[0])}"/>
+                </p>
+            </c:forEach> 
+        </c:forEach>
+        <!-- then all items without chapter -->
+        <c:forEach var="item" items="#{faqBean.getFaq(toolid).getFAQitem()}">
+                <p>
+                    <strong>#{item.question[0]}</strong><br/>
+                    <h:outputText escape="false" value="#{faqBean.FaqAnswertoString(item.answer[0])}"/>
+                </p>
+        </c:forEach> 
+        </ui:composition>
+    </h:body>
+</html>

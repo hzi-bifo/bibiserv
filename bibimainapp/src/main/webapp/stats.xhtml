@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted 2014 jschmolke"
+
+Contributor(s):
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="WEB-INF/templates/moduleTpl.xhtml">
+
+    <ui:define name="headContentTitle">
+        Statistics
+    </ui:define>
+
+
+    <ui:define name="content">
+        
+        <span class="title">Statistics</span>
+        <div style="text-align: right; float: right"><a href="/">back</a> </div> 
+        <div class="separator"/>
+        
+        <h:form id="mainform">
+            <script src="/misc/scripts/highcharts/highcharts.js"></script>
+            <script src="/misc/scripts/highcharts/modules/exporting.js"></script>
+            <script src="/misc/scripts/highcharts/modules/map.js"></script>
+            <script src="/misc/scripts/highcharts/modules/data.js"></script>
+            <script src="/misc/scripts/highcharts/world.js"></script>
+            <script type="text/javascript">
+                function createChart(xhr, status, args) {
+                    if ("#{userstatsbean.activeTabtitle}" === "Worldmap") {
+                        createWorldmap(xhr, status, args);
+                    } else if ("#{userstatsbean.activeTabtitle}" === "Downloads") {
+                        createDownChart(xhr, status, args);
+                    } else if ("#{userstatsbean.activeTabtitle}" === "Toolusages") {
+                        createUsageChart(xhr, status, args);
+                    }
+                }
+
+                function createWorldmap(xhr, status, args) {
+                    // Initiate the chart
+                    $('#mapContainer').highcharts('Map', {
+                        title: {
+                            text: 'Worldmap'
+                        },
+                        chart: {
+                            width: 900,
+                            height: 600
+                        },  
+                        mapNavigation: {
+                            enabled: true,
+                            buttonOptions: {
+                                verticalAlign: 'bottom'
+                            }
+                        },
+                        colorAxis: {
+                            min: 1,
+                            type: 'logarithmic'
+                        },
+                        series: [{
+                                data: JSON.parse(args.series),
+                                mapData: Highcharts.maps['custom/world'],
+                                joinBy: ['iso-a2', 'code'],
+                                name: 'Overall',
+                                borderColor: 'black',
+                                borderWidth: 0.2,
+                                states: {
+                                    hover: {
+                                        borderWidth: 1
+                                    }
+                                },
+                                tooltip: {
+                                    pointFormat: '{point.code}: {point.value}'
+                                }
+                            }]
+                    });
+                }
+
+                function createDownChart(xhr, status, args) {
+                    $('#downContainer').highcharts({
+                        chart: {
+                            type: 'spline',
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: 'Downloads per day'
+                        },
+                        subtitle: {
+                            text: 'Click above to select start and end'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            title: {
+                                text: 'Date'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Downloads'
+                            },
+                            min: 0
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br/>',
+                            pointFormat: '{point.x:%e. %b %Y}: {point.y}'
+                        },
+                        series: JSON.parse(args.series)
+
+                    });
+                }
+                
+                function createUsageChart(xhr, status, args) {
+                        console.log(args.series);
+                        $('#usageContainer').highcharts({
+                        chart: {
+                            type: 'spline',
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: 'Usages per day'
+                        },
+                        subtitle: {
+                            text: 'Click above to select start and end'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            title: {
+                                text: 'Date'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Toolusages'
+                            },
+                            min: 0
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br/>',
+                            pointFormat: '{point.x:%e. %b %Y}: {point.y}'
+                        },
+                        series: JSON.parse(args.series)
+
+                    });
+                }
+            </script>
+            <p:dialog modal="true" widgetVar="statusDialog" header="Loading" resizable="false" draggable="false"
+                      closable="false">
+                        <p:graphicImage value="/misc/images/ajax-loader.gif" />
+                    </p:dialog>
+                    <script type="text/javascript">
+                        function showStatus() {
+                            statusDialog.show();
+                        }
+                        function hideStatus() {
+                            statusDialog.hide();
+                        }
+                    </script>
+            <p:tabView dynamic="false" effect="fade" effectDuration="normal" 
+                       style="min-width:940px;height:850px;">
+                <p:ajax event="tabChange" onstart="showStatus()" oncomplete="createChart(xhr, status, args),hideStatus()" listener="#{userstatsbean.onTabChange}" update="@form"/> 
+
+                <p:tab title="Welcome" >
+                    <div style="width:600px">
+                        <strong>Welcome to the BiBiServ2 Statistics for users.</strong>
+                        <p>
+                    We currently offer three different types of public available 
+                    statistics.Please choose the tab on top to display the statistics 
+                    you would like to see.
+                        </p>
+                    <ol>
+                        <li><strong>Worldmap</strong>:<br/>
+                        The Worldmap statistics gives you an overview about the usage by 
+                        country for an arbitrary period of time. Each country is colored
+                        in relation to its count of usage, like a kind of heatmap. Move 
+                        the mouse over the map to get the count of usages of the hovered
+                        country.</li>
+                        <li><strong>Toolusage</strong>:<br/>
+                        The Toolusage statistics gives you an interactive tabular and
+                        plot view about all available tool usage information for an 
+                        arbitrary period of time. 
+                        </li>
+                        <li><strong>Downloads</strong>:<br/>
+                            The Download statistics offers the same possibilities like
+                            Toolusage statistics for all counted downloads.
+                        </li>
+                        
+                    </ol>
+                    
+                        <p>
+                            <em>
+                    Notes:
+                    <ul>
+                        <li>Depending on server load and the selected  period of 
+                            time for the statistics the database access and data 
+                            processing can take some time. Please be patient. </li>
+                        <li>The preselected period of time for all statistics is
+                        the current month. </li>
+                        <li>Plot from all statistics can be exported as Image/PDF</li>
+                        <li>We count only <em>real</em> tool usage (run a tool online
+                            on our server), not any clicks on the pages (which would
+                            be much higher). </li>
+                        <li>The request IP address is used to determine the country
+                            the client is coming from. The IP address is stored only 
+                            as SHA1 hash key to identify recurring users (but not as
+                            clear text).</li>
+                            
+                    </ul>
+                            </em>
+                            </p>
+                        
+                        
+                        
+                        
+                        <!--minDate    :: ${userstatsbean.minDate} <br/>
+                        absMinDate :: ${userstatsbean.absMinDate} <br/>
+                        maxDate    :: ${userstatsbean.maxDate} <br/>
+                        absMaxDate :: ${userstatsbean.absMaxDate} <br/> -->
+                    </div>
+                    
+                </p:tab>
+
+                <p:tab title="Worldmap">
+                    <p:growl id="wmmsg" showDetail="true"/> 
+
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <p:selectOneMenu value="#{userstatsbean.selectedItem}">  
+                                    <f:selectItem itemLabel="Toolusages" itemValue="0" />  
+                                    <f:selectItem itemLabel="Downloads" itemValue="1" />                   
+                                    <p:ajax listener="#{userstatsbean.updateWorldmap}" onstart="showStatus()" oncomplete="createWorldmap(xhr, status, args),hideStatus()" update="@form"/>
+                                </p:selectOneMenu>
+                            </td>
+                            <td>
+                                <h:outputLabel for="minVal0" value="Start:&#160;"/>
+                                <p:calendar id="minVal0" value="${userstatsbean.minDate}" timeZone="GMT" showOn="button"  mindate="#{userstatsbean.absMinDate}" maxdate="#{userstatsbean.maxDate}">
+                                    <p:ajax event="dateSelect" update="@form" listener="#{userstatsbean.onMinDateSelect}" onstart="showStatus()" oncomplete="createWorldmap(xhr, status, args),hideStatus()"/>
+                                </p:calendar>
+                                &#160;
+                                <h:outputLabel  for="maxVal0" value="End:&#160;"/>
+                                <p:calendar id="maxVal0" value="${userstatsbean.maxDate}" timeZone="GMT" showOn="button"  mindate="#{userstatsbean.minDate}" maxdate="#{userstatsbean.absMaxDate}">
+                                    <p:ajax event="dateSelect" update="@form" listener="#{userstatsbean.onMaxDateSelect}" onstart="showStatus()" oncomplete="createWorldmap(xhr, status, args),hideStatus()"/>
+                                </p:calendar>
+                            </td>
+                            <td>
+                                <h:outputText id="unknown" value="Unknown: #{userstatsbean.getUnknownCountries()}" style="float:right"/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                    
+                    <div id="mapContainer" />
+                </p:tab>  
+
+                <p:tab title="Toolusages">
+                    <p:growl id="tumsg" showDetail="true"/> 
+                    <h:outputLabel for="minVal2" value="Start:&#160;"/>
+                    <p:calendar id="minVal2" value="${userstatsbean.minDate}" timeZone="GMT" showOn="button" mindate="#{userstatsbean.absMinDate}" maxdate="#{userstatsbean.maxDate}">
+                        <p:ajax event="dateSelect" update="@form" listener="#{userstatsbean.onMinDateSelect}" onstart="showStatus()" oncomplete="createUsageChart(xhr, status, args),hideStatus()"/> 
+                    </p:calendar>
+                    &#160;
+                    <h:outputLabel  for="maxVal2" value="End:&#160;"/>
+                    <p:calendar id="maxVal2" value="${userstatsbean.maxDate}" timeZone="GMT" showOn="button" mindate="#{userstatsbean.minDate}" maxdate="#{userstatsbean.absMaxDate}">
+                        <p:ajax event="dateSelect" update="@form" listener="#{userstatsbean.onMaxDateSelect}" onstart="showStatus()" oncomplete="createUsageChart(xhr, status, args),hideStatus()"/> 
+                    </p:calendar>
+                    
+      
+
+                    <p:panel header="TOP VALUES" style="width:120px;float:right;">
+                        <h:outputText value="Total:&lt;br/&gt;#{userstatsbean.total}" escape="false"/><br/><br/>
+                        <h:outputText value="Tool:&lt;br/&gt;#{userstatsbean.topTool} #{userstatsbean.tPerc}%" escape="false"/><br/><br/>
+                        <h:outputText value="OS:&lt;br/&gt;#{userstatsbean.topOS} #{userstatsbean.osPerc}%" escape="false"/><br/><br/>
+                        <h:outputText value="Country:&lt;br/&gt;#{userstatsbean.topCountry} #{userstatsbean.cPerc}%" escape="false"/><br/><br/>
+                        <h:outputText value="Browser:&lt;br/&gt;#{userstatsbean.topBrowser} #{userstatsbean.brPerc}%" escape="false"/>
+                    </p:panel>                 
+                    <p:dataTable id="usageTable" var="us" value="#{userstatsbean.lazyModel}" widgetVar="usTable"   
+                                 emptyMessage="No tools found with given criteria" sortBy="#{us.total}" sortOrder="descending"
+                                 style="float:left; width:770px" rows="9" paginator="true" paginatorPosition="bottom">  
+
+                        <p:column id="toolColumn" headerText="Tool" sortBy="#{us.toolname}">  
+                            <h:commandLink value="#{us.toolname}" onclick="window.open('/#{us.toolname}')" />  
+                        </p:column>  
+                       
+                        <p:column id="countryColumn" headerText="Country" filterMatchMode="contains" sortBy="#{us.cPerc}">  
+                            <h:outputText value="#{us.topCountry} | " /> 
+                            <h:outputText value="#{us.cPerc}%" />
+                        </p:column>  
+                        
+                        <p:column id="osColumn"  headerText="OS" filterMatchMode="contains" sortBy="#{us.osPerc}">  
+                            <h:outputText value="#{us.topOS} | " />
+                            <h:outputText value="#{us.osPerc}%" />
+                        </p:column>
+        
+                        <p:column id="browserColumn"  headerText="Browser" filterMatchMode="contains" sortBy="#{us.brPerc}">  
+                            <h:outputText value="#{us.topBrowser} | " />
+                            <h:outputText value="#{us.brPerc}%" />
+                        </p:column>  
+
+                        <p:column id="totalColumn" headerText="&#931;&#160;" sortBy="#{us.total}">  
+                            <h:outputText value="#{us.total}" />  
+                        </p:column>  
+                        <p:column style="width:2%">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:rowExpansion>
+                            <p:panelGrid columns="3">
+                                <p:dataTable id="coTable" value="#{us.countryList}" var="co" scrollable="true" scrollHeight="120" >
+                                    <f:facet name="header">
+                                        Countries
+                                    </f:facet>
+                                    <p:column style="width:100px">
+                                        <h:outputText value="#{co.key}"/>
+                                    </p:column>
+                                    <p:column style="width:40px">
+                                        <h:outputText value="#{co.value}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:dataTable id="osTable" value="#{us.osList}" var="os" scrollable="true" scrollHeight="120">
+                                    <f:facet name="header">
+                                        Operating Systems
+                                    </f:facet>
+                                    <p:column style="width:100px">
+                                        <h:outputText value="#{os.key}"/>
+                                    </p:column>
+                                    <p:column style="width:40px">
+                                        <h:outputText value="#{os.value}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:dataTable id="brTable" value="#{us.browserList}" var="br" scrollable="true" scrollHeight="120">
+                                    <f:facet name="header">
+                                        Browsers
+                                    </f:facet>
+                                    <p:column style="width:100px">
+                                        <h:outputText value="#{br.key}"/>
+                                    </p:column>
+                                    <p:column style="width:40px">
+                                        <h:outputText value="#{br.value.first}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+                        </p:rowExpansion>   
+                    </p:dataTable>
+
+                    <div id="usageContainer" style="min-width: 310px; height: 400px; margin: 0 auto;clear:both"></div>
+                </p:tab>
+
+                <p:tab title="Downloads">
+                    <p:growl id="dlmsg" showDetail="true"/> 
+                    
+                   <h:outputLabel for="minVal" value="Start:&#160;"/>
+                    <p:calendar id="minVal" value="${userstatsbean.minDate}" timeZone="GMT" showOn="button"  mindate="#{userstatsbean.absMinDate}" maxdate="#{userstatsbean.maxDate}">
+                        <p:ajax event="dateSelect" update="@form" listener="#{userstatsbean.onMinDateSelect}" onstart="showStatus()" oncomplete="createDownChart(xhr, status, args),hideStatus()"/>
+                    </p:calendar>
+                   &#160;
+                    <h:outputLabel  for="maxVal" value="End:&#160;"/>
+                    <p:calendar id="maxVal" value="${userstatsbean.maxDate}" timeZone="GMT" showOn="button"  mindate="#{userstatsbean.minDate}" maxdate="#{userstatsbean.absMaxDate}">
+                        <p:ajax event="dateSelect" update="@form" listener="#{userstatsbean.onMaxDateSelect}" onstart="showStatus()" oncomplete="createDownChart(xhr, status, args),hideStatus()"/>
+                    </p:calendar>
+                    <p:panel header="TOP VALUES" style="width:120px;float:right;">
+                        <h:outputText value="Total:&lt;br/&gt;#{userstatsbean.total}" escape="false"/><br/><br/>
+                        <h:outputText value="Tool:&lt;br/&gt;#{userstatsbean.topTool} #{userstatsbean.tPerc}%" escape="false"/><br/><br/>
+                        <h:outputText value="OS:&lt;br/&gt;#{userstatsbean.topOS} #{userstatsbean.osPerc}%" escape="false"/><br/><br/>
+                        <h:outputText value="Country:&lt;br/&gt;#{userstatsbean.topCountry} #{userstatsbean.cPerc}%" escape="false"/><br/><br/>
+                        <h:outputText value="Browser:&lt;br/&gt;#{userstatsbean.topBrowser} #{userstatsbean.brPerc}%" escape="false"/>
+                    </p:panel>                 
+                    <p:dataTable id="downloadTable" var="dl" value="#{userstatsbean.lazyModel}" widgetVar="downTable"   
+                                 emptyMessage="No tools found with given criteria" sortBy="#{dl.total}" sortOrder="descending"
+                                 style="float:left; width:770px" rows="9" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">  
+  
+
+                        <p:column id="toolColumn" headerText="Tool" sortBy="#{dl.toolname}">  
+                            <h:outputText value="#{dl.toolname}" />  
+                        </p:column>  
+
+                        
+                        <p:column id="countryColumn"  headerText="Country" filterMatchMode="contains" sortBy="#{dl.cPerc}">  
+                            <h:outputText value="#{dl.topCountry} | " /> 
+                            <h:outputText value="#{dl.cPerc}%" />
+                        </p:column>  
+
+                        
+                        <p:column id="osColumn"  headerText="OS" filterMatchMode="contains" sortBy="#{dl.osPerc}">  
+                            <h:outputText value="#{dl.topOS} | " />
+                            <h:outputText value="#{dl.osPerc}%" />
+                        </p:column>
+
+                        
+                        <p:column id="browserColumn" headerText="Browser" filterMatchMode="contains" sortBy="#{dl.brPerc}">  
+                            <h:outputText value="#{dl.topBrowser} | " />
+                            <h:outputText value="#{dl.brPerc}%" />
+                        </p:column>  
+
+                        <p:column id="totalColumn" headerText="&#931;&#160;" sortBy="#{dl.total}">  
+                            <h:outputText value="#{dl.total}" />  
+                        </p:column>
+                        
+                        <p:column headerText="" style="width:2%">
+                            <p:rowToggler />
+                       </p:column>
+                        <p:rowExpansion>
+                            <p:panelGrid columns="3" style="width:100%">
+                                <p:dataTable id="coTable" value="#{dl.countryList}" var="co" scrollable="true" scrollHeight="120">
+                                    <f:facet name="header">
+                                        Countries
+                                    </f:facet>
+                                    <p:column style="width:100px">
+                                        <h:outputText value="#{co.key}"/>
+                                    </p:column>
+                                    <p:column  style="width:40px">
+                                        <h:outputText value="#{co.value}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:dataTable  id="osTable" value="#{dl.osList}" var="os" scrollable="true" scrollHeight="120">
+                                    <f:facet name="header">
+                                        Operating Systems
+                                    </f:facet>
+                                    <p:column style="width:100px">
+                                        <h:outputText value="#{os.key}"/>
+                                    </p:column>
+                                    <p:column style="width:40px">
+                                        <h:outputText value="#{os.value}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:dataTable  id="brTable" value="#{dl.browserList}" var="br" scrollable="true" scrollHeight="120">
+                                    <f:facet name="header">
+                                        Browsers
+                                    </f:facet>
+                                    <p:column style="width:100px">
+                                        <h:outputText value="#{br.key}"/>
+                                    </p:column>
+                                    <p:column style="width:40px">
+                                        <h:outputText value="#{br.value.first}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                    <div id="downContainer" style="min-width: 310px; height: 400px; margin: 0 auto;clear:both"></div>                    
+                </p:tab>
+
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

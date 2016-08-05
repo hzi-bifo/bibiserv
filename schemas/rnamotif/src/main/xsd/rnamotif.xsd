@@ -1,0 +1,271 @@
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Janina Reeder (GK Bioinformatik) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="de:unibi:techfak:bibiserv:rnaeditor" targetNamespace="de:unibi:techfak:bibiserv:rnaeditor" elementFormDefault="qualified">
+	<xsd:element name="rnamotif">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="single" type="t_single" minOccurs="0"/>
+				<xsd:element name="neighbor" type="t_neighborpk"/>
+				<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+					<xsd:element name="single2" type="t_single"/>
+					<xsd:element name="neighbor" type="t_neighborpk"/>
+				</xsd:sequence>
+				<xsd:element name="single" type="t_single" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="searchtype" use="optional">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="stem">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="neighbor" type="t_neighbor"/>
+				<xsd:choice minOccurs="0">
+					<xsd:sequence>
+						<xsd:element name="seqmotif" type="xsd:string"/>
+						<xsd:element name="motifloc">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="5prime"/>
+									<xsd:enumeration value="3prime"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:element ref="basepair" maxOccurs="unbounded"/>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute name="minlength" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxlength" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="length" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="allowinterrupt" type="xsd:boolean" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="bulge">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="neighbor" type="t_neighbor"/>
+				<xsd:element name="seqmotif" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="basepair" minOccurs="0" maxOccurs="2"/>
+			</xsd:sequence>
+			<xsd:attribute name="maxlength" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minlength" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="length" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="bulge-pos" use="optional">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="5prime"/>
+						<xsd:enumeration value="3prime"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="internalloop">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="neighbor" type="t_neighbor"/>
+				<xsd:element name="seqmotif5ploop" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="seqmotif3ploop" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="basepair" minOccurs="0" maxOccurs="2"/>
+			</xsd:sequence>
+			<xsd:attribute name="minlength5ploop" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxlength5ploop" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minlength3ploop" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxlength3ploop" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="length5ploop" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="length3ploop" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="multiloop">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="multiloop-branch" minOccurs="2" maxOccurs="7"/>
+				<xsd:element name="seqmotif" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="basepair" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="minlength" type="xsd:nonNegativeInteger" use="optional"/>
+			<xsd:attribute name="maxlength" type="xsd:nonNegativeInteger" use="optional"/>
+			<xsd:attribute name="length" type="xsd:nonNegativeInteger" use="optional"/>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="multiloop-branch">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="neighbor" type="t_neighbor"/>
+				<xsd:element name="seqmotif" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="basepair" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="length" type="xsd:nonNegativeInteger" use="optional"/>
+			<xsd:attribute name="minlength" type="xsd:nonNegativeInteger" use="optional"/>
+			<xsd:attribute name="maxlength" type="xsd:nonNegativeInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="hairpinloop">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="seqmotif" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="basepair" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="maxlength" use="optional">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:positiveInteger">
+						<xsd:minInclusive value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="minlength" use="optional">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:positiveInteger">
+						<xsd:minInclusive value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="length" use="optional">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:positiveInteger">
+						<xsd:minInclusive value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="closedstruct">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="neighbor" type="t_neighbor_cs"/>
+			</xsd:sequence>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="pseudoknot">
+		<xsd:complexType>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="straightloop3" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="straightloop2" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="straightloop1" type="xsd:boolean" use="optional"/>
+			<xsd:attribute name="maxstem2" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minstem2" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="lenstem2" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxstem1" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minstem1" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="lenstem1" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxloop3" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minloop3" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="lenloop3" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxloop2" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minloop2" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="lenloop2" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxloop1" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minloop1" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="lenloop1" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="basepair">
+		<xsd:complexType>
+			<xsd:attribute name="bp-pos" use="optional">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="5primeend"/>
+						<xsd:enumeration value="3primeend"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="bp" use="required">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2"/>
+						<xsd:pattern value=""/>
+						<xsd:pattern value=""/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="t_single">
+		<xsd:sequence>
+			<xsd:element name="seqmotif" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="minlength" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:nonNegativeInteger">
+					<xsd:minInclusive value="0"/>
+					<xsd:maxInclusive value="200"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="maxlength" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:nonNegativeInteger">
+					<xsd:minInclusive value="0"/>
+					<xsd:maxInclusive value="200"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="length" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:nonNegativeInteger">
+					<xsd:minInclusive value="0"/>
+					<xsd:maxInclusive value="200"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="straight" type="xsd:boolean" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="t_neighborpk">
+		<xsd:choice>
+			<xsd:element ref="stem"/>
+			<xsd:element ref="bulge"/>
+			<xsd:element ref="internalloop"/>
+			<xsd:element ref="hairpinloop"/>
+			<xsd:element ref="multiloop"/>
+			<xsd:element ref="closedstruct"/>
+			<xsd:element ref="closedmultiend"/>
+			<xsd:element ref="pseudoknot"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="t_neighbor">
+		<xsd:choice>
+			<xsd:element ref="stem"/>
+			<xsd:element ref="bulge"/>
+			<xsd:element ref="internalloop"/>
+			<xsd:element ref="hairpinloop"/>
+			<xsd:element ref="multiloop"/>
+			<xsd:element ref="closedstruct"/>
+			<xsd:element ref="closedmultiend"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="t_neighbor_cs">
+		<xsd:choice>
+			<xsd:element ref="stem"/>
+			<xsd:element ref="bulge"/>
+			<xsd:element ref="internalloop"/>
+			<xsd:element ref="hairpinloop"/>
+			<xsd:element ref="multiloop"/>
+			<xsd:element ref="closedmultiend"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:element name="closedmultiend">
+		<xsd:complexType>
+			<xsd:attribute name="length" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="minlength" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="maxlength" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gminsize" type="xsd:positiveInteger" use="optional"/>
+			<xsd:attribute name="gmaxsize" type="xsd:positiveInteger" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

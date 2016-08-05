@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition>
+            <p:dataTable id="#{tableBean.id}_sqlTable_id" var="item" value="#{tableBean.lazyModel}" paginator="true" rows="50"  
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
+                         rowsPerPageTemplate="50,100,500"  widgetVar="#{tableBean.id}_sqlTable" >
+
+                <c:forEach items="#{tableBean.columns}" var="column" varStatus="counter">
+
+                    <p:column>  
+                        <f:facet name="header"> 
+
+                            <table>
+                                <tr>
+                                    <td width="50%">&#160;</td>
+                                    <td><h:outputLabel value="#{column.header}"/></td><td align="left"><p:commandLink styleClass="ui-icon #{tableBean.sortStyle[column.property]}" actionListener="#{tableBean.setSort(column.property)}" update="#{tableBean.id}_sqlTable_id" /></td>
+                                    <td width="50%">&#160;</td>
+                                </tr>
+                            </table> 
+                            <p:inputText id="p#{column.property}" value="#{tableBean.selectedFilter[column.property]}" styleClass="ui-column-filter">
+                                <p:ajax event="keyup" oncomplete="#{tableBean.id}_sqlTable.filter()"/>
+                            </p:inputText>
+
+                        </f:facet>  
+
+                        #{item.getListElement(column.property)}  
+                    </p:column>  
+
+                </c:forEach>
+            </p:dataTable>
+
+            <p:messages id="#{tableBean.id}_sql_status_msg" showDetail="true" autoUpdate="true"/>
+        </ui:composition>
+    </h:body>
+</html>

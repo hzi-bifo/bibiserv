@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+ by your own identifying information:
+
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"            
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="runinthecloud_form" lang="en">
+
+        <p:growl id="ritc_growl" autoUpdate="true" showDetail="true" />
+
+        
+        
+        <p:wizard flowListener="#{bashExecutor.onFlowProcess}" widgetVar="wiz" >
+            <!-- tabOne -->
+            <p:tab id="welcome" title="Run in the Cloud" >
+                <ui:include src="tab_welcome.xhtml" />
+            </p:tab> <!-- ./welcometothecloud_tab -->
+
+            <!-- tabTwo -->
+            <p:tab id="gridsettings" title="Grid-Configuration" >
+                <ui:include src="tab_gridsettings.xhtml" />
+            </p:tab> <!-- ./gridsettings_tab -->
+
+            <!-- tabThree -->
+            <p:tab id="credentials" title="Security Credentials">
+                <ui:include src="tab_credentials.xhtml" />
+            </p:tab> <!-- ./credentials_tab -->
+
+            <!-- tabFour -->
+            <p:tab id="confirmation" title="Confirmation">
+                <ui:include src="tab_confirmation.xhtml" />
+            </p:tab> <!-- ./confirmation_tab -->
+
+        </p:wizard> <!-- ./maschine_settings_wizard -->
+        
+        <p:hotkey bind="left" handler="PF('wiz').previous();" />
+        <p:hotkey bind="right" handler="PF('wiz').next();" />
+        
+    </h:form> <!-- ./runinthecloud_form -->
+
+</ui:composition>

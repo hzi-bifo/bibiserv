@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EMBL_Services xmlns:ebi="http://www.ebi.ac.uk/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ebi.ac.uk/schema/EMBL_Services.xsd">
+    <entry accession="M10051" version="6" dataClass="STD" taxonomicDivision="HUM" created="1986-07-02" lastUpdated="2000-03-04" releaseCreated="9" releaseLastUpdated="63">
+        <description>Human insulin receptor mRNA, complete cds.</description>
+        <keyword>insulin receptor</keyword>
+        <keyword>tyrosine kinase</keyword>
+        <reference>
+            <citation id="1" type="journal article" name="Cell" volume="40" issue="4" first="747" last="758" year="1985">
+                <dbreference db="DOI" primary="10.1016/0092-8674(85)90334-4"/>
+                <dbreference db="PUBMED" primary="2859121"/>
+                <title>The human insulin receptor cDNA: the structural basis for hormone-activated transmembrane signalling</title>
+                <author>Ebina Y.</author>
+                <author>Ellis L.</author>
+                <author>Jarnagin K.</author>
+                <author>Edery M.</author>
+                <author>Graf L.</author>
+                <author>Clauser E.</author>
+                <author>Ou J.-H.</author>
+                <author>Masiarz F.</author>
+                <author>Kan Y.W.</author>
+                <author>Goldfine I.D.</author>
+                <author>Roth R.A.</author>
+                <author>Rutter W.J.</author>
+            </citation>
+            <refPosition begin="1" end="4723"/>
+        </reference>
+        <dbreference db="H-InvDB" primary="HIT000194074"/>
+        <comment>
+             [1] suggests that the insulin receptor may be the cellular homolog
+             of the v-ros transforming (oncogene) protein.  [1] notes
+             similarities between the insulin receptor and several growth factor
+             receptors and oncogenes.  Insulin receptor is a heterodimer
+             consisting of 2 alpha and 2 beta subunits.  Beta-prime may be a
+             cleavage product produced upon binding of insulin.  [1] suggests
+             that translation may begin at the 'atg' start codon at positions
+             79-81 with protein cleavage occurring after position 120 to yield
+             the signal peptide.  [1] gives illustrations of the various domains
+             present in the protein.  A draft entry and sequence for [1] in
+             computer-readable form were kindly provided by K. Jarnagin
+             (30-JUL-1985).
+        </comment>
+        <feature name="source">
+            <organism>
+                <nameset>
+                    <scientificName>Homo sapiens</scientificName>
+                    <preferredCommonName>human</preferredCommonName>
+                </nameset>
+                <taxId>9606</taxId>
+                <lineage>
+                    <taxon>Eukaryota</taxon>
+                    <taxon>Metazoa</taxon>
+                    <taxon>Chordata</taxon>
+                    <taxon>Craniata</taxon>
+                    <taxon>Vertebrata</taxon>
+                    <taxon>Euteleostomi</taxon>
+                    <taxon>Mammalia</taxon>
+                    <taxon>Eutheria</taxon>
+                    <taxon>Euarchontoglires</taxon>
+                    <taxon>Primates</taxon>
+                    <taxon>Haplorrhini</taxon>
+                    <taxon>Catarrhini</taxon>
+                    <taxon>Hominidae</taxon>
+                    <taxon>Homo</taxon>
+                </lineage>
+            </organism>
+            <qualifier name="map">19p13.3-p13.2</qualifier>
+            <qualifier name="mol_type">mRNA</qualifier>
+            <location type="single" complement="false">
+                <locationElement type="range" accession="M10051" version="1" complement="false">
+                    <basePosition type="simple">1</basePosition>
+                    <basePosition type="simple">4723</basePosition>
+                </locationElement>
+            </location>
+        </feature>
+        <feature name="sig_peptide">
+            <qualifier name="note">insulin receptor signal peptide</qualifier>
+            <location type="single" complement="false">
+                <locationElement type="range" accession="M10051" version="1" complement="false">
+                    <basePosition type="simple">137</basePosition>
+                    <basePosition type="simple">219</basePosition>
+                </locationElement>
+            </location>
+        </feature>
+        <feature name="CDS">
+            <dbreference db="GDB" primary="119352"/>
+            <dbreference db="GOA" primary="P06213"/>
+            <dbreference db="HGNC" primary="6091"/>
+            <dbreference db="PDB" primary="1GAG"/>
+            <dbreference db="PDB" primary="1I44"/>
+            <dbreference db="PDB" primary="1IR3"/>
+            <dbreference db="PDB" primary="1IRK"/>
+            <dbreference db="PDB" primary="1P14"/>
+            <dbreference db="PDB" primary="1RQQ"/>
+            <dbreference db="PDB" primary="2AUH"/>
+            <dbreference db="PDB" primary="2B4S"/>
+            <dbreference db="UniProtKB/Swiss-Prot" primary="P06213"/>
+            <qualifier name="codon_start">1</qualifier>
+            <qualifier name="gene">INSR</qualifier>
+            <qualifier name="note">insulin receptor precursor</qualifier>
+            <qualifier name="protein_id">AAA59174.1</qualifier>
+            <qualifier name="translation">MGTGGRRGAAAAPLLVAVAALLLGAAGHLYPGEVCPGMDIRNNLTRLHELENCSVIEGHLQILLMFKTRPEDFRDLSFPKLIMITDYLLLFRVYGLESLKDLFPNLTVIRGSRLFFNYALVIFEMVHLKELGLYNLMNITRGSVRIEKNNELCYLATIDWSRILDSVEDNHIVLNKDDNEECGDICPGTAKGKTNCPATVINGQFVERCWTHSHCQKVCPTICKSHGCTAEGLCCHSECLGNCSQPDDPTKCVACRNFYLDGRCVETCPPPYYHFQDWRCVNFSFCQDLHHKCKNSRRQGCHQYVIHNNKCIPECPSGYTMNSSNLLCTPCLGPCPKVCHLLEGEKTIDSVTSAQELRGCTVINGSLIINIRGGNNLAAELEANLGLIEEISGYLKIRRSYALVSLSFFRKLRLIRGETLEIGNYSFYALDNQNLRQLWDWSKHNLTTTQGKLFFHYNPKLCLSEIHKMEEVSGTKGRQERNDIALKTNGDKASCENELLKFSYIRTSFDKILLRWEPYWPPDFRDLLGFMLFYKEAPYQNVTEFDGQDACGSNSWTVVDIDPPLRSNDPKSQNHPGWLMRGLKPWTQYAIFVKTLVTFSDERRTYGAKSDIIYVQTDATNPSVPLDPISVSNSSSQIILKWKPPSDPNGNITHYLVFWERQAEDSELFELDYCLKGLKLPSRTWSPPFESEDSQKHNQSEYEDSAGECCSCPKTDSQILKELEESSFRKTFEDYLHNVVFVPRKTSSGTGAEDPRPSRKRRSLGDVGNVTVAVPTVAAFPNTSSTSVPTSPEEHRPFEKVVNKESLVISGLRHFTGYRIELQACNQDTPEERCSVAAYVSARTMPEAKADDIVGPVTHEIFENNVVHLMWQEPKEPNGLIVLYEVSYRRYGDEELHLCVSRKHFALERGCRLRGLSPGNYSVRIRATSLAGNGSWTEPTYFYVTDYLDVPSNIAKIIIGPLIFVFLFSVVIGSIYLFLRKRQPDGPLGPLYASSNPEYLSASDVFPCSVYVPDEWEVSREKITLLRELGQGSFGMVYEGNARDIIKGEAETRVAVKTVNESASLRERIEFLNEASVMKGFTCHHVVRLLGVVSKGQPTLVVMELMAHGDLKSYLRSLRPEAENNPGRPPPTLQEMIQMAAEIADGMAYLNAKKFVHRDLAARNCMVAHDFTVKIGDFGMTRDIYETDYYRKGGKGLLPVRWMAPESLKDGVFTTSSDMWSFGVVLWEITSLAEQPYQGLSNEQVLKFVMDGGYLDQPDNCPERVTDLMRMCWQFNPKMRPTFLEIVNLLKDDLHPSFPEVSFFHSEENKAPESEELEMEFEDMENVPLDRSSHCQREEAGGRDGGSSLGFKRSYEEHIPYTHMNGGKKNGRILTLPRSNPS</qualifier>
+            <location type="single" complement="false">
+                <locationElement type="range" accession="M10051" version="1" complement="false">
+                    <basePosition type="simple">139</basePosition>
+                    <basePosition type="simple">4287</basePosition>
+                </locationElement>
+            </location>
+        </feature>
+        <feature name="mat_peptide">
+            <qualifier name="gene">INSR</qualifier>
+            <qualifier name="note">insulin receptor alpha subunit</qualifier>
+            <location type="single" complement="false">
+                <locationElement type="range" accession="M10051" version="1" complement="false">
+                    <basePosition type="simple">220</basePosition>
+                    <basePosition type="simple">2424</basePosition>
+                </locationElement>
+            </location>
+        </feature>
+        <feature name="mat_peptide">
+            <qualifier name="gene">INSR</qualifier>
+            <qualifier name="note">insulin receptor beta subunit</qualifier>
+            <location type="single" complement="false">
+                <locationElement type="range" accession="M10051" version="1" complement="false">
+                    <basePosition type="simple">2425</basePosition>
+                    <basePosition type="simple">4284</basePosition>
+                </locationElement>
+            </location>
+        </feature>
+        <feature name="mat_peptide">
+            <qualifier name="partial"/>
+            <qualifier name="gene">INSR</qualifier>
+            <qualifier name="note">insulin receptor beta-prime subunit</qualifier>
+            <location type="single" complement="false">
+                <locationElement type="range" accession="M10051" version="1" complement="false">
+                    <basePosition type="simple">2425</basePosition>
+                    <basePosition type="simple">2469</basePosition>
+                </locationElement>
+            </location>
+        </feature>
+          <sequence type="mRNA" length="4723" version="1">ggggggctgcgcggccgggtcggtgcgcacacgagaaggacgcgcggcccccagcgctcttgggggccgcctcggagcatgacccccgcgggccagcgccgcgcgcctgatccgaggagaccccgcgctcccgcagccatgggcaccgggggccggcggggggcggcggccgcgccgctgctggtggcggtggccgcgctgctactgggcgccgcgggccacctgtaccccggagaggtgtgtcccggcatggatatccggaacaacctcactaggttgcatgagctggagaattgctctgtcatcgaaggacacttgcagatactcttgatgttcaaaacgaggcccgaagatttccgagacctcagtttccccaaactcatcatgatcactgattacttgctgctcttccgggtctatgggctcgagagcctgaaggacctgttccccaacctcacggtcatccggggatcacgactgttctttaactacgcgctggtcatcttcgagatggttcacctcaaggaactcggcctctacaacctgatgaacatcacccggggttctgtccgcatcgagaagaacaatgagctctgttacttggccactatcgactggtcccgtatcctggattccgtggaggataatcacatcgtgttgaacaaagatgacaacgaggagtgtggagacatctgtccgggtaccgcgaagggcaagaccaactgccccgccaccgtcatcaacgggcagtttgtcgaacgatgttggactcatagtcactgccagaaagtttgcccgaccatctgtaagtcacacggctgcaccgccgaaggcctctgttgccacagcgagtgcctgggcaactgttctcagcccgacgaccccaccaagtgcgtggcctgccgcaacttctacctggacggcaggtgtgtggagacctgcccgcccccgtactaccacttccaggactggcgctgtgtgaacttcagcttctgccaggacctgcaccacaaatgcaagaactcgcggaggcagggctgccaccaatacgtcattcacaacaacaagtgcatccctgagtgtccctccgggtacacgatgaattccagcaacttgctgtgcaccccatgcctgggtccctgtcccaaggtgtgccacctcctagaaggcgagaagaccatcgactcggtgacgtctgcccaggagctccgaggatgcaccgtcatcaacgggagtctgatcatcaacattcgaggaggcaacaatctggcagctgagctagaagccaacctcggcctcattgaagaaatttcagggtatctaaaaatccgccgatcctacgctctggtgtcactttccttcttccggaagttacgtctgattcgaggagagaccttggaaattgggaactactccttctatgccttggacaaccagaacctaaggcagctctgggactggagcaaacacaacctcaccaccactcaggggaaactcttcttccactataaccccaaactctgcttgtcagaaatccacaagatggaagaagtttcaggaaccaaggggcgccaggagagaaacgacattgccctgaagaccaatggggacaaggcatcctgtgaaaatgagttacttaaattttcttacattcggacatcttttgacaagatcttgctgagatgggagccgtactggccccccgacttccgagacctcttggggttcatgctgttctacaaagaggccccttatcagaatgtgacggagttcgatgggcaggatgcgtgtggttccaacagttggacggtggtagacattgacccacccctgaggtccaacgaccccaaatcacagaaccacccagggtggctgatgcggggtctcaagccctggacccagtatgccatctttgtgaagaccctggtcaccttttcggatgaacgccggacctatggggccaagagtgacatcatttatgtccagacagatgccaccaacccctctgtgcccctggatccaatctcagtgtctaactcatcatcccagattattctgaagtggaaaccaccctccgaccccaatggcaacatcacccactacctggttttctgggagaggcaggcggaagacagtgagctgttcgagctggattattgcctcaaagggctgaagctgccctcgaggacctggtctccaccattcgagtctgaagattctcagaagcacaaccagagtgagtatgaggattcggccggcgaatgctgctcctgtccaaagacagactctcagatcctgaaggagctggaggagtcctcgtttaggaagacgtttgaggattacctgcacaacgtggttttcgtccccagaaaaacctcttcaggcactggtgccgaggaccctaggccatctcggaaacgcaggtcccttggcgatgttgggaatgtgacggtggccgtgcccacggtggcagctttccccaacacttcctcgaccagcgtgcccacgagtccggaggagcacaggccttttgagaaggtggtgaacaaggagtcgctggtcatctccggcttgcgacacttcacgggctatcgcatcgagctgcaggcttgcaaccaggacacccctgaggaacggtgcagtgtggcagcctacgtcagtgcgaggaccatgcctgaagccaaggctgatgacattgttggccctgtgacgcatgaaatctttgagaacaacgtcgtccacttgatgtggcaggagccgaaggagcccaatggtctgatcgtgctgtatgaagtgagttatcggcgatatggtgatgaggagctgcatctctgcgtctcccgcaagcacttcgctctggaacggggctgcaggctgcgtgggctgtcaccggggaactacagcgtgcgaatccgggccacctcccttgcgggcaacggctcttggacggaacccacctatttctacgtgacagactatttagacgtcccgtcaaatattgcaaaaattatcatcggccccctcatctttgtctttctcttcagtgttgtgattggaagtatttatctattcctgagaaagaggcagccagatgggccgctgggaccgctttacgcttcttcaaaccctgagtatctcagtgccagtgatgtgtttccatgctctgtgtacgtgccggacgagtgggaggtgtctcgagagaagatcaccctccttcgagagctggggcagggctccttcggcatggtgtatgagggcaatgccagggacatcatcaagggtgaggcagagacccgcgtggcggtgaagacggtcaacgagtcagccagtctccgagagcggattgagttcctcaatgaggcctcggtcatgaagggcttcacctgccatcacgtggtgcgcctcctgggagtggtgtccaagggccagcccacgctggtggtgatggagctgatggctcacggagacctgaagagctacctccgttctctgcggccagaggctgagaataatcctggccgccctccccctacccttcaagagatgattcagatggcggcagagattgctgacgggatggcctacctgaacgccaagaagtttgtgcatcgggacctggcagcgagaaactgcatggtcgcccatgattttactgtcaaaattggagactttggaatgaccagagacatctatgaaacggattactaccggaaagggggcaagggtctgctccctgtacggtggatggcaccggagtccctgaaggatggggtcttcaccacttcttctgacatgtggtcctttggcgtggtcctttgggaaatcaccagcttggcagaacagccttaccaaggcctgtctaatgaacaggtgttgaaatttgtcatggatggagggtatctggatcaacccgacaactgtccagagagagtcactgacctcatgcgcatgtgctggcaattcaaccccaagatgaggccaaccttcctggagattgtcaacctgctcaaggacgacctgcaccccagctttccagaggtgtcgttcttccacagcgaggagaacaaggctcccgagagtgaggagctggagatggagtttgaggacatggagaatgtgcccctggaccgttcctcgcactgtcagagggaggaggcggggggccgggatggagggtcctcgctgggtttcaagcggagctacgaggaacacatcccttacacacacatgaacggaggcaagaaaaacgggcggattctgaccttgcctcggtccaatccttcctaacagtgcctaccgtggcgggggcgggcaggggttcccattttcgctttcctctggtttgaaagcctctggaaaactcaggattctcacgactctaccatgtccagtggagttcagagatcgttcctatacatttctgttcatcttaaggtggactcgtttggttaccaatttaactagtcctgcagaggatttaactgtgaacctggagggcaaggggtttccacagttgctgctcctttggggcaacgacggtttcaaaccaggattttgtgttttttcgttccccccacccgcccccagcagatggaaagaaagcacctgtttttacaaattcttttttttttttttttttttttttttttgctggtgtctgagcttcagtataaaagacaaaacttcctgtttgtggaacaaaatttcgaaagaaaaaaccaaa</sequence>
+    </entry>
+</EMBL_Services>

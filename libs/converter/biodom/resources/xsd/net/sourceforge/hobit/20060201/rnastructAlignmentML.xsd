@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	document	: rnastructAlignmentML schema definition
+	version 		: 0.1
+	date 		: 2006-02-01
+	author		: Kai Loewenthal <kloewent@techfak.uni-bielefeld.de>
+			  Sven Hartmeier <shartmei@techfak.uni-bielefeld.de>
+			  Jan Krueger <jkrueger@techfak.uni-bielefeld.de>
+	released 	: no
+	buglevel	: uses the latest (not yet released) version 1.1 BioTypes
+	todo		: sequence element should use types from sequenceML
+-->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bt="http://schemas.bioservices.net/2006/01/biotypes"
+	xmlns:cr="http://schemas.bioservices.net/2006/01/crossrefs"
+	targetNamespace="http://hobit.sourceforge.net/xsds/20060201/rnastructAlignmentML"
+	xmlns:rsa="http://hobit.sourceforge.net/xsds/20060201/rnastructAlignmentML"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	
+	<!-- RNAStructAlignmentML is based on BioTypes 1.1 and Crossrefs 0.1 -->
+	<xs:import namespace="http://schemas.bioservices.net/2006/01/biotypes" schemaLocation="http://schemas.bioservices.net/2006/01/biotypes_1.1.xsd" />
+	<xs:import namespace="http://schemas.bioservices.net/2006/01/crossrefs" schemaLocation="http://schemas.bioservices.net/2006/01/crossrefs_0.1.xsd" />
+	
+	<!--                    	-->
+	<!-- ELEMENTS -->
+	<!--                   	-->
+	<xs:element name="rnastructAlignmentML" nillable="true">
+		<xs:annotation>
+			<xs:documentation>
+				This is the root element for rnastructAlignmentML. Represents a unsorted list of structure alignments.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence> 
+				<xs:element name="rnastructurealignment" type="rsa:rnastructurealignmentWithProgramType" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" fixed="0.1"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<!--             	-->
+	<!-- TYPES 	-->
+	<!--             	-->
+	<xs:complexType name="rnastructurealignmentWithProgramType">
+		<xs:complexContent>
+			<xs:extension base="rsa:rnastructurealignmentType">
+				<xs:sequence>
+					<xs:element name="program" type="rsa:programType" minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="rnastructurealignmentType">
+		<xs:annotation>
+			<xs:documentation>represents a rna structure alignment</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="1">
+			<xs:element name="sequence" type="rsa:sequenceType" minOccurs="2" maxOccurs="unbounded" />
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="consensusstructure" type="rsa:structureType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="score" type="xs:int"/>
+		<xs:attribute name="id" type="xs:ID" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="sequenceType">
+		<xs:sequence maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="synonyms" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Synonyms for this element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:choice maxOccurs="1">
+				<xs:element name="alignedNucleicAcidSequence" type="rsa:alignedNucleotideSequence"/>
+				<xs:element name="alignedFreeSequence" type="rsa:alignedFreeSequence"/>
+				<xs:element name="emptySequence" fixed=""/>
+			</xs:choice>
+			<xs:element name="structure" type="rsa:structureType" minOccurs="1" maxOccurs="1"/>
+			<xs:element minOccurs="0" ref="cr:crossRefs" />
+			<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="seqID" type="xs:string" use="required"/>
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+
+	<!-- Types, currently not within BioTypes -->
+	<xs:simpleType name="alignedFreeSequence">
+		<xs:annotation>
+			<xs:documentation>inherit gappedFreeSequenceType from hobitTypes; does not allow gaps</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="replace"/>
+			<xs:pattern value="[A-Z\-]{0,}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="alignedNucleotideSequence">
+		<xs:annotation>
+			<xs:documentation>An aligned nucleic acid sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="bt:gappedAmbiguousNucleotideSequence">
+				<xs:attributeGroup ref="bt:alignedSequenceAttrs"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="programType" mixed="true">
+		<xs:attribute name="command" type="xs:string" use="optional" />
+		<xs:attribute name="version" type="xs:string" use="optional" />
+		<xs:attribute name="date" type="xs:date" use="optional" />
+		<xs:anyAttribute processContents="lax"/>
+	</xs:complexType>
+	
+	<xs:complexType name="structureType">
+		<xs:simpleContent>
+			<xs:extension base="bt:gappedRnaSecondaryStructureSequence">
+				<xs:attribute name="energy" type="xs:double" use="optional" />
+				<xs:attribute name="probability" type="rsa:probability" use="optional"/>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="probability">
+		<xs:restriction base="xs:double">
+			<xs:maxInclusive value="1.0" />
+			<xs:minInclusive value="0.0" />
+		</xs:restriction>
+	</xs:simpleType>	
+</xs:schema>
