@@ -37,31 +37,80 @@
         </dependency>
     </dependencies>
     
-   <build>
+    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.8</version>
                 <executions>
+                    <!-- hack to give xjc acccess to biotypes.jar instead of classpath -->
                     <execution>
-                    <phase>generate-sources</phase>
-                    <configuration>
-                        <target>                  
-                            <mkdir dir="target/generated-sources/jaxb/META-INF"/>
-                            <java fork="true" classpathref="maven.compile.classpath" classname="com.sun.tools.xjc.XJCFacade">
-                                <arg line="-extension"/>
-                                <arg line="-d target/generated-sources/jaxb"/>
-                                <arg line="src/main/xsd/sequenceML.xsd"/>
-                                <arg file="${maven.dependency.de.unibi.cebitec.bibiserv.biotypes.jar.path}"/>
-                                <arg line="-b src/main/xjb/mainbinding.xjb"/> 
-                                <arg line="-episode target/generated-sources/jaxb/META-INF/sun-jaxb.episode"/>
-                            </java>
-                        </target>
-                    </configuration>
-                    <goals>
-                        <goal>run</goal>
-                    </goals>
+                        <id>1</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <echo>Check if dependency refers to a file(jar) or classpath</echo>
+                                <available property="isFile" type="file" file="${de.unibi.cebitec.bibiserv:biotypes:jar}"/>          
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
+                     <execution>
+                        <id>2</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target if="isFile">
+                                <echo>Copy jar</echo>
+                                <copy file="${de.unibi.cebitec.bibiserv:biotypes:jar}" tofile="target/biotypes.jar" />          
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>3</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target unless="isFile">
+                                <echo>Generate jar</echo>
+                                <jar basedir="${de.unibi.cebitec.bibiserv:biotypes:jar}" destfile="target/biotypes.jar"/>       
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    
+                    
+                    <execution>
+                        <id>4</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target> 
+                                <echo>Generate Java from XML (xjc)</echo>
+                                <mkdir dir="target/generated-sources/jaxb/META-INF"/>
+                                <echo>${maven.dependency.de.unibi.cebitec.bibiserv.biotypes.jar.path}</echo>
+                                <echo>${de.unibi.cebitec.bibiserv:biotypes:jar}</echo>
+                                <java fork="true" classpathref="maven.compile.classpath" classname="com.sun.tools.xjc.XJCFacade">
+                                    <arg line="-extension"/>
+                                    <arg line="-d target/generated-sources/jaxb"/>
+                                    <arg line="src/main/xsd/sequenceML.xsd"/>
+                                    <arg file="target/biotypes.jar"/>
+                                    <arg line="-b src/main/xjb/mainbinding.xjb"/> 
+                                    <arg line="-episode target/generated-sources/jaxb/META-INF/sun-jaxb.episode"/>
+                                </java>
+                            </target>                        
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution> 
                 </executions>
             </plugin>
             
