@@ -4,6 +4,7 @@
  */
 package de.unibi.cebitec.bibiserv.web.rest;
 
+
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 import de.unibi.cebitec.bibiserv.server.manager.Core;
 import javax.ws.rs.core.Application;
@@ -20,7 +21,7 @@ public class BiBiServRESTServlet extends ServletContainer{
     
     public BiBiServRESTServlet() {
         super();
-        //register current servlet instance at Core
+        //register current servlet instance at CoreI
         core.addRestServletContainer(this);
         
     }
