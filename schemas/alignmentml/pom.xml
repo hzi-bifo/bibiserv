@@ -49,6 +49,91 @@
                 <version>1.7</version>
                 <executions>
                     <execution>
+                        <id>1</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <echo>Check if dependency refers to a file(jar) or classpath</echo>
+                                <available property="isFile" type="file" file="${de.unibi.cebitec.bibiserv:biotypes:jar}"/>
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>1.1</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <echo>Check if dependency refers to a file(jar) or classpath</echo>
+                                <available property="isHobittypesFile" type="file" file="${de.unibi.cebitec.bibiserv:hobittypes:jar}"/>
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>2</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target if="isFile">
+                                <echo>Copy jar</echo>
+                                <copy file="${de.unibi.cebitec.bibiserv:biotypes:jar}" tofile="target/biotypes.jar" />
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>2.2</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target if="isHobittypesFile">
+                                <echo>Copy jar</echo>
+                                <copy file="${de.unibi.cebitec.bibiserv:hobittypes:jar}" tofile="target/hobittypes.jar" />
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>3</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target unless="isFile">
+                                <echo>Generate jar</echo>
+                                <jar basedir="${de.unibi.cebitec.bibiserv:biotypes:jar}" destfile="target/biotypes.jar"/>
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>3.3</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target unless="isHobittypesFile">
+                                <echo>Generate jar</echo>
+                                <jar basedir="${de.unibi.cebitec.bibiserv:hobittypes:jar}" destfile="target/hobittypes.jar"/>
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
                     <phase>generate-sources</phase>
                     <configuration>
                         <target>                  
@@ -57,9 +142,9 @@
                                 <arg line="-extension"/>
                                 <arg line="-d target/generated-sources/jaxb"/>
                                 <arg line="src/main/xsd/alignmentML.xsd"/>
-                                <arg file="${maven.dependency.de.unibi.cebitec.bibiserv.biotypes.jar.path}"/>
-                                <arg file="${maven.dependency.de.unibi.cebitec.bibiserv.hobittypes.jar.path}"/>
-                                <arg line="-b src/main/xjb/mainbinding.xjb"/> 
+                                <arg file="target/biotypes.jar"/>
+                                <arg file="target/hobittypes.jar"/>
+                                <arg line="-b src/main/xjb/mainbinding.xjb"/>
                                 <arg line="-episode target/generated-sources/jaxb/META-INF/sun-jaxb.episode"/>
                             </java>
                         </target>

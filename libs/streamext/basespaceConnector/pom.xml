@@ -14,18 +14,13 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-core -->
+        <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-bundle -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-core</artifactId>
-            <version>1.19.1</version>
+            <artifactId>jersey-bundle</artifactId>
+            <version>1.19.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>1.19.1</version>
-        </dependency>
+ 
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
