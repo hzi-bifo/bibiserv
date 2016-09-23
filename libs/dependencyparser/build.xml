@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="javacc_dependcy_parser" default="package" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    
+    
+    <!-- define some properties to -->
+    <property name="build.dir" value="build"/>
+    <property name="test.dir" value="build.test"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="javacc.home" value="/vol/java/share/javacc"/>
+    <property name="package" value="de.unibi.techfak.bibiserv.util.dependencyparser.javacc"/>
+    <property name="package.dir" value="de/unibi/techfak/bibiserv/util/dependencyparser/javacc"/>
+    <property name="src.dir" value="src"/>
+    <property name="gen.src.dir" value="gen.src"/>
+    <property name="test.src.dir" value="test"/>
+    <property name="lib.dir" value="lib"/>
+    
+  
+    
+    
+     <!-- getting access to environment vars -->
+    <property environment="env"/>
+    
+    <!-- ################################
+         # check some conditions before #
+         ################################ -->
+    <fail message="The environment variable JAVACC_HOME is not set. Make sure that the JAVACC_HOME environment variable points to a JAVACC suite. Abbort ... " unless="env.JAVACC_HOME"/>
+
+    <!-- include ant-contrib tasks -->
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    
+    
+
+    <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+    
+    <!-- load ivy-settings -->
+    <!-- set ivy.settings.file property -->
+    <if>
+        <http url="http://bibiserv.techfak.uni-bielefeld.de/ivy-rep/ivysettings.xml" errorsbeginat="300"/>
+        <then>
+            <echo>Loading Ivy Settings from BiBiServ ... </echo>
+            <ivy:settings url="http://bibiserv.techfak.uni-bielefeld.de/ivy-rep/ivysettings.xml"/>
+        </then>
+        <else>
+            <echo>BiBiserv not available, load Ivy settings from ${user.home}/ivy-rep/ivy-settings.xml or if this file does not exist load default settings file</echo>
+            <ivy:settings file="${user.home}/ivy-rep/ivysettings.xml"/>
+        </else>
+    </if>
+    
+    <!-- use ivy to resolve  library dependencies -->
+    <target name="resolve" description="retrieve dependencies with ivy">
+        <ivy:retrieve/>
+    </target>
+    
+    <!-- publish current project in private ivy-repository -->
+    <target name="publish" depends="package,resolve,_mercurial" description="publish package as modul on local ivy repository">
+        <ivy:publish resolver="private" validate="false" overwrite="true" artifactspattern="dist/[artifact].[ext]" pubrevision="${HG.TAG}_${HG.REVISION}"/>
+    </target>
+    
+    
+    <!-- install package from local ivy-repository on the server -->
+    <target name="install" depends="package,_mercurial" description="install published package on bibiserv repository : ssh.user, ssh.key and ssh.passphrase(optional) must set as property!">
+   
+        <!-- create local ivy-rep as install base -->
+        <mkdir dir="ivy-rep"/>
+        <ivy:publish resolver="local" validate="false" overwrite="true" artifactspattern="dist/[artifact].[ext]" pubrevision="${HG.TAG}_${HG.REVISION}"/>
+        
+        <!-- load ssh specify setting from bibiserv -->
+        <property url="http://bibiserv.techfak.uni-bielefeld.de/ivy-rep/ivy_ssh.properties"/>
+        
+        <!-- check if ${ssh.key} and ${ssh.user} is set -->
+        <fail unless="ssh.user" message="The Target &lt;install&gt; uses ssh key based authentication. Give the ssh user for ${ssh.host} as property 'ssh.user' as argument to the ant call!"/>
+        <fail unless="ssh.key" message="The Target &lt;install&gt; uses ssh key based authentication. Give the location of your private key as property 'ssh.key' and optional a passphrase as property 'ssh.passphrase' as argument to the ant call!"/>    
+        
+        
+        <!-- copy local ivy-rep to bibiserv using porta.techfak.uni-bielefeld.de -->
+        <scp todir="${ssh.user}@${ssh.host}:${ssh.basedir}/ivy-rep" passphrase="${ssh.passphrase}" keyfile="${ssh.key}">
+            <fileset dir="ivy-rep"/>
+        </scp>
+        
+        <!-- change file AND directory permission on remote sevrver -->
+        <sshexec host="${ssh.host}" username="${ssh.user}" keyfile="${ssh.key}" passphrase="${ssh.passphrase}" command="find -L ${ssh.basedir}/ivy-rep -type d -user ${ssh.user} | xargs chmod g+ws; find -L ${ssh.basedir}/ivy-rep -type f -user ${ssh.user} | xargs chmod g+w "/>    
+    </target>
+    
+    <!-- target, for internal use only -->
+    <target  name="_mercurial" description="get the latest tag name and revision number">
+
+        
+        <exec executable="bash" outputproperty="HG.TAG">
+            <arg line = "-c "/>
+            <arg value = "hg log |  grep tag: | head -n 2 | grep -v tip |  cut -f 2 -d ':' | sed -e 's/^ *//' "/>
+        </exec>
+        <exec executable="bash" outputproperty="HG.REVISION">
+            <arg line = "-c "/>
+            <arg value = "LANG=en_US hg tip |  grep changeset: | cut -f 2 -d ':' | sed -e 's/^ *//' "/>
+        </exec>
+        
+    </target>
+    
+    <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+    
+    
+    <target name="clean" description="clean ">
+        <delete dir="${gen.src.dir}"/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${test.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+   <target name="clean_dist" depends="clean" description="clean everything">
+	    <delete dir="${dist.dir}"/>
+        <delete dir="ivy-rep"/>
+   </target>
+
+    <target name="mkdir">
+        <mkdir dir="${gen.src.dir}/${package.dir}"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${test.dir}"/>
+	    <mkdir dir="${dist.dir}"/>
+    </target>
+
+  
+
+    <target name="javacc" depends="mkdir" description="generate parser (and interpreter) using javacc"> 
+    
+        <javacc target="DependencyParser.jj" outputdirectory="${gen.src.dir}/${package.dir}" javacchome="${env.JAVACC_HOME}"/>
+        <!-- Since JavaCC does not support packages (generate Java files in specify package) or I don't
+             understand how to do that, the following replaceregexp task add one(!) import line in front of
+             each generated Java File -->
+       <replaceregexp>
+           <regexp pattern="^(package ${package};${line.separator})?(.)"/>
+           <substitution expression="package ${package};${line.separator}\2"/>
+           <fileset dir="${gen.src.dir}/${package.dir}">
+               <include name="**/*.java"/>
+           </fileset>
+       </replaceregexp>
+    </target>
+
+    <target name="compile" depends="javacc,resolve">
+        <javac destdir="build" debug="true" debuglevel="lines,vars,source">
+            <src path="${gen.src.dir}"/>
+            <src path="${src.dir}"/>
+            <classpath>
+                <fileset dir="${lib.dir}"/>
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="compile_test" depends="compile">
+        <javac classpath="${build.dir}" srcdir="${test.src.dir}" destdir="${test.dir}"/>
+    </target>
+    
+    <target name="test" depends="compile_test">
+        <junit haltonerror="true" haltonfailure="false">
+            <classpath>
+                <fileset dir="${test.dir}"/>
+                <fileset dir="${test.src.dir}"/>
+                <fileset dir="${build.dir}"/>
+                <fileset dir="${lib.dir}"/>
+            </classpath>
+        </junit>
+        
+    </target>
+    
+    <target name="package" depends="compile" description="generates a Jar package"> 
+        <!-- pack all classes -->
+        <jar destfile="${dist.dir}/DependencyParser.jar" basedir="${build.dir}" includes="**/*.class"/>
+        
+         
+    </target>
+    
+   
+  
+    
+</project>
