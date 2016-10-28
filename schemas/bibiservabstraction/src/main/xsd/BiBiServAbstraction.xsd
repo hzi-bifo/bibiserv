@@ -481,10 +481,11 @@
             to be sufficient to call the executable resource. </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="executableType" type="TexecutableTypes" minOccurs="0">
+            <xs:element name="executableType" type="xs:string" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en"> Optional DEPRECATED tag: The 'executableType' element specified which
-                    kind of supported executable type was described here. </xs:documentation>
+                    <xs:documentation xml:lang="en"> Optional tag: The 'executableType' element specified which
+                    kind of supported executable type was described here. Could be used by implemting call class
+                    </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="path" type="xs:anyURI">
