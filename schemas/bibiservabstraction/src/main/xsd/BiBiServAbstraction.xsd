@@ -488,9 +488,16 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="path" type="xs:anyURI">
+            <xs:element name="image" type="xs:string" minOccurs="0">
+                 <xs:annotation>
+                    <xs:documentation xml:lang="en"> Optional tag: The 'image' element specifies [docker] image container used 
+                        for execution.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element> 
+            <xs:element name="path" type="xs:anyURI" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en"> The 'path' element contains the
+                    <xs:documentation xml:lang="en"> Optional tag: The 'path' element contains the
                         filesystem path of an executable file. This has to be given in order for the
                         server to be able to call the external executable program.
                     </xs:documentation>
