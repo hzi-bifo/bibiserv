@@ -29,7 +29,6 @@ import de.unibi.techfak.bibiserv.exception.DBConnectionException;
 import de.unibi.techfak.bibiserv.exception.IdNotFoundException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -39,7 +38,6 @@ import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.json.*;
 

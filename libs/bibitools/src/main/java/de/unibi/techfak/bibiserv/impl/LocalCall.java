@@ -29,7 +29,6 @@ import org.apache.log4j.Logger;
 
 import de.unibi.techfak.bibiserv.exception.DBConnectionException;
 import java.io.File;
-import java.io.FileInputStream;
 
 /**
  * Implements the Call interface executing a program directly on the local
