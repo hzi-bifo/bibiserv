@@ -4,10 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.unibi.cebitec.bibiserv</groupId>
-    <artifactId>bibiserv</artifactId>
+    <artifactId>managerclient</artifactId>
     <version>stable.release</version>
-    <packaging>pom</packaging>
-
+    <packaging>jar</packaging>
+    <name>ManagerClient</name>
+    
     <repositories>
         <repository>
             <id>snapshot-repository.java.net</id>
@@ -20,16 +21,28 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
-    <modules>
-        <module>bibimainapp</module>
-        <module>libs</module>
-        <module>tools</module>
-        <module>schemas</module>
-    </modules>
+    
+    <dependencies>
+    <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-server -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.19.2</version>
+            
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <name>BiBiServ</name>
+    
 </project>
