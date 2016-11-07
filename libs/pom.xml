@@ -16,6 +16,7 @@
         <module>validator</module>
         <module>viewer</module>
         <module>bibiservsearch</module>
+        <module>dependencyparser</module>
     </modules>
     <name>Libs</name>
 </project>
