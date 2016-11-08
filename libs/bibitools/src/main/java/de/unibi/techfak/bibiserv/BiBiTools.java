@@ -22,15 +22,9 @@
  */
 package de.unibi.techfak.bibiserv;
 
-import de.unibi.techfak.bibiserv.cms.TenumParam;
-import de.unibi.techfak.bibiserv.cms.TenumValue;
-import de.unibi.techfak.bibiserv.cms.Tfunction;
-import de.unibi.techfak.bibiserv.cms.TinputOutput;
-import de.unibi.techfak.bibiserv.cms.Tparam;
+import de.unibi.techfak.bibiserv.cms.*;
 import de.unibi.techfak.bibiserv.cms.Tparam.Max;
 import de.unibi.techfak.bibiserv.cms.Tparam.Min;
-import de.unibi.techfak.bibiserv.cms.TparamGroup;
-import de.unibi.techfak.bibiserv.cms.TrunnableItem;
 import de.unibi.techfak.bibiserv.debug.DDataSource;
 import de.unibi.techfak.bibiserv.exception.BiBiToolsException;
 import de.unibi.techfak.bibiserv.exception.DBConnectionException;
@@ -932,8 +926,8 @@ public class BiBiTools {
      *
      * @return
      */
-    public Element getToolDescription() {
-        return (Element) runnableitem;
+    public TrunnableItem getToolDescription() {
+        return runnableitem;
     }
 
     /**
@@ -2285,7 +2279,7 @@ public class BiBiTools {
         StringBuffer cmdline = new StringBuffer(getExecCmd());
 
         // test if cmdline describe a valid executable (only if 'UseDocker' is unset)
-        if (getProperty("UseDocker") == null || !getProperty("UseDocker").equalsIgnoreCase("true")) {
+        if (!getToolDescription().getExecutable().getExecInfo().getExecutableType().equalsIgnoreCase("docker")) {
 
             File test = new File(cmdline.toString());
             if (testexec && !(test.exists() && test.isFile() && test.canExecute())) {
@@ -2949,35 +2943,31 @@ public class BiBiTools {
      */
     private String getExecCmd() {
         StringBuffer cmdbuf = new StringBuffer();
-        if (getProperty("UseDocker") == null || !getProperty("UseDocker").equalsIgnoreCase("true")) {
-            if (getProperty("executable.rootpath") != null) {
-                cmdbuf.append(getProperty("executable.rootpath"));
-                if (!endWithFileSeparator(cmdbuf)) {
-                    cmdbuf.append(this.separator);
-                }
-                if (getProperty("executable.path.isrelativ").equalsIgnoreCase("true")) {
-                    cmdbuf.append(runnableitem.getExecutable().getExecInfo().getPath());
-                    if (!endWithFileSeparator(cmdbuf)) {
-                        cmdbuf.append(this.separator);
-                    }
-                }
-            } else {
+
+        Texecutable executable = getToolDescription().getExecutable();
+        boolean isDocker = getToolDescription().getExecutable().getExecInfo().getExecutableType().equalsIgnoreCase("docker");
+        if (getProperty("executable.rootpath") != null && !isDocker) {
+            cmdbuf.append(getProperty("executable.rootpath"));
+            if (!endWithFileSeparator(cmdbuf)) {
+                cmdbuf.append(this.separator);
+            }
+            if (getProperty("executable.path.isrelativ").equalsIgnoreCase("true")) {
                 cmdbuf.append(runnableitem.getExecutable().getExecInfo().getPath());
                 if (!endWithFileSeparator(cmdbuf)) {
                     cmdbuf.append(this.separator);
                 }
             }
         } else {
-            String orga = getProperty("DockerHubOrganization");
-            if (orga != null) {
-                cmdbuf.append("docker run ");
-                cmdbuf.append(" --rm=true");
-                cmdbuf.append(" -v ").append(getProperty("spooldir.base")).append(":").append(getProperty("spooldir.base"));
-                cmdbuf.append(" ").append(orga).append("/").append(runnableitem.getId());
-                cmdbuf.append(" /usr/local/bin/");
-            } else {
-                cmdbuf.append("# BiBiTool.properties doesn't contain a property named 'DockerHubOrganization'!");
+            cmdbuf.append("docker ");
+            cmdbuf.append("run ");
+            cmdbuf.append("--entrypoint='" + runnableitem.getExecutable().getExecInfo().getPath() + "' ");
+            try {
+                cmdbuf.append("-v ");
+                cmdbuf.append(getSpoolDir().toString() + ":" + getSpoolDir().toString() + ":rw ");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+            cmdbuf.append(executable.getExecInfo().getImage() + " ");
         }
         cmdbuf.append(runnableitem.getExecutable().getExecInfo().getCallingInformation());
         return cmdbuf.toString();

@@ -29,7 +29,6 @@ import de.unibi.techfak.bibiserv.exception.DBConnectionException;
 import de.unibi.techfak.bibiserv.exception.IdNotFoundException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -39,7 +38,6 @@ import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.json.*;
 
@@ -77,7 +75,16 @@ public class JobProxyCall extends CallImpl {
      */
     public JobProxyCall(BiBiTools wsstools) {
         this(wsstools, wsstools.getStatus());
-        // get servr JobProxyServer from 
+        setUri(wsstools);
+    }
+
+    @Override
+    public void setBiBiTools(BiBiTools bibitools) {
+        super.setBiBiTools(bibitools);
+        setUri(bibitools);
+    }
+
+    private void setUri(BiBiTools biBiTools){
         try {
             uri = new URI(wsstools.getProperty("JobProxyServer.URI", "http://localhost:9999/"));
         } catch (URISyntaxException e) {
@@ -88,7 +95,6 @@ public class JobProxyCall extends CallImpl {
                 // should not occure
             }
         }
-
     }
 
     public JobProxyCall(BiBiTools submitted_wsstools, Status submitted_status) {
