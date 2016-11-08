@@ -22,7 +22,8 @@
         </repository>
     </repositories>
     <modules>
-        <module>ManagerClient</module>
+        <module>DeployTools</module>
+	<module>ManagerClient</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

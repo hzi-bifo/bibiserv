@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module  version="2.0">
+    
+    <!-- The info tag is mandantory and set the modul name, the revision number (optional, but recommend and 
+         necessary if published on bibiserv repository) and the name of the providing organisation -->
+    <info organisation="de.unibi.techfak.bibiserv" module="bibiserv_deploytools" revision="1.0" />
+   
+    <!-- The publication tab can contain 0 or more artifacts  tags :
+         see http://ant.apache.org/ivy/history/2.1.0-rc1/ivyfile/publications.html 
+         for detailed description -->
+    <publications>
+        <artifact name="BiBiServ_DeployTools" ext="jar"/> 
+    </publications>
+    
+    <!-- The dependencies tag can contain 0 or more dependency tags :
+         see http://ant.apache.org/ivy/history/2.1.0-rc1/ivyfile/dependencies.html
+         for detailed description -->
+    <dependencies>
+        <dependency org="de.unibi.techfak.bibiserv" name="bibiservabstraction" rev="" revConstraint="latest.integration" />
+        <dependency org="de.unibi.techfak.bibiserv" name="bibitools" rev="" revConstraint="latest.integratio"/>
+	<dependency org="de.unibi.techfak.bibiserv" name="ontoaccess" rev="" revConstraint="latest.integration" />
+
+	<exclude org="org.jgraph" module="jgraph"/>
+	<exclude org="org.mindswap" module="pellet"/>
+	<exclude org="de.unibi.techfak.bibiserv" module="converter"/>
+	<exclude org="de.unibi.techfak.bibiserv" module="validator"/>
+	<exclude org="de.unibi.techfak.bibiserv" module="viewer"/>
+    </dependencies>
+
+</ivy-module>

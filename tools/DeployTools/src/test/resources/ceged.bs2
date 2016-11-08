@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runnableItem xmlns="bibiserv:de.unibi.techfak.bibiserv.cms"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:micro="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml"
+    xmlns:mini="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd"
+    id="ceged">
+    <name>CEGeD</name>
+    <shortDescription>Calculate Evolutionary Genome Distances</shortDescription>
+    <description>
+        <micro:p> CEGeD (Calculate Evolutionary Genome Distances) computes the Inversion distance,
+            the Translocation distance and the Double-Cut-and-Join distance of genomes. The genome
+            data can be read from files or typed in manually in the program. The comparisons are
+            shown as text and as graphic, and can be saved to files. CEGeD is an extension of the
+            DCJ tool. </micro:p>
+        <micro:p> The Double-Cut-and-Join operation was first introduced by Yancopoulos et al.
+                <micro:a href="?viewType=references#YAN:ATT:FRI:2005">[YAN:ATT:FRI:2005]</micro:a>.
+            A simpler treatment and a more concise model, presented in <micro:a
+                href="?viewType=references#BEG:MIX:STO:2006">[BEG:MIX:STO:2006]</micro:a>, is
+            implemented in our CEGeD tool. </micro:p>
+    </description>
+    <toolTipText>Calculate Evolutionary Genome Distances</toolTipText>
+    <keywords>Evolutionary Genome Distances</keywords>
+    <responsibleAuthor>
+        <firstname>Rafael</firstname>
+        <lastname>Friesen</lastname>
+        <organisation>Bielefeld university, CeBiTec, IFB, GI</organisation>
+        <email>rfriesen@cebitec.uni-bielefeld.de</email>
+    </responsibleAuthor>
+    <author>
+        <firstname>Julia</firstname>
+        <lastname>Mixtacki</lastname>
+        <email>unknown</email>
+    </author>
+    <author>
+        <firstname>Jens</firstname>
+        <lastname>Stoye</lastname>
+        <organisation>Bielefeld university, CeBiTeC, IFB, GI</organisation>
+        <email>stoye@techfak.uni-bielefeld.de</email>
+    </author>
+    <support>
+        <firstname>BiBiServ</firstname>
+        <lastname>administrators</lastname>
+        <organisation>Bielefeld university, CeBiTeC, IFB, BiBiServ</organisation>
+        <email>bibiadm@cebitec.uni-bielefeld.de</email>
+    </support>
+    <references>
+        <!-- A. Bergeron, J. Mixtacki, J. Stoye. A unifying view of genome rearrangements (preview) Proceedings of WABI 2006, LNBI 4175, 163-173, 2006. -->
+        <reference>@article{BEG:MIX:STO:2006, author={A. Bergeron and J. Mixtacki and J. Stoye},
+            title={A unifying view of genome rearrangements.}, year=2006, journal={Proceedings of
+            WABI 2006}, doi={10.1007/11851561} } </reference>
+        <!-- S. Yancopoulos, O. Attie, and R. Friedberg. Efficient sorting of genomic permutations by translocation, inversion and block interchange. Bioinformatics, 21(16):3340-3346, 2005. -->
+        <reference>@article{YAN:ATT:FRI:2005, author={S. Yancopoulos and O. Attie and R. Friedberg},
+            title={Efficient sorting of genomic permutations by translocation, inversion and block
+            interchange}, year=2005, journal={Bioinformatics}, doi={10.1093/bioinformatics/bti535} 
+        </reference>
+    </references>
+    <customContent/>
+
+
+
+
+    <webstart id="ceged_webstart">
+        <title>Webstart</title>
+        <introductoryText> CEGeD uses Java WebStart facilities to allow full-featured applications
+            to be launched with just a single-click of a mouse. At least Java 1.5 or newer is needed
+            to run CEGeD. </introductoryText>
+        <customContent>
+            <micro:ul>
+                <micro:li>CEGeD online version is based on <micro:a href="http://java.sun.com/products/javawebstart/index.jsp">Java
+                        WebStart</micro:a> version 1.0.1 or higher.</micro:li>
+                <micro:li>If you do not have a Java Runtime Environment version 1.5.0 or higher
+                    installed, or if you are working on Solaris/Linux and never previously used Java
+                    WebStart, please follow these <micro:a
+                        href="http://java.sun.com/products/javawebstart/download.jsp">installation
+                        instructions</micro:a>. </micro:li>
+                <micro:li>The file size of the CEGeD program is about 48 KBytes.</micro:li>
+            </micro:ul>
+        </customContent>
+        <jnlp xmlns="http://java.sun.com/dtd/jnlp-6.0.dtd">
+            <information>
+                <title>CEGeD</title>
+                <vendor>Rafael Friesen</vendor>
+                <description>CEGeD - Calculate Evolutionary Genome Distances</description>
+                <icon href="webstart/ceged_splash.png"/>
+            </information>
+            <security>
+                <all-permissions/>
+            </security>
+            <resources>
+                <j2se version="1.5.0+" java-vm-args="-client"/>
+                <jar href="webstart/CEGeD.jar"/>
+            </resources>
+            <application-desc main-class="de.unibi.techfak.gi.ceged.gui.CEGeD"/>
+        </jnlp>
+    </webstart>
+    <manual id="ceged_manual">
+        <introductoryText>
+            <mini:h4> Genome Representation</mini:h4>
+            <micro:ul>
+                <micro:li> Every file can contain several genomes.</micro:li>
+                <micro:li>Every genome starts with a name line: > followed by the genome
+                    name.</micro:li>
+                <micro:li>In the following line(s) come the genes separated by
+                    whitespaces.</micro:li>
+                <micro:li>Each chromosome is concluded by ) or |. A ) concludes a circular
+                    chromosome, a | concludes a linear chromosome.</micro:li>
+                <micro:li>The gene names can contain all signs except whitespaces. A minus (-)
+                    before a gene name means that the gene direction is backwards.</micro:li>
+                <micro:li>Every line that starts with // has no function and is a comment-line.
+                    Everything before the first genome is a comment, too.</micro:li>
+            </micro:ul> Example for a Genome: <mini:table>
+                <mini:tr>
+                    <mini:td>
+                        <micro:code>Genome1<micro:br/> a c -d |<micro:br/> b e )<micro:br/> f g |
+                        </micro:code>
+                    </mini:td>
+                    <mini:td>
+                        <micro:img alt="a c -d | b e ) f g |" src="images/exgenome.png"/>
+                    </mini:td>
+                </mini:tr>
+            </mini:table>
+            <micro:p> A simple example file can be found <micro:a href="example/example.txt"
+                    >here</micro:a>. A more complex example file that shows more possibilities
+                (comments and more) can be found<micro:a href="example/complex_example.txt"> here</micro:a>. </micro:p>
+            <mini:h4>DCJ Sorting</mini:h4> The program computes DCJ - distance and an optimal
+            sorting scenario. DCJ Sorting example: <mini:table>
+                <mini:tr>
+                    <mini:td>
+                        <micro:code>a c -d | b e ) f g |<micro:br/> a g | b e ) d -c -f |<micro:br/>
+                            a g ) b e ) d -c -f |<micro:br/> a b e g ) d -c -f |<micro:br/> d -b -a
+                            -g -e -c -f |<micro:br/> c f ) d -b -a -g -e |<micro:br/> a e g ) b -d |
+                            c f )</micro:code>
+                    </mini:td>
+                    <mini:td>
+                        <micro:img alt="Example for DCJ genome comparison" src="images/exDCJ.png"/>
+                    </mini:td>
+                    <mini:td> DCJ-operations in the example:<micro:br/> Translocation<micro:br/>
+                        Closure<micro:br/> Fusion of two circular chromosomes<micro:br/> Fusion of
+                        linear and circular chromosome<micro:br/> Fission with closure<micro:br/>
+                        Fission with closure </mini:td>
+                </mini:tr>
+            </mini:table> For more explanation how the DCJ operations are defined look at <micro:a
+                href="?viewType=references#BEG:MIX:STO:2006"/>. <mini:h4>Program Usage - Step By
+                Step</mini:h4>
+            <micro:ul>
+                <micro:li>To load genomes from file click on Load Genomes and choose one or more
+                    files that contains at least one genome.</micro:li>
+                <micro:li>If you want to compare example genomes click on Example
+                    Genomes.</micro:li>
+                <micro:li>If you want to open a genome editor to type in genomes manually click on
+                    Editor, then <micro:ul>
+                        <micro:li>Type in the genomes in the editor window</micro:li>
+                        <micro:li>Click on Add to add the typed genomes to the genome list of
+                            CEGeD</micro:li>
+                        <micro:li>To remove genomes from that list you can also use the editor
+                            window: choose a genome and click on Remove.</micro:li>
+                    </micro:ul>
+                </micro:li>
+                <micro:li>Choose the genomes to compare in the lists in the main window</micro:li>
+                <micro:li>By pressing the Button Run the genomes will be compared</micro:li>
+                <micro:li>The results are shown in the tabs. The top tab row is for choosing the
+                    comparison method. The second tab row is for switching between graphic result
+                    and text result.</micro:li>
+                <micro:li>After running a comparison you can save the results by first opening the
+                    Save Results window and then choosing which results should be saved by clicking
+                    on the corresponding Buttons. Graphic results will be saved as PNG
+                    graphics.</micro:li>
+                <micro:li> All values can be cleared with the Clear button.</micro:li>
+            </micro:ul>
+        </introductoryText>
+        <customContent/>
+
+    </manual>
+</runnableItem>

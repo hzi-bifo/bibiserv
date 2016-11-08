@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runnableItem xmlns="bibiserv:de.unibi.techfak.bibiserv.cms"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:micro="bibiserv:de.unibi.techfak.bibiserv.cms.microhtml"
+    xmlns:mini="bibiserv:de.unibi.techfak.bibiserv.cms.minihtml"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd" id="rnamovies">
+    <name>RNA Movies</name>
+    <shortDescription>RNA Movies is a system for the visualization of RNA secondary structure landscapes. 
+        Its input is a script consisting of structures from which animated graphical structure representations 
+        are generated. In this way, it creates the impression of an RNA-molecule moving through its own 2D 
+        structure space.</shortDescription>
+    <description>
+       <micro:p>
+        Sequential Animation of RNA secondary structure
+        including pseudoknots and entangled helices	</micro:p>
+        <micro:img src="images/rnamovies-logo.gif" name="rnamovies_logo" alt="rnamovies logo"/>
+        <micro:p>
+        RNAMovies is a system for the visualization of RNA secondary structure spaces, i.e. multiple sets of 
+        secondary structure data. The program creates an interpolated animation of the data using the well-known 
+        NAVIEW-routines. The highlighting of pseudo-knotted regions is also supported.
+        </micro:p>
+        <micro:p>
+        This page relates to the Java version of RNA Movies that replaces the former online-version as well 
+        as the standalone-versions.
+        </micro:p>
+        <micro:p>The new version features SVG-export for high quality graphics as well as several image formats
+            (JPEG,PNG and GIF). Single or multiple image export is supported. Additionally to its own formats RNAMovies supports DSCE and RNAStructML as input format
+        </micro:p>
+    </description>
+    <toolTipText>RNA Movies is a system for the visualization of RNA secondary structure landscapes.</toolTipText>
+    <keywords>RNA secondary structure visualisation</keywords>
+    <responsibleAuthor>
+        <firstname>Alexander</firstname>
+        <lastname>Kaiser</lastname>
+        <organisation>Bielefeld university, technical faculty</organisation>
+        <email>akaiser@techfak.uni-bielefeld.de</email>
+    </responsibleAuthor>
+    <author>
+        <firstname>Dirk</firstname>
+        <lastname>Evers</lastname>
+        <email>dirk.evers@cebitec.uni-bielefeld.de</email>
+    </author>
+    <author>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>Bielefeld university, CeBiTec, BiBiServ</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+    </author>
+    <support>
+        <firstname>BiBiServ</firstname>
+        <lastname>Administrators</lastname>
+        <organisation>Bielefeld university, CeBiTec, BiBiServ</organisation>
+        <email>bibi-help@cebitec.uni-bielefeld.de</email>
+    </support>
+    <references>
+        <reference>@article{KAI:KRUE:EVE:2007,
+            author={Kaiser, Alexander and Krueger, Jan and Evers, Dirk},
+            title={RNA Movies 2 : sequential animation of RNA secondary structures},
+            year=2007,
+            journal={Nucleic Acids Research},
+            doi={10.1093/nar/gkm309}
+            }
+        </reference>
+        <reference>@article{EVE:GIE:1999,
+            author={Evers, Dirk and Giegerich, Robert},
+            title={RNA movies: visualizing RNA secondary structure spaces},
+            year=1999,
+            journal={BioInformatics},
+            doi={10.1093/bioinformatics/15.1.32}
+            }
+        </reference>
+    </references>
+    
+   
+    <downloadable id="rnamovies_downloadable_src">
+        <name>RNAMovies</name>
+        <version>2.04</version>
+        <filename>rnamovies_src.tar.gz</filename>
+        <shortDescription>Java Source package</shortDescription>
+        <platform>Source/Java  </platform>
+    </downloadable>
+    
+    <downloadable id="rnamoviews_downloadable_bin">
+        <name>RNAMovies</name>
+        <filename>rnamovies.jar</filename>
+        <shortDescription>Java 5 Binary package</shortDescription>
+        <platform>Java 5</platform>
+    </downloadable>
+    <view type="download" id="rnamovies_download">
+        <title>Download</title>
+        <customContent>
+            <micro:p><micro:strong>Comment:</micro:strong> Most of downloaded tools are compressed with gzip and 
+                merged in a TAR - archive. They can be unpacked using gzip and tar on an unix like system or a 
+                tool like winzip on a windows system.
+            </micro:p>
+            <micro:p>
+            Example using gzip/tar: gzip -cd "TOOL".tar.gz | tar xvf -
+            </micro:p>
+            <micro:p>
+            The BiBiServ team does not provide any support for compiling or using a tool from the download section. 
+            Please contact the author directly in case of any problem.
+            </micro:p>
+        </customContent>
+    </view>
+    <webstart id="rnamovies_webstart">
+        <title>Webstart</title>
+        <introductoryText>
+            RNAMovies uses Java WebStart facilities to allow full-featured applications to be launched with just a single-click of a mouse. 
+            At least Java 1.5 or newer is needed to run RNAMovies.
+        </introductoryText>
+        <customContent>
+            <micro:ul>
+                <micro:li>RNAMovies online version is based on <micro:a href="http://java.sun.com/products/javawebstart/index.jsp">Java WebStart</micro:a> 
+                    version 1.0.1 or higher.</micro:li>
+                <micro:li>If you do not have a Java Runtime Environment version 1.5.0 or higher installed, or 
+                    if you are working on Solaris/Linux and never previously used Java WebStart, please follow 
+                    these <micro:a href="http://java.sun.com/products/javawebstart/download.jsp">installation instructions</micro:a>.</micro:li>
+                 <micro:li>The file size of the RNAMovies program is about 410 KBytes.</micro:li>
+            </micro:ul>
+        </customContent>
+        <jnlp xmlns="http://java.sun.com/dtd/jnlp-6.0.dtd" 
+            spec="1.0+"
+            codebase="#AUTO"
+            href="#AUTO">
+            <information>
+                <title>RNAMovies2</title>
+                <vendor>Alexander Kaiser</vendor>
+                <description>RNAMovies:Sequential Animation of RNA secondary structure
+                    including pseudoknots and entangled helices</description>
+                <icon kind="splash" href="webstart/rnamovies_splash.png"/>
+            </information>
+            <security>
+                <all-permissions/>
+            </security>
+            <resources>
+                <j2se version="1.5.0+" java-vm-args="-client"/>
+                <jar href="webstart/rnamovies.jar"/>
+            </resources>
+            <application-desc main-class="de.unibi.bibiserv.rnamovies.RNAMovies"/>
+        </jnlp>
+    </webstart>
+    <manual id="rnamovies_manual">
+        <introductoryText></introductoryText>
+        <customContent>
+            <micro:p>The original <micro:em>RNA Movies</micro:em>, which is
+                available for download, is available for Unix-like systems only.
+                The new Java version is available for the <micro:em>Microsoft Windows</micro:em> platform as well.
+                The online version of <micro:em>RNA Movies</micro:em> is
+                available as applet (embedded into a website that features a
+                submission form) and WebStart application.</micro:p>
+            
+            <mini:h4>Menu and Toolbar</mini:h4>
+            
+            <micro:p>Most functions are self explainatory. The tool bar at the
+                bottom of the applet provides the following functionality (from
+                left to right):</micro:p>
+            
+            <micro:ul>
+                <micro:li><micro:img src="images/eject.png" alt="open" /> Open movie</micro:li>
+                
+                <micro:li><micro:img src="images/play.png" alt="play" /> Play movie</micro:li>
+                
+                <micro:li><micro:img src="images/stop.png" alt="stop" /> Stop movie</micro:li>
+                
+                <micro:li><micro:img src="images/rev.png" alt="rev" /> Skip one frame
+                    back</micro:li>
+                
+                <micro:li><micro:img src="images/fwd.png" alt="fwd" /> Skip one frame</micro:li>
+            </micro:ul>
+            
+            <mini:h5>File:</mini:h5>
+               <mini:table>
+                   <mini:tr>
+                       <mini:td>Open ...</mini:td><mini:td>Open a movie in DSCE/RNM format</mini:td>
+                   </mini:tr>
+                   <mini:tr>
+                       <mini:td>Import ...</mini:td><mini:td>Import a movie in RNAStructML format</mini:td>
+                   </mini:tr>
+                   <mini:tr>
+                       <mini:td>Export ...</mini:td><mini:td>Export current movie as PNG/JPEG/SVG/(animated)GIF</mini:td>
+                   </mini:tr>
+                   <mini:tr>
+                       <mini:td>Configure...</mini:td><mini:td>Show the configuration panel</mini:td>
+                   </mini:tr>
+                   
+               </mini:table>
+                   
+                <mini:h5>Movie:</mini:h5>
+                <mini:table>
+                    <mini:tr>
+                        <mini:td>Play</mini:td><mini:td>Start the animation</mini:td>
+                    </mini:tr>
+                    <mini:tr>
+                        <mini:td>Stop</mini:td><mini:td>Stop/Pause the animation</mini:td>
+                    </mini:tr>
+                    <mini:tr>
+                        <mini:td>Previous</mini:td><mini:td>Step one frame back</mini:td>
+                    </mini:tr>
+                    <mini:tr>
+                        <mini:td>Next</mini:td><mini:td>Skip one frame</mini:td>
+                    </mini:tr>
+                    <mini:tr>
+                        <mini:td>Goto Frame ...</mini:td><mini:td>Goto a specific frame</mini:td>
+                    </mini:tr>     
+                </mini:table>     
+               <mini:h5>View:</mini:h5>
+                
+                <mini:table>
+
+                <mini:tr>
+                    <mini:td>Zoom In</mini:td>
+                    <mini:td>Zoom in by 25%</mini:td>
+                </mini:tr>
+                <mini:tr>
+                    <mini:td>Zoom Out</mini:td>
+                    <mini:td>Zoom out by 25%</mini:td>
+                </mini:tr>
+                <mini:tr>
+                    <mini:td>Reset view</mini:td>
+                    <mini:td>Reset zoom, rotation and moving</mini:td>
+                </mini:tr>
+            </mini:table>
+            
+            
+                <mini:h5>Help:</mini:h5>            
+                <mini:table>
+                    <mini:tr>
+                        <mini:td>About...</mini:td>                    
+                        <mini:td>Show references/credits</mini:td>
+                    </mini:tr>
+                </mini:table>
+       
+                <mini:h5>Mouse actions:</mini:h5>          
+                    <mini:table>
+                        <mini:tr>   
+                        <mini:td>Left button</mini:td>
+                        <mini:td>Move</mini:td>
+                        </mini:tr>
+                        <mini:tr>   
+                        <mini:td>Right button</mini:td>
+                        <mini:td>Rotate</mini:td>
+                        </mini:tr>
+                        <mini:tr>   
+                        <mini:td>Mouse wheel</mini:td>
+                        <mini:td>Zoom</mini:td>
+                        </mini:tr>
+                        
+                        
+                    </mini:table>
+                
+            
+            
+            <mini:h4>Security</mini:h4>
+            
+            <micro:p>As mentioned before the 'online' <micro:em>RNA
+                Movies</micro:em> client is written in Java language and runs as an
+                applet in your browser's restricted enviroment called
+                <micro:em>sandbox</micro:em>. The access control policies
+                of such an enviroment are typically restricted in many ways. In
+                general applets cannot write files. Therefore we have digitally
+                signed the applet to enable users to use its import and export
+                functionality. This means that a warning dialog asks the user to
+                accept the applet's signature. For now we use a selfmade security
+                certificate which is <micro:strong>not</micro:strong> trusted.</micro:p>
+            
+            <mini:h4>Input data format</mini:h4>
+            
+            <micro:p>Since release 1.2 <micro:em>RNA Movies</micro:em>
+                supports two input formats. The RNAfold / Vienna format and DCSE
+                format. Both formats have been extended to include pseudoknots,
+                entangled helices, and structure description. The RNM format is
+                simpler and more intuitive while the DCSE format has more
+                possibilities. The current version (2.x) supports additionally to
+                its own format the DCSE format and <micro:a href=
+                    "http://bioschemas.sourceforge.net/index.php/RNAStructML">RNAStructML</micro:a>
+                as input format.</micro:p>
+            
+            
+            <mini:h4>Some Examples</mini:h4>
+            <micro:ul>
+                <micro:li>
+                    <micro:a href="examples/BeetSoil-BorneVirus.rnm">BeetSoil-BorneVirus</micro:a>
+                </micro:li>
+                <micro:li>
+                    <micro:a href="examples/leptomonas.rnm">LeptomonasCollosoma5'-Ende</micro:a>        
+                </micro:li>
+                <micro:li>
+                    <micro:a href="examples/HIV1-leader.3.md.rnm">HIV1-leader.3</micro:a>                  
+                </micro:li>
+                <micro:li>
+                    <micro:a href="examples/odontoglossum.rnm">Odontoglossum</micro:a>
+                </micro:li>
+            </micro:ul>
+        </customContent>
+    </manual>
+</runnableItem>
