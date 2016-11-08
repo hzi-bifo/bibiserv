@@ -75,7 +75,16 @@ public class JobProxyCall extends CallImpl {
      */
     public JobProxyCall(BiBiTools wsstools) {
         this(wsstools, wsstools.getStatus());
-        // get servr JobProxyServer from 
+        setUri(wsstools);
+    }
+
+    @Override
+    public void setBiBiTools(BiBiTools bibitools) {
+        super.setBiBiTools(bibitools);
+        setUri(bibitools);
+    }
+
+    private void setUri(BiBiTools biBiTools){
         try {
             uri = new URI(wsstools.getProperty("JobProxyServer.URI", "http://localhost:9999/"));
         } catch (URISyntaxException e) {
@@ -86,7 +95,6 @@ public class JobProxyCall extends CallImpl {
                 // should not occure
             }
         }
-
     }
 
     public JobProxyCall(BiBiTools submitted_wsstools, Status submitted_status) {
