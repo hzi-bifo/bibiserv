@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runnableItem xmlns="bibiserv:de.unibi.techfak.bibiserv.cms"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd" id="example_1">
+    <name>Example 1</name>
+    <shortDescription>Example 1 describing some parameters and its dependencies between them</shortDescription>
+    <description>This is one of the example description describing some parameters and its dependencies between them</description>
+    <toolTipText></toolTipText>
+    <keywords></keywords>
+    <responsibleAuthor>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>CeBiTeC</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+        <phone>+49 521 106 2494</phone>       
+    </responsibleAuthor>
+    <support>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>CeBiTeC</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+        <phone>+49 521 106 2494</phone>
+    </support>
+    <customContent></customContent>
+    <executable>
+        <version></version>
+        <execInfo>
+            <executableType>binary</executableType>
+            <path>/bin/echo</path>
+            <callingInformation></callingInformation>
+        </execInfo>
+        <output id="output">
+            <name>Output</name>
+            <shortDescription></shortDescription>
+            <description></description>
+            <type>String</type>
+            <handling>STDOUT</handling>
+            <example></example>
+        </output>
+        <param id="A">
+            <name>A</name>
+            <shortDescription>A :: int</shortDescription>
+            <description>parameter A :: int</description>
+            <type>int</type>          
+            <guiElement></guiElement>
+        </param>
+        <param id="B">
+            <name>B</name>
+            <shortDescription>B :: float</shortDescription>
+            <description>parameter B :: float</description>
+            <type>float</type>          
+            <guiElement></guiElement>
+        </param>
+ 
+             
+        <dependency id="dep_1">
+            <name>DepFun1</name>
+            <shortDescription>dependency for function 1</shortDescription>
+            <description>Dependency description for function 1.</description>
+            <dependencyDefinition>and(def(@A),and(def(@B),def(@C)))</dependencyDefinition>
+        </dependency>
+      
+        
+        
+        
+        <function id="fct_1">
+            <name>function1</name>
+            <shortDescription>function 1 with dependency 1 (A and B and C) </shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_1_pg">
+               <paramref ref="A"/>
+                <paramref ref="B"/>
+            
+            </paramGroup>
+            <depref ref="dep_1"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+               
+            </paramAndInputOutputOrder>
+        </function>
+    
+
+
+        
+    </executable>
+    <view type="webservice" id="sample_ws"/>
+    <view type="submission" id="sample_submission"/>
+    <manual id="sample_manual">
+        <introductoryText></introductoryText>
+    </manual>
+</runnableItem>

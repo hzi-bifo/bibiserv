@@ -139,15 +139,15 @@
                 </xs:annotation>
                 <xs:simpleType>                 
                     <xs:restriction base="xs:string">
-                        <xs:enumeration value="lexographic">
+                        <xs:enumeration value="lexicographical">
                             <xs:annotation>
-                                <xs:documentation>Order all elements lexographical, wether they are 
+                                <xs:documentation>Order all elements lexicographical, wether they are 
                                     category or itemRef elements</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
-                        <xs:enumeration value="lexographic_separate">
+                        <xs:enumeration value="lexicographical_separate">
                             <xs:annotation>
-                                <xs:documentation>Order all elements lexographical, first all categories second all itemRefs</xs:documentation>
+                                <xs:documentation>Order all elements lexicographical, first all categories second all itemRefs</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="natural">
@@ -481,15 +481,23 @@
             to be sufficient to call the executable resource. </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="executableType" type="TexecutableTypes" minOccurs="0">
+            <xs:element name="executableType" type="xs:string" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en"> Optional DEPRECATED tag: The 'executableType' element specified which
-                    kind of supported executable type was described here. </xs:documentation>
+                    <xs:documentation xml:lang="en"> Optional tag: The 'executableType' element specified which
+                    kind of supported executable type was described here. Could be used by implemting call class
+                    </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="path" type="xs:anyURI">
+            <xs:element name="image" type="xs:string" minOccurs="0">
+                 <xs:annotation>
+                    <xs:documentation xml:lang="en"> Optional tag: The 'image' element specifies [docker] image container used 
+                        for execution.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element> 
+            <xs:element name="path" type="xs:anyURI" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation xml:lang="en"> The 'path' element contains the
+                    <xs:documentation xml:lang="en"> Optional tag: The 'path' element contains the
                         filesystem path of an executable file. This has to be given in order for the
                         server to be able to call the external executable program.
                     </xs:documentation>

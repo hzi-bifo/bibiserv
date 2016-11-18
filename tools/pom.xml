@@ -4,9 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.unibi.cebitec.bibiserv</groupId>
-    <artifactId>bibiserv</artifactId>
+    <artifactId>tools</artifactId>
     <version>stable.release</version>
     <packaging>pom</packaging>
+    <name>Tools</name>
 
     <repositories>
         <repository>
@@ -21,15 +22,13 @@
         </repository>
     </repositories>
     <modules>
-        <module>bibimainapp</module>
-        <module>libs</module>
-        <module>tools</module>
-        <module>schemas</module>
+        <module>DeployTools</module>
+	<module>ManagerClient</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <name>BiBiServ</name>
+    
 </project>

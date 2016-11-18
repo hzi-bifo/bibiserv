@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runnableItem xmlns="bibiserv:de.unibi.techfak.bibiserv.cms"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="bibiserv:de.unibi.techfak.bibiserv.cms http://bibiserv.techfak.uni-bielefeld.de/xsd/bibiserv2/BiBiServAbstraction.xsd" id="example_1">
+    <name>Example 1</name>
+    <shortDescription>Example 1 describing some parameters and its dependencies between them</shortDescription>
+    <description>This is one of the example description describing some parameters and its dependencies between them</description>
+    <toolTipText></toolTipText>
+    <keywords></keywords>
+    <responsibleAuthor>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>CeBiTeC</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+        <phone>+49 521 106 2494</phone>       
+    </responsibleAuthor>
+    <support>
+        <firstname>Jan</firstname>
+        <lastname>Krueger</lastname>
+        <organisation>CeBiTeC</organisation>
+        <email>jkrueger@cebitec.uni-bielefeld.de</email>
+        <phone>+49 521 106 2494</phone>
+    </support>
+    <customContent></customContent>
+    <executable>
+        <version></version>
+        <execInfo>
+            <executableType>binary</executableType>
+            <path>/bin/echo</path>
+            <callingInformation></callingInformation>
+        </execInfo>
+        <output id="output">
+            <name>Output</name>
+            <shortDescription></shortDescription>
+            <description></description>
+            <type>String</type>
+            <handling>STDOUT</handling>
+            <example></example>
+        </output>
+        <param id="A">
+            <name>A</name>
+            <shortDescription>A :: int</shortDescription>
+            <description>parameter A :: int</description>
+            <type>int</type>          
+            <guiElement></guiElement>
+        </param>
+        <param id="B">
+            <name>B</name>
+            <shortDescription>B :: float</shortDescription>
+            <description>parameter B :: float</description>
+            <type>float</type>          
+            <guiElement></guiElement>
+        </param>
+        <param id="C">
+            <name>C</name>
+            <shortDescription>C :: boolean</shortDescription>
+            <description>parameter C :: boolean</description>
+            <type>boolean</type>          
+            <guiElement></guiElement>
+        </param>
+        <param id="D">
+            <name>D</name>
+            <shortDescription>D :: string</shortDescription>
+            <description>parameter D :: string</description>
+            <type>string</type>          
+            <guiElement></guiElement>
+        </param>
+        <param id="E">
+            <name>E</name>
+            <shortDescription>E :: int</shortDescription>
+            <description>parameter e :: int</description>
+            <type>int</type>          
+            <guiElement></guiElement>
+        </param>
+             
+        <dependency id="dep_1">
+            <name>DepFun1</name>
+            <shortDescription>dependency for function 1</shortDescription>
+            <description>Dependency description for function 1.</description>
+            <dependencyDefinition>and(def(@A),and(def(@B),def(@C)))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_2">
+            <name>DepFun2</name>
+            <shortDescription>dependency for function 2</shortDescription>
+            <description>Dependency description for function 2.</description>
+            <dependencyDefinition>or(def(@A),or(def(@B),def(@C)))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_3">
+            <name>DepFun3</name>
+            <shortDescription>dependency for function 3</shortDescription>
+            <description>Dependency description for function 3.</description>
+            <dependencyDefinition>or(and(def(@A),def(@B)),def(@C))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_4">
+            <name>DepFun4</name>
+            <shortDescription>dependency for function 4</shortDescription>
+            <description>Dependency description for function 4.</description>
+            <dependencyDefinition>or(and(def(@A),def(@B)),or(def(@E),and(def(@C),def(@D))))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_5">
+            <name>DepFun5</name>
+            <shortDescription>dependency for function 5</shortDescription>
+            <description>Dependency description for function 5.</description>
+            <dependencyDefinition>and(def(@A),not(def(@B)))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_6">
+            <name>DepFun6</name>
+            <shortDescription>dependency for function 6</shortDescription>
+            <description>Dependency description for function 6.</description>
+            <dependencyDefinition>impl(def(@A),def(@B))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_7">
+            <name>DepFun7</name>
+            <shortDescription>dependency for function 7</shortDescription>
+            <description>Dependency description for function 7.</description>
+            <dependencyDefinition>impl(ge(@A,10),def(@B))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_8">
+            <name>DepFun8</name>
+            <shortDescription>dependency for function 8</shortDescription>
+            <description>Dependency description for function 8.</description>
+            <dependencyDefinition>logeq(def(@A),def(@B))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_9">
+            <name>DepFun9</name>
+            <shortDescription>dependency for function 9</shortDescription>
+            <description>Dependency description for function 9.</description>
+            <dependencyDefinition>and(gt(@A,10),gt(@B,10.0))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_10">
+            <name>DepFun10</name>
+            <shortDescription>dependency for function 10</shortDescription>
+            <description>Dependency description for function 10.</description>
+            <dependencyDefinition>and(eq(@A,10),eq(@B,10.0))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_11">
+            <name>DepFun11</name>
+            <shortDescription>dependency for function 11</shortDescription>
+            <description>Dependency description for function 11.</description>
+            <dependencyDefinition>and(lt(@A,10),lt(@B,10.0))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_12">
+            <name>DepFun12</name>
+            <shortDescription>dependency for function 9</shortDescription>
+            <description>Dependency description for function 9.</description>
+            <dependencyDefinition>and(ge(@A,10),ge(@B,10.0))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_13">
+            <name>DepFun13</name>
+            <shortDescription>dependency for function 10</shortDescription>
+            <description>Dependency description for function 10.</description>
+            <dependencyDefinition>and(ne(@A,10),ne(@B,10.0))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_14">
+            <name>DepFun14</name>
+            <shortDescription>dependency for function 11</shortDescription>
+            <description>Dependency description for function 11.</description>
+            <dependencyDefinition>and(le(@A,10),le(@B,10.0))</dependencyDefinition>
+        </dependency>
+        <dependency id="dep_15">
+            <name>DepFun15</name>
+            <shortDescription>dependency for function 15</shortDescription>
+            <description>Dependency description for function 15.</description>
+            <dependencyDefinition>gt(@A,@B)</dependencyDefinition>
+        </dependency>
+         <dependency id="dep_16">
+            <name>DepFun16</name>
+            <shortDescription>dependency for function 16</shortDescription>
+            <description>Dependency description for function 16.</description>
+            <dependencyDefinition>and(def(@A),not(gt(@B,10)))</dependencyDefinition>
+        </dependency>
+        
+        <dependency id="dep_17a">
+            <name>DepFun17a</name>
+            <shortDescription>1st dependency for function 17</shortDescription>
+            <description>1st Dependency description for function 17.</description>
+            <dependencyDefinition>and(def(@A),def(@B))</dependencyDefinition>
+        </dependency>
+        
+        <dependency id="dep_17b">
+            <name>DepFun17b</name>
+            <shortDescription>2nd dependency for function 17</shortDescription>
+            <description>2nd Dependency description for function 17.</description>
+            <dependencyDefinition>and(def(@C),def(@D))</dependencyDefinition>
+        </dependency>
+        
+        
+        <dependency id="dep_18a">
+            <name>CwithA</name>
+            <shortDescription>wenn C dann muss A definiert sein</shortDescription>
+            <description>wenn C dann muss A definiert sein</description>
+            <dependencyDefinition>or(not(def(@C)),and(def(@C),def(@A)))</dependencyDefinition>
+        </dependency>
+        
+        <dependency id="dep_18b">
+            <name>DNOTA</name>
+            <shortDescription>wenn D dann darf A nicht definiert sein</shortDescription>
+            <description>wenn D dann darf A nicht definiert sein</description>
+            <dependencyDefinition>or(not(def(@D)),and(def(@D),not(def(@A))))</dependencyDefinition>
+        </dependency>
+        
+        <dependency id="dep_18c">
+            <name>AwithB_BwithA_AleB</name>
+            <shortDescription>wenn A dann muss B definiert sein (und umgekehrt) und A muss kleiner gleich B sein  </shortDescription>
+            <description>wenn A dann muss B definiert sein (und umgekehrt) und A muss kleiner gleich B sein</description>
+            <dependencyDefinition>or(not(or(def(@A),def(@B))),le(@A,@B))</dependencyDefinition>
+        </dependency>
+        
+        
+        <dependency id="dep_19">
+            <name>boolean test</name>
+            <shortDescription>wenn C wahr ist muss A definiert sein</shortDescription>
+            <description>wenn C wahr ist muss A definiert sein</description>
+            <dependencyDefinition>or(eq(@C,'false'),and(eq(@C,'true'),def(@A)))</dependencyDefinition>
+        </dependency>
+        
+        
+        <function id="fct_1">
+            <name>function1</name>
+            <shortDescription>function 1 with dependency 1 (A and B and C) </shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_1_pg">
+               <paramref ref="A"/>
+                <paramref ref="B"/>
+                <paramref ref="C"/>
+            </paramGroup>
+            <depref ref="dep_1"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+                <reference>C</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_2">
+            <name>function2</name>
+            <shortDescription>function 2 with dependency 2 (A or B or C)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_2_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>
+                <paramref ref="C"/>
+            </paramGroup>
+            <depref ref="dep_2"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+                <reference>C</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_3">
+            <name>function3</name>
+            <shortDescription>function 3 with dependency 3 ((A and B) or C)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_3_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>
+                <paramref ref="C"/>
+            </paramGroup>
+            <depref ref="dep_3"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+                <reference>C</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_4">
+            <name>function3</name>
+            <shortDescription>function 4 with dependency 4 ((A and B) or (C and D) or E)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_4_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>
+                <paramref ref="C"/>
+                <paramref ref="D"/>
+                <paramref ref="E"/>
+            </paramGroup>
+            <depref ref="dep_4"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+                <reference>C</reference>
+                <reference>D</reference>
+                <reference>E</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_5">
+            <name>function5</name>
+            <shortDescription>function 5 with dependency 5 (A and (not B))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_5_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_5"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_6">
+            <name>function6</name>
+            <shortDescription>function 6 with dependency 6 (A -> B)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_6_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_6"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_7">
+            <name>function7</name>
+            <shortDescription>function 7 with dependency 7 ((A==10) -&gt; B)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_7_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_7"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_8">
+            <name>function8</name>
+            <shortDescription>function 8 with dependency 8 (A &lt;-&gt; B)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_8_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_8"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_9">
+            <name>function9</name>
+            <shortDescription>function 9 with dependency 9 ((@A &gt; 10) and (@B &gt; 10.0))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_9_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_9"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_10">
+            <name>function10</name>
+            <shortDescription>function 10 with dependency 10 ((@A == 10) and (@B == 10.0))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_10_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_10"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_11">
+            <name>function11</name>
+            <shortDescription>function 11 with dependency 11 ((@A &lt; 10) and (@B &lt; 10.0))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_11_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_11"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_12">
+            <name>function12</name>
+            <shortDescription>function 12 with dependency 12 ((@A =&gt; 10) and (@B =&gt; 10.0))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_12_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_12"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_13">
+            <name>function13</name>
+            <shortDescription>function 13 with dependency 13 ((@A != 10) and (@B != 10.0))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_13_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_13"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_14">
+            <name>function14</name>
+            <shortDescription>function 14 with dependency 14 ((@A &lt;= 10) and (@B &lt;= 10.0))</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_14_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_14"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        <function id="fct_15">
+            <name>function15</name>
+            <shortDescription>function 15 with dependency 15 (@A &gt;@B)</shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_15_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_15"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        <function id="fct_16">
+            <name>function16</name>
+            <shortDescription>function 16 with dependency 16 (A and ( not (@A &gt; 10))) </shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_16_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>        
+            </paramGroup>
+            <depref ref="dep_16"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+            </paramAndInputOutputOrder>
+        </function>
+
+        <function id="fct_17">
+            <name>function17</name>
+            <shortDescription>function 17 with dependency 17a and 17b </shortDescription>
+            <description></description>       
+            <outputref ref="output"/>      
+            <paramGroup id="fct_17_pg">
+                <paramref ref="A"/>
+                <paramref ref="B"/>
+                <paramref ref="C"/>
+                <paramref ref="D"/>        
+            </paramGroup>
+            <depref ref="dep_17a"/>
+            <depref ref="dep_17b"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+                <reference>C</reference>
+                <reference>D</reference>
+            </paramAndInputOutputOrder>
+        </function>
+
+
+        <function id="fct_18">
+            <name>function 18</name>
+            <shortDescription>entspricht im wesentlichen RNAhybrid </shortDescription>
+            <description/>
+            <outputref ref="output"/>
+            <paramGroup id="fct_18_pg">
+                <paramref ref="A"/> <!-- from -->
+                <paramref ref="B"/> <!-- to -->
+                <paramref ref="C"/> <!--  no G:U seed -->
+                <paramref ref="D"/> <!-- approx. p value -->
+            </paramGroup>
+            <depref ref="dep_18a"/>
+            <depref ref="dep_18b"/>
+            <depref ref="dep_18c"/>
+            <paramAndInputOutputOrder>
+                <reference>A</reference>
+                <reference>B</reference>
+                <reference>C</reference>
+                <reference>D</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+        
+        <function id="fct_19">
+            <name>function 19</name>
+            <shortDescription> tested den Typen boolean</shortDescription>
+            <description/>
+            <paramGroup id="fct_19_pg">
+                <paramref ref="A"/> <!-- int -->
+                <paramref ref="C"/> <!-- boolean -->
+            </paramGroup>
+            <depref ref="dep_19"/>
+            <paramAndInputOutputOrder>
+                <reference>C</reference>
+            </paramAndInputOutputOrder>
+        </function>
+        
+    </executable>
+    <view type="webservice" id="sample_ws"/>
+    <view type="submission" id="sample_submission"/>
+    <manual id="sample_manual">
+        <introductoryText></introductoryText>
+    </manual>
+</runnableItem>

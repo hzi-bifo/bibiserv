@@ -1,0 +1,626 @@
+    options {
+	STATIC=false;
+
+}
+
+PARSER_BEGIN(DependencyParser)
+
+
+/*
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 2010 BiBiServ Curator Team, http://bibiserv.cebitec.uni-bielefeld.de,
+All rights reserved.
+
+The contents of this file are subject to the terms of the Common
+Development and Distribution License("CDDL") (the "License"). You
+may not use this file except in compliance with the License. You can
+obtain a copy of the License at http://www.sun.com/cddl/cddl.html
+
+See the License for the specific language governing permissions and
+limitations under the License.  When distributing the software, include
+this License Header Notice in each file.  If applicable, add the following
+below the License Header, with the fields enclosed by brackets [] replaced
+by your own identifying information:
+
+"Portions Copyrighted 2011-2013 BiBiServ"
+
+Contributor(s): Jan Krueger
+ */
+
+import de.unibi.techfak.bibiserv.util.dependencyparser.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.xml.namespace.NamespaceContext;
+
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+
+/**
+	<b>Dependency Parser</b>
+	<p>
+        This class parses a dependency string (as defined by the bibiserv2 dependency
+        language) and returns a tree representation from it. One of the biggest problem
+        we have	with the first implementation of the BiBiServ was a general possibility to
+	describe dependencies between parameters authors used within their tools.
+	Normally this must be done by the authors code itself and often this important
+	feature is left out due to missing time or fast development.
+
+	With the BiBiServAbstraction schema we can describe all kind of parameters a tool
+	can have with the possibility to restrict the range of values (e.g. a numeric
+	parameter is from typ int and its range of values is between 0 and 10, or a
+	string parameter must match a given regular expression)
+
+	But often one parameter depends from an other one (e.g. if parameter x is
+	given parameter y must be also defined)
+	<pre>
+		isDefined(x) and isDefined(y)
+	</pre>
+
+	Or, more special, one parameter x depends from another parameter with a
+	defined value (e.g. if parameter x is given parameter y must be between 1 and 4)
+	<pre>
+		isDefined(x) and isDefined(y) and (y &ge; 1) and (y &le; 4)
+	</pre>
+	</p>
+	<p>
+	A language, which fullfill our requirements is given by the following
+	grammar (in BNF notation):
+	<pre>
+&lt;Function&gt;     ::= &lt;AND&gt; | &lt;OR&gt; | &lt;XOR&gt;| &lt;NOT&gt; | &lt;IMPL&gt; | def(&lt;id&gt;) | &lt;EQUALS&gt; | &lt;GREATER&gt; | &lt;GREATEREQUALS&gt; | &lt;LESSER&gt; | &lt;LESSEREQUALS&gt;
+&lt;AND&gt;          ::= and(&lt;Function&gt;,&lt;Function&gt;)      // logical conjunction : and(@a,@b) &equiv; @a &and; &b
+&lt;OR&gt;           ::= or(&lt;Function&gt;,&lt;Function&gt;)       // logical disjunction : or(@a,@b) &equiv; @a &or; &b
+&lt;XOR&gt;          ::= xor(&lt;Function&gt;,&lt;Function&gt;)      // exclusive disjunction : xor(@a,@b) &equiv; @a &oplus; @b  &equiv; @a &plus; @b
+&lt;NOT&gt;          ::= not(&lt;Function&gt;)                       // logical not : not(@a) &equiv; &not;@a
+&lt;IMPL&gt;         ::= impl(&lt;Function&gt;,&lt;Function&gt;)     // logical implication : impl(@a,@b) &equiv; @a   &harr; @b
+&lt;LOGEQ&gt;        ::= logeq(@lt;Function&gt;,&lt;Function&gt;)    // logical equality :logeq(@a,@n) &equiv; @a &rarr; @b
+&lt;EQUALS&gt;       ::= eq(&lt;id&gt;,&lt;id&gt; | &lt;value&gt;)
+&lt;GREATER&gt;      ::= gt(&lt;id&gt;,&lt;id&gt; |&lt;value&gt;)
+&lt;GREATEREQUALS&gt;::= ge(&lt;id&gt;,&lt;id&gt; |&lt;value&gt;)
+&lt;LESSER&gt;       ::= lt(&lt;id&gt;,&lt;id&gt; |&lt;value&gt;)
+&lt;LESSEREQUALS&gt; ::= le(&lt;id&gt;,&lt;id&gt; |&lt;value&gt;)
+&lt;id&gt;           ::= @[A-Z,a-z][A-Z,a-z,0-9]*
+&lt;value&gt;        ::= [+,-]?[0-9]+[.]?[0-9]* | '([A-Z,a-z,0-9,_,-,+,.,\,,/,?])*'
+	</pre>
+
+
+	A Java based compilercompiler is used to generate the parser (javacc-4.x).
+	</p>
+	<p>
+	Using the parser is quite simple :
+
+	<pre>
+
+        ...
+
+        DependencyParser dp = new DependencyParser();
+        dp.setTooldescription(...);  // from a file or from a resource stream or DOM element
+        ParameterWrapper pw = new ParameterWrapper();
+
+        pw.setParameter(...) // from a file, a Properties object or DOM element
+        dp.setParameterWrapper(pw);
+
+        dp.setFunctionId(...); // id of function within tooldescription to be evaluted
+
+
+        // parse Dependency string and generate tree
+        Node node = dp.generate();
+
+        // evaluate parameter set against dependency tree
+        if (!node.evaluate()) {
+            // get list of missing parameter id's
+            List<String> missingParamIdList = node.getMissingConstraints()
+        }
+
+
+        ...
+        </pre>
+
+
+	</p>
+
+*/
+public class DependencyParser {
+
+
+	private Element tooldescription = null;
+        private ParameterWrapper parameterwrapper = null;
+        private String fct_id = null;
+
+	private final String ToolDescriptionNS = "bibiserv:de.unibi.techfak.bibiserv.cms";
+
+
+
+
+	/* ---------------------- public methods ------------------------------ */
+
+
+        public DependencyParser(){
+            this(new StringReader(""));
+        }
+
+        /**
+         * Set a reference to a tooldescripton DOM element to current parser instance.
+         *
+         * @param Element tooldescription
+         */
+        public void setTooldescription(Element tooldescription){
+                this.tooldescription = tooldescription;
+        }
+
+
+        /**
+         * Read tooldescription from a file.
+         *
+         * @param file
+         * @throws DependencyException
+         * @throws FileNotFoundException
+         */
+        public void setTooldescription(File file) throws DependencyException, FileNotFoundException {
+            setTooldescription(new FileInputStream(file));
+        }
+
+        /**
+         * Read Tooldescription from an Inputstream.
+         *
+         * @param is
+         * @throws DependencyException
+         */
+        public void setTooldescription(InputStream is) throws DependencyException{
+            try {
+		/* read param from (xml-file)*/
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		/* read description from file */
+		 tooldescription = db.parse(is).getDocumentElement();
+
+            } catch(Exception e){
+                throw new DependencyException(e,DependencyExceptionEnum.setTooldescriptionException,"");
+            }
+        }
+
+        public void setFunctionId(String id) {
+                this.fct_id = id;
+        }
+
+        /** Set a ParameterWrapper object */
+	public void setParameterWrapper(ParameterWrapper parameterwrapper){
+            this.parameterwrapper = parameterwrapper;
+        }
+
+    /**
+     * Extract dependency strings from tooldescription and set function id.
+     *
+     * @return List of Dependency Strings
+     */
+    public List<String> getDependencyStrings() throws DependencyException {
+
+
+        if (fct_id == null) {
+            throw new DependencyException("No fct_id set!", DependencyExceptionEnum.noFunctionId, "");
+        }
+        if (tooldescription == null) {
+            throw new DependencyException("No ToolDescription (runnableitem) element set!", DependencyExceptionEnum.noRunnableItem, "");
+        }
+
+        /* extract dependency defintion*/
+        try {
+            XPathFactory xpf = XPathFactory.newInstance();
+            XPath xpath = xpf.newXPath();
+            xpath.setNamespaceContext(new MyNSContext());
+            NodeList nl = (NodeList) xpath.evaluate("//bibi:dependency[@id=//bibi:function[@id='" + fct_id + "']/bibi:depref/@ref]/bibi:dependencyDefinition", tooldescription, XPathConstants.NODESET);
+
+            List<String> l = new ArrayList();
+            for (int i = 0; i < nl.getLength(); i++) {
+                Element e = (Element) nl.item(i);
+                if (e != null) {
+                    String dep = e.getTextContent();
+                    if (dep != null && !dep.isEmpty()) {
+                        l.add(dep);
+                    }
+                }
+            }
+            return l;
+        } catch (Exception e) {
+            throw new DependencyException("Exception occured while extraxting dependency defintion from function [@id='" + fct_id + "']!", e, DependencyExceptionEnum.dependencyExtractionError, fct_id);
+        }
+
+
+
+    }
+
+
+    /**
+     * Initiate a parser run and return true if expression is valid, false
+     * otherwise
+     *
+     * @return Returns true in the case the expression is evaluate to true,
+     * false otherwise
+     * @throws ParseException if the expression is false
+     */
+    public Node generate() throws ParseException, DependencyException {
+
+        if (parameterwrapper == null) {
+            throw new DependencyException("No parameter wrapper set!", DependencyExceptionEnum.noParameterWrapper, "");
+        }
+
+
+        List<String> depdeflist = getDependencyStrings();
+
+        /* if list is empty return Empty Node */
+        if (depdeflist.isEmpty()) {
+            return new EmptyNode();
+        }
+
+
+        /* (re) initalize Parser */
+        ReInit(new StringReader(depdeflist.get(0)));
+        /*  parse input and generate Treerepresentation */
+        Node n = fct();
+
+
+
+        for (int i = 1; i < depdeflist.size(); i++) {
+            /* (re) initalize Parser */
+            ReInit(new StringReader(depdeflist.get(1)));
+            n = new LogOpNode(OpNode.Operations.AND, n, fct());
+        }
+        return n;
+    }
+
+	/* ---------------------- private methods ----------------------------- */
+	private Element getElementById(Element elem, String id){
+		try {
+			XPathFactory xpf = XPathFactory.newInstance();
+			XPath xpath = xpf.newXPath();
+			return (Element)xpath.evaluate("//*[@id='"+id+"']", elem ,XPathConstants.NODE);
+		} catch (Exception e){
+			System.err.println(e.getMessage());
+			return null;
+		}
+
+	}
+
+
+	/* ------------------------ inner class ------------------------------- */
+
+        /** Very simple Implementation for a NamespaceContext. MyNSContext knows only
+            one Prefix "bibi..." URI "bibiserv:de.unibi.techfak.bibiserv.cms" combination. */
+
+        class MyNSContext implements NamespaceContext{
+
+            public String getNamespaceURI(String prefix) {
+                if (prefix.startsWith("bibi") ){
+                    return ToolDescriptionNS ;
+                }
+                throw new UnsupportedOperationException("Unsupported Prefix '"+prefix+"'.");
+            }
+
+            public String getPrefix(String namespaceURI) {
+                if (namespaceURI.equals(ToolDescriptionNS)) {
+                    return "bibi";
+                }
+                throw new UnsupportedOperationException("Unsupported URI : '"+namespaceURI+"'.");
+            }
+
+            public Iterator getPrefixes(String namespaceURI) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        }
+}
+PARSER_END(DependencyParser)
+
+
+/* 	The defintion of Token, Terminal and Non-Terminal Symbols follows the
+	BNF Notation. I used the javacc feature to integrate Java code to
+	parse and interpret on the fly ... */
+
+
+SKIP :
+{
+	" "
+	| "\t"
+	| "\n"
+	| "\r"
+}
+
+
+TOKEN :
+{
+	<id: "@" (["A"-"Z","a"-"z"]) (["A"-"Z","a"-"z","0"-"9","_","-","+","."])*>
+|	<value: (["+","-"])? (["0"-"9"])+ (["."])? (["0"-"9"])* >
+|	<string: "'" (["A"-"Z","a"-"z","0"-"9","_","-","+",".",",","/","?"])* "'">
+}
+
+
+
+
+Node fct() :
+{
+        Node a;
+}
+{
+	(a=xor()|a=not()|a=or()|a=and()|a=impl()|a=logeq()|a=eq()|a=ne()|a=le()|a=ge()|a=lt()|a=gt()|"def" "(" a=id() ")")
+	{
+		return a;
+	}
+}
+
+Node and() :
+{
+        LogOpNode n = new LogOpNode(OpNode.Operations.AND);
+        Node a,b;
+}
+{
+	"and" "("  a=fct()  ","  b=fct()  ")"
+	{
+		n.add_A(a);
+		n.add_B(b);
+		return n;
+	}
+}
+
+Node or() :
+{
+	LogOpNode n = new LogOpNode(OpNode.Operations.OR);
+        Node a,b;
+}
+{
+	"or" "("  a=fct()  ","  b=fct()  ")"
+	{
+		n.add_A(a);
+		n.add_B(b);
+		return n;
+	}
+}
+
+Node not() :
+{
+	LogOpNode n = new LogOpNode(OpNode.Operations.NOT);
+        Node a;
+}
+{
+	"not" "("  a=fct()  ")"
+	{
+                n.add_A(a);
+		return n;
+	}
+
+}
+
+Node xor() :
+{
+	LogOpNode n = new LogOpNode(OpNode.Operations.XOR);
+        Node a,b;
+}
+{
+	"xor" "(" a=fct() "," b=fct() ")"
+	{
+		n.add_A(a);
+		n.add_B(b);
+		return n;
+	}
+}
+
+Node impl() :
+{
+    // impl can be represented as or(not(A),B)
+    LogOpNode n = new LogOpNode(OpNode.Operations.OR);
+    LogOpNode n1 = new LogOpNode(OpNode.Operations.NOT);
+    Node a,b;
+}
+{
+	"impl" "(" a=fct() "," b=fct() ")"
+	{
+		n1.add_A(a);
+                n.add_A(n1);
+                n.add_B(b);
+		return n;
+	}
+ }
+
+Node logeq() :
+{
+    // logeq can be represented as and(or(not(A),B),or(not(B),A))
+    LogOpNode n = new LogOpNode(OpNode.Operations.AND);
+    LogOpNode n1 = new LogOpNode(OpNode.Operations.OR);
+    LogOpNode n11 = new LogOpNode(OpNode.Operations.NOT);
+    LogOpNode n2 = new LogOpNode(OpNode.Operations.OR);
+    LogOpNode n21 = new LogOpNode(OpNode.Operations.NOT);
+
+    Node a,b;
+}
+{
+    "logeq" "(" a=fct() "," b=fct() ")"
+    {
+        n11.add_A(a);
+        n1.add_A(n11);
+        n1.add_B(b);
+
+        n21.add_A(b);
+        n2.add_A(n21);
+        n2.add_B(a);
+
+        n.add_A(n1);
+        n.add_B(n2);
+
+	return n;
+    }
+ }
+
+Node eq() :
+{
+	CmpOpNode n = new CmpOpNode(OpNode.Operations.EQ);
+        Node a,b;
+}
+{
+	"eq" "(" a=id() "," ( b=id() | b=value() ) ")"
+	{
+            n.add_A(a);
+            n.add_B(b);
+            return n;
+	}
+}
+
+Node ne() :
+{
+	CmpOpNode n = new CmpOpNode(OpNode.Operations.NE);
+        Node a,b;
+}
+{
+	"ne" "(" a=id() "," ( b=id() | b=value() ) ")"
+	{
+            n.add_A(a);
+            n.add_B(b);
+            return n;
+	}
+}
+
+
+Node lt() :
+{
+	CmpOpNode n = new CmpOpNode(OpNode.Operations.LT);
+        Node a,b;
+}
+{
+	"lt" "(" a=id() "," ( b=id() | b=value() ) ")"
+	{
+            n.add_A(a);
+            n.add_B(b);
+            return n;
+	}
+}
+
+
+Node gt() :
+{
+	CmpOpNode n = new CmpOpNode(OpNode.Operations.GT);
+        Node a,b;
+}
+{
+	"gt" "(" a=id() "," ( b=id() | b=value() ) ")"
+	{
+            n.add_A(a);
+            n.add_B(b);
+            return n;
+	}
+}
+
+
+Node le() :
+{
+	CmpOpNode n = new CmpOpNode(OpNode.Operations.LE);
+        Node a,b;
+}
+{
+	"le" "(" a=id() "," ( b=id() | b=value() ) ")"
+	{
+            n.add_A(a);
+            n.add_B(b);
+            return n;
+	}
+}
+
+
+Node ge() :
+{
+	CmpOpNode n = new CmpOpNode(OpNode.Operations.GE);
+        Node a,b;
+}
+{
+	"ge" "(" a=id() "," ( b=id() | b=value() ) ")"
+	{
+            n.add_A(a);
+            n.add_B(b);
+            return n;
+	}
+}
+
+
+Node id() :
+{       Node n;
+}
+{
+	<id>
+	{
+		/* real id is token without the first char '@'*/
+		String id = token.image.substring(1);
+		/* if tool_description != null, evaluate the expression  .. */
+		if ( tooldescription != null) {
+
+			/* get typ of element */
+			Element  tool_elem = getElementById(tooldescription,id);
+			if (tool_elem == null) {
+				throw new ParseException(ParseExceptionMessageEnum.noParameterWidthId.getMessage()+id);
+
+			}
+			Element tmp = (Element)tool_elem.getElementsByTagNameNS(ToolDescriptionNS,"type").item(0);
+			if (tmp == null) {
+			   	throw new ParseException(ParseExceptionMessageEnum.noTypeChildParameter.getMessage()+id);
+			}
+			String type = tmp.getTextContent();
+			/* create new Id.Node with type of parameter */
+			if (type.equalsIgnoreCase("String")) {
+                                n = new Id(id,LeafNode.TYPE.STRING,parameterwrapper);
+				return n;
+			} else if (type.equalsIgnoreCase("int")) {
+                                n = new Id(id,LeafNode.TYPE.INT,parameterwrapper);
+				return n;
+			} else if (type.equalsIgnoreCase("float")) {
+				n = new Id(id,LeafNode.TYPE.FLOAT,parameterwrapper);
+				return n;
+			} else if (type.equalsIgnoreCase("boolean")) {
+				n = new Id(id,LeafNode.TYPE.BOOLEAN,parameterwrapper);
+				return n;
+			} else {
+				/* remark Jan : type date_time is not supported at moment */
+				throw new ParseException(ParseExceptionMessageEnum.notSupportedOrImplemented.getMessage()+type);
+			}
+		}
+		return null;
+	}
+}
+
+Node value() :
+{               Node n;}
+{
+	( <value> | <string> )
+	{
+		String value = token.image;
+
+
+
+		/* String */
+		if (value.startsWith("'")) {
+                        n = new Const(value.substring(1,value.length()-1));
+		} else if (value.equalsIgnoreCase("true") | value.equalsIgnoreCase("false")) {
+                        n = new Const(Boolean.parseBoolean(value.toLowerCase()));
+                } else if (value.matches("[+|-]?\\d+")) {
+                        n = new Const(Integer.parseInt(value));
+                } else if (value.matches("[+|-]?\\d+\\.\\d+[f]?")) {
+                        n = new Const(Float.parseFloat(value));
+                } else {
+                        throw new ParseException(ParseExceptionMessageEnum.unknownConstantValue.getMessage()+value);
+                }
+
+		return n;
+	}
+}
+
+
