@@ -36,7 +36,13 @@
             <artifactId>bibiservsearch</artifactId>
             <version>1.1</version>        
         </dependency>
-        
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>dependencyparser</artifactId>
+            <version>1.1</version>
+        </dependency>
+
         
         <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-server -->
         <dependency>
