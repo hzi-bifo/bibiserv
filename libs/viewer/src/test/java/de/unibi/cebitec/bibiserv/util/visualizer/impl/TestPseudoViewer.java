@@ -111,10 +111,10 @@ public class TestPseudoViewer {
 
         //test.html-page is created. Please correct path if necessary!
         
-        System.out.println("Creating result-page named test/TestPseudoViewer_result.html");
+        System.out.println("Creating result-page");
 
-        File f = new File("test/TestPseudoViewer_result.html");
-
+        File f = File.createTempFile("TestPseudoViewer_result", ".html");
+        f.deleteOnExit();
         Writer w = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
         w.write(output);
         w.flush();
