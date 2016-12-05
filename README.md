@@ -8,3 +8,13 @@ Web application framework mainly for bioinformatic developers to publish their t
 
 https://github.com/BiBiServ/Development-Guidelines
 
+
+### How to build the project?
+
+dependency:  >= Maven 3.3.9 
+
+Run
+
+~~~
+mvn package
+~~~
