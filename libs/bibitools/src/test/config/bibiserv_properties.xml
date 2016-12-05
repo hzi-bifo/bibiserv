@@ -34,8 +34,8 @@
     <entry key="drmaa.grid_only">true</entry>
     <!-- used by de.unibi.techfak.bibiserv.WSSTools -->
     <!-- Attention spooldir.base and tmpdir.base MUST be accessible (write- and readable) from every possible compute node -->
-    <entry key="spooldir.base">/vol/tmp/testresult</entry>
-    <entry key="tmpdir.base">/vol/tmp/testresult/tmp/</entry>
+    <entry key="spooldir.base">/tmp/testresult</entry>
+    <entry key="tmpdir.base">/tmp/testresult/tmp/</entry>
     <!-- used by de.unibi.techfak.bibiserv.Status -->
     <entry key="statuscode.undef">unknown (not default) statuscode</entry>
     <entry key="statuscode.undef.internal">no further internal description </entry><!--#6xx Processing ... -->
