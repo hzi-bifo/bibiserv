@@ -112,17 +112,13 @@ public class TestPlainText {
 
         System.out.println("Creating result-page named test/TestPlainText_result.html");
 
-
-        File f = new File("test/TestPlainText_result.html");
-
+        File f = File.createTempFile("TestPlainText_result", ".html");
+        f.deleteOnExit();
         Writer w = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
         w.write(output);
         w.flush();
         w.close();
 
-
         System.out.println("Successfully created result-page.");
-
-
     }
 }
