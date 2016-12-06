@@ -12,7 +12,7 @@ machine:
 
 machine:
   environment:
-    _JAVA_OPTIONS: "-Xmx2024m"
+    _JAVA_OPTIONS: "-Xmx3024m"
 test:
   override:
     - ./apache-maven-3.3.9/bin/mvn -DskipTests package
