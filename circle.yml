@@ -9,6 +9,10 @@ machine:
     version: oraclejdk8
   services:
     - docker
+
+machine:
+  environment:
+    _JAVA_OPTIONS: "-Xmx3024m"
 test:
   override:
     - ./apache-maven-3.3.9/bin/mvn -DskipTests package
