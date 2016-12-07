@@ -15,4 +15,4 @@ machine:
     _JAVA_OPTIONS: "-Xmx3024m"
 test:
   override:
-    - ./apache-maven-3.3.9/bin/mvn -DskipTests package
+    - ./apache-maven-3.3.9/bin/mvn package
