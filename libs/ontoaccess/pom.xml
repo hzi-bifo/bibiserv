@@ -4,11 +4,9 @@
     <parent>
         <groupId>de.unibi.cebitec.bibiserv</groupId>
         <artifactId>libs</artifactId>
-        <version>stable.release</version>
+        <version>2.1.0.alpha.2</version>
     </parent>
-    <groupId>de.unibi.cebitec.bibiserv</groupId>
     <artifactId>ontoaccess</artifactId>
-    <version>0.9</version>
     <packaging>jar</packaging>
     <name>OntoAccess</name>
     
@@ -17,17 +15,17 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>bibiservabstraction</artifactId>
-            <version>1.0</version>
+            <version>2.1.0.alpha.2</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>viewer</artifactId>
-            <version>0.1</version>
+            <version>2.1.0.alpha.2</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>converter</artifactId>
-            <version>0.9</version>
+            <version>2.1.0.alpha.2</version>
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-core -->

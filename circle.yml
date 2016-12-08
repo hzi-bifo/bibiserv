@@ -1,0 +1,18 @@
+dependencies:
+  pre:
+    - sudo apt-get update; sudo apt-get install gsettings-desktop-schemas
+    - wget http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz  && tar xzvf apache-maven-3.3.9-bin.tar.gz 
+  override:
+    - mvn --fail-never dependency:go-offline || true
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+
+machine:
+  environment:
+    _JAVA_OPTIONS: "-Xmx3024m"
+test:
+  override:
+    - ./apache-maven-3.3.9/bin/mvn package

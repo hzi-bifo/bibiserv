@@ -52,14 +52,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import java.util.regex.PatternSyntaxException;
 import javax.naming.Context;
@@ -2967,7 +2960,12 @@ public class BiBiTools {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            cmdbuf.append(executable.getExecInfo().getImage() + " ");
+
+            if(getProperty("dockerRegistry")==null){
+                cmdbuf.append(getToolDescription().getId());
+            } else {
+                cmdbuf.append(getProperty("dockerRegistry") + "/" + getToolDescription().getId());
+            }
         }
         cmdbuf.append(runnableitem.getExecutable().getExecInfo().getCallingInformation());
         return cmdbuf.toString();
