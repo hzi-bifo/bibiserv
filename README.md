@@ -15,6 +15,19 @@ dependency:  >= Maven 3.3.9
 
 Run
 
-~~~
+~~~BASH
 mvn package
 ~~~
+
+#### How to version the project?
+
+We decided that all modules should have the same version as the parent module.
+By using the below command in the project root you can update all child modules at once.
+
+~~~BASH
+mvn  versions:set -DnewVersion=<version>
+~~~
+
+where
+  
+ * version = **2.1.0.alpha.2**

@@ -3,12 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>de.unibi.cebitec.bibiserv</groupId>
     <artifactId>deploytools</artifactId>
-    <version>stable.release</version>
     <packaging>jar</packaging>
     <name>DeployTools</name>
-    
+
+    <parent>
+        <groupId>de.unibi.cebitec.bibiserv</groupId>
+        <artifactId>tools</artifactId>
+        <version>2.1.0.alpha.2</version>
+    </parent>
+
     <repositories>
         <repository>
             <id>snapshot-repository.java.net</id>
@@ -41,19 +45,19 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>bibiservabstraction</artifactId>
-            <version>1.0</version>
+            <version>2.1.0.alpha.2</version>
         </dependency>
         
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ontoaccess</artifactId>
-            <version>0.9</version>
+            <version>2.1.0.alpha.2</version>
         </dependency>
         
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>bibitools</artifactId>
-            <version>2.0</version>
+            <version>2.1.0.alpha.2</version>
         </dependency>
         
         
