@@ -1009,3 +1009,7 @@ iframe {
 .ritc_progressBar_animated .ui-progressbar-value { 
     background-image: url("http://primefaces.org/showcase/javax.faces.resource/demo/images/pbar-ani.gif.xhtml") !important;
 }
+
+.navbar-brand {
+    text-decoration: none;
+}

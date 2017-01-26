@@ -23,23 +23,17 @@ Contributor(s):
 /* CSS Classes used for layout base template */
 
 
+td[role="gridcell"] > * {
+    max-width: 160px;
+}
+
+
 .base_head {
     width:976px; 
     font-family: Arial,sans-serif; 
     font-size: 10pt; 
     font-weight: normal;
 }
-
-.base_content {
-    margin-left:28px; 
-    width:948px; 
-    margin-top: 24px;
-    font-family: Arial,sans-serif; 
-    font-size: 10pt;
-    font-weight: normal;
-}
-
-
 
 #submissioninput, .boxMain {
     font-size:10pt;
@@ -115,15 +109,12 @@ body
     background-color: #FFF;
     background-repeat: repeat-x;
     font-family: Arial, sans-serif;
-    font-size: 10pt;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
     font-weight: normal;
     color: #000000;
     text-decoration: none;
     margin: 0px;
-}
-form {
-    margin: 0px;
-    padding: 0px;
 }
 
 img {
@@ -165,21 +156,13 @@ h2,h3 {
 }
 
 h4 {
-    font-size:10pt;
     font-weight: bold;
-    border-bottom: 1px dashed rgb(42,157,223);
-    padding-bottom: 3px;
-    margin-bottom: 5px;
 }
+
 h5,h6 {
     font-size:10pt;
     font-weight: bold;
     margin-bottom: 5px;
-}
-
-table, tr, td {
-    font-size:10pt;
-    font-weight: normal;
 }
 
 th {
@@ -226,17 +209,10 @@ iframe {
 
 /* Default css for category, item and runnable item pages/views */
 
-.title{
-    font-size:11pt; 
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-}
-
 .separator{
     width: 100%;
     height:4px;
-    background: rgb(42,157,223);
-    margin-top: 3px;
+    background: rgba(0,97,161,255);
     margin-bottom: 10px;
 }
 
@@ -246,22 +222,11 @@ iframe {
     font-weight: normal;
 }
 
-
-
-
 /* Navigations */
-.navi_title {
-    font-family: Arial,sans-serif;
-    font-size: 11pt;
-    font-weight: bold;
-    color: #000000;
-}
 
 .navi_line {
-    width:180px;
     height:4px;
-    background: rgb(42,157,223);
-    margin-top: 3px;
+    background: rgba(0,97,161,255);
 }
 
 .navi_tree .ui-tree-node {
@@ -275,7 +240,7 @@ iframe {
 }
 
 .navi_tree  {
-    font-size: 10pt !important;
+    font-size: 14px !important;
     font-family: Arial,sans-serif;
 }
 
@@ -328,12 +293,12 @@ iframe {
 }
 
 /* Search */
-.search {
-    position:relative; 
-    top:-24px;
-    left:710px;
-    width:300px; 
-}
+/*.search {*/
+    /*position:relative; */
+    /*top:-24px;*/
+    /*left:710px;*/
+    /*width:300px; */
+/*}*/
 
 .search_input {
     width:184px; 
@@ -344,36 +309,8 @@ iframe {
     color: rgb(42,157,223);
 }
 
-.search_button {
-    display:inline-block;
-    border: 1px solid rgb(42,157,223);
-    background-color: white;
-    text-align:center;
-    vertical-align: middle;
-    width:48px !important;
-    height:17px !important;
-    font-family: Arial,sans-serif;
-    font-size: 10pt; 
-    color: rgb(42,157,223);
-    cursor: pointer;
-}
-
 .search_button_over {
     background-color: rgb(238,247,252) !important;
-}
-
-.search_help_button {
-    display:inline-block;
-    border: 1px solid rgb(42,157,223);
-    background-color: white;
-    text-align:center;
-    vertical-align: middle;
-    width:17px !important;
-    height:17px !important;
-    font-family: Arial,sans-serif;
-    font-size: 10pt; 
-    color: rgb(42,157,223);
-    cursor: pointer;
 }
 
 .search_help_button_over {
@@ -1013,3 +950,6 @@ iframe {
     background-image: url("http://primefaces.org/showcase/javax.faces.resource/demo/images/pbar-ani.gif.xhtml") !important; 
 }
 
+.navbar-brand {
+    text-decoration: none;
+}

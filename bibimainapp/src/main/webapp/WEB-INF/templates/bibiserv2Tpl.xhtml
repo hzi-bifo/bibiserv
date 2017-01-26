@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -27,135 +28,176 @@ Contributor(s): Jan Krueger <jkrueger(at)cebitec.uni-bielefeld.de
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <f:view contentType="text/html"/>
+<f:view contentType="text/html"/>
 
-    <h:head>
+<h:head>
 
-        <ui:insert name="headApplication">
-            <!-- Responsible for dynamic parts of an application, e.g. bundles -->
-        </ui:insert>
-        <title>
-            BiBiServ2 - <ui:insert name="headContentTitle" />
-        </title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="shortcut icon" href="#{conf.getProperty('favicon')}" />
+    <ui:insert name="headApplication">
+        <!-- Responsible for dynamic parts of an application, e.g. bundles -->
+    </ui:insert>
+    <title>
+        BifoServ
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-        <ui:insert name="headContentCss">
-            <link href="#{conf.getProperty('css')}" rel="stylesheet" type="text/css" />
-        </ui:insert>
-        <ui:insert name="css"/>
-        <script type="text/javascript"  src="/misc/scripts/submission.js"/> 
-        <ui:insert name="scripts"/>
-
-    </h:head>
-    <h:body>
-        <!-- head -->
-        <ui:insert name="bodyHead">
-        <table cellspacing="0" cellpadding="0" class="head_content"> 
-            <tr>
-                <td width="250px">
-                    <img onclick="window.location='#{conf.getProperty('logo.url')}'" 
-                         style="cursor:pointer"
-                         title="#{conf.getProperty('logo.url')}"
-                         src="#{conf.getProperty('css.img')}/logo.png"/>
-                </td>
-                <td style="vertical-align:bottom; text-align: left">
-                    <img onclick="window.location='/'" 
-                         style="cursor:pointer"
-                         src="#{conf.getProperty('css.img')}/title.png"/>        
-                </td>
-                <td style="vertical-align:top;">
-                    <div style="text-align: right; margin-top:10px;">
-                        <span style="display: #{user.anonymous?'inherit':'none'}"><a href="/login.jsf">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGIN')}</a> / <a href="/register.jsf">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.REGISTER')}</a></span>
-                        <span style="display: #{user.anonymous?'none':'inherit'}">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGGEDIN',user.id)} / <a href="/admin">My BiBiServ</a> / <a href="/j_spring_security_logout" class="loginout_link">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGOUT')}</a></span>
-                    </div>
-                </td>
-            </tr>
-            <tr style="background-image: url(#{conf.getProperty('css.img')}/head-bg.jpg);">
-                <td colspan="3">
-                    <img src="#{conf.getProperty('css.img')}/head-fg.png" 
-                         onclick="window.location='#{conf.getProperty('head.url')}'" 
-                         style="cursor:pointer"/>
-                </td>                
-            </tr>
-
-        </table>
-        </ui:insert>
-        <!-- search input field & button -->
-        <div class="search" style="">
-            <h:form prependId="false">
-                <h:inputText styleClass="search_input" value="#{searchBean.searchPattern}" onkeypress="if (event.keyCode == 13) search();"/>
-                <div id="search_button"  class="search_button" onclick="search()"
-                     onmouseover="setCSSclass('search_button','search_button search_button_over')"
-                     onmouseout="setCSSclass('search_button','search_button')">
-                    #{messages.property('de.unibi.techfak.bibiserv.bibimainapp.SEARCH')}
-                    <p:remoteCommand name="search" action="#{searchBean.search}"/>
-                </div>
-                 <div id="search_help_button"  class="search_help_button" onclick="help()"
-                     onmouseover="setCSSclass('search_help_button','search_help_button search_help_button_over')"
-                     onmouseout="setCSSclass('search_help_button','search_help_button')">
-                    ?
-                    <p:remoteCommand name="help" action="#{searchBean.showHelp()}"/>
-                </div>   
-            </h:form>
+    <ui:insert name="headContentCss">
+        <link href="#{conf.getProperty('css')}" rel="stylesheet" type="text/css"/>
+    </ui:insert>
+    <ui:insert name="css"/>
+    <script type="text/javascript" src="/misc/scripts/submission.js"/>
+    <ui:insert name="scripts"/>
+</h:head>
+<h:body>
+    <b:navBar fluid="true">
+        <div style="text-align: right; margin-top:10px;">
+            <span style="display: #{user.anonymous?'inherit':'none'}"><a
+                    href="/login.jsf">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGIN')}</a> / <a
+                    href="/register.jsf">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.REGISTER')}</a></span>
+            <span style="display: #{user.anonymous?'none':'inherit'}">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGGEDIN',user.id)} / <a
+                    href="/admin">My BifoServ</a> / <a href="/j_spring_security_logout"
+                                                       class="loginout_link">#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.LOGOUT')}</a></span>
         </div>
-        <!-- content -->
-        <div class="base_content">
-            <ui:insert name="content">
-                <table cellspacing="0" cellpadding="0" style="width:948px">
-                    <tr>
-                        <!-- Navigation on left side -->
-                        <td style="width:180px; max-width:180px; overflow:hidden; padding-right:42px;vertical-align:top">
-                            <ui:insert name="navigation">
-                                <h:form prependId="false" >
-                                    <ui:include src="../includes/menu.xhtml" />
-                                </h:form>
-                            </ui:insert>
-                        </td>
-                        <!-- Content / News + optional Navigation -->
-                        <td style="width:728px; vertical-align:top">
+    </b:navBar>
+    <b:container fluid="true">
+        <b:row>
+            <b:column offset="1" span="10">
+                <b:row>
+                    <b:column span="12">
+                        <b:row>
+                            <b:column span="12">
+                                <b:row>
+                                    <b:column span="4">
+                                        <b:image onclick="window.location='#{conf.getProperty('logo.url')}'"
+                                                 style="cursor:pointer; margin-bottom:40px"
+                                                 title="#{conf.getProperty('logo.url')}"
+                                                 value="#{conf.getProperty('css.img')}/hzi_logo.gif"/>
+                                    </b:column>
+                                </b:row>
+                            </b:column>
+                        </b:row>
+                        <b:row styleClass="text-center" style="margin-bottom:10px">
+                            <b:image value="#{conf.getProperty('css.img')}/bifoserv_logo.svg;" span="12"/>
+                        </b:row>
+                        <b:row styleClass="text-center">
+                            <b:image style="width:80%; margin-bottom:90px"
+                                     value="#{conf.getProperty('css.img')}/logo_subtitle.svg;" span="12"/>
+                        </b:row>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="12" pull="right">
+                        <!-- search input field & button -->
+                        <div class="search pull-right" style="">
+                            <h:form prependId="false">
+                                <h:panelGrid columns="4" cellpadding="5">
+                                    <b:inputText style="margin-bottom: 0px !important;" styleClass="search_input"
+                                                 value="#{searchBean.searchPattern}"
+                                                 onkeypress="if (event.keyCode == 13) search();">
+                                        <f:facet name="append">
+                                            <b:commandButton id="search_button" class="search_button" onclick="search()"
+                                                             look="default"
+                                                             action="#{searchBean.search}"
+                                                             value="#{messages.property('de.unibi.techfak.bibiserv.bibimainapp.SEARCH')}"/>
+                                            <b:commandButton id="search_help_button" class="search_help_button"
+                                                             onclick="help()"
+                                                             value="?"
+                                                             action="#{searchBean.showHelp()}"
+                                                             look="default"/>
+                                        </f:facet>
+                                    </b:inputText>
+                                </h:panelGrid>
+                            </h:form>
+                        </div>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="12">
+                        <!-- content -->
+                        <ui:insert name="content">
+                            <b:row>
+                                <b:column span="3">
 
-                            <table cellspacing="0" cellpadding="0" style="width:728px">
+                                    <!-- Navigation on left side -->
+                                    <ui:insert name="navigation">
+                                        <h:form prependId="false">
+                                            <ui:include src="../includes/menu.xhtml"/>
+                                        </h:form>
+                                    </ui:insert>
+                                </b:column>
+                                <!-- Content / News + optional Navigation -->
+                                <b:column span="9">
+                                    <!--<table cellspacing="0" cellpadding="0" style="width:728px">-->
+                                    <!--<tr>-->
+                                    <b:row>
+                                        <b:column span="9">
+                                            <!--<td style="width:484px;padding-right:30px;vertical-align:top">-->
+                                            <b:row>
+                                                <b:column span="12">
+                                                    <div>
+                                                        <ui:insert name="north"/>
+                                                    </div>
+                                                </b:column>
+                                            </b:row>
+                                            <b:row>
+                                                <b:column span="12">
+                                                    <div>
+                                                        <ui:insert name="center"/>
+                                                    </div>
+                                                </b:column>
+                                            </b:row>
+                                            <b:row>
+                                                <b:column span="12">
+                                                    <div>
+                                                        <ui:insert name="south"/>
+                                                    </div>
+                                                </b:column>
+                                            </b:row>
+                                            <!--</td>-->
+                                        </b:column>
+                                        <!-- News -->
+                                        <b:column span="3">
+                                            <!--<td style="width:214px;vertical-align:top">-->
+                                            <ui:insert name="news">
+                                                <h:panelGroup layout="block" styleClass="news"
+                                                              rendered="#{newsBean.available}">
+                                                    <span class="news_title">News</span>
 
-                                <tr>
-                                    <td style="width:484px;padding-right:30px;vertical-align:top">
-                                        <div>
-                                            <ui:insert name="north"/>
-                                        </div>
-                                        <div>
-                                            <ui:insert name="center"/>
-                                        </div>
-                                        <div>
-                                            <ui:insert name="south"/>
-                                        </div>
-                                    </td>
-                                    <!-- News -->
-                                    <td style="width:214px;vertical-align:top">
-                                        <ui:insert name="news">
-                                            <h:panelGroup layout="block" styleClass="news" rendered="#{newsBean.available}">                                   
-                                                <span class="news_title">News</span>
-                                                <div class="news_line"/>
-                                                <h:outputText styleClass="news_content" escape="false" value="#{newsBean.content}"/>                                    
-                                            </h:panelGroup>
+                                                    <div class="news_line"/>
+                                                    <h:outputText styleClass="news_content" escape="false"
+                                                                  value="#{newsBean.content}"/>
+                                                </h:panelGroup>
 
-                                        </ui:insert>
-                                    </td> 
-                                </tr>
+                                            </ui:insert>
+                                            <!--</td>-->
+                                        </b:column>
+                                    </b:row>
+                                    <!--</tr>-->
 
-                            </table>
-                        </td>       
+                                    <!--</table>-->
+                                </b:column>
+                            </b:row>
+                            <ui:insert name="bodyPopup"/>
+                        </ui:insert>
 
-
-                    </tr>
-                </table>
-                <ui:insert name="bodyPopup"/>
-            </ui:insert>
-        </div>
-
-        <div class="footer">
-            &copy; 2010 - #{newsBean.currentYear} Bielefeld BioInformatics Service | <a href="/impressum">Impressum</a>
-        </div>
-    </h:body>
+                        <div class="footer">
+                            <b:row>
+                                <b:column span="1">
+                                    <a href="/impressum">Impressum</a>
+                                </b:column>
+                                <b:column span="1">
+                                    <b:image style="width:150px"
+                                             value="#{conf.getProperty('css.img')}/bibiserv_team_logo.svg"/>
+                                </b:column>
+                            </b:row>
+                        </div>
+                    </b:column>
+                </b:row>
+            </b:column>
+        </b:row>
+    </b:container>
+</h:body>
 </html>

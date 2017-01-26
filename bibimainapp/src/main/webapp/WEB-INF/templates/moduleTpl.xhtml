@@ -23,6 +23,7 @@ Contributor(s): Jan Krueger
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -34,21 +35,25 @@ Contributor(s): Jan Krueger
     </ui:define>
 
     <ui:define name="content">
-        <div>            
-            <span class="title"><ui:insert name="moduletitle"/></span>
-
-            <div style="text-align: right; float: right">
-                <ui:insert name="moduleback">
-                    <a href="/admin">back</a>
-                </ui:insert>
-            </div> 
-        </div>
-        <div class="separator"/>
-
+        <b:row>
+            <b:column span="6">
+                <h4><ui:insert name="moduletitle"/></h4>
+            </b:column>
+            <b:column span="6">
+                <div style="text-align: right; float: right">
+                    <ui:insert name="moduleback">
+                        <a class="btn btn-default" href="/admin">back</a>
+                    </ui:insert>
+                </div>
+            </b:column>
+        </b:row>
+        <b:row>
+            <b:column span="12">
+                <div class="separator"/>
+            </b:column>
+        </b:row>
         <ui:insert name="modulecontent"/>
     </ui:define>
-
-
 
 
 </ui:composition>

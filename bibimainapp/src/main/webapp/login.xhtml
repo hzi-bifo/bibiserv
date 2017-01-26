@@ -35,7 +35,7 @@ Contributor(s):
     </ui:define>
 
     <ui:define name="north">
-        <span class="title">Login</span>
+        <h4 >Login</h4>
         <div class="separator"/>
     </ui:define>
 
@@ -47,21 +47,17 @@ Contributor(s):
                 <span class="ui-messages-error-summary">#{login.message}</span>
             </h:panelGroup>
             <p:messages id="blablablabla"/>  <!-- easy to includes PF CSS styles for above panelgroup -->
-            <table>
-                <tr>
-                    <td>User:</td>
-                    <td><p:inputText id="j_username" value="#{login.j_username}"/></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><p:password id="j_password" value="#{login.j_password}" feedback="false"/></td>
-                </tr>
 
-                <tr>
-                    <td><p:commandButton value="Log In" actionListener="#{login.submit}" ajax="false"/></td>
-                    <td><p:commandButton value="Reset" type="reset" ajax="false"/></td>
-                </tr>
-            </table>
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="User:"/>
+                    <p:inputText id="j_username" value="#{login.j_username}"/>
+                    <h:outputText value="Password:"/>
+                    <p:password id="j_password" value="#{login.j_password}" feedback="false"/>
+                </h:panelGrid>
+                <p:commandButton styleClass="btn" style="margin-top: 10px" value="Log In" actionListener="#{login.submit}" ajax="false"/>
+                <p:commandButton styleClass="btn" style="margin-top: 10px" value="Reset" type="reset" ajax="false"/>
+            </h:form>
         </h:form>
     </ui:define>
 

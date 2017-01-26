@@ -24,6 +24,7 @@ Contributor(s): Jan Krueger
 -->
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -35,8 +36,8 @@ Contributor(s): Jan Krueger
         Previous Results
     </ui:define>
 
-    <ui:define name="north"> 
-        <h:outputText styleClass="title" value="Previous Results" />
+    <ui:define name="north">
+        <h4>Previous Results</h4>
         <div class="separator"/>
     </ui:define>
 
@@ -83,8 +84,7 @@ Contributor(s): Jan Krueger
 
             </p>
             <br/><br/>
-
-            <p:commandButton value="Submit" action="#{prevres.submit}" />
+            <b:commandButton value="Submit" action="#{prevres.submit}" />
 
             <br/><br/>
 

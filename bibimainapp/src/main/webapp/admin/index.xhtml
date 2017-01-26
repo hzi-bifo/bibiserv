@@ -31,7 +31,7 @@ Contributor(s):
                 xmlns:b="http://bibiserv.cebitec.uni-bielefeld.de/facelets"
                 template="../WEB-INF/templates/moduleTpl.xhtml">
 
-  <ui:define name="moduletitle">MyBiBiServ</ui:define>
+  <ui:define name="moduletitle">MyBiFoServ</ui:define>
 
   <ui:define name="modulecontent">
     <div>
@@ -48,7 +48,7 @@ Contributor(s):
           </h:panelGrid>
         </div>
         <div style="float:right;padding-top:10px;">
-          <h:outputLink value="moduleManager/"
+          <h:outputLink styleClass="btn btn-default" value="moduleManager/"
                         rendered="#{request.isUserInRole('ROLE_ADMIN')}">
               Module Manager
           </h:outputLink>
