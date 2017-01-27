@@ -2953,7 +2953,11 @@ public class BiBiTools {
         } else {
             cmdbuf.append("docker ");
             cmdbuf.append("run ");
-            cmdbuf.append("--entrypoint='" + runnableitem.getExecutable().getExecInfo().getPath() + "' ");
+            cmdbuf.append(" --memory ");
+            cmdbuf.append(getProperty("mem.max", "4096") + "m");
+            cmdbuf.append(" --cpuset-cpus ");
+            cmdbuf.append(getProperty("cores.max", "4"));
+            cmdbuf.append(" --entrypoint='" + runnableitem.getExecutable().getExecInfo().getPath() + "' ");
             try {
                 cmdbuf.append("-v ");
                 cmdbuf.append(getSpoolDir().toString() + ":" + getSpoolDir().toString() + ":rw ");

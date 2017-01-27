@@ -117,12 +117,8 @@ public class JobProxyCall extends CallImpl {
             // build task string
             JSONObject task = new JSONObject();
             task.put("user", System.getProperty("user.name"));
-            if (cores != null) {
-                task.put("cores",cores);
-            }
-            if (mem != null ) {
-                task.put("memory",mem);
-            }
+            task.put("cores", wsstools.getProperty("cores.max", "4"));
+            task.put("memory", wsstools.getProperty("mem.max", "4096"));
             if (cputime != null) {
                 task.put("cputime",cputime);
             }
