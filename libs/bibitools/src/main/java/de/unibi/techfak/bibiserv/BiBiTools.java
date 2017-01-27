@@ -2961,10 +2961,12 @@ public class BiBiTools {
                 e.printStackTrace();
             }
 
-            if(getProperty("dockerRegistry")==null){
-                cmdbuf.append(getToolDescription().getId());
+            String image = getToolDescription().getExecutable().getExecInfo().getImage() + ":" + getToolDescription().getExecutable().getVersion();
+            if(getProperty("DockerHubOrganization")==null){
+                cmdbuf.append(image);
             } else {
-                cmdbuf.append(getProperty("dockerRegistry") + "/" + getToolDescription().getId());
+                cmdbuf.append(getProperty("DockerHubOrganization")
+                        + "/" + image);
             }
         }
         cmdbuf.append(runnableitem.getExecutable().getExecInfo().getCallingInformation());
