@@ -8,26 +8,26 @@
     <parent>
         <groupId>de.unibi.cebitec.bibiserv</groupId>
         <artifactId>streamext</artifactId>
-        <version>2.1.0.alpha.2</version>
+        <version>2.1.0</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>validator</artifactId>
-            <version>2.1.0.alpha.2</version>
+            <version>2.1.0</version>
         </dependency>
         
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>converter</artifactId>
-            <version>2.1.0.alpha.2</version>
+            <version>2.1.0</version>
         </dependency>
         
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>streamParser</artifactId>
-            <version>2.1.0.alpha.2</version>
+            <version>2.1.0</version>
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/xmlunit/xmlunit -->
