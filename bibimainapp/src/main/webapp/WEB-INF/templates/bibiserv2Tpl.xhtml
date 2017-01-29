@@ -133,7 +133,7 @@ Contributor(s): Jan Krueger <jkrueger(at)cebitec.uni-bielefeld.de
                                     <!--<table cellspacing="0" cellpadding="0" style="width:728px">-->
                                     <!--<tr>-->
                                     <b:row>
-                                        <b:column span="9">
+                                        <b:column span="#{newsBean.available ? 9 : 12}">
                                             <!--<td style="width:484px;padding-right:30px;vertical-align:top">-->
                                             <b:row>
                                                 <b:column span="12">
@@ -159,7 +159,7 @@ Contributor(s): Jan Krueger <jkrueger(at)cebitec.uni-bielefeld.de
                                             <!--</td>-->
                                         </b:column>
                                         <!-- News -->
-                                        <b:column span="3">
+                                        <b:column rendered="#{newsBean.available}" span="3">
                                             <!--<td style="width:214px;vertical-align:top">-->
                                             <ui:insert name="news">
                                                 <h:panelGroup layout="block" styleClass="news"
@@ -185,12 +185,12 @@ Contributor(s): Jan Krueger <jkrueger(at)cebitec.uni-bielefeld.de
 
                         <div class="footer">
                             <b:row>
-                                <b:column span="1">
-                                    <a href="/impressum">Impressum</a>
-                                </b:column>
-                                <b:column span="1">
+                                <b:column span="6">
                                     <b:image style="width:150px"
                                              value="#{conf.getProperty('css.img')}/bibiserv_team_logo.svg"/>
+                                </b:column>
+                                <b:column span="3">
+                                    <b:iconAwesome name="comments" size="2x" /><a href="https://github.com/hzi-bifo/bifoserv/issues/new">Found a bug? Please report on Github</a>
                                 </b:column>
                             </b:row>
                         </div>

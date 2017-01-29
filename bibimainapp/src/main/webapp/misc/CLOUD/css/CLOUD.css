@@ -176,11 +176,14 @@ iframe {
     margin-right: auto;       
 }
 
+.app_content td {
+    padding: 4px !important;
+}
+
 
 /* footer area */
 .footer {
     font-family: Arial, sans-ferif;
-    font-size : 8pt;
     font-weight: normal;
     color: rgb(51,51,51);
     border-top : 1px dotted rgb(42,157,223);
@@ -214,12 +217,6 @@ iframe {
     height:4px;
     background: rgba(0,97,161,255);
     margin-bottom: 10px;
-}
-
-.content{
-    font-size:10pt; 
-    font-family: Arial, sans-serif;
-    font-weight: normal;
 }
 
 /* Navigations */
@@ -717,7 +714,6 @@ iframe {
     padding: 5px;
     cursor:pointer;
     border: 1px solid rgb(42,157,223);
-    border-radius: 5px;
     min-width:130px;
     text-decoration: none;
 }
