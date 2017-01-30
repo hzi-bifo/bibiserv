@@ -47,8 +47,7 @@ public class StatsLogger implements StatsLoggerI {
     private DBConnector dbcon;
     private UserBean user;
     private UASparser uasparser;
-    private GeoIP geoip;
-    
+
 
     private String sessionid;
     private String ip;
@@ -106,13 +105,7 @@ public class StatsLogger implements StatsLoggerI {
                     // reverse country lookup country code
                     String country = "??";
                     
-                    try {
-                        country = geoip.getCountry(InetAddress.getByName(ip));
-                    } catch (UnknownHostException e){
-                        
-                        logger.fatal("IP is :"+ip);
-                        // do nothing 
-                    }
+
                    
                     // hash ip address 
                     String haship = ip;
@@ -122,7 +115,7 @@ public class StatsLogger implements StatsLoggerI {
                         logger.fatal(e.getMessage(),e);
                     }
                     // log everything to database
-                     dbcon.logClientInfo(sessionid, haship, country,browser, browserversion, os, device , useragent);
+//                     dbcon.logClientInfo(sessionid, haship, country,browser, browserversion, os, device , useragent);
                 }
             });
             r.start();
@@ -181,10 +174,7 @@ public class StatsLogger implements StatsLoggerI {
         this.uasparser = uasparser;
     }
 
-    public void setGeoip(GeoIP geoip) {
-        this.geoip = geoip;
-    }
-    
+
     
 
     

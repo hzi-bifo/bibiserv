@@ -49,15 +49,12 @@ Contributor(s):
         <property name="dbcon" ref="db"/>
         <property name="user" ref="user"/>
         <property name="uasparser" ref="uasparser"/>
-        <property name="geoip" ref="geoip"/>
     </bean>
+    <!---->
+     <!--UserAgent String Parser -->
+    <!--<bean id="uasparser" class="de.unibi.cebitec.bibiserv.statistics.logging.UASparser" scope="singleton"/>-->
     
-    <!-- UserAgent String Parser -->
-    <bean id="uasparser" class="de.unibi.cebitec.bibiserv.statistics.logging.UASparser" scope="singleton"/>
-    
-    <!-- GeoIp bean -->
-    <bean id="geoip" class="de.unibi.cebitec.bibiserv.statistics.logging.GeoIP" scope="singleton"/>
-        
+
     <!-- Database Access Class for logging -->
     <bean id="db" class="de.unibi.cebitec.bibiserv.statistics.logging.database.DBConnector" scope="singleton"/>
 

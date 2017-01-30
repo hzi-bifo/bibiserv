@@ -116,11 +116,11 @@
             dependencies should deleted as soon as possible, geo location doesn't work 
             anymore since you have to purchase for country database (currently about $314/year)
         --> 
-        <dependency>
-            <groupId>com.maxmind.geoip2</groupId>
-            <artifactId>geoip2</artifactId>
-            <version>0.7.2</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.maxmind.geoip2</groupId>-->
+            <!--<artifactId>geoip2</artifactId>-->
+            <!--<version>0.7.2</version>-->
+        <!--</dependency>-->
         
         <!-- https://mvnrepository.com/artifact/cz.mallat.uasparser/uasparser -->
         <dependency>
